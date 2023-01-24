@@ -1,0 +1,10 @@
+﻿body {
+    background-image: url('/image/lighten-wallpaper-cl.png') !important;
+    background-attachment: fixed !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+}
+
+footer{
+    background-color: ghostwhite !important;
+}

@@ -1,0 +1,427 @@
+{
+  "Countries": [
+    {
+      "Name": "ABD"
+    },
+    {
+      "Name": "AFC Kupası"
+    },
+    {
+      "Name": "AFC Şampiyonlar Ligi"
+    },
+    {
+      "Name": "AFC U23 Şampiyonası"
+    },
+    {
+      "Name": "AFF Şampiyonası"
+    },
+    {
+      "Name": "Afrika U20 Uluslar Kupası"
+    },
+    {
+      "Name": "Afrika U23 Uluslar Kupası"
+    },
+    {
+      "Name": "Afrika Uluslar Kupası"
+    },
+    {
+      "Name": "Afrika Uluslar Şampiyonası"
+    },
+    {
+      "Name": "Almanya"
+    },
+    {
+      "Name": "Andorra"
+    },
+    {
+      "Name": "Angola"
+    },
+    {
+      "Name": "Arap Kupası"
+    },
+    {
+      "Name": "Arjantin"
+    },
+    {
+      "Name": "Avrupa Kadınlar Şampiyonası"
+    },
+    {
+      "Name": "Avrupa U17 Şampiyonası"
+    },
+    {
+      "Name": "Avrupa U19 Şampiyonası"
+    },
+    {
+      "Name": "Avrupa U21 Şampiyonası"
+    },
+    {
+      "Name": "Avustralya"
+    },
+    {
+      "Name": "Avusturya"
+    },
+    {
+      "Name": "Azerbaycan"
+    },
+    {
+      "Name": "Bahreyn"
+    },
+    {
+      "Name": "Baltık Kupası"
+    },
+    {
+      "Name": "Belarus"
+    },
+    {
+      "Name": "Belçika"
+    },
+    {
+      "Name": "Benin"
+    },
+    {
+      "Name": "Birleşik Arap Emirlikleri"
+    },
+    {
+      "Name": "Bolivya"
+    },
+    {
+      "Name": "Bosna-Hersek"
+    },
+    {
+      "Name": "Brezilya"
+    },
+    {
+      "Name": "Burundi"
+    },
+    {
+      "Name": "CAF Konfederasyon Kupası"
+    },
+    {
+      "Name": "CAF Şampiyonlar Ligi"
+    },
+    {
+      "Name": "Çek Cumhuriyeti"
+    },
+    {
+      "Name": "Cezayir"
+    },
+    {
+      "Name": "Çin Halk Cumhuriyeti"
+    },
+    {
+      "Name": "CONCACAF Gold Cup"
+    },
+    {
+      "Name": "CONCACAF Uluslar Ligi"
+    },
+    {
+      "Name": "Copa America 2020"
+    },
+    {
+      "Name": "Copa Libertadores"
+    },
+    {
+      "Name": "Copa Sudamericana"
+    },
+    {
+      "Name": "Danimarka"
+    },
+    {
+      "Name": "Dünya Kupası"
+    },
+    {
+      "Name": "Dünya Kupası U17"
+    },
+    {
+      "Name": "Ekvador"
+    },
+    {
+      "Name": "El Salvador"
+    },
+    {
+      "Name": "Endonezya"
+    },
+    {
+      "Name": "Estonya"
+    },
+    {
+      "Name": "Euro"
+    },
+    {
+      "Name": "Faroe Adaları"
+    },
+    {
+      "Name": "Fas"
+    },
+    {
+      "Name": "Fildişi Sahili"
+    },
+    {
+      "Name": "Finlandiya"
+    },
+    {
+      "Name": "Fransa"
+    },
+    {
+      "Name": "Galler"
+    },
+    {
+      "Name": "Gana"
+    },
+    {
+      "Name": "Guatemala"
+    },
+    {
+      "Name": "Güney Afrika"
+    },
+    {
+      "Name": "Güney Kore"
+    },
+    {
+      "Name": "Gürcistan"
+    },
+    {
+      "Name": "Haiti"
+    },
+    {
+      "Name": "Hazırlık"
+    },
+    {
+      "Name": "Hindistan"
+    },
+    {
+      "Name": "Hırvatistan"
+    },
+    {
+      "Name": "Hollanda"
+    },
+    {
+      "Name": "Honduras"
+    },
+    {
+      "Name": "Hong Kong"
+    },
+    {
+      "Name": "İngiltere"
+    },
+    {
+      "Name": "İran"
+    },
+    {
+      "Name": "İrlanda"
+    },
+    {
+      "Name": "İskoçya"
+    },
+    {
+      "Name": "İspanya"
+    },
+    {
+      "Name": "İsveç"
+    },
+    {
+      "Name": "İsviçre"
+    },
+    {
+      "Name": "İtalya"
+    },
+    {
+      "Name": "İzlanda"
+    },
+    {
+      "Name": "Japonya"
+    },
+    {
+      "Name": "Kadınlar Dünya Kupası"
+    },
+    {
+      "Name": "Kamboçya"
+    },
+    {
+      "Name": "Kanada"
+    },
+    {
+      "Name": "Katar"
+    },
+    {
+      "Name": "Kazakistan"
+    },
+    {
+      "Name": "Kenya"
+    },
+    {
+      "Name": "Kolombiya"
+    },
+    {
+      "Name": "Körfez Kupası"
+    },
+    {
+      "Name": "Kosta Rika"
+    },
+    {
+      "Name": "Kuveyt"
+    },
+    {
+      "Name": "Kuzey İrlanda"
+    },
+    {
+      "Name": "Letonya"
+    },
+    {
+      "Name": "Litvanya"
+    },
+    {
+      "Name": "Macaristan"
+    },
+    {
+      "Name": "Malezya"
+    },
+    {
+      "Name": "Malta"
+    },
+    {
+      "Name": "Meksika"
+    },
+    {
+      "Name": "Mısır"
+    },
+    {
+      "Name": "Moldova"
+    },
+    {
+      "Name": "Myanmar"
+    },
+    {
+      "Name": "Nijerya"
+    },
+    {
+      "Name": "Nikaragua"
+    },
+    {
+      "Name": "Norveç"
+    },
+    {
+      "Name": "Olimpiyatlar (Kadınlar)"
+    },
+    {
+      "Name": "Olimpiyatlar (Kadınlar) Asya Elemeleri"
+    },
+    {
+      "Name": "Olimpiyatlar 2020"
+    },
+    {
+      "Name": "Olimpiyatlar CONCACAF Elemeleri"
+    },
+    {
+      "Name": "Özbekistan"
+    },
+    {
+      "Name": "Paraguay"
+    },
+    {
+      "Name": "Peru"
+    },
+    {
+      "Name": "Polonya"
+    },
+    {
+      "Name": "Portekiz"
+    },
+    {
+      "Name": "Romanya"
+    },
+    {
+      "Name": "Rusya"
+    },
+    {
+      "Name": "SAFF Şampiyonası"
+    },
+    {
+      "Name": "Senegal"
+    },
+    {
+      "Name": "Şili"
+    },
+    {
+      "Name": "Singapur"
+    },
+    {
+      "Name": "Sırbistan"
+    },
+    {
+      "Name": "Slovakya"
+    },
+    {
+      "Name": "Slovenya"
+    },
+    {
+      "Name": "Suudi Arabistan"
+    },
+    {
+      "Name": "Tacikistan"
+    },
+    {
+      "Name": "Tanzanya"
+    },
+    {
+      "Name": "Tayland"
+    },
+    {
+      "Name": "Tayvan"
+    },
+    {
+      "Name": "Tunus"
+    },
+    {
+      "Name": "Türkiye"
+    },
+    {
+      "Name": "Türkmenistan"
+    },
+    {
+      "Name": "UEFA Avrupa Konferans Ligi"
+    },
+    {
+      "Name": "UEFA Avrupa Ligi"
+    },
+    {
+      "Name": "UEFA Gençlik Ligi"
+    },
+    {
+      "Name": "UEFA Şampiyonlar Ligi"
+    },
+    {
+      "Name": "UEFA Uluslar Ligi"
+    },
+    {
+      "Name": "Uganda"
+    },
+    {
+      "Name": "Ukrayna"
+    },
+    {
+      "Name": "Umman"
+    },
+    {
+      "Name": "Ürdün"
+    },
+    {
+      "Name": "Uruguay"
+    },
+    {
+      "Name": "Venezuela"
+    },
+    {
+      "Name": "Vietnam"
+    },
+    {
+      "Name": "Yeni Zelanda"
+    },
+    {
+      "Name": "Yunanistan"
+    },
+    {
+      "Name": "Zambiya"
+    }
+  ]
+}

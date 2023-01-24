@@ -1,0 +1,235 @@
+﻿@using Core.Utilities.UsableModel
+@model SystemCheckerContainer
+
+
+
+
+@{
+    ViewData["Title"] = "Best Result";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-6">
+        <form autocomplete="off" action="/System/GuestCurrentMatchResult" method="post">
+            <div class="col-12 col-sm-12 col-md-12 my-1">
+                <div class="form-group">
+                    <label for="serialTextArea" class="form-label"><b>Serials</b></label>
+                    <textarea class="form-control" id="serialTextArea" name="serials" rows="5"></textarea>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-12 col-md-12 my-1">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" name="IsCountryChecked" type="checkbox" data-ischecked="false" id="IsCountryChecked">
+                    <label class="form-check-label lg" for="gridCheck">
+                        BY Country
+                    </label>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 my-1">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" name="IsLeagueChecked" type="checkbox" data-ischecked="false" id="IsLeagueChecked">
+                    <label class="form-check-label lg" for="gridCheck">
+                        BY League
+                    </label>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 my-1">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" name="IsFTResultChecked" type="checkbox" data-ischecked="false" id="IsFTResultChecked">
+                    <label class="form-check-label lg" for="gridCheck">
+                        BY FT Result
+                    </label>
+                </div>
+            </div>
+            <div class="col-12  col-sm-12 col-md-12 my-1">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" name="IsHTResultChecked" type="checkbox" data-ischecked="false" id="IsHTResultChecked">
+                    <label class="form-check-label" for="gridCheck">
+                        BY HT Result
+                    </label>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 my-1">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" name="IsHT15OUChecked" type="checkbox" data-ischecked="false" id="IsHT15OUChecked">
+                    <label class="form-check-label" for="gridCheck">
+                        BY HT Under/Over 1,5
+                    </label>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 my-1">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" name="IsFT15OUChecked" type="checkbox" data-ischecked="false" id="IsFT15OUChecked">
+                    <label class="form-check-label" for="gridCheck">
+                        BY FT Under/Over 1,5
+                    </label>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 my-1">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" name="IsFT25OUChecked" type="checkbox" data-ischecked="false" id="IsFT25OUChecked">
+                    <label class="form-check-label" for="gridCheck">
+                        BY FT Under/Over 2,5
+                    </label>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 my-1">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" name="IsFT35OUChecked" type="checkbox" data-ischecked="false" id="IsFT35OUChecked">
+                    <label class="form-check-label" for="gridCheck">
+                        BY FT Under/Over 3,5
+                    </label>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 my-1">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" name="IsGGChecked" type="checkbox" data-ischecked="false" id="IsGGChecked">
+                    <label class="form-check-label" for="gridCheck">
+                        BY G/G
+                    </label>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 my-1">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" name="IsBetweenGoalsChecked" type="checkbox" data-ischecked="false" id="IsBetweenGoalsChecked">
+                    <label class="form-check-label" for="gridCheck">
+                        BY Between Goals
+                    </label>
+                </div>
+            </div>
+            <hr />
+            <div class="col-12 col-sm-12 col-md-12 my-1">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" name="IsAnalyseAnyTime" type="checkbox" data-ischecked="false" id="IsAnalyseAnyTime">
+                    <label class="form-check-label" for="gridCheck">
+                        Analyse Any Time
+                    </label>
+                </div>
+            </div>
+            <div class="col-12 mt-2">
+                <label for="number" class="form-label">Count-Down Minutes</label>
+                <input type="number" min="1" id="CountDownMinutes" class="form-control" name="CountDownMinutes" value="@(Model.CountDownMinutes)" />
+            </div>
+            <hr />
+            <div class="col-12 mt-2">
+                <label for="number" class="form-label">Minimum Found Match</label>
+                <input type="number" min="2" id="MinMatchFound" class="form-control" name="name" value="2" />
+            </div>
+            <div class="col-12 mt-2">
+                <label for="number" class="form-label">Minimum Percentage</label>
+                <input type="number" min="100" id="MinPercentage" class="form-control" name="name" value="100" />
+            </div>
+            <div class="col-12 mt-3 ">
+                <div class="form-group">
+                    <label for="" class="control-label">From Date</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-primary text-light"><i class="fas fa-calendar-alt"></i></span>
+                        <input type="text" class="form-control" value="@(Model.FilterFromDate)" id="GetFilteredMatchStartDate" data-toggle="datepicker" name="GetFilteredMatchStartDate" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group">
+                    <label for="" class="control-label">To Date</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-primary text-light"><i class="fas fa-calendar-alt"></i></span>
+                        <input type="text" class="form-control" value="@(Model.FilterToDate)" id="GetFilteredMatchEndDate" data-toggle="datepicker" name="GetFilteredMatchEndDate" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div type="submit" class="d-grid gap-2">
+                    <button class="btn btn-primary" id="SystemCalculateBtn" type="button">CALCULATE</button>
+                </div>
+            </div>
+            <div class="col-12 mt-2">
+                <div type="submit" class="d-grid gap-2">
+                    <button class="btn btn-primary" id="SystemWinningPercentageBtn" type="button">CHECK PERCENTAGE Winnings</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section ScriptComponent{
+    <script src="~/js/CustomComponent.js"></script>
+    <script>
+        $(".form-check-input").click(function (e) {
+            if ($(e.target).data("ischecked") == false) {
+                $(e.target).data("ischecked", true);
+            } else {
+                $(e.target).data("ischecked", false);
+            };
+        });
+
+        $("#SystemCalculateBtn").click(function (e) {
+
+            var dataModel = {
+                IsCountry_Checked: $("#IsCountryChecked").data("ischecked"),
+                IsLeague_Checked: $("#IsLeagueChecked").data("ischecked"),
+                IsFT_ResultChecked: $("#IsFTResultChecked").data("ischecked"),
+                IsHT_ResultChecked: $("#IsHTResultChecked").data("ischecked"),
+                IsFT_15_OU_Checked: $("#IsFT15OUChecked").data("ischecked"),
+                IsFT_25_OU_Checked: $("#IsFT25OUChecked").data("ischecked"),
+                IsFT_35_OU_Checked: $("#IsFT35OUChecked").data("ischecked"),
+                IsHT_15_OU_Checked: $("#IsHT15OUChecked").data("ischecked"),
+                IsGG_NG_Checked: $("#IsGGChecked").data("ischecked"),
+                IsGoalBetween_Checked: $("#IsBetweenGoalsChecked").data("ischecked"),
+                IsAnalyseAnyTime: $("#IsAnalyseAnyTime").data("ischecked"),
+                FilterFromDate: $("#GetFilteredMatchStartDate").val(),
+                FilterToDate: $("#GetFilteredMatchEndDate").val(),
+                CountDownMinutes: $("#CountDownMinutes").val(),
+                MinimumPercentage: $("#MinPercentage").val(),
+                MinimumFoundMatch: $("#MinMatchFound").val(),
+                SerialsText: $("#serialTextArea").val()
+            };
+            //serialTextArea
+
+            $.ajax({
+                method: "post",
+                url: "/Dedective/GuestCurrentMatchResult",
+                data: { viewModel: dataModel }
+            }).done(function (data) {
+                console.log("success");
+            }).fail(function (data) {
+                alert(data);
+            });
+        });
+
+        $("#SystemWinningPercentageBtn").click(function (e) {
+
+            var dataModel = {
+                IsCountry_Checked: $("#IsCountryChecked").data("ischecked"),
+                IsLeague_Checked: $("#IsLeagueChecked").data("ischecked"),
+                IsFT_ResultChecked: $("#IsFTResultChecked").data("ischecked"),
+                IsHT_ResultChecked: $("#IsHTResultChecked").data("ischecked"),
+                IsFT_15_OU_Checked: $("#IsFT15OUChecked").data("ischecked"),
+                IsFT_25_OU_Checked: $("#IsFT25OUChecked").data("ischecked"),
+                IsFT_35_OU_Checked: $("#IsFT35OUChecked").data("ischecked"),
+                IsHT_15_OU_Checked: $("#IsHT15OUChecked").data("ischecked"),
+                IsGG_NG_Checked: $("#IsGGChecked").data("ischecked"),
+                IsGoalBetween_Checked: $("#IsBetweenGoalsChecked").data("ischecked"),
+                IsAnalyseAnyTime: $("#IsAnalyseAnyTime").data("ischecked"),
+                FilterFromDate: $("#GetFilteredMatchStartDate").val(),
+                FilterToDate: $("#GetFilteredMatchEndDate").val(),
+                CountDownMinutes: $("#CountDownMinutes").val(),
+                MinimumPercentage: $("#MinPercentage").val(),
+                MinimumFoundMatch: $("#MinMatchFound").val(),
+                SerialsText: $("#serialTextArea").val()
+            };
+
+            $.ajax({
+                method: "post",
+                url: "/Dedective/CalculateInitialisedPercentage",
+                data: { viewModel: dataModel }
+            }).done(function (data) {
+                console.log("success");
+            }).fail(function (data) {
+                alert(data);
+            });
+        });
+
+    </script>
+}

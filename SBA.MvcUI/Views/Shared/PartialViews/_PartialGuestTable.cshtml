@@ -1,0 +1,99 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@using Core.Utilities.UsableModel.Visualisers;
+
+@model List<AnalyseResultVisualiser>
+
+<table class="table table-striped">
+    <thead class="sticky-top" style="background-color: white; top: -20px; box-shadow: 0 3px 25px -12px grey;">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Direct Link</th>
+            <th scope="col">Found Count</th>
+
+            <th scope="col">Home vs Away</th>
+            <th scope="col">HT Result</th>
+            <th scope="col">SH Result</th>
+            <th scope="col">FT Result</th>
+
+            <th scope="col">Home HT 0.5 Over</th>
+            <th scope="col">Home HT 1.5 Over</th>
+            <th scope="col">Home SH 0.5 Over</th>
+            <th scope="col">Home SH 1.5 Over</th>
+            <th scope="col">Home FT 0.5 Over</th>
+            <th scope="col">Home FT 1.5 Over</th>
+            <th scope="col">Home Will Win Any Half</th>
+            <th scope="col">Away HT 0.5 Over</th>
+            <th scope="col">Away HT 1.5 Over</th>
+            <th scope="col">Away SH 0.5 Over</th>
+            <th scope="col">Away SH 1.5 Over</th>
+            <th scope="col">Away FT 0.5 Over</th>
+            <th scope="col">Away FT 1.5 Over</th>
+            <th scope="col">Away Will Win Any Half</th>
+
+            <th scope="col">1st Time 0.5 Over</th>
+            <th scope="col">1st Time 1.5 Over</th>
+
+            <th scope="col">2nd Time 0.5 Over</th>
+            <th scope="col">2nd Time 1.5 Over</th>
+
+            <th scope="col">Full Time 1.5 Over</th>
+            <th scope="col">Full Time 2.5 Over</th>
+            <th scope="col">Full Time 3.5 Over</th>
+
+            <th scope="col">HT Both Goal</th>
+            <th scope="col">SH Both Goal</th>
+            <th scope="col">FT Both Goal</th>
+
+            <th scope="col">Which Time More Goal</th>
+            <th scope="col">HT / FT</th>
+            <th scope="col">Goals Interval</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <tr>
+                <th scope="row">@(i+1)</th>
+                <td><a href="@(Model[i].TargetURL)" target="_blank">Match Details</a></td>
+                <td>@(Model[i].ODD_PERCENTAGE_Visualiser.AllCountFound)</td>
+                <td>@Html.Raw(Model[i].HomeTeamVsAwayTeam)</td>
+                <td>@Html.Raw(Model[i].ODD_PERCENTAGE_Visualiser.HT_Result)</td>
+                <td>@Html.Raw(Model[i].ODD_PERCENTAGE_Visualiser.SH_Result)</td>
+                <td>@Html.Raw(Model[i].ODD_PERCENTAGE_Visualiser.FT_Result)</td>
+                <td>@Html.Raw(Model[i].ODD_PERCENTAGE_Visualiser.Home_HT_0_5_Over)</td>
+                <td>@Html.Raw(Model[i].ODD_PERCENTAGE_Visualiser.Home_HT_1_5_Over)</td>
+                <td>@Html.Raw(Model[i].ODD_PERCENTAGE_Visualiser.Home_SH_0_5_Over)</td>
+                <td>@Html.Raw(Model[i].ODD_PERCENTAGE_Visualiser.Home_SH_1_5_Over)</td>
+                <td>@Html.Raw(Model[i].ODD_PERCENTAGE_Visualiser.Home_FT_0_5_Over)</td>
+                <td>@Html.Raw(Model[i].ODD_PERCENTAGE_Visualiser.Home_FT_1_5_Over)</td>
+                <td>@Html.Raw(Model[i].ODD_PERCENTAGE_Visualiser.Home_Win_Any_Half)</td>
+                <td>@Html.Raw(Model[i].ODD_PERCENTAGE_Visualiser.Away_HT_0_5_Over)</td>
+                <td>@Html.Raw(Model[i].ODD_PERCENTAGE_Visualiser.Away_HT_1_5_Over)</td>
+                <td>@Html.Raw(Model[i].ODD_PERCENTAGE_Visualiser.Away_SH_0_5_Over)</td>
+                <td>@Html.Raw(Model[i].ODD_PERCENTAGE_Visualiser.Away_SH_1_5_Over)</td>
+                <td>@Html.Raw(Model[i].ODD_PERCENTAGE_Visualiser.Away_FT_0_5_Over)</td>
+                <td>@Html.Raw(Model[i].ODD_PERCENTAGE_Visualiser.Away_FT_1_5_Over)</td>
+                <td>@Html.Raw(Model[i].ODD_PERCENTAGE_Visualiser.Away_Win_Any_Half)</td>
+                <td>@Html.Raw(Model[i].ODD_PERCENTAGE_Visualiser.HT_0_5_Over)</td>
+                <td>@Html.Raw(Model[i].ODD_PERCENTAGE_Visualiser.HT_1_5_Over)</td>
+                <td>@Html.Raw(Model[i].ODD_PERCENTAGE_Visualiser.SH_0_5_Over)</td>
+                <td>@Html.Raw(Model[i].ODD_PERCENTAGE_Visualiser.SH_1_5_Over)</td>
+                <td>@Html.Raw(Model[i].ODD_PERCENTAGE_Visualiser.FT_1_5_Over)</td>
+                <td>@Html.Raw(Model[i].ODD_PERCENTAGE_Visualiser.FT_2_5_Over)</td>
+                <td>@Html.Raw(Model[i].ODD_PERCENTAGE_Visualiser.FT_3_5_Over)</td>
+                <td>@Html.Raw(Model[i].ODD_PERCENTAGE_Visualiser.HT_GG)</td>
+                <td>@Html.Raw(Model[i].ODD_PERCENTAGE_Visualiser.SH_GG)</td>
+                <td>@Html.Raw(Model[i].ODD_PERCENTAGE_Visualiser.FT_GG)</td>
+                <td>@Html.Raw(Model[i].ODD_PERCENTAGE_Visualiser.MoreGoalsBetweenTimes)</td>
+                <td>@Html.Raw(Model[i].ODD_PERCENTAGE_Visualiser.HT_FT_Result)</td>
+                <td>@Html.Raw(Model[i].ODD_PERCENTAGE_Visualiser.FT_TotalBetween)</td>
+            </tr>
+        }
+    </tbody>
+</table>
