@@ -175,13 +175,8 @@ namespace SBA.Business.CoreAbilityServices.Job
                 serials = res.Split("\n").Select(x => x.Trim()).ToList();
             }
 
-            var obj = new List<object>();
-
             List<JobAnalyseModel> responseProfiler = OperationalProcessor.GetJobAnalyseModelResultTest2222(_matchBetService, _containerTemp, serials).Where(x => x.AverageProfiler != null && x.AverageProfilerHomeAway != null).ToList();
 
-            List<object> listsRes = new List<object>();
-
-            List<object> odds = new List<object>();
             var rgxOdd35U = new Regex(PatternConstant.StartedMatchPattern.FT_2_5_Over);
             var rgxLeague = new Regex(PatternConstant.StartedMatchPattern.League);
             var rgxCountry = new Regex(PatternConstant.StartedMatchPattern.Country);
@@ -224,8 +219,6 @@ namespace SBA.Business.CoreAbilityServices.Job
                     if (CheckIsOk(match))
                         responsesBet.Add(match);
                 }
-
-                obj.Add(new { League = league.LeagueHolders.FirstOrDefault(x => x.Country == item.ComparisonInfoContainer.CountryName && x.League == leagueName), Response = item });
             }
 
             foreach (var bet in responsesBet)
@@ -997,6 +990,8 @@ namespace SBA.Business.CoreAbilityServices.Job
 
                 if (!isValidImportant) return isValidImportant;
 
+                // TODO : LOOK
+
                 bool isValid =
                 item.AverageProfilerHomeAway.FT_Result.Percentage >= 50 &&
                 item.AverageProfilerHomeAway.FT_Result.FeatureName.ToLower() != "1" &&
@@ -1180,42 +1175,20 @@ namespace SBA.Business.CoreAbilityServices.Job
 
 
 
-        public override void ExecuteTTT(List<FilterResult> filterResults, string path)
+        public override void ExecuteTTT(List<string> filterResults, string path, CountryContainerTemp countryContainer)
         {
-            List<JobAnalyseModel> responseProfiler = new List<JobAnalyseModel>();
-            bool check = false;
-
             using (var sr = new StreamReader(path))
             {
-                responseProfiler = JsonConvert.DeserializeObject<List<JobAnalyseModel>>(sr.ReadToEnd());
-                check = responseProfiler != null && responseProfiler.Any();
+                string res = sr.ReadToEnd();
+                filterResults = res.Split("\n").Select(x => x.Trim()).ToList();
             }
 
-            if (!check)
-            {
-                responseProfiler = OperationalProcessor.GetJobAnalyseModelResultTest(_matchBetService, _containerTemp, filterResults).Where(x => x.AverageProfiler != null).ToList();
+            List<JobAnalyseModel> responseProfiler = responseProfiler = OperationalProcessor.GetJobAnalyseModelResultTest2222(_matchBetService, _containerTemp, filterResults).Where(x => x.AverageProfiler != null).ToList();
 
-                using (var sw = new StreamWriter(path))
-                {
-                    sw.Write(JsonConvert.SerializeObject(responseProfiler, Formatting.Indented));
-                }
-            }
-
-            // responseProfiler = responseProfiler.Take(30).ToList();
-
-            List<object> listsRes = new List<object>();
-
-            List<object> odds = new List<object>();
-            var rgxOdd35U = new Regex(PatternConstant.StartedMatchPattern.FT_2_5_Over);
-
-            int correctRes = 0;
-            int allRes = 0;
-            int correctResUnder = 0;
-            int allResUnder = 0;
-            int correctResOver = 0;
-            int allResOver = 0;
             int failed = 0;
-
+            var rgxLeague = new Regex(PatternConstant.StartedMatchPattern.League);
+            var rgxCountry = new Regex(PatternConstant.StartedMatchPattern.Country);
+            var rgxLeague2 = new Regex(PatternConstant.StartedMatchPattern.CountryAndLeague);
             int iteration = 0;
 
             foreach (var item in responseProfiler)
@@ -1223,94 +1196,39 @@ namespace SBA.Business.CoreAbilityServices.Job
                 iteration++;
                 try
                 {
-                    if (item.HomeTeam_FormPerformanceGuessContainer.HomeAway.FT_25_Over.Percentage >= 60 && item.HomeTeam_FormPerformanceGuessContainer.HomeAway.FT_25_Over.FeatureName.ToLower() == "true" &&
-                        item.AwayTeam_FormPerformanceGuessContainer.HomeAway.FT_25_Over.Percentage >= 60 && item.AwayTeam_FormPerformanceGuessContainer.HomeAway.FT_25_Over.FeatureName.ToLower() == "true" &&
-                        item.ComparisonInfoContainer.HomeAway.FT_25_Over.Percentage >= 60 && item.ComparisonInfoContainer.HomeAway.FT_25_Over.FeatureName.ToLower() == "true")
-                    {
-                        var client1 = new HttpClient();
-                        var client = new WebOperation();
-                        var cnt1 = client1.GetStringAsync($"https://arsiv.mackolik.com/Match/Default.aspx?id={item.HomeTeam_FormPerformanceGuessContainer.Serial}#karsilastirma").Result;
-                        var cnt = client.GetMinifiedString($"https://arsiv.mackolik.com/Match/Default.aspx?id={item.HomeTeam_FormPerformanceGuessContainer.Serial}#karsilastirma");
+                    var contentString = _webHelper.GetMinifiedString($"https://arsiv.mackolik.com/Match/Default.aspx?id={item.HomeTeam_FormPerformanceGuessContainer.Serial}#karsilastirma");
+                    string leagueName = contentString.ResolveLeagueByRegex(countryContainer, rgxLeague, rgxLeague2);
+                    string countryName = contentString.ResolveCountryByRegex(countryContainer, rgxCountry, rgxLeague2);
 
-                        //var cntArr = cnt.Split("left-block-team-name"); "last-games"
-                        var cntArr = cnt1.Split("last-games").Where(x => x.StartsWith("\" title")).ToList();
+                    var strBuilder1 = new StringBuilder();
+                    strBuilder1.Append("BET DETAILS\n");
+                    strBuilder1.Append($"LINK:  https://arsiv.mackolik.com/Match/Default.aspx?id={item.ComparisonInfoContainer.Serial}\n");
+                    strBuilder1.Append($"MATCH:  {item.ComparisonInfoContainer.Home} - {item.ComparisonInfoContainer.Away}\n");
+                    strBuilder1.Append($"COUNTRY:  {countryName}\n");
+                    strBuilder1.Append($"LEAGUE:  {leagueName} \n");
+                    strBuilder1.Append($"========================");
 
-                        List<AwayHomeSide> homeSide = new List<AwayHomeSide>();
-                        List<AwayHomeSide> awaySide = new List<AwayHomeSide>();
-                        var rgx = new Regex("\\b(0|[1-9]\\d*)-(0|[1-9]\\d*)\\b");
-                        var rgxTeams = new Regex("title=\"[\\s\\S]*?([^\\W][^\\(]+)");
+                    var cntStr1 = strBuilder1.ToString();
 
-                        var firstlst = new List<string>();
-                        var secndlst = new List<string>();
+                    var strBuilder2 = new StringBuilder();
+                    var shortAverage = new AverageShort(item.AverageProfiler);
+                    strBuilder1.Append($"=== ÜMUMİ ===");
+                    strBuilder2.Append(JsonConvert.SerializeObject(shortAverage, Formatting.Indented));
+                    strBuilder1.Append($"========================");
 
-                        for (var i = 0; i < 5; i++)
-                        {
-                            var resScore = rgx.Matches(cntArr[i])[0].Groups[0].Value;
-                            var resTeams = rgxTeams.Matches(cntArr[i])[0].Groups[1].Value;
-                            foreach (var team in resTeams.Split(resScore))
-                            {
-                                firstlst.Add(team.Trim());
-                            }
-                        }
+                    var cntStr2 = strBuilder2.ToString();
 
-                        for (var i = 5; i < 10; i++)
-                        {
-                            var resScore = rgx.Matches(cntArr[i])[0].Groups[0].Value;
-                            var resTeams = rgxTeams.Matches(cntArr[i])[0].Groups[1].Value;
-                            foreach (var team in resTeams.Split(resScore))
-                            {
-                                secndlst.Add(team.Trim());
-                            }
-                        }
+                    var strBuilder3 = new StringBuilder();
+                    var shortAverageHomeAway = new AverageShort(item.AverageProfilerHomeAway);
+                    strBuilder1.Append($"=== EV - SƏFƏR ===");
+                    strBuilder3.Append(JsonConvert.SerializeObject(shortAverageHomeAway, Formatting.Indented));
+                    strBuilder1.Append($"========================");
 
-                        var homeName = firstlst.GroupBy(x => x).Select(p => new { Count = p.Count(), Name = p.Key }).OrderByDescending(x => x.Count).ToList()[0].Name;
-                        var awayName = secndlst.GroupBy(x => x).Select(p => new { Count = p.Count(), Name = p.Key }).OrderByDescending(x => x.Count).ToList()[0].Name;
+                    var cntStr3 = strBuilder3.ToString();
 
-                        for (var i = 0; i < 4; i++)
-                        {
-                            var resScore = rgx.Matches(cntArr[i])[0].Groups[0].Value;
-                            var resTeams = rgxTeams.Matches(cntArr[i])[0].Groups[1].Value;
-                            homeSide.Add(new AwayHomeSide
-                            {
-                                TeamAt = resTeams.Split(resScore)[0].Trim() == homeName.Trim() ? "Home" : "Away",
-                                Score = resScore,
-                                HomeTeam = resTeams.Split(resScore)[0].Trim(),
-                                AwayTeam = resTeams.Split(resScore)[1].Trim(),
-                                Is25Over = Convert.ToInt32(resScore.Split("-")[0].Trim()) + Convert.ToInt32(resScore.Split("-")[1].Trim()) > 2
-                            });
-                        }
-
-                        for (var i = 5; i < 9; i++)
-                        {
-                            var resScore = rgx.Matches(cntArr[i])[0].Groups[0].Value;
-                            var resTeams = rgxTeams.Matches(cntArr[i])[0].Groups[1].Value;
-                            awaySide.Add(new AwayHomeSide
-                            {
-                                TeamAt = resTeams.Split(resScore)[0].Trim() == awayName.Trim() ? "Home" : "Away",
-                                Score = resScore,
-                                HomeTeam = resTeams.Split(resScore)[0].Trim(),
-                                AwayTeam = resTeams.Split(resScore)[1].Trim(),
-                                Is25Over = Convert.ToInt32(resScore.Split("-")[0].Trim()) + Convert.ToInt32(resScore.Split("-")[1].Trim()) > 2
-                            });
-                        }
-
-                        if (awaySide[awaySide.Count - 1].Is25Over != homeSide[homeSide.Count - 1].Is25Over)
-                        {
-                            var regexScore = new Regex(PatternConstant.StartedMatchPattern.FTResultMatch);
-                            var score = regexScore.Matches(cnt)[0].Groups[1].Value.Trim();
-                            int frst = Convert.ToInt32(score.Split("-")[0].Trim());
-                            int scnd = Convert.ToInt32(score.Split("-")[1].Trim());
-                            bool resss = frst + scnd > 2;
-
-                            if (resss)
-                            {
-                                odds.Add(new { Serial = item.HomeTeam_FormPerformanceGuessContainer.Serial, Odd = rgxOdd35U.Matches(cnt)[0].Groups[1].Value });
-                                correctRes++;
-                            }
-
-                            allRes++;
-                        }
-                    }
+                    _botService.SendMessage(1093967965, cntStr1);
+                    _botService.SendMessage(1093967965, cntStr2);
+                    _botService.SendMessage(1093967965, cntStr3);
                 }
                 catch (Exception ex)
                 {
@@ -1318,10 +1236,6 @@ namespace SBA.Business.CoreAbilityServices.Job
                     continue;
                 }
             }
-
-            decimal percent = correctRes * 100 / allRes;
-
-            base.ExecuteTTT(filterResults, path);
         }
 
 

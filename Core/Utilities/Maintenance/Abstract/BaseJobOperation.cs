@@ -17,7 +17,7 @@ namespace Core.Utilities.Maintenance.Abstract
         {
         }
 
-        public virtual void ExecuteTTT(List<FilterResult> filterResults, string path)
+        public virtual void ExecuteTTT(List<string> filterResults, string path, CountryContainerTemp countryContainer)
         {
         }
 

@@ -1,7 +1,4 @@
 ﻿using Core.Utilities.UsableModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Core.Utilities.Helpers
 {
@@ -31,6 +28,25 @@ namespace Core.Utilities.Helpers
             inputs = inputs.Where(x => x.Percentage >= 0).ToArray();
 
             if (inputs.Length == 0) return null;
+
+            if (inputs[0].FeatureName.ToLower() == "true" || inputs[0].FeatureName.ToLower() == "false")
+            {
+                inputs = inputs.OrderByDescending(x => x.Percentage).ToArray();
+
+                var existProperties = new List<string>();
+
+                for (int i = 0; i < inputs.Length - 1; i++)
+                {
+                    var currentInput = inputs[i];
+                    var nextInput = inputs[i + 1];
+
+                    if (nextInput.FeatureName != currentInput.FeatureName)
+                    {
+                        nextInput.FeatureName = currentInput.FeatureName;
+                        nextInput.Percentage = 100 - nextInput.Percentage;
+                    }
+                }
+            }
 
             List<PercentageComplainer> resultList = inputs.GroupBy(x => x.FeatureName)
                 .Select(g =>
@@ -68,6 +84,25 @@ namespace Core.Utilities.Helpers
             inputs = inputs.Where(x => x.Percentage >= 0).ToArray();
 
             if (inputs.Length == 0) return null;
+
+            if (inputs[0].FeatureName.ToLower() == "true" || inputs[0].FeatureName.ToLower() == "false")
+            {
+                inputs = inputs.OrderByDescending(x => x.Percentage).ToArray();
+
+                var existProperties = new List<string>();
+
+                for (int i = 0; i < inputs.Length-1; i++)
+                {
+                    var currentInput = inputs[i];
+                    var nextInput = inputs[i+1];
+
+                    if(nextInput.FeatureName != currentInput.FeatureName)
+                    {
+                        nextInput.FeatureName = currentInput.FeatureName;
+                        nextInput.Percentage = 100 - nextInput.Percentage;
+                    }
+                }
+            }
 
             List<PercentageComplainer> resultList = inputs.GroupBy(x => x.FeatureName)
                 .Select(g =>

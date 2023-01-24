@@ -52,16 +52,11 @@ namespace SBA.MvcUI.Controllers
         [HttpPost("/Settings/SyncFilters")]
         public IActionResult SynchroniseFilters()
         {
-            var result = _dataMaintenanceService.InitializeNewColumnsOnFilterResult();
+            JobOperation job = new JobOperation(_telegramService, new List<TimeSerialContainer>(), _matchBetService, _filterResultService, new SystemCheckerContainer(), DescriptionJobResultEnum.Standart, CountryContainer);
 
-            if (result.Success)
-            {
-                return Ok(result.Data);
-            }
-            else
-            {
-                return Ok(JsonConvert.SerializeObject(result.Responses));
-            }
+            job.ExecuteTTT(new List<string>(), txtPathFormat.GetTextFileByFormat("SerialsForDetailsResponse"), CountryContainer);
+
+            return Ok(204);
         }
 
         [HttpPost("/Settings/DeleteNonMatcheds")]
@@ -152,9 +147,9 @@ namespace SBA.MvcUI.Controllers
             ////
             ////
 
-            //JobOperation job = new JobOperation(_telegramService, new List<TimeSerialContainer>(), _matchBetService, _filterResultService, new SystemCheckerContainer(), DescriptionJobResultEnum.Standart, CountryContainer);
+            JobOperation job = new JobOperation(_telegramService, new List<TimeSerialContainer>(), _matchBetService, _filterResultService, new SystemCheckerContainer(), DescriptionJobResultEnum.Standart, CountryContainer);
 
-            //job.ExecuteTTT2(new List<string>(), txtPathFormat.GetTextFileByFormat("LogFile"), LeagueContainer, CountryContainer);
+            job.ExecuteTTT2(new List<string>(), txtPathFormat.GetTextFileByFormat("LogFile"), LeagueContainer, CountryContainer);
 
             ////
             //////
@@ -379,11 +374,9 @@ namespace SBA.MvcUI.Controllers
 
             stp.Stop();
 
-                var mSec = stp.ElapsedMilliseconds / 1000;
+            var mSec = stp.ElapsedMilliseconds / 1000;
 
-                return Ok(204);
-
-            return Ok();
+            return Ok(204);
 
             //var result = await _dataMaintenanceService.UpdateEmptyCountriesAsync();
 

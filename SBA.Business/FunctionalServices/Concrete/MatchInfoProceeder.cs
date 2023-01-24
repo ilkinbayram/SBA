@@ -293,8 +293,7 @@ namespace SBA.Business.FunctionalServices.Concrete
             {
                 var result = new List<ComparisonInfoContainer>();
 
-                // TODO : Return Back
-                for (int i = 1; i < splittedSources.Length-1; i++)
+                for (int i = 1; i < splittedSources.Length; i++)
                 {
                     var currentSrc = splittedSources[i];
 

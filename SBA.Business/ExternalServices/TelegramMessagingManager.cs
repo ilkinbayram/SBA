@@ -23,12 +23,11 @@ namespace SBA.Business.ExternalServices
             }
         }
 
-        public void SendMessage(string newBotToken, long newChatId, string message)
+        public void SendMessage(long newChatId, string message)
         {
-            TelegramBotClient specialTelegramClient = new TelegramBotClient(newBotToken, new HttpClient());
             ChatId specialChatId = new ChatId(newChatId);
 
-            var result = specialTelegramClient.SendTextMessageAsync(specialChatId, message).Result;
+            var result = telClient.SendTextMessageAsync(specialChatId, message).Result;
         }
     }
 }

@@ -11,10 +11,6 @@ using Newtonsoft.Json;
 using SBA.Business.Abstract;
 using SBA.Business.FunctionalServices.Concrete;
 using SBA.Business.Mapping;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace SBA.Business.BusinessHelper
