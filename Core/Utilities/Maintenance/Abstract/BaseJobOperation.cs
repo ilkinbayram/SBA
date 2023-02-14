@@ -17,11 +17,15 @@ namespace Core.Utilities.Maintenance.Abstract
         {
         }
 
-        public virtual void ExecuteTTT(List<string> filterResults, string path, CountryContainerTemp countryContainer)
+        public virtual void ExecuteTTT(List<string> filterResults, Dictionary<string, string> path, CountryContainerTemp countryContainer, LeagueContainer leagueContainer)
         {
         }
 
         public virtual void ExecuteTTT2(List<string> serials, string path, LeagueContainer league, CountryContainerTemp countryContainer)
+        {
+        }
+
+        public virtual void ExecuteNisbi(List<string> serials, string path, LeagueContainer league, CountryContainerTemp countryContainer)
         {
         }
 

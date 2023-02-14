@@ -1,9 +1,6 @@
 ﻿using Core.Resources.Enums;
 using Core.Utilities.UsableModel.BaseModels;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 
 namespace Core.Utilities.Helpers
 {

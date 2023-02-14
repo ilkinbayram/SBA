@@ -21,6 +21,10 @@ namespace SBA.DataAccess.Concrete.EntityFramework.Configurations
             builder.Property(x => x.HT_Match_Result).HasMaxLength(10);
             builder.Property(x => x.FT_Match_Result).HasMaxLength(10);
 
+            builder.HasIndex(x=>x.SerialUniqueID).IsClustered(false).HasName("IX_SerialUniqueID");
+            builder.HasIndex(x=>x.LeagueName).IsClustered(false).HasName("IX_LeagueName");
+            builder.HasIndex(x=>x.Country).IsClustered(false).HasName("IX_Country");
+
             builder.Property(x => x.FTWin1_Odd).HasPrecision(7, 2);
             builder.Property(x => x.FTDraw_Odd).HasPrecision(7, 2);
             builder.Property(x => x.FTWin2_Odd).HasPrecision(7, 2);

@@ -31,7 +31,7 @@
         {
             get
             {
-                return (decimal)this.Point * 100 / this.MatchesCount / 3;
+                return (decimal)-999.99;
             }
         }
     }

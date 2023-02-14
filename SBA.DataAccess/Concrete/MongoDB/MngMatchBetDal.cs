@@ -15,6 +15,11 @@ namespace SBA.DataAccess.Concrete.MongoDB
         {
         }
 
+        public IQueryable<MatchBetQM> GetMatchBetFilterResultQueryModels(Expression<Func<MatchBetQM, bool>> filter = null)
+        {
+            throw new NotImplementedException();
+        }
+
         public IQueryable<MatchBetQM> GetMatchBetQueryModels(string countryName, string teamName, int takeCount, Expression<Func<MatchBetQM, bool>> filter = null)
         {
             var queryableMatchBets = Database.GetCollection<MatchBet>("MatchBets").AsQueryable();
@@ -67,6 +72,11 @@ namespace SBA.DataAccess.Concrete.MongoDB
                     : query.Where(filter).Take(takeCount);
 
             return query;
+        }
+
+        public IQueryable<MatchBetQM> GetMatchBetQueryModelsForPerformanceResult(string countryName, string teamName, int takeCount, Expression<Func<MatchBetQM, bool>> filter = null)
+        {
+            throw new NotImplementedException();
         }
     }
 }

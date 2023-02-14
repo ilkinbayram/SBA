@@ -112,8 +112,8 @@ namespace Business.Concrete
             try
             {
                 var response = filter == null 
-                    ? _matchBetDal.GetMatchBetQueryModels(countryName, teamName, takeCount).ToList()
-                    : _matchBetDal.GetMatchBetQueryModels(countryName, teamName, takeCount, filter).ToList();
+                    ? _matchBetDal.GetMatchBetQueryModelsForPerformanceResult(countryName, teamName, takeCount).ToList()
+                    : _matchBetDal.GetMatchBetQueryModelsForPerformanceResult(countryName, teamName, takeCount, filter).ToList();
 
                 return new SuccessDataResult<List<MatchBetQM>>(response);
             }
@@ -122,6 +122,23 @@ namespace Business.Concrete
                 return new ErrorDataResult<List<MatchBetQM>>(null, $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}");
             }
         }
+
+        public IDataResult<List<MatchBetQM>> GetMatchBetFilterResultQueryModels(Expression<Func<MatchBetQM, bool>> filter = null)
+        {
+            try
+            {
+                var response = filter == null
+                    ? _matchBetDal.GetMatchBetFilterResultQueryModels().ToList()
+                    : _matchBetDal.GetMatchBetFilterResultQueryModels(filter).ToList();
+
+                return new SuccessDataResult<List<MatchBetQM>>(response);
+            }
+            catch (Exception exception)
+            {
+                return new ErrorDataResult<List<MatchBetQM>>(null, $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}");
+            }
+        }
+
 
         public IDataResult<int> Update(MatchBet entity)
         {

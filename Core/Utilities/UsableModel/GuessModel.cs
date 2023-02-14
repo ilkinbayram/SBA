@@ -5,6 +5,8 @@
         public GuessModel()
         {
             CountFound = -1;
+            Average_FT_Corners_HomeTeam = (decimal)-1.00;
+            Average_FT_Corners_AwayTeam = (decimal)-1.00;
             Average_FT_Goals_HomeTeam = (decimal)-1.00;
             Average_FT_Goals_AwayTeam = (decimal)-1.00;
             Average_HT_Goals_HomeTeam = (decimal)-1.00;
@@ -15,6 +17,8 @@
 
 
         public int CountFound { get; set; }
+        public decimal Average_FT_Corners_HomeTeam { get; set; }
+        public decimal Average_FT_Corners_AwayTeam { get; set; }
         public decimal Average_FT_Goals_HomeTeam { get; set; }
         public decimal Average_FT_Goals_AwayTeam { get; set; }
         public decimal Average_HT_Goals_HomeTeam { get; set; }
@@ -26,6 +30,31 @@
         public PercentageComplainer HT_Result { get; set; }
         public PercentageComplainer FT_Result { get; set; }
         public PercentageComplainer SH_Result { get; set; }
+
+        public PercentageComplainer Is_FT_Win1 { get; set; }
+        public PercentageComplainer Is_FT_X{ get; set; }
+        public PercentageComplainer Is_FT_Win2 { get; set; }
+
+        public PercentageComplainer Is_HT_Win1 { get; set; }
+        public PercentageComplainer Is_HT_X { get; set; }
+        public PercentageComplainer Is_HT_Win2 { get; set; }
+
+        public PercentageComplainer Is_SH_Win1 { get; set; }
+        public PercentageComplainer Is_SH_X { get; set; }
+        public PercentageComplainer Is_SH_Win2 { get; set; }
+
+        public PercentageComplainer Corner_Home_3_5_Over { get; set; }
+        public PercentageComplainer Corner_Home_4_5_Over { get; set; }
+        public PercentageComplainer Corner_Home_5_5_Over { get; set; }
+        public PercentageComplainer Corner_Away_3_5_Over { get; set; }
+        public PercentageComplainer Corner_Away_4_5_Over { get; set; }
+        public PercentageComplainer Corner_Away_5_5_Over { get; set; }
+        public PercentageComplainer Corner_7_5_Over { get; set; }
+        public PercentageComplainer Corner_8_5_Over { get; set; }
+        public PercentageComplainer Corner_9_5_Over { get; set; }
+        public PercentageComplainer Is_Corner_FT_Win1 { get; set; }
+        public PercentageComplainer Is_Corner_FT_X { get; set; }
+        public PercentageComplainer Is_Corner_FT_Win2 { get; set; }
 
         public PercentageComplainer HT_FT_Result { get; set; }
 

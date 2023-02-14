@@ -6,9 +6,11 @@ using Core.Utilities.Helpers;
 using Core.Utilities.UsableModel;
 using Core.Utilities.UsableModel.BaseModels;
 using Core.Utilities.UsableModel.TempTableModels.Country;
+using Core.Utilities.UsableModel.TempTableModels.Initialization;
 using Core.Utilities.UsableModel.Visualisers;
 using Newtonsoft.Json;
 using SBA.Business.Abstract;
+using SBA.Business.CoreAbilityServices.Job;
 using SBA.Business.FunctionalServices.Concrete;
 using SBA.Business.Mapping;
 using System.Text.RegularExpressions;
@@ -495,34 +497,7 @@ namespace SBA.Business.BusinessHelper
 
             return listAnalyseModel;
         }
-
-
-        public static List<JobAnalyseModel> GetJobAnalyseModelResultTest(IMatchBetService matchBetService, CountryContainerTemp containerTemp, List<FilterResult> filterResults)
-        {
-            string mainUrl = _defaultMatchUrl;
-
-            List<JobAnalyseModel> listAnalyseModel = new List<JobAnalyseModel>();
-
-            for (int i = 0; i < filterResults.Count; i++)
-            {
-                var analyseModelOne = new JobAnalyseModel
-                {
-                    ComparisonInfoContainer = GetComparisonProfilerResult(filterResults[i].SerialUniqueID.ToString(), TeamSide.Home),
-                    HomeTeam_FormPerformanceGuessContainer = GetFormPerformanceProfiler(filterResults[i].SerialUniqueID.ToString(), matchBetService, containerTemp, TeamSide.Home),
-                    AwayTeam_FormPerformanceGuessContainer = GetFormPerformanceProfiler(filterResults[i].SerialUniqueID.ToString(), matchBetService, containerTemp, TeamSide.Away),
-                    StandingInfoModel = GetStandingInfoModel(filterResults[i].SerialUniqueID.ToString())
-                };
-
-                if (analyseModelOne.ComparisonInfoContainer == null || analyseModelOne.HomeTeam_FormPerformanceGuessContainer == null || analyseModelOne.AwayTeam_FormPerformanceGuessContainer == null)
-                {
-                    continue;
-                }
-
-                listAnalyseModel.Add(analyseModelOne);
-            }
-
-            return listAnalyseModel;
-        }
+        
 
         public static List<JobAnalyseModel> GetJobAnalyseModelResultTest2222(IMatchBetService matchBetService, CountryContainerTemp containerTemp, List<string> serials)
         {
@@ -538,6 +513,47 @@ namespace SBA.Business.BusinessHelper
                     HomeTeam_FormPerformanceGuessContainer = GetFormPerformanceProfiler(serials[i], matchBetService, containerTemp, TeamSide.Home),
                     AwayTeam_FormPerformanceGuessContainer = GetFormPerformanceProfiler(serials[i], matchBetService, containerTemp, TeamSide.Away),
                     StandingInfoModel = GetStandingInfoModel(serials[i])
+                };
+
+                if (analyseModelOne.ComparisonInfoContainer == null || analyseModelOne.HomeTeam_FormPerformanceGuessContainer == null || analyseModelOne.AwayTeam_FormPerformanceGuessContainer == null)
+                {
+                    continue;
+                }
+
+                listAnalyseModel.Add(analyseModelOne);
+            }
+
+            return listAnalyseModel;
+        }
+
+        public static List<JobAnalyseModel> GetJobAnalyseModelResultTest7777(IMatchBetService matchBetService, IFilterResultService filterResultService, CountryContainerTemp containerTemp, LeagueContainer leagueContainer, List<string> serials)
+        {
+            string mainUrl = _defaultMatchUrl;
+
+            List<JobAnalyseModel> listAnalyseModel = new List<JobAnalyseModel>();
+
+            for (int i = 0; i < serials.Count; i++)
+            {
+                var rgxCountryLeagueMix = new Regex(PatternConstant.UnstartedMatchPattern.CountryAndLeague);
+                var rgxLeague = new Regex(PatternConstant.UnstartedMatchPattern.League);
+                var rgxCountry = new Regex(PatternConstant.UnstartedMatchPattern.Country);
+
+                string src = _webOperator.GetMinifiedString($"{mainUrl}{serials[i]}");
+
+                string leagueName = src.ResolveLeagueByRegex(containerTemp, rgxCountryLeagueMix, rgxLeague);
+                string countryName = src.ResolveCountryByRegex(containerTemp, rgxCountryLeagueMix, rgxCountry);
+
+                bool validToGo = leagueContainer.LeagueHolders.Any(x => x.Country.Trim().ToLower() == countryName.ToLower().Trim() && x.League.ToLower().Trim() == leagueName.ToLower().Trim());
+
+                if (!validToGo) continue;
+
+                var analyseModelOne = new JobAnalyseModel
+                {
+                    ComparisonOnlyDB = GetComparisonOnlyDbProfilerResult(serials[i], matchBetService, filterResultService, containerTemp, TeamSide.Home),
+                    ComparisonInfoContainer = GetComparisonProfilerResult(serials[i], TeamSide.Home),
+
+                    HomeTeam_FormPerformanceGuessContainer = GetFormPerformanceProfiler(serials[i], matchBetService, containerTemp, TeamSide.Home),
+                    AwayTeam_FormPerformanceGuessContainer = GetFormPerformanceProfiler(serials[i], matchBetService, containerTemp, TeamSide.Away)
                 };
 
                 if (analyseModelOne.ComparisonInfoContainer == null || analyseModelOne.HomeTeam_FormPerformanceGuessContainer == null || analyseModelOne.AwayTeam_FormPerformanceGuessContainer == null)
@@ -938,6 +954,20 @@ namespace SBA.Business.BusinessHelper
                     Average_HT_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(list6PerformanceData, "HT_Goals_HomeTeam", teamSide),
                     Average_SH_Goals_AwayTeam = GenerateHomeAwayGoalsAverage(list6PerformanceData, "SH_Goals_AwayTeam", teamSide),
                     Average_SH_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(list6PerformanceData, "SH_Goals_HomeTeam", teamSide),
+                    Average_FT_Corners_AwayTeam = GenerateHomeAwayCornersAverage(list6PerformanceData, "AwayCornersCount", teamSide),
+                    Average_FT_Corners_HomeTeam = GenerateHomeAwayCornersAverage(list6PerformanceData, "HomeCornersCount", teamSide),
+
+                    Corner_Away_3_5_Over = GenerateBySideCornerComparison(list6PerformanceData, "Corner_Away_3_5_Over", teamSide),
+                    Corner_Away_4_5_Over = GenerateBySideCornerComparison(list6PerformanceData, "Corner_Away_4_5_Over", teamSide),
+                    Corner_Away_5_5_Over = GenerateBySideCornerComparison(list6PerformanceData, "Corner_Away_5_5_Over", teamSide),
+
+                    Corner_Home_3_5_Over = GenerateBySideCornerComparison(list6PerformanceData, "Corner_Home_3_5_Over", teamSide),
+                    Corner_Home_4_5_Over = GenerateBySideCornerComparison(list6PerformanceData, "Corner_Home_4_5_Over", teamSide),
+                    Corner_Home_5_5_Over = GenerateBySideCornerComparison(list6PerformanceData, "Corner_Home_5_5_Over", teamSide),
+
+                    Corner_7_5_Over = GenerateBySideCornerComparison(list6PerformanceData, "Corner_7_5_Over", teamSide),
+                    Corner_8_5_Over = GenerateBySideCornerComparison(list6PerformanceData, "Corner_8_5_Over", teamSide),
+                    Corner_9_5_Over = GenerateBySideCornerComparison(list6PerformanceData, "Corner_9_5_Over", teamSide),
 
                     Away_FT_05_Over = GenerateBySideComparison(list6PerformanceData, "Away_FT_05_Over", teamSide),
                     Away_FT_15_Over = GenerateBySideComparison(list6PerformanceData, "Away_FT_15_Over", teamSide),
@@ -968,7 +998,19 @@ namespace SBA.Business.BusinessHelper
                     FT_Result = GenerateBySideComparison(list6PerformanceData, "FT_Result", teamSide),
                     HT_Result = GenerateBySideComparison(list6PerformanceData, "HT_Result", teamSide),
                     HT_FT_Result = GenerateBySideComparison(list6PerformanceData, "HT_FT_Result", teamSide),
-                    SH_Result = GenerateBySideComparison(list6PerformanceData, "SH_Result", teamSide)
+                    SH_Result = GenerateBySideComparison(list6PerformanceData, "SH_Result", teamSide),
+                    Is_FT_Win1 = GenerateBySideComparison(list6PerformanceData, "Is_FT_Win1", teamSide),
+                    Is_FT_X = GenerateBySideComparison(list6PerformanceData, "Is_FT_X", teamSide),
+                    Is_FT_Win2 = GenerateBySideComparison(list6PerformanceData, "Is_FT_Win2", teamSide),
+                    Is_HT_Win1 = GenerateBySideComparison(list6PerformanceData, "Is_HT_Win1", teamSide),
+                    Is_HT_X = GenerateBySideComparison(list6PerformanceData, "Is_HT_X", teamSide),
+                    Is_HT_Win2 = GenerateBySideComparison(list6PerformanceData, "Is_HT_Win2", teamSide),
+                    Is_SH_Win1 = GenerateBySideComparison(list6PerformanceData, "Is_SH_Win1", teamSide),
+                    Is_SH_X = GenerateBySideComparison(list6PerformanceData, "Is_SH_X", teamSide),
+                    Is_SH_Win2 = GenerateBySideComparison(list6PerformanceData, "Is_SH_Win2", teamSide),
+                    Is_Corner_FT_Win1 = GenerateBySideCornerComparison(list6PerformanceData, "Is_Corner_FT_Win1", teamSide),
+                    Is_Corner_FT_X = GenerateBySideCornerComparison(list6PerformanceData, "Is_Corner_FT_X", teamSide),
+                    Is_Corner_FT_Win2 = GenerateBySideCornerComparison(list6PerformanceData, "Is_Corner_FT_Win2", teamSide)
                 };
 
                 ////////////////// General
@@ -986,6 +1028,20 @@ namespace SBA.Business.BusinessHelper
                     Average_HT_Goals_HomeTeam = GenerateGeneralGoalsAverage(list10PerformanceDataGeneral, "HT_Goals_HomeTeam", teamSide),
                     Average_SH_Goals_AwayTeam = GenerateGeneralGoalsAverage(list10PerformanceDataGeneral, "SH_Goals_AwayTeam", teamSide),
                     Average_SH_Goals_HomeTeam = GenerateGeneralGoalsAverage(list10PerformanceDataGeneral, "SH_Goals_HomeTeam", teamSide),
+                    Average_FT_Corners_AwayTeam = GenerateGeneralCornersAverage(list10PerformanceDataGeneral, "AwayCornersCount", teamSide),
+                    Average_FT_Corners_HomeTeam = GenerateGeneralCornersAverage(list10PerformanceDataGeneral, "HomeCornersCount", teamSide),
+
+                    Corner_Away_3_5_Over = GenerateGeneralCornerComparison(list10PerformanceDataGeneral, "Corner_Away_3_5_Over", teamSide),
+                    Corner_Away_4_5_Over = GenerateGeneralCornerComparison(list10PerformanceDataGeneral, "Corner_Away_4_5_Over", teamSide),
+                    Corner_Away_5_5_Over = GenerateGeneralCornerComparison(list10PerformanceDataGeneral, "Corner_Away_5_5_Over", teamSide),
+
+                    Corner_Home_3_5_Over = GenerateGeneralCornerComparison(list10PerformanceDataGeneral, "Corner_Home_3_5_Over", teamSide),
+                    Corner_Home_4_5_Over = GenerateGeneralCornerComparison(list10PerformanceDataGeneral, "Corner_Home_4_5_Over", teamSide),
+                    Corner_Home_5_5_Over = GenerateGeneralCornerComparison(list10PerformanceDataGeneral, "Corner_Home_5_5_Over", teamSide),
+
+                    Corner_7_5_Over = GenerateGeneralCornerComparison(list10PerformanceDataGeneral, "Corner_7_5_Over", teamSide),
+                    Corner_8_5_Over = GenerateGeneralCornerComparison(list10PerformanceDataGeneral, "Corner_8_5_Over", teamSide),
+                    Corner_9_5_Over = GenerateGeneralCornerComparison(list10PerformanceDataGeneral, "Corner_9_5_Over", teamSide),
 
                     Away_FT_05_Over = GenerateGeneralComparison(list10PerformanceDataGeneral, "Away_FT_05_Over", teamSide),
                     Away_FT_15_Over = GenerateGeneralComparison(list10PerformanceDataGeneral, "Away_FT_15_Over", teamSide),
@@ -1016,7 +1072,19 @@ namespace SBA.Business.BusinessHelper
                     FT_Result = GenerateGeneralComparison(list10PerformanceDataGeneral, "FT_Result", teamSide),
                     HT_Result = GenerateGeneralComparison(list10PerformanceDataGeneral, "HT_Result", teamSide),
                     HT_FT_Result = GenerateGeneralComparison(list10PerformanceDataGeneral, "HT_FT_Result", teamSide),
-                    SH_Result = GenerateGeneralComparison(list10PerformanceDataGeneral, "SH_Result", teamSide)
+                    SH_Result = GenerateGeneralComparison(list10PerformanceDataGeneral, "SH_Result", teamSide),
+                    Is_FT_Win1 = GenerateGeneralComparison(list10PerformanceDataGeneral, "Is_FT_Win1", teamSide),
+                    Is_FT_X = GenerateGeneralComparison(list10PerformanceDataGeneral, "Is_FT_X", teamSide),
+                    Is_FT_Win2 = GenerateGeneralComparison(list10PerformanceDataGeneral, "Is_FT_Win2", teamSide),
+                    Is_HT_Win1 = GenerateGeneralComparison(list10PerformanceDataGeneral, "Is_HT_Win1", teamSide),
+                    Is_HT_X = GenerateGeneralComparison(list10PerformanceDataGeneral, "Is_HT_X", teamSide),
+                    Is_HT_Win2 = GenerateGeneralComparison(list10PerformanceDataGeneral, "Is_HT_Win2", teamSide),
+                    Is_SH_Win1 = GenerateGeneralComparison(list10PerformanceDataGeneral, "Is_SH_Win1", teamSide),
+                    Is_SH_X = GenerateGeneralComparison(list10PerformanceDataGeneral, "Is_SH_X", teamSide),
+                    Is_SH_Win2 = GenerateGeneralComparison(list10PerformanceDataGeneral, "Is_SH_Win2", teamSide),
+                    Is_Corner_FT_Win1 = GenerateGeneralCornerComparison(list10PerformanceDataGeneral, "Is_Corner_FT_Win1", teamSide),
+                    Is_Corner_FT_X = GenerateGeneralCornerComparison(list10PerformanceDataGeneral, "Is_Corner_FT_X", teamSide),
+                    Is_Corner_FT_Win2 = GenerateGeneralCornerComparison(list10PerformanceDataGeneral, "Is_Corner_FT_Win2", teamSide)
                 };
 
                 return result;
@@ -1026,136 +1094,6 @@ namespace SBA.Business.BusinessHelper
                 return null;
             }
             
-        }
-
-        public static FormPerformanceGuessContainer GetFormPerformanceProfiler_TEST(string serial, IMatchBetService matchBetService, CountryContainerTemp containerTemp, TeamSide teamSide)
-        {
-            var url = string.Format("{0}{1}", _defaultMatchUrl, serial);
-
-            var result = new FormPerformanceGuessContainer();
-
-            var minifiedSrc = _webOperator.GetMinifiedStringAsync(url).Result;
-
-            if (string.IsNullOrEmpty(minifiedSrc)) return null;
-
-            var regxCountryAndLeagueName = new Regex(PatternConstant.UnstartedMatchPattern.CountryAndLeague);
-            var regxTeamName = teamSide == TeamSide.Away
-                ? new Regex(PatternConstant.UnstartedMatchPattern.AwayTeam)
-                : new Regex(PatternConstant.UnstartedMatchPattern.HomeTeam);
-
-            var unchangableTeam = minifiedSrc.ResolveTextByRegex(regxTeamName);
-            var countryName = minifiedSrc.ResolveCountryByRegex(containerTemp, regxCountryAndLeagueName);
-
-            if (teamSide == TeamSide.Away)
-                result.Away = unchangableTeam;
-            else
-                result.Home = unchangableTeam;
-
-            ////////////////////// Home Away
-
-            var latest6GamesMatchBet = teamSide == TeamSide.Away
-                ? matchBetService.GetMatchBetQueryModels(countryName, unchangableTeam, 6, x => x.AwayTeam == unchangableTeam && x.MatchDate < DateTime.Now.AddDays(-10)).Data
-                : matchBetService.GetMatchBetQueryModels(countryName, unchangableTeam, 6, x => x.HomeTeam == unchangableTeam && x.MatchDate < DateTime.Now.AddDays(-10)).Data;
-
-            if (latest6GamesMatchBet == null) return null;
-            if (latest6GamesMatchBet.Count < 6) return null;
-
-            var list6PerformanceData = _proceeder.SelectListPerformanceDataContainers(latest6GamesMatchBet, teamSide, unchangableTeam);
-
-            result.HomeAway = new GuessModel
-            {
-                CountFound = GetBeSideCountFound(list6PerformanceData, teamSide),
-                Average_FT_Goals_AwayTeam = GenerateHomeAwayGoalsAverage(list6PerformanceData, "FT_Goals_AwayTeam", teamSide),
-                Average_FT_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(list6PerformanceData, "FT_Goals_HomeTeam", teamSide),
-                Average_HT_Goals_AwayTeam = GenerateHomeAwayGoalsAverage(list6PerformanceData, "HT_Goals_AwayTeam", teamSide),
-                Average_HT_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(list6PerformanceData, "HT_Goals_HomeTeam", teamSide),
-                Average_SH_Goals_AwayTeam = GenerateHomeAwayGoalsAverage(list6PerformanceData, "SH_Goals_AwayTeam", teamSide),
-                Average_SH_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(list6PerformanceData, "SH_Goals_HomeTeam", teamSide),
-
-                Away_FT_05_Over = GenerateBySideComparison(list6PerformanceData, "Away_FT_05_Over", teamSide),
-                Away_FT_15_Over = GenerateBySideComparison(list6PerformanceData, "Away_FT_15_Over", teamSide),
-                Away_HT_05_Over = GenerateBySideComparison(list6PerformanceData, "Away_HT_05_Over", teamSide),
-                Away_HT_15_Over = GenerateBySideComparison(list6PerformanceData, "Away_HT_15_Over", teamSide),
-                Away_SH_05_Over = GenerateBySideComparison(list6PerformanceData, "Away_SH_05_Over", teamSide),
-                Away_SH_15_Over = GenerateBySideComparison(list6PerformanceData, "Away_SH_15_Over", teamSide),
-                Away_Win_Any_Half = GenerateBySideComparison(list6PerformanceData, "Away_Win_Any_Half", teamSide),
-                Home_FT_05_Over = GenerateBySideComparison(list6PerformanceData, "Home_FT_05_Over", teamSide),
-                Home_FT_15_Over = GenerateBySideComparison(list6PerformanceData, "Home_FT_15_Over", teamSide),
-                Home_HT_05_Over = GenerateBySideComparison(list6PerformanceData, "Home_HT_05_Over", teamSide),
-                Home_HT_15_Over = GenerateBySideComparison(list6PerformanceData, "Home_HT_15_Over", teamSide),
-                Home_SH_05_Over = GenerateBySideComparison(list6PerformanceData, "Home_SH_05_Over", teamSide),
-                Home_SH_15_Over = GenerateBySideComparison(list6PerformanceData, "Home_SH_15_Over", teamSide),
-                Home_Win_Any_Half = GenerateBySideComparison(list6PerformanceData, "Home_Win_Any_Half", teamSide),
-                FT_15_Over = GenerateBySideComparison(list6PerformanceData, "FT_15_Over", teamSide),
-                FT_25_Over = GenerateBySideComparison(list6PerformanceData, "FT_25_Over", teamSide),
-                FT_35_Over = GenerateBySideComparison(list6PerformanceData, "FT_35_Over", teamSide),
-                FT_GG = GenerateBySideComparison(list6PerformanceData, "FT_GG", teamSide),
-                HT_GG = GenerateBySideComparison(list6PerformanceData, "HT_GG", teamSide),
-                SH_GG = GenerateBySideComparison(list6PerformanceData, "SH_GG", teamSide),
-                HT_05_Over = GenerateBySideComparison(list6PerformanceData, "HT_05_Over", teamSide),
-                HT_15_Over = GenerateBySideComparison(list6PerformanceData, "HT_15_Over", teamSide),
-                SH_05_Over = GenerateBySideComparison(list6PerformanceData, "SH_05_Over", teamSide),
-                SH_15_Over = GenerateBySideComparison(list6PerformanceData, "SH_15_Over", teamSide),
-                MoreGoalsBetweenTimes = GenerateBySideComparison(list6PerformanceData, "MoreGoalsBetweenTimes", teamSide),
-                Total_BetweenGoals = GenerateBySideComparison(list6PerformanceData, "Total_BetweenGoals", teamSide),
-                FT_Result = GenerateBySideComparison(list6PerformanceData, "FT_Result", teamSide),
-                HT_Result = GenerateBySideComparison(list6PerformanceData, "HT_Result", teamSide),
-                HT_FT_Result = GenerateBySideComparison(list6PerformanceData, "HT_FT_Result", teamSide),
-                SH_Result = GenerateBySideComparison(list6PerformanceData, "SH_Result", teamSide)
-            };
-
-            ////////////////// General
-
-            var latest10GamesMatchBetGeneral = matchBetService.GetMatchBetQueryModels(countryName, unchangableTeam, 10, x => x.MatchDate < DateTime.Now.AddDays(-10)).Data;
-
-            if (latest10GamesMatchBetGeneral == null) return null;
-            if (latest10GamesMatchBetGeneral.Count < 10) return null;
-
-            var list10PerformanceDataGeneral = _proceeder.SelectListPerformanceDataContainers(latest10GamesMatchBetGeneral, teamSide, unchangableTeam);
-
-            result.General = new GuessModel
-            {
-                CountFound = GetGeneralCountFound(list10PerformanceDataGeneral, teamSide),
-                Average_FT_Goals_AwayTeam = GenerateGeneralGoalsAverage(list10PerformanceDataGeneral, "FT_Goals_AwayTeam", teamSide),
-                Average_FT_Goals_HomeTeam = GenerateGeneralGoalsAverage(list10PerformanceDataGeneral, "FT_Goals_HomeTeam", teamSide),
-                Average_HT_Goals_AwayTeam = GenerateGeneralGoalsAverage(list10PerformanceDataGeneral, "HT_Goals_AwayTeam", teamSide),
-                Average_HT_Goals_HomeTeam = GenerateGeneralGoalsAverage(list10PerformanceDataGeneral, "HT_Goals_HomeTeam", teamSide),
-                Average_SH_Goals_AwayTeam = GenerateGeneralGoalsAverage(list10PerformanceDataGeneral, "SH_Goals_AwayTeam", teamSide),
-                Average_SH_Goals_HomeTeam = GenerateGeneralGoalsAverage(list10PerformanceDataGeneral, "SH_Goals_HomeTeam", teamSide),
-
-                Away_FT_05_Over = GenerateGeneralComparison(list10PerformanceDataGeneral, "Away_FT_05_Over", teamSide),
-                Away_FT_15_Over = GenerateGeneralComparison(list10PerformanceDataGeneral, "Away_FT_15_Over", teamSide),
-                Away_HT_05_Over = GenerateGeneralComparison(list10PerformanceDataGeneral, "Away_HT_05_Over", teamSide),
-                Away_HT_15_Over = GenerateGeneralComparison(list10PerformanceDataGeneral, "Away_HT_15_Over", teamSide),
-                Away_SH_05_Over = GenerateGeneralComparison(list10PerformanceDataGeneral, "Away_SH_05_Over", teamSide),
-                Away_SH_15_Over = GenerateGeneralComparison(list10PerformanceDataGeneral, "Away_SH_15_Over", teamSide),
-                Away_Win_Any_Half = GenerateGeneralComparison(list10PerformanceDataGeneral, "Away_Win_Any_Half", teamSide),
-                Home_FT_05_Over = GenerateGeneralComparison(list10PerformanceDataGeneral, "Home_FT_05_Over", teamSide),
-                Home_FT_15_Over = GenerateGeneralComparison(list10PerformanceDataGeneral, "Home_FT_15_Over", teamSide),
-                Home_HT_05_Over = GenerateGeneralComparison(list10PerformanceDataGeneral, "Home_HT_05_Over", teamSide),
-                Home_HT_15_Over = GenerateGeneralComparison(list10PerformanceDataGeneral, "Home_HT_15_Over", teamSide),
-                Home_SH_05_Over = GenerateGeneralComparison(list10PerformanceDataGeneral, "Home_SH_05_Over", teamSide),
-                Home_SH_15_Over = GenerateGeneralComparison(list10PerformanceDataGeneral, "Home_SH_15_Over", teamSide),
-                Home_Win_Any_Half = GenerateGeneralComparison(list10PerformanceDataGeneral, "Home_Win_Any_Half", teamSide),
-                FT_15_Over = GenerateGeneralComparison(list10PerformanceDataGeneral, "FT_15_Over", teamSide),
-                FT_25_Over = GenerateGeneralComparison(list10PerformanceDataGeneral, "FT_25_Over", teamSide),
-                FT_35_Over = GenerateGeneralComparison(list10PerformanceDataGeneral, "FT_35_Over", teamSide),
-                FT_GG = GenerateGeneralComparison(list10PerformanceDataGeneral, "FT_GG", teamSide),
-                HT_GG = GenerateGeneralComparison(list10PerformanceDataGeneral, "HT_GG", teamSide),
-                SH_GG = GenerateGeneralComparison(list10PerformanceDataGeneral, "SH_GG", teamSide),
-                HT_05_Over = GenerateGeneralComparison(list10PerformanceDataGeneral, "HT_05_Over", teamSide),
-                HT_15_Over = GenerateGeneralComparison(list10PerformanceDataGeneral, "HT_15_Over", teamSide),
-                SH_05_Over = GenerateGeneralComparison(list10PerformanceDataGeneral, "SH_05_Over", teamSide),
-                SH_15_Over = GenerateGeneralComparison(list10PerformanceDataGeneral, "SH_15_Over", teamSide),
-                MoreGoalsBetweenTimes = GenerateGeneralComparison(list10PerformanceDataGeneral, "MoreGoalsBetweenTimes", teamSide),
-                Total_BetweenGoals = GenerateGeneralComparison(list10PerformanceDataGeneral, "Total_BetweenGoals", teamSide),
-                FT_Result = GenerateGeneralComparison(list10PerformanceDataGeneral, "FT_Result", teamSide),
-                HT_Result = GenerateGeneralComparison(list10PerformanceDataGeneral, "HT_Result", teamSide),
-                HT_FT_Result = GenerateGeneralComparison(list10PerformanceDataGeneral, "HT_FT_Result", teamSide),
-                SH_Result = GenerateGeneralComparison(list10PerformanceDataGeneral, "SH_Result", teamSide)
-            };
-
-            return result;
         }
 
         public static ComparisonGuessContainer GetComparisonProfilerResult(string serial, TeamSide teamSide)
@@ -1266,30 +1204,41 @@ namespace SBA.Business.BusinessHelper
         }
 
 
-        public static ComparisonGuessContainer GetComparisonProfilerResult_TEST(string serial, TeamSide teamSide)
+
+        public static ComparisonGuessContainer GetComparisonOnlyDbProfilerResult(string serial, IMatchBetService matchBetService, IFilterResultService filterResultService, CountryContainerTemp countryContainerTemp, TeamSide teamSide)
         {
-            var comparisonContainer = _proceeder.SelectListComparisonInfoBetweenTeams_TEST(serial);
+            var comparisonContainer = _proceeder.SelectListComparisonInfoFromDbBetweenTeams(serial, matchBetService, filterResultService, countryContainerTemp);
 
             try
             {
-                var generatedComparison = GenerateBySideComparison(comparisonContainer, "CountryName", teamSide);
-
-                if (generatedComparison == null) return null;
-
-                var result = comparisonContainer != null ? new ComparisonGuessContainer
+                var result = comparisonContainer != null && comparisonContainer.Any() && comparisonContainer.Count >= 4 ? new ComparisonGuessContainer
                 {
                     Away = comparisonContainer[0].UnchangableAwayTeam,
                     Home = comparisonContainer[0].UnchangableHomeTeam,
-                    CountryName = generatedComparison.FeatureName,
+                    CountryName = GenerateBySideComparison(comparisonContainer, "CountryName", teamSide).FeatureName,
                     HomeAway = new GuessModel
                     {
                         CountFound = GetBeSideCountFound(comparisonContainer, teamSide),
-                        Average_FT_Goals_AwayTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "FT_Goals_AwayTeam", teamSide),
-                        Average_FT_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "FT_Goals_HomeTeam", teamSide),
-                        Average_HT_Goals_AwayTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "HT_Goals_AwayTeam", teamSide),
-                        Average_HT_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "HT_Goals_HomeTeam", teamSide),
-                        Average_SH_Goals_AwayTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "SH_Goals_AwayTeam", teamSide),
-                        Average_SH_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "SH_Goals_HomeTeam", teamSide),
+                        Average_FT_Goals_AwayTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "FT_Goals_AwayTeam", TeamSide.Away),
+                        Average_FT_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "FT_Goals_HomeTeam", TeamSide.Home),
+                        Average_HT_Goals_AwayTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "HT_Goals_AwayTeam", TeamSide.Away),
+                        Average_HT_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "HT_Goals_HomeTeam", TeamSide.Home),
+                        Average_SH_Goals_AwayTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "SH_Goals_AwayTeam", TeamSide.Away),
+                        Average_SH_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "SH_Goals_HomeTeam", TeamSide.Home),
+                        Average_FT_Corners_AwayTeam = GenerateHomeAwayCornersAverage(comparisonContainer, "AwayCornersCount", TeamSide.Away),
+                        Average_FT_Corners_HomeTeam = GenerateHomeAwayCornersAverage(comparisonContainer, "HomeCornersCount", TeamSide.Home),
+
+                        Corner_Away_3_5_Over = GenerateBySideCornerComparison(comparisonContainer, "Corner_Away_3_5_Over", teamSide),
+                        Corner_Away_4_5_Over = GenerateBySideCornerComparison(comparisonContainer, "Corner_Away_4_5_Over", teamSide),
+                        Corner_Away_5_5_Over = GenerateBySideCornerComparison(comparisonContainer, "Corner_Away_5_5_Over", teamSide),
+
+                        Corner_Home_3_5_Over = GenerateBySideCornerComparison(comparisonContainer, "Corner_Home_3_5_Over", teamSide),
+                        Corner_Home_4_5_Over = GenerateBySideCornerComparison(comparisonContainer, "Corner_Home_4_5_Over", teamSide),
+                        Corner_Home_5_5_Over = GenerateBySideCornerComparison(comparisonContainer, "Corner_Home_5_5_Over", teamSide),
+                        
+                        Corner_7_5_Over = GenerateBySideCornerComparison(comparisonContainer, "Corner_7_5_Over", teamSide),
+                        Corner_8_5_Over = GenerateBySideCornerComparison(comparisonContainer, "Corner_8_5_Over", teamSide),
+                        Corner_9_5_Over = GenerateBySideCornerComparison(comparisonContainer, "Corner_9_5_Over", teamSide),
 
                         Away_FT_05_Over = GenerateBySideComparison(comparisonContainer, "Away_FT_05_Over", teamSide),
                         Away_FT_15_Over = GenerateBySideComparison(comparisonContainer, "Away_FT_15_Over", teamSide),
@@ -1320,7 +1269,19 @@ namespace SBA.Business.BusinessHelper
                         FT_Result = GenerateBySideComparison(comparisonContainer, "FT_Result", teamSide),
                         HT_Result = GenerateBySideComparison(comparisonContainer, "HT_Result", teamSide),
                         HT_FT_Result = GenerateBySideComparison(comparisonContainer, "HT_FT_Result", teamSide),
-                        SH_Result = GenerateBySideComparison(comparisonContainer, "SH_Result", teamSide)
+                        SH_Result = GenerateBySideComparison(comparisonContainer, "SH_Result", teamSide),
+                        Is_FT_Win1 = GenerateBySideComparison(comparisonContainer, "Is_FT_Win1", teamSide),
+                        Is_FT_X = GenerateBySideComparison(comparisonContainer, "Is_FT_X", teamSide),
+                        Is_FT_Win2 = GenerateBySideComparison(comparisonContainer, "Is_FT_Win2", teamSide),
+                        Is_HT_Win1 = GenerateBySideComparison(comparisonContainer, "Is_HT_Win1", teamSide),
+                        Is_HT_X = GenerateBySideComparison(comparisonContainer, "Is_HT_X", teamSide),
+                        Is_HT_Win2 = GenerateBySideComparison(comparisonContainer, "Is_HT_Win2", teamSide),
+                        Is_SH_Win1 = GenerateBySideComparison(comparisonContainer, "Is_SH_Win1", teamSide),
+                        Is_SH_X = GenerateBySideComparison(comparisonContainer, "Is_SH_X", teamSide),
+                        Is_SH_Win2 = GenerateBySideComparison(comparisonContainer, "Is_SH_Win2", teamSide),
+                        Is_Corner_FT_Win1 = GenerateBySideCornerComparison(comparisonContainer, "Is_Corner_FT_Win1", teamSide),
+                        Is_Corner_FT_X = GenerateBySideCornerComparison(comparisonContainer, "Is_Corner_FT_X", teamSide),
+                        Is_Corner_FT_Win2 = GenerateBySideCornerComparison(comparisonContainer, "Is_Corner_FT_Win2", teamSide)
                     },
                     General = new GuessModel
                     {
@@ -1331,6 +1292,20 @@ namespace SBA.Business.BusinessHelper
                         Average_HT_Goals_HomeTeam = GenerateGeneralGoalsAverage(comparisonContainer, "HT_Goals_HomeTeam", teamSide),
                         Average_SH_Goals_AwayTeam = GenerateGeneralGoalsAverage(comparisonContainer, "SH_Goals_AwayTeam", teamSide),
                         Average_SH_Goals_HomeTeam = GenerateGeneralGoalsAverage(comparisonContainer, "SH_Goals_HomeTeam", teamSide),
+                        Average_FT_Corners_AwayTeam = GenerateGeneralCornersAverage(comparisonContainer, "AwayCornersCount", teamSide),
+                        Average_FT_Corners_HomeTeam = GenerateGeneralCornersAverage(comparisonContainer, "HomeCornersCount", teamSide),
+
+                        Corner_Away_3_5_Over = GenerateGeneralCornerComparison(comparisonContainer, "Corner_Away_3_5_Over", teamSide),
+                        Corner_Away_4_5_Over = GenerateGeneralCornerComparison(comparisonContainer, "Corner_Away_4_5_Over", teamSide),
+                        Corner_Away_5_5_Over = GenerateGeneralCornerComparison(comparisonContainer, "Corner_Away_5_5_Over", teamSide),
+
+                        Corner_Home_3_5_Over = GenerateGeneralCornerComparison(comparisonContainer, "Corner_Home_3_5_Over", teamSide),
+                        Corner_Home_4_5_Over = GenerateGeneralCornerComparison(comparisonContainer, "Corner_Home_4_5_Over", teamSide),
+                        Corner_Home_5_5_Over = GenerateGeneralCornerComparison(comparisonContainer, "Corner_Home_5_5_Over", teamSide),
+
+                        Corner_7_5_Over = GenerateGeneralCornerComparison(comparisonContainer, "Corner_7_5_Over", teamSide),
+                        Corner_8_5_Over = GenerateGeneralCornerComparison(comparisonContainer, "Corner_8_5_Over", teamSide),
+                        Corner_9_5_Over = GenerateGeneralCornerComparison(comparisonContainer, "Corner_9_5_Over", teamSide),
 
                         Away_FT_05_Over = GenerateGeneralComparison(comparisonContainer, "Away_FT_05_Over", teamSide),
                         Away_FT_15_Over = GenerateGeneralComparison(comparisonContainer, "Away_FT_15_Over", teamSide),
@@ -1361,18 +1336,122 @@ namespace SBA.Business.BusinessHelper
                         FT_Result = GenerateGeneralComparison(comparisonContainer, "FT_Result", teamSide),
                         HT_Result = GenerateGeneralComparison(comparisonContainer, "HT_Result", teamSide),
                         HT_FT_Result = GenerateGeneralComparison(comparisonContainer, "HT_FT_Result", teamSide),
-                        SH_Result = GenerateGeneralComparison(comparisonContainer, "SH_Result", teamSide)
+                        SH_Result = GenerateGeneralComparison(comparisonContainer, "SH_Result", teamSide),
+                        Is_FT_Win1 = GenerateGeneralComparison(comparisonContainer, "Is_FT_Win1", teamSide),
+                        Is_FT_X = GenerateGeneralComparison(comparisonContainer, "Is_FT_X", teamSide),
+                        Is_FT_Win2 = GenerateGeneralComparison(comparisonContainer, "Is_FT_Win2", teamSide),
+                        Is_HT_Win1 = GenerateGeneralComparison(comparisonContainer, "Is_HT_Win1", teamSide),
+                        Is_HT_X = GenerateGeneralComparison(comparisonContainer, "Is_HT_X", teamSide),
+                        Is_HT_Win2 = GenerateGeneralComparison(comparisonContainer, "Is_HT_Win2", teamSide),
+                        Is_SH_Win1 = GenerateGeneralComparison(comparisonContainer, "Is_SH_Win1", teamSide),
+                        Is_SH_X = GenerateGeneralComparison(comparisonContainer, "Is_SH_X", teamSide),
+                        Is_SH_Win2 = GenerateGeneralComparison(comparisonContainer, "Is_SH_Win2", teamSide),
+                        Is_Corner_FT_Win1 = GenerateGeneralCornerComparison(comparisonContainer, "Is_Corner_FT_Win1", teamSide),
+                        Is_Corner_FT_X = GenerateGeneralCornerComparison(comparisonContainer, "Is_Corner_FT_X", teamSide),
+                        Is_Corner_FT_Win2 = GenerateGeneralCornerComparison(comparisonContainer, "Is_Corner_FT_Win2", teamSide)
                     },
 
                     Serial = serial
                 } : null;
 
                 return result;
+
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }
+        }
+
+        public static FilterResult GenerateFilterResultCornersAndFT(FilterResult fResult)
+        {
+            var webOperation = new WebOperation();
+
+            fResult.Is_FT_Win1 = fResult.FT_Result == 1;
+            fResult.Is_FT_Win2 = fResult.FT_Result == 2;
+            fResult.Is_FT_X = fResult.FT_Result == 9;
+
+            fResult.Is_HT_Win1 = fResult.HT_Result == 1;
+            fResult.Is_HT_Win2 = fResult.HT_Result == 2;
+            fResult.Is_HT_X = fResult.HT_Result == 9;
+
+            fResult.Is_SH_Win1 = fResult.SH_Result == 1;
+            fResult.Is_SH_Win2 = fResult.SH_Result == 2;
+            fResult.Is_SH_X = fResult.SH_Result == 9;
+
+            var src = webOperation.GetMinifiedString($"https://arsiv.mackolik.com/Match/Default.aspx?id={fResult.SerialUniqueID}#mac-bilgisi");
+            var regexKorner2 = new Regex(">Korner<[\\s\\S]*?class=team-2-statistics-text[\\s\\S]*?>[\\s\\S]*?(.+?(?=<))");
+            var firstSrcPart = src.Split(">Korner<")[0];
+
+            var korner1 = "";
+            var korner2 = "";
+
+            try
+            {
+                korner1 = firstSrcPart.Substring(firstSrcPart.Length - 40, 1);
+                if (korner1.Trim() == ">")
+                {
+                    korner1 = firstSrcPart.Substring(firstSrcPart.Length - 39, 1);
+                }
+                else
+                {
+                    korner1 = firstSrcPart.Substring(firstSrcPart.Length - 40, 2);
+                }
+                korner2 = regexKorner2.Matches(src)[0].Groups[1].Value;// 5
+            }
+            catch (Exception)
+            {
+                try
+                {
+                    regexKorner2 = new Regex(">Köşe Vuruşu<[\\s\\S]*?class=team-2-statistics-text[\\s\\S]*?>[\\s\\S]*?(.+?(?=<))");
+                    firstSrcPart = src.Split(">Köşe Vuruşu<")[0];
+                    korner1 = firstSrcPart.Substring(firstSrcPart.Length - 40, 1);
+                    if (korner1.Trim() == ">")
+                    {
+                        korner1 = firstSrcPart.Substring(firstSrcPart.Length - 39, 1);
+                    }
+                    else
+                    {
+                        korner1 = firstSrcPart.Substring(firstSrcPart.Length - 40, 2);
+                    }
+                    korner2 = regexKorner2.Matches(src)[0].Groups[1].Value;
+                }
+                catch (Exception)
+                {
+                    return fResult;
+                }
+            }
+
+            int crn1 = 0;
+            int crn2 = 0;
+
+            try
+            {
+                crn1 = Convert.ToInt32(korner1);
+                crn2 = Convert.ToInt32(korner2);
+            }
+            catch (Exception)
+            {
+                return fResult;
+            }
+
+            fResult.HomeCornerCount = crn1;
+            fResult.AwayCornerCount = crn2;
+            fResult.Corner_Home_3_5_Over = crn1 > 3;
+            fResult.Corner_Home_4_5_Over = crn1 > 4;
+            fResult.Corner_Home_5_5_Over = crn1 > 5;
+            fResult.Corner_Away_3_5_Over = crn2 > 3;
+            fResult.Corner_Away_4_5_Over = crn2 > 4;
+            fResult.Corner_Away_5_5_Over = crn2 > 5;
+            fResult.Is_Corner_FT_Win1 = crn1 > crn2;
+            fResult.Is_Corner_FT_X = crn1 == crn2;
+            fResult.Is_Corner_FT_Win2 = crn1 < crn2;
+            fResult.Corner_7_5_Over = (crn1 + crn2) > 7;
+            fResult.Corner_8_5_Over = (crn1 + crn2) > 8;
+            fResult.Corner_9_5_Over = (crn1 + crn2) > 9;
+            fResult.IsCornerFound = true;
+
+            return fResult;
         }
 
 
@@ -1433,6 +1512,77 @@ namespace SBA.Business.BusinessHelper
             }
         }
 
+
+        private static PercentageComplainer GenerateGeneralCornerComparison<T>(List<T> listContainers, string propertyName, TeamSide teamSide)
+            where T : BaseComparerContainerModel, new()
+        {
+            PercentageComplainer result = null;
+
+            if (listContainers.Count != listContainers.Count(x=>x.HasCorner))
+            {
+                return new PercentageComplainer
+                {
+                    CountAll = -9999,
+                    CountFound = -9999,
+                    FeatureName = "NONE",
+                    Percentage = -9999,
+                    PropertyName = propertyName
+                };
+            }
+
+            if (listContainers == null || listContainers.Count == 0) return result;
+
+            var mixedData = _quickConvertService.MixRange(listContainers, teamSide);
+
+            try
+            {
+                if (teamSide == TeamSide.Away)
+                {
+                    var awaySideListContainers = mixedData.Where(x => x.AwayTeam == x.UnchangableAwayTeam);
+
+                    if (awaySideListContainers.Any())
+                    {
+                        result = awaySideListContainers
+                .GroupBy(x => x.GetType().GetProperty(propertyName).GetValue(x, null))
+                .Select(g =>
+                          new PercentageComplainer
+                          {
+                              Percentage = g.Count() * 100 / awaySideListContainers.Count(),
+                              CountFound = g.Count(),
+                              CountAll = awaySideListContainers.Count(),
+                              FeatureName = g.Key.ToString(),
+                              PropertyName = propertyName
+                          }).ToList().OrderByDescending(x => x.Percentage).ToList()[0];
+                    }
+                }
+                else
+                {
+                    var homeSideListContainers = mixedData.Where(x => x.HomeTeam == x.UnchangableHomeTeam);
+                    if (homeSideListContainers.Any())
+                    {
+                        result = homeSideListContainers
+                .GroupBy(x => x.GetType().GetProperty(propertyName).GetValue(x, null))
+                .Select(g =>
+                          new PercentageComplainer
+                          {
+                              Percentage = g.Count() * 100 / homeSideListContainers.Count(),
+                              CountFound = g.Count(),
+                              CountAll = homeSideListContainers.Count(),
+                              FeatureName = g.Key.ToString(),
+                              PropertyName = propertyName
+                          }).ToList().OrderByDescending(x => x.Percentage).ToList()[0];
+                    }
+                }
+
+                return result;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+
         private static PercentageComplainer GenerateBySideComparison<T>(List<T> listContainers, string propertyName, TeamSide teamSide)
             where T : BaseComparerContainerModel, new()
         {
@@ -1488,9 +1638,94 @@ namespace SBA.Business.BusinessHelper
             }
         }
 
+
+        private static PercentageComplainer GenerateBySideCornerComparison<T>(List<T> listContainers, string propertyName, TeamSide teamSide)
+            where T : BaseComparerContainerModel, new()
+        {
+            PercentageComplainer result = null;
+
+            if (listContainers.Count != listContainers.Count(x => x.HasCorner))
+            {
+                return new PercentageComplainer
+                {
+                    CountAll = -9999,
+                    CountFound = -9999,
+                    FeatureName = "NONE",
+                    Percentage = -9999,
+                    PropertyName = propertyName
+                };
+            }
+
+            if (listContainers == null || listContainers.Count == 0) return result;
+
+            try
+            {
+                if (teamSide == TeamSide.Away)
+                {
+                    var awaySideListContainers = listContainers.Where(x => x.AwayTeam == x.UnchangableAwayTeam);
+
+                    if (awaySideListContainers.Any())
+                    {
+                        result = awaySideListContainers
+                .GroupBy(x => x.GetType().GetProperty(propertyName).GetValue(x, null))
+                .Select(g =>
+                          new PercentageComplainer
+                          {
+                              Percentage = g.Count() * 100 / awaySideListContainers.Count(),
+                              CountFound = g.Count(),
+                              CountAll = awaySideListContainers.Count(),
+                              FeatureName = g.Key.ToString(),
+                              PropertyName = propertyName
+                          }).ToList().OrderByDescending(x => x.Percentage).ToList()[0];
+                    }
+                }
+                else
+                {
+                    var homeSideListContainers = listContainers.Where(x => x.HomeTeam == x.UnchangableHomeTeam);
+                    if (homeSideListContainers.Any())
+                    {
+                        result = homeSideListContainers
+                .GroupBy(x => x.GetType().GetProperty(propertyName).GetValue(x, null))
+                .Select(g =>
+                          new PercentageComplainer
+                          {
+                              Percentage = g.Count() * 100 / homeSideListContainers.Count(),
+                              CountFound = g.Count(),
+                              CountAll = homeSideListContainers.Count(),
+                              FeatureName = g.Key.ToString(),
+                              PropertyName = propertyName
+                          }).ToList().OrderByDescending(x => x.Percentage).ToList()[0];
+                    }
+                }
+
+                return result;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+
         private static decimal GenerateGeneralGoalsAverage<T>(List<T> listContainers, string propertyName, TeamSide teamSide)
             where T : BaseComparerContainerModel, new()
         {
+            if (listContainers == null || listContainers.Count == 0) return (decimal)-1.00;
+
+            var result = (decimal)_quickConvertService.MixRange(listContainers, teamSide)
+                        .Select(x => (int)x.GetType().GetProperty(propertyName).GetValue(x, null))
+                        .Sum() / listContainers.Count();
+
+            return result;
+        }
+
+        private static decimal GenerateGeneralCornersAverage<T>(List<T> listContainers, string propertyName, TeamSide teamSide)
+            where T : BaseComparerContainerModel, new()
+        {
+            if (listContainers.Count != listContainers.Count(x=>x.HasCorner))
+            {
+                return (decimal)-99999.99;
+            }
             if (listContainers == null || listContainers.Count == 0) return (decimal)-1.00;
 
             var result = (decimal)_quickConvertService.MixRange(listContainers, teamSide)
@@ -1531,6 +1766,46 @@ namespace SBA.Business.BusinessHelper
 
             return result;
         }
+
+
+        private static decimal GenerateHomeAwayCornersAverage<T>(List<T> listContainers, string propertyName, TeamSide teamSide)
+            where T : BaseComparerContainerModel, new()
+        {
+            decimal result = -1;
+
+            if(listContainers.Count != listContainers.Count(x => x.HasCorner))
+            {
+                return (decimal)-99999.99;
+            }
+
+            if (listContainers == null || listContainers.Count == 0) return result;
+
+            if (teamSide == TeamSide.Away)
+            {
+                var awaySideListContainers = listContainers.Where(x => x.AwayTeam == x.UnchangableAwayTeam);
+
+                if (awaySideListContainers.Any())
+                {
+                    result = (decimal)awaySideListContainers
+                        .Select(x => (int)x.GetType().GetProperty(propertyName).GetValue(x, null))
+                        .Sum() / awaySideListContainers.Count();
+                }
+            }
+            else
+            {
+                var homeSideListContainers = listContainers.Where(x => x.HomeTeam == x.UnchangableHomeTeam);
+
+                if (homeSideListContainers.Any())
+                {
+                    result = (decimal)homeSideListContainers
+                        .Select(x => (int)x.GetType().GetProperty(propertyName).GetValue(x, null))
+                        .Sum() / homeSideListContainers.Count();
+                }
+            }
+
+            return result;
+        }
+
 
         private static int GetGeneralCountFound<T>(List<T> listContainers, TeamSide teamSide)
             where T : BaseComparerContainerModel, new()

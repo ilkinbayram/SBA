@@ -13,6 +13,8 @@ namespace SBA.DataAccess.Concrete.EntityFramework.Configurations
 
             builder.Property(x => x.Id).UseIdentityColumn();
             builder.Property(x => x.IsActive).HasDefaultValue(true);
+
+            builder.HasIndex(x => x.SerialUniqueID).IsClustered(false).HasName("IX_SerialUniqueID");
         }
     }
 }

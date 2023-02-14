@@ -103,5 +103,81 @@ namespace Core.Entities.Concrete
 
         [BsonElement("ft_TotalBetween")]
         public int FT_TotalBetween { get; set; }
+
+        [BsonElement("isCornerFound")]
+        public bool IsCornerFound { get; set; }
+
+        [BsonElement("corner_7_5_Over")]
+        public bool Corner_7_5_Over { get; set; }
+
+        [BsonElement("corner_8_5_Over")]
+        public bool Corner_8_5_Over { get; set; }
+
+        [BsonElement("corner_9_5_Over")]
+        public bool Corner_9_5_Over { get; set; }
+
+        [BsonElement("corner_Home_3_5_Over")]
+        public bool Corner_Home_3_5_Over { get; set; }
+
+        [BsonElement("corner_Home_4_5_Over")]
+        public bool Corner_Home_4_5_Over { get; set; }
+
+        [BsonElement("corner_Home_5_5_Over")]
+        public bool Corner_Home_5_5_Over { get; set; }
+
+        [BsonElement("corner_Away_3_5_Over")]
+        public bool Corner_Away_3_5_Over { get; set; }
+
+        [BsonElement("corner_Away_4_5_Over")]
+        public bool Corner_Away_4_5_Over { get; set; }
+
+        [BsonElement("corner_Away_5_5_Over")]
+        public bool Corner_Away_5_5_Over { get; set; }
+
+        [BsonElement("homeCornerCount")]
+        public int HomeCornerCount { get; set; }
+
+        [BsonElement("awayCornerCount")]
+        public int AwayCornerCount { get; set; }
+
+
+        [BsonElement("is_Corner_FT_Win1")]
+        public bool Is_Corner_FT_Win1 { get; set; }
+
+        [BsonElement("is_Corner_FT_X")]
+        public bool Is_Corner_FT_X { get; set; }
+
+        [BsonElement("is_Corner_FT_Win2")]
+        public bool Is_Corner_FT_Win2 { get; set; }
+
+
+        [BsonElement("is_FT_Win1")]
+        public bool Is_FT_Win1 { get; set; }
+
+        [BsonElement("is_FT_X")]
+        public bool Is_FT_X { get; set; }
+
+        [BsonElement("is_FT_Win2")]
+        public bool Is_FT_Win2 { get; set; }
+
+
+        [BsonElement("is_HT_Win1")]
+        public bool Is_HT_Win1 { get; set; }
+
+        [BsonElement("is_HT_X")]
+        public bool Is_HT_X { get; set; }
+
+        [BsonElement("is_HT_Win2")]
+        public bool Is_HT_Win2 { get; set; }
+
+
+        [BsonElement("is_SH_Win1")]
+        public bool Is_SH_Win1 { get; set; }
+
+        [BsonElement("is_SH_X")]
+        public bool Is_SH_X { get; set; }
+
+        [BsonElement("is_SH_Win2")]
+        public bool Is_SH_Win2 { get; set; }
     }
 }

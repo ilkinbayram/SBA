@@ -9,11 +9,15 @@ namespace Core.Utilities.UsableModel
         {
         }
 
+        public string Serial => this.ComparisonInfoContainer.Serial;
         public TeamPercentageProfiler TeamPercentageProfiler { get; set; }
         public ComparisonGuessContainer ComparisonInfoContainer { get; set; }
+        public ComparisonGuessContainer ComparisonOnlyDB { get; set; }
         public FormPerformanceGuessContainer HomeTeam_FormPerformanceGuessContainer { get; set; }
         public FormPerformanceGuessContainer AwayTeam_FormPerformanceGuessContainer { get; set; }
         public StandingInfoModel StandingInfoModel { get; set; }
+
+        #region ShortProps
 
         public bool Is_GG
         {
@@ -318,8 +322,538 @@ namespace Core.Utilities.UsableModel
             }
         }
 
+        #endregion
 
 
+
+        public AveragePercentageContainer AverageProfiler
+        {
+            get
+            {
+                //return new AveragePercentageContainer();
+                try
+                {
+                    if (this.ComparisonInfoContainer == null || this.ComparisonInfoContainer.General.CountFound < 4)
+                    {
+                        return null;
+                    }
+
+                    if (this.HomeTeam_FormPerformanceGuessContainer == null || this.HomeTeam_FormPerformanceGuessContainer.General.CountFound < 4)
+                    {
+                        return null;
+                    }
+
+                    if (this.AwayTeam_FormPerformanceGuessContainer == null || this.AwayTeam_FormPerformanceGuessContainer.General.CountFound < 4)
+                    {
+                        return null;
+                    }
+
+                    //if (this.StandingInfoModel == null || this.StandingInfoModel.UpTeam == null || this.StandingInfoModel.DownTeam == null)
+                    //{
+                    //    return null;
+                    //}
+
+                    // TODO : Look
+                    return new AveragePercentageContainer
+                    {
+                        Average_HT_Goals_HomeTeam =
+                                Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.Average_HT_Goals_HomeTeam,
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.Average_HT_Goals_HomeTeam),
+                        Average_SH_Goals_HomeTeam =
+                                Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.Average_SH_Goals_HomeTeam,
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.Average_SH_Goals_HomeTeam),
+                        Average_FT_Goals_HomeTeam =
+                                Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.Average_FT_Goals_HomeTeam,
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.Average_FT_Goals_HomeTeam),
+                        Average_FT_Corners_HomeTeam = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "General|Average_FT_Corners_HomeTeam",
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.Average_FT_Corners_HomeTeam),
+                        Home_HT_05_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.Home_HT_05_Over,
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.Home_HT_05_Over),
+                        Home_HT_15_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.Home_HT_15_Over,
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.Home_HT_15_Over),
+                        Home_SH_05_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.Home_SH_05_Over,
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.Home_SH_05_Over),
+                        Home_SH_15_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.Home_SH_15_Over,
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.Home_SH_15_Over),
+                        Home_FT_05_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.Home_FT_05_Over,
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.Home_FT_05_Over),
+                        Home_FT_15_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.Home_FT_15_Over,
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.Home_FT_15_Over),
+                        Corner_Home_3_5_Over = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "General|Corner_Home_3_5_Over",
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.Corner_Home_3_5_Over),
+                        Corner_Home_4_5_Over = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "General|Corner_Home_4_5_Over", 
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.Corner_Home_4_5_Over),
+                        Corner_Home_5_5_Over = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "General|Corner_Home_5_5_Over",
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.Corner_Home_5_5_Over),
+                        Home_Win_Any_Half = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.Home_Win_Any_Half,
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.Home_Win_Any_Half),
+
+                        Average_HT_Goals_AwayTeam =
+                                Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.Average_HT_Goals_AwayTeam,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.Average_HT_Goals_AwayTeam),
+                        Average_SH_Goals_AwayTeam =
+                                Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.Average_SH_Goals_AwayTeam,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.Average_SH_Goals_AwayTeam),
+                        Average_FT_Goals_AwayTeam =
+                                Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.Average_FT_Goals_AwayTeam,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.Average_FT_Goals_AwayTeam),
+                        Average_FT_Corners_AwayTeam = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "General|Average_FT_Corners_AwayTeam",
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.Average_FT_Corners_AwayTeam),
+                        Away_HT_05_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.Away_HT_05_Over,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.Away_HT_05_Over),
+                        Away_HT_15_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.Away_HT_15_Over,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.Away_HT_15_Over),
+                        Away_SH_05_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.Away_SH_05_Over,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.Away_SH_05_Over),
+                        Away_SH_15_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.Away_SH_15_Over,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.Away_SH_15_Over),
+                        Away_FT_05_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.Away_FT_05_Over,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.Away_FT_05_Over),
+                        Away_FT_15_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.Away_FT_15_Over,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.Away_FT_15_Over),
+                        Corner_Away_3_5_Over = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "General|Corner_Away_3_5_Over",
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.Corner_Away_3_5_Over),
+                        Corner_Away_4_5_Over = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "General|Corner_Away_4_5_Over",
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.Corner_Away_4_5_Over),
+                        Corner_Away_5_5_Over = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "General|Corner_Away_5_5_Over",
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.Corner_Away_5_5_Over),
+                        Away_Win_Any_Half = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.Away_Win_Any_Half,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.Away_Win_Any_Half),
+
+                        HT_05_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.HT_05_Over,
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.HT_05_Over,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.HT_05_Over),
+                        HT_15_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.HT_15_Over,
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.HT_15_Over,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.HT_15_Over),
+                        SH_05_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.SH_05_Over,
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.SH_05_Over,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.SH_05_Over),
+                        SH_15_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.SH_15_Over,
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.SH_15_Over,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.SH_15_Over),
+
+                        FT_15_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.FT_15_Over,
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.FT_15_Over,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.FT_15_Over),
+                        FT_25_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.FT_25_Over,
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.FT_25_Over,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.FT_25_Over),
+                        FT_35_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.FT_35_Over,
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.FT_35_Over,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.FT_35_Over),
+
+                        Corner_7_5_Over = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "General|Corner_7_5_Over",
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.Corner_7_5_Over,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.Corner_7_5_Over),
+                        Corner_8_5_Over = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "General|Corner_8_5_Over",
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.Corner_8_5_Over,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.Corner_8_5_Over),
+                        Corner_9_5_Over = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "General|Corner_9_5_Over",
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.Corner_9_5_Over,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.Corner_9_5_Over),
+
+                        HT_Result = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.HT_Result,
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.HT_Result,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.HT_Result),
+                        SH_Result = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.SH_Result,
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.SH_Result,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.SH_Result),
+                        FT_Result = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.FT_Result,
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.FT_Result,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.FT_Result),
+
+                        Is_FT_Win1 = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.Is_FT_Win1,
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.Is_FT_Win1),
+                        Is_FT_Win2 = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.Is_FT_Win2,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.Is_FT_Win2),
+                        Is_FT_X = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.Is_FT_X,
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.Is_FT_X,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.Is_FT_X),
+
+                        Is_HT_Win1 = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.Is_HT_Win1,
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.Is_HT_Win1),
+                        Is_HT_Win2 = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.Is_HT_Win2,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.Is_HT_Win2),
+                        Is_HT_X = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.Is_HT_X,
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.Is_HT_X,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.Is_HT_X),
+
+                        Is_SH_Win1 = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.Is_SH_Win1,
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.Is_SH_Win1),
+                        Is_SH_Win2 = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.Is_SH_Win2,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.Is_SH_Win2),
+                        Is_SH_X = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.Is_SH_X,
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.Is_SH_X,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.Is_SH_X),
+
+
+                        Is_Corner_FT_Win1 = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "General|Is_Corner_FT_Win1",
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.Is_Corner_FT_Win1),
+                        Is_Corner_FT_Win2 = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "General|Is_Corner_FT_Win2",
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.Is_Corner_FT_Win2),
+                        Is_Corner_FT_X = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "General|Is_Corner_FT_X",
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.Is_Corner_FT_X,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.Is_Corner_FT_X),
+
+                        HT_GG = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.HT_GG,
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.HT_GG,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.HT_GG),
+                        SH_GG = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.SH_GG,
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.SH_GG,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.SH_GG),
+                        FT_GG = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.FT_GG, this.HomeTeam_FormPerformanceGuessContainer.General.FT_GG,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.FT_GG),
+                        HT_FT_Result = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.HT_FT_Result, this.HomeTeam_FormPerformanceGuessContainer.General.HT_FT_Result,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.HT_FT_Result),
+                        MoreGoalsBetweenTimes = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.MoreGoalsBetweenTimes, this.HomeTeam_FormPerformanceGuessContainer.General.MoreGoalsBetweenTimes,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.MoreGoalsBetweenTimes),
+                        Total_BetweenGoals = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.General.Total_BetweenGoals, this.HomeTeam_FormPerformanceGuessContainer.General.Total_BetweenGoals,
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.Total_BetweenGoals)
+                    };
+                }
+                catch (System.Exception)
+                {
+
+                    return null;
+                }
+
+            }
+        }
+
+
+
+        public AveragePercentageContainer AverageProfilerHomeAway
+        {
+            get
+            {
+                //return new AveragePercentageContainer();
+                try
+                {
+                    if (this.ComparisonInfoContainer == null || this.ComparisonInfoContainer.General.CountFound < 4)
+                    {
+                        return null;
+                    }
+
+                    if (this.HomeTeam_FormPerformanceGuessContainer == null || this.HomeTeam_FormPerformanceGuessContainer.General.CountFound < 4)
+                    {
+                        return null;
+                    }
+
+                    if (this.AwayTeam_FormPerformanceGuessContainer == null || this.AwayTeam_FormPerformanceGuessContainer.General.CountFound < 4)
+                    {
+                        return null;
+                    }
+
+                    //if (this.StandingInfoModel == null || this.StandingInfoModel.UpTeam == null || this.StandingInfoModel.DownTeam == null)
+                    //{
+                    //    return null;
+                    //}
+
+
+                    return new AveragePercentageContainer
+                    {
+                        Average_HT_Goals_HomeTeam =
+                                Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.Average_HT_Goals_HomeTeam,
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_HT_Goals_HomeTeam),
+                        Average_SH_Goals_HomeTeam =
+                                Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.Average_SH_Goals_HomeTeam,
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_SH_Goals_HomeTeam),
+                        Average_FT_Goals_HomeTeam =
+                                Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.Average_FT_Goals_HomeTeam,
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Goals_HomeTeam),
+                        Average_FT_Corners_HomeTeam =
+                                Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "HomeAway|Average_FT_Corners_HomeTeam",
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Corners_HomeTeam),
+                        Home_HT_05_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.Home_HT_05_Over,
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Home_HT_05_Over),
+                        Home_HT_15_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.Home_HT_15_Over,
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Home_HT_15_Over),
+                        Home_SH_05_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.Home_SH_05_Over,
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Home_SH_05_Over),
+                        Home_SH_15_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.Home_SH_15_Over,
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Home_SH_15_Over),
+                        Home_FT_05_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.Home_FT_05_Over,
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Home_FT_05_Over),
+                        Home_FT_15_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.Home_FT_15_Over,
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Home_FT_15_Over),
+                        Corner_Home_3_5_Over = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "HomeAway|Corner_Home_3_5_Over",
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Corner_Home_3_5_Over),
+                        Corner_Home_4_5_Over = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "HomeAway|Corner_Home_4_5_Over",
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Corner_Home_4_5_Over),
+                        Corner_Home_5_5_Over = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "HomeAway|Corner_Home_5_5_Over",
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Corner_Home_5_5_Over),
+                        Home_Win_Any_Half = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.Home_Win_Any_Half,
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Home_Win_Any_Half),
+
+                        Average_HT_Goals_AwayTeam =
+                                Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.Average_HT_Goals_AwayTeam,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_HT_Goals_AwayTeam),
+                        Average_SH_Goals_AwayTeam =
+                                Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.Average_SH_Goals_AwayTeam,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_SH_Goals_AwayTeam),
+                        Average_FT_Goals_AwayTeam =
+                                Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.Average_FT_Goals_AwayTeam,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Goals_AwayTeam),
+                        Average_FT_Corners_AwayTeam =
+                                Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "HomeAway|Average_FT_Corners_AwayTeam",
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Corners_AwayTeam),
+                        Away_HT_05_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.Away_HT_05_Over,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Away_HT_05_Over),
+                        Away_HT_15_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.Away_HT_15_Over,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Away_HT_15_Over),
+                        Away_SH_05_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.Away_SH_05_Over,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Away_SH_05_Over),
+                        Away_SH_15_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.Away_SH_15_Over,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Away_SH_15_Over),
+                        Away_FT_05_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.Away_FT_05_Over,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Away_FT_05_Over),
+                        Away_FT_15_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.Away_FT_15_Over,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Away_FT_15_Over),
+                        Corner_Away_3_5_Over = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "HomeAway|Corner_Away_3_5_Over",
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Corner_Away_3_5_Over),
+                        Corner_Away_4_5_Over = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "HomeAway|Corner_Away_4_5_Over",
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Corner_Away_4_5_Over),
+                        Corner_Away_5_5_Over = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "HomeAway|Corner_Away_5_5_Over",
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Corner_Away_5_5_Over),
+                        Away_Win_Any_Half = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.Away_Win_Any_Half,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Away_Win_Any_Half),
+
+                        HT_05_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.HT_05_Over,
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.HT_05_Over,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.HT_05_Over),
+                        HT_15_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.HT_15_Over,
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.HT_15_Over,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.HT_15_Over),
+                        SH_05_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.SH_05_Over,
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.SH_05_Over,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.SH_05_Over),
+                        SH_15_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.SH_15_Over,
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.SH_15_Over,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.SH_15_Over),
+
+                        FT_15_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.FT_15_Over,
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.FT_15_Over,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.FT_15_Over),
+                        FT_25_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.FT_25_Over,
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.FT_25_Over,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.FT_25_Over),
+                        FT_35_Over = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.FT_35_Over,
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.FT_35_Over,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.FT_35_Over),
+
+                        Corner_7_5_Over = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "HomeAway|Corner_7_5_Over",
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Corner_7_5_Over,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Corner_7_5_Over),
+                        Corner_8_5_Over = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "HomeAway|Corner_8_5_Over",
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Corner_8_5_Over,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Corner_8_5_Over),
+                        Corner_9_5_Over = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "HomeAway|Corner_9_5_Over",
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Corner_9_5_Over,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Corner_9_5_Over),
+
+                        HT_Result = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.HT_Result,
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.HT_Result,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.HT_Result),
+                        SH_Result = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.SH_Result,
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.SH_Result,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.SH_Result),
+                        FT_Result = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.FT_Result,
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.FT_Result,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.FT_Result),
+
+                        Is_FT_Win1 = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.Is_FT_Win1,
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Is_FT_Win1),
+                        Is_FT_Win2 = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.Is_FT_Win2,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Is_FT_Win2),
+                        Is_FT_X = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.Is_FT_X,
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Is_FT_X,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Is_FT_X),
+
+                        Is_HT_Win1 = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.Is_HT_Win1,
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Is_HT_Win1),
+                        Is_HT_Win2 = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.Is_HT_Win2,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Is_HT_Win2),
+                        Is_HT_X = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.Is_HT_X,
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Is_HT_X,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Is_HT_X),
+
+                        Is_SH_Win1 = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.Is_SH_Win1,
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Is_SH_Win1),
+                        Is_SH_Win2 = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.Is_SH_Win2,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Is_SH_Win2),
+                        Is_SH_X = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.Is_SH_X,
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Is_SH_X,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Is_SH_X),
+
+
+                        Is_Corner_FT_Win1 = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "HomeAway|Is_Corner_FT_Win1",
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Is_Corner_FT_Win1),
+                        Is_Corner_FT_Win2 = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "HomeAway|Is_Corner_FT_Win2",
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Is_Corner_FT_Win2),
+                        Is_Corner_FT_X = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "HomeAway|Is_Corner_FT_X",
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Is_Corner_FT_X,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Is_Corner_FT_X),
+
+                        HT_GG = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.HT_GG,
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.HT_GG,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.HT_GG),
+                        SH_GG = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.SH_GG,
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.SH_GG,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.SH_GG),
+                        FT_GG = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.FT_GG,
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.FT_GG,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.FT_GG),
+                        HT_FT_Result = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.HT_FT_Result,
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.HT_FT_Result,            this.AwayTeam_FormPerformanceGuessContainer.HomeAway.HT_FT_Result),
+                        MoreGoalsBetweenTimes = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.MoreGoalsBetweenTimes,
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.MoreGoalsBetweenTimes,
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.MoreGoalsBetweenTimes),
+                        Total_BetweenGoals = Calculator.GetBetAverage(
+                                    this.ComparisonInfoContainer.HomeAway.Total_BetweenGoals,
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Total_BetweenGoals, this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Total_BetweenGoals)
+                    };
+                }
+                catch (System.Exception)
+                {
+
+                    return null;
+                }
+
+            }
+        }
+    }
+
+    public class JobAnalyseModelNisbi
+    {
+        public JobAnalyseModelNisbi()
+        {
+        }
+
+        public string Serial => this.ComparisonInfoContainer.Serial;
+
+        public TeamPercentageProfiler TeamPercentageProfiler { get; set; }
+        public ComparisonGuessContainer ComparisonInfoContainer { get; set; }
+        public FormPerformanceGuessContainer HomeTeam_FormPerformanceGuessContainer { get; set; }
+        public FormPerformanceGuessContainer AwayTeam_FormPerformanceGuessContainer { get; set; }
+        public StandingInfoModel StandingInfoModel { get; set; }
         public AveragePercentageContainer AverageProfiler
         {
             get
@@ -362,25 +896,27 @@ namespace Core.Utilities.UsableModel
                                 Calculator.GetBetAverage(
                                     this.ComparisonInfoContainer.General.Average_FT_Goals_HomeTeam,
                                     this.HomeTeam_FormPerformanceGuessContainer.General.Average_FT_Goals_HomeTeam),
-                        Home_HT_05_Over = Calculator.GetBetAverage(
+
+
+                        Home_HT_05_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.General.Home_HT_05_Over,
                                     this.HomeTeam_FormPerformanceGuessContainer.General.Home_HT_05_Over),
-                        Home_HT_15_Over = Calculator.GetBetAverage(
+                        Home_HT_15_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.General.Home_HT_15_Over,
                                     this.HomeTeam_FormPerformanceGuessContainer.General.Home_HT_15_Over),
-                        Home_SH_05_Over = Calculator.GetBetAverage(
+                        Home_SH_05_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.General.Home_SH_05_Over,
                                     this.HomeTeam_FormPerformanceGuessContainer.General.Home_SH_05_Over),
-                        Home_SH_15_Over = Calculator.GetBetAverage(
+                        Home_SH_15_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.General.Home_SH_15_Over,
                                     this.HomeTeam_FormPerformanceGuessContainer.General.Home_SH_15_Over),
-                        Home_FT_05_Over = Calculator.GetBetAverage(
+                        Home_FT_05_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.General.Home_FT_05_Over,
                                     this.HomeTeam_FormPerformanceGuessContainer.General.Home_FT_05_Over),
-                        Home_FT_15_Over = Calculator.GetBetAverage(
+                        Home_FT_15_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.General.Home_FT_15_Over,
                                     this.HomeTeam_FormPerformanceGuessContainer.General.Home_FT_15_Over),
-                        Home_Win_Any_Half = Calculator.GetBetAverage(
+                        Home_Win_Any_Half = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.General.Home_Win_Any_Half,
                                     this.HomeTeam_FormPerformanceGuessContainer.General.Home_Win_Any_Half),
 
@@ -396,25 +932,27 @@ namespace Core.Utilities.UsableModel
                                 Calculator.GetBetAverage(
                                     this.ComparisonInfoContainer.General.Average_FT_Goals_AwayTeam,
                                     this.AwayTeam_FormPerformanceGuessContainer.General.Average_FT_Goals_AwayTeam),
-                        Away_HT_05_Over = Calculator.GetBetAverage(
+
+
+                        Away_HT_05_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.General.Away_HT_05_Over,
                                     this.AwayTeam_FormPerformanceGuessContainer.General.Away_HT_05_Over),
-                        Away_HT_15_Over = Calculator.GetBetAverage(
+                        Away_HT_15_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.General.Away_HT_15_Over,
                                     this.AwayTeam_FormPerformanceGuessContainer.General.Away_HT_15_Over),
-                        Away_SH_05_Over = Calculator.GetBetAverage(
+                        Away_SH_05_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.General.Away_SH_05_Over,
                                     this.AwayTeam_FormPerformanceGuessContainer.General.Away_SH_05_Over),
-                        Away_SH_15_Over = Calculator.GetBetAverage(
+                        Away_SH_15_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.General.Away_SH_15_Over,
                                     this.AwayTeam_FormPerformanceGuessContainer.General.Away_SH_15_Over),
-                        Away_FT_05_Over = Calculator.GetBetAverage(
+                        Away_FT_05_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.General.Away_FT_05_Over,
                                     this.AwayTeam_FormPerformanceGuessContainer.General.Away_FT_05_Over),
-                        Away_FT_15_Over = Calculator.GetBetAverage(
+                        Away_FT_15_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.General.Away_FT_15_Over,
                                     this.AwayTeam_FormPerformanceGuessContainer.General.Away_FT_15_Over),
-                        Away_Win_Any_Half = Calculator.GetBetAverage(
+                        Away_Win_Any_Half = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.General.Away_Win_Any_Half,
                                     this.AwayTeam_FormPerformanceGuessContainer.General.Away_Win_Any_Half),
 
@@ -435,48 +973,48 @@ namespace Core.Utilities.UsableModel
                                     this.HomeTeam_FormPerformanceGuessContainer.General.SH_15_Over,
                                     this.AwayTeam_FormPerformanceGuessContainer.General.SH_15_Over),
 
-                        FT_15_Over = Calculator.GetBetAverage(
+                        FT_15_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.General.FT_15_Over,
                                     this.HomeTeam_FormPerformanceGuessContainer.General.FT_15_Over,
                                     this.AwayTeam_FormPerformanceGuessContainer.General.FT_15_Over),
-                        FT_25_Over = Calculator.GetBetAverage(
+                        FT_25_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.General.FT_25_Over,
                                     this.HomeTeam_FormPerformanceGuessContainer.General.FT_25_Over,
                                     this.AwayTeam_FormPerformanceGuessContainer.General.FT_25_Over),
-                        FT_35_Over = Calculator.GetBetAverage(
+                        FT_35_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.General.FT_35_Over,
                                     this.HomeTeam_FormPerformanceGuessContainer.General.FT_35_Over,
                                     this.AwayTeam_FormPerformanceGuessContainer.General.FT_35_Over),
-                        HT_Result = Calculator.GetBetAverage(
+                        HT_Result = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.General.HT_Result,
                                     this.HomeTeam_FormPerformanceGuessContainer.General.HT_Result,
                                     this.AwayTeam_FormPerformanceGuessContainer.General.HT_Result),
-                        SH_Result = Calculator.GetBetAverage(
+                        SH_Result = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.General.SH_Result,
                                     this.HomeTeam_FormPerformanceGuessContainer.General.SH_Result,
                                     this.AwayTeam_FormPerformanceGuessContainer.General.SH_Result),
-                        FT_Result = Calculator.GetBetAverage(
+                        FT_Result = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.General.FT_Result,
                                     this.HomeTeam_FormPerformanceGuessContainer.General.FT_Result,
                                     this.AwayTeam_FormPerformanceGuessContainer.General.FT_Result),
-                        HT_GG = Calculator.GetBetAverage(
+                        HT_GG = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.General.HT_GG,
                                     this.HomeTeam_FormPerformanceGuessContainer.General.HT_GG,
                                     this.AwayTeam_FormPerformanceGuessContainer.General.HT_GG),
-                        SH_GG = Calculator.GetBetAverage(
+                        SH_GG = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.General.SH_GG,
                                     this.HomeTeam_FormPerformanceGuessContainer.General.SH_GG,
                                     this.AwayTeam_FormPerformanceGuessContainer.General.SH_GG),
-                        FT_GG = Calculator.GetBetAverage(
+                        FT_GG = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.General.FT_GG, this.HomeTeam_FormPerformanceGuessContainer.General.FT_GG,
                                     this.AwayTeam_FormPerformanceGuessContainer.General.FT_GG),
-                        HT_FT_Result = Calculator.GetBetAverage(
+                        HT_FT_Result = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.General.HT_FT_Result, this.HomeTeam_FormPerformanceGuessContainer.General.HT_FT_Result,
                                     this.AwayTeam_FormPerformanceGuessContainer.General.HT_FT_Result),
-                        MoreGoalsBetweenTimes = Calculator.GetBetAverage(
+                        MoreGoalsBetweenTimes = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.General.MoreGoalsBetweenTimes, this.HomeTeam_FormPerformanceGuessContainer.General.MoreGoalsBetweenTimes,
                                     this.AwayTeam_FormPerformanceGuessContainer.General.MoreGoalsBetweenTimes),
-                        Total_BetweenGoals = Calculator.GetBetAverage(
+                        Total_BetweenGoals = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.General.Total_BetweenGoals, this.HomeTeam_FormPerformanceGuessContainer.General.Total_BetweenGoals,
                                     this.AwayTeam_FormPerformanceGuessContainer.General.Total_BetweenGoals),
                     };
@@ -534,25 +1072,25 @@ namespace Core.Utilities.UsableModel
                                 Calculator.GetBetAverage(
                                     this.ComparisonInfoContainer.HomeAway.Average_FT_Goals_HomeTeam,
                                     this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Goals_HomeTeam),
-                        Home_HT_05_Over = Calculator.GetBetAverage(
+                        Home_HT_05_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.HomeAway.Home_HT_05_Over,
                                     this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Home_HT_05_Over),
-                        Home_HT_15_Over = Calculator.GetBetAverage(
+                        Home_HT_15_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.HomeAway.Home_HT_15_Over,
                                     this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Home_HT_15_Over),
-                        Home_SH_05_Over = Calculator.GetBetAverage(
+                        Home_SH_05_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.HomeAway.Home_SH_05_Over,
                                     this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Home_SH_05_Over),
-                        Home_SH_15_Over = Calculator.GetBetAverage(
+                        Home_SH_15_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.HomeAway.Home_SH_15_Over,
                                     this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Home_SH_15_Over),
-                        Home_FT_05_Over = Calculator.GetBetAverage(
+                        Home_FT_05_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.HomeAway.Home_FT_05_Over,
                                     this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Home_FT_05_Over),
-                        Home_FT_15_Over = Calculator.GetBetAverage(
+                        Home_FT_15_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.HomeAway.Home_FT_15_Over,
                                     this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Home_FT_15_Over),
-                        Home_Win_Any_Half = Calculator.GetBetAverage(
+                        Home_Win_Any_Half = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.HomeAway.Home_Win_Any_Half,
                                     this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Home_Win_Any_Half),
 
@@ -568,89 +1106,89 @@ namespace Core.Utilities.UsableModel
                                 Calculator.GetBetAverage(
                                     this.ComparisonInfoContainer.HomeAway.Average_FT_Goals_AwayTeam,
                                     this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Goals_AwayTeam),
-                        Away_HT_05_Over = Calculator.GetBetAverage(
+                        Away_HT_05_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.HomeAway.Away_HT_05_Over,
                                     this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Away_HT_05_Over),
-                        Away_HT_15_Over = Calculator.GetBetAverage(
+                        Away_HT_15_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.HomeAway.Away_HT_15_Over,
                                     this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Away_HT_15_Over),
-                        Away_SH_05_Over = Calculator.GetBetAverage(
+                        Away_SH_05_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.HomeAway.Away_SH_05_Over,
                                     this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Away_SH_05_Over),
-                        Away_SH_15_Over = Calculator.GetBetAverage(
+                        Away_SH_15_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.HomeAway.Away_SH_15_Over,
                                     this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Away_SH_15_Over),
-                        Away_FT_05_Over = Calculator.GetBetAverage(
+                        Away_FT_05_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.HomeAway.Away_FT_05_Over,
                                     this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Away_FT_05_Over),
-                        Away_FT_15_Over = Calculator.GetBetAverage(
+                        Away_FT_15_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.HomeAway.Away_FT_15_Over,
                                     this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Away_FT_15_Over),
-                        Away_Win_Any_Half = Calculator.GetBetAverage(
+                        Away_Win_Any_Half = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.HomeAway.Away_Win_Any_Half,
                                     this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Away_Win_Any_Half),
 
-                        HT_05_Over = Calculator.GetBetAverage(
+                        HT_05_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.HomeAway.HT_05_Over,
                                     this.HomeTeam_FormPerformanceGuessContainer.HomeAway.HT_05_Over,
                                     this.AwayTeam_FormPerformanceGuessContainer.HomeAway.HT_05_Over),
-                        HT_15_Over = Calculator.GetBetAverage(
+                        HT_15_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.HomeAway.HT_15_Over,
                                     this.HomeTeam_FormPerformanceGuessContainer.HomeAway.HT_15_Over,
                                     this.AwayTeam_FormPerformanceGuessContainer.HomeAway.HT_15_Over),
-                        SH_05_Over = Calculator.GetBetAverage(
+                        SH_05_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.HomeAway.SH_05_Over,
                                     this.HomeTeam_FormPerformanceGuessContainer.HomeAway.SH_05_Over,
                                     this.AwayTeam_FormPerformanceGuessContainer.HomeAway.SH_05_Over),
-                        SH_15_Over = Calculator.GetBetAverage(
+                        SH_15_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.HomeAway.SH_15_Over,
                                     this.HomeTeam_FormPerformanceGuessContainer.HomeAway.SH_15_Over,
                                     this.AwayTeam_FormPerformanceGuessContainer.HomeAway.SH_15_Over),
 
-                        FT_15_Over = Calculator.GetBetAverage(
+                        FT_15_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.HomeAway.FT_15_Over,
                                     this.HomeTeam_FormPerformanceGuessContainer.HomeAway.FT_15_Over,
                                     this.AwayTeam_FormPerformanceGuessContainer.HomeAway.FT_15_Over),
-                        FT_25_Over = Calculator.GetBetAverage(
+                        FT_25_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.HomeAway.FT_25_Over,
                                     this.HomeTeam_FormPerformanceGuessContainer.HomeAway.FT_25_Over,
                                     this.AwayTeam_FormPerformanceGuessContainer.HomeAway.FT_25_Over),
-                        FT_35_Over = Calculator.GetBetAverage(
+                        FT_35_Over = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.HomeAway.FT_35_Over,
                                     this.HomeTeam_FormPerformanceGuessContainer.HomeAway.FT_35_Over,
                                     this.AwayTeam_FormPerformanceGuessContainer.HomeAway.FT_35_Over),
-                        HT_Result = Calculator.GetBetAverage(
+                        HT_Result = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.HomeAway.HT_Result,
                                     this.HomeTeam_FormPerformanceGuessContainer.HomeAway.HT_Result,
                                     this.AwayTeam_FormPerformanceGuessContainer.HomeAway.HT_Result),
-                        SH_Result = Calculator.GetBetAverage(
+                        SH_Result = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.HomeAway.SH_Result,
                                     this.HomeTeam_FormPerformanceGuessContainer.HomeAway.SH_Result,
                                     this.AwayTeam_FormPerformanceGuessContainer.HomeAway.SH_Result),
-                        FT_Result = Calculator.GetBetAverage(
+                        FT_Result = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.HomeAway.FT_Result,
                                     this.HomeTeam_FormPerformanceGuessContainer.HomeAway.FT_Result,
                                     this.AwayTeam_FormPerformanceGuessContainer.HomeAway.FT_Result),
-                        HT_GG = Calculator.GetBetAverage(
+                        HT_GG = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.HomeAway.HT_GG,
                                     this.HomeTeam_FormPerformanceGuessContainer.HomeAway.HT_GG,
                                     this.AwayTeam_FormPerformanceGuessContainer.HomeAway.HT_GG),
-                        SH_GG = Calculator.GetBetAverage(
+                        SH_GG = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.HomeAway.SH_GG,
                                     this.HomeTeam_FormPerformanceGuessContainer.HomeAway.SH_GG,
                                     this.AwayTeam_FormPerformanceGuessContainer.HomeAway.SH_GG),
-                        FT_GG = Calculator.GetBetAverage(
+                        FT_GG = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.HomeAway.FT_GG,
                                     this.HomeTeam_FormPerformanceGuessContainer.HomeAway.FT_GG,
                                     this.AwayTeam_FormPerformanceGuessContainer.HomeAway.FT_GG),
-                        HT_FT_Result = Calculator.GetBetAverage(
+                        HT_FT_Result = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.HomeAway.HT_FT_Result,
-                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.HT_FT_Result,            this.AwayTeam_FormPerformanceGuessContainer.HomeAway.HT_FT_Result),
-                        MoreGoalsBetweenTimes = Calculator.GetBetAverage(
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.HT_FT_Result, this.AwayTeam_FormPerformanceGuessContainer.HomeAway.HT_FT_Result),
+                        MoreGoalsBetweenTimes = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.HomeAway.MoreGoalsBetweenTimes,
                                     this.HomeTeam_FormPerformanceGuessContainer.HomeAway.MoreGoalsBetweenTimes,
                                     this.AwayTeam_FormPerformanceGuessContainer.HomeAway.MoreGoalsBetweenTimes),
-                        Total_BetweenGoals = Calculator.GetBetAverage(
+                        Total_BetweenGoals = Calculator.GetBetAverageNisbi(
                                     this.ComparisonInfoContainer.HomeAway.Total_BetweenGoals,
                                     this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Total_BetweenGoals, this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Total_BetweenGoals),
                     };

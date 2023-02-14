@@ -30,13 +30,13 @@ namespace SBA.MvcUI.Controllers
         private readonly IFilterResultService _filterResultService;
         private readonly IConfigHelper _configHelper;
         private readonly ISocialBotMessagingService _telegramService;
-
-        private readonly string txtPathFormat;
+        private readonly IConfiguration _configuration;
 
         public HomeController(IMatchBetService matchBetService,
                               IFilterResultService filterResultService,
                               IConfigHelper configHelper,
-                              ISocialBotMessagingService telegramService) : base(matchBetService)
+                              ISocialBotMessagingService telegramService,
+                              IConfiguration configuration) : base(matchBetService, configuration)
         {
             _proceeder = new MatchInfoProceeder();
 
@@ -45,7 +45,7 @@ namespace SBA.MvcUI.Controllers
             _filterResultService = filterResultService;
             _configHelper = configHelper;
 
-            txtPathFormat = _configHelper.GetSettingsData<string>(ParentKeySettings.PathConstant.ToString(), ChildKeySettings.TextPathFormat.ToString());
+            _configuration = configuration;
         }
 
         public IActionResult Index()
@@ -135,6 +135,7 @@ namespace SBA.MvcUI.Controllers
 
                     if (filterResult != null)
                     {
+                        filterResult = OperationalProcessor.GenerateFilterResultCornersAndFT(filterResult);
                         filterResultList.Add(filterResult);
                     }
                     else

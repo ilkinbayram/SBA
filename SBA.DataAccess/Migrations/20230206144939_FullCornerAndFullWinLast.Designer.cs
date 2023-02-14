@@ -4,6 +4,7 @@ using DataAccess.Concrete.EntityFramework.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace SBA.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230206144939_FullCornerAndFullWinLast")]
+    partial class FullCornerAndFullWinLast
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,16 +71,10 @@ namespace SBA.DataAccess.Migrations
                     b.Property<bool>("Corner_Away_4_5_Over")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("Corner_Away_5_5_Over")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("Corner_Home_3_5_Over")
                         .HasColumnType("bit");
 
                     b.Property<bool>("Corner_Home_4_5_Over")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Corner_Home_5_5_Over")
                         .HasColumnType("bit");
 
                     b.Property<bool>("FT_1_5_Over")

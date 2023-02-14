@@ -4,6 +4,7 @@ using DataAccess.Concrete.EntityFramework.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace SBA.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230206132540_CornersAndFTWinAdded")]
+    partial class CornersAndFTWinAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,9 +31,6 @@ namespace SBA.DataAccess.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("AwayCornerCount")
-                        .HasColumnType("int");
 
                     b.Property<bool>("Away_FT_0_5_Over")
                         .HasColumnType("bit");
@@ -54,31 +53,10 @@ namespace SBA.DataAccess.Migrations
                     b.Property<bool>("Away_Win_Any_Half")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("Corner_7_5_Over")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("Corner_8_5_Over")
                         .HasColumnType("bit");
 
                     b.Property<bool>("Corner_9_5_Over")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Corner_Away_3_5_Over")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Corner_Away_4_5_Over")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Corner_Away_5_5_Over")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Corner_Home_3_5_Over")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Corner_Home_4_5_Over")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Corner_Home_5_5_Over")
                         .HasColumnType("bit");
 
                     b.Property<bool>("FT_1_5_Over")
@@ -114,9 +92,6 @@ namespace SBA.DataAccess.Migrations
                     b.Property<int>("HT_Result")
                         .HasColumnType("int");
 
-                    b.Property<int>("HomeCornerCount")
-                        .HasColumnType("int");
-
                     b.Property<bool>("Home_FT_0_5_Over")
                         .HasColumnType("bit");
 
@@ -144,15 +119,6 @@ namespace SBA.DataAccess.Migrations
                         .HasDefaultValue(true);
 
                     b.Property<bool>("IsCornerFound")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Is_Corner_FT_Win1")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Is_Corner_FT_Win2")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Is_Corner_FT_X")
                         .HasColumnType("bit");
 
                     b.Property<bool>("Is_FT_Win1")

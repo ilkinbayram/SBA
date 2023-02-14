@@ -23,13 +23,13 @@ namespace SBA.MvcUI.Controllers
         private readonly IFilterResultService _filterResultService;
         private readonly IConfigHelper _configHelper;
         private readonly ICacheManager _cacheManager;
-
-        private readonly string txtPathFormat;
+        private readonly IConfiguration _configuration;
 
         public SystemController(IMatchBetService matchBetService,
                                 IFilterResultService filterResultService,
                                 IConfigHelper configHelper,
-                                ICacheManager cacheManager) : base(matchBetService)
+                                ICacheManager cacheManager,
+                                IConfiguration configuration) : base(matchBetService, configuration)
         {
             _proceeder = new MatchInfoProceeder();
 
@@ -38,7 +38,7 @@ namespace SBA.MvcUI.Controllers
             _configHelper = configHelper;
             _cacheManager = cacheManager;
 
-            txtPathFormat = _configHelper.GetSettingsData<string>(ParentKeySettings.PathConstant.ToString(), ChildKeySettings.TextPathFormat.ToString());
+            _configuration = configuration;
         }
 
         public IActionResult Index()

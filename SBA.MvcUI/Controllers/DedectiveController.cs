@@ -18,20 +18,19 @@ namespace SBA.MvcUI.Controllers
         private readonly IMatchBetService _matchBetService;
         private readonly IFilterResultService _filterResultService;
         private readonly IConfigHelper _configHelper;
-
-        private readonly string textPathFormat;
+        private readonly IConfiguration _configuration;
 
         public DedectiveController(IMatchBetService matchBetService,
                               IFilterResultService filterResultService,
-                              IConfigHelper configHelper) : base(matchBetService)
+                              IConfigHelper configHelper,
+                              IConfiguration configuration) : base(matchBetService, configuration)
         {
             _proceeder = new MatchInfoProceeder();
 
             _matchBetService = matchBetService;
             _filterResultService = filterResultService;
             _configHelper = configHelper;
-
-            textPathFormat = _configHelper.GetSettingsData<string>(ParentKeySettings.PathConstant.ToString(), ChildKeySettings.TextPathFormat.ToString());
+            _configuration = configuration;
         }
 
 

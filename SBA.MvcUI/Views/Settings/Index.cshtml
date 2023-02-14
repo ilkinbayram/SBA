@@ -2,94 +2,268 @@
     ViewData["Title"] = "Settings Page";
 }
 
-<div class="row">
-    <div class="col-sm-5 col-md-2 offset-1 offset-md-1">
+<div class="row" id="spinnerContainer">
+</div>
+
+<div class="row operation-containers">
+    <div class="col-sm-3 col-md-3">
         <h5>
             Data Text Area
         </h5>
         <div class="form-group">
-            <textarea class="form-control" id="dataTextArea">
-
-            </textarea>
+            <textarea class="form-control" id="dataTextArea"></textarea>
         </div>
     </div>
+</div>
+<hr />
 
+<div class="row operation-containers">
+    <div class="col-sm-4 col-md-4">
+        <h5>
+            Analyse External
+        </h5>
+        <button type="button" id="startAnalyseExternal" class="btn btn-lg btn-info">Start</button>
+    </div>
+    <br />
+
+    <div class="col-sm-4 col-md-4">
+        <h5>
+            Relative Analyse
+        </h5>
+        <button type="button" id="startAnalyseRelative" class="btn btn-lg btn-info">Start</button>
+    </div>
+    <br />
+
+    <div class="col-sm-4 col-md-4">
+        <h5>
+            Real Analyse
+        </h5>
+        <button type="button" id="startOwnRealAnalyse" class="btn btn-lg btn-info">Start</button>
+    </div>
+</div>
+<br />
+<br />
+<div class="row operation-containers">
+    <div class="col-sm-4 col-md-4">
+        <h5>
+            Restore Dataes
+        </h5>
+        <button type="button" id="startRestoreDb" class="btn btn-lg btn-dark">Start</button>
+    </div>
+    <br />
+
+    <div class="col-sm-4 col-md-4">
+        <h5>
+            Backup Dataes
+        </h5>
+        <button type="button" id="startBackupDb" class="btn btn-lg btn-dark">Start</button>
+    </div>
+    <br />
+
+    <div class="col-sm-4 col-md-4">
+        <h5>
+            Update Empty Dataes
+        </h5>
+        <button type="button" id="startUpdateEmptyCountries" class="btn btn-lg btn-dark">Start</button>
+    </div>
+</div>
+<br />
+<br />
+<div class="row operation-containers">
+    <div class="col-sm-4 col-md-4">
+        <h5>
+            Clear Cookies
+        </h5>
+        <button type="button" id="clearCookieBtn" class="btn btn-lg btn-danger">Clear</button>
+    </div>
+
+    <div class="col-sm-4 col-md-4">
+        <h5>
+            Update Corners
+        </h5>
+        <button type="button" id="updateCorners" class="btn btn-lg btn-warning">Update</button>
+    </div>
 </div>
 
 
-<div class="row">
-    <div class="col-sm-5 col-md-2 offset-1 offset-md-1">
-        <h5>
-            Initialize Filters
-        </h5>
-        <button type="button" id="startRegeneration" class="btn btn-lg btn-warning">Start</button>
-    </div>
+@section ScriptComponent{
+    <script type="text/javascript">
 
-    <div class="col-sm-5 col-md-2 offset-1 offset-md-1">
-        <h5>
-            Delete NonMatched Dataes
-        </h5>
-        <button type="button" id="startDeletingNonMatched" class="btn btn-lg btn-danger">Start</button>
-    </div>
+        let spinnerHtml = '<div class="box-custom-ball"><div class="shadow"></div><div class="gravity"><div class="custom-ball"></div></div></div>';
 
-    <div class="col-sm-5 col-md-2 offset-1 offset-md-1">
-        <h5>
-            Update Empty Countries
-        </h5>
-        <button type="button" id="startUpdateEmptyCountries" class="btn btn-lg btn-primary">Start</button>
-    </div>
+        $(document).ready(() => {
 
-</div>
+            $("#startAnalyseExternal").click((e) => {
+                $("#spinnerContainer").html(spinnerHtml);
+                $(".operation-containers").hide();
+
+                var dt = $("#dataTextArea").val();
+
+                $.ajax({
+                    method: "post",
+                    url: "/Settings/AnalyseExternal",
+                    data: { serials: dt }
+                }).done(function (data) {
+                    $("#spinnerContainer").html("");
+                    $(".operation-containers").show();
+                }).fail(function (data) {
+                    console.log(data);
+                    $("#spinnerContainer").html("");
+                    $(".operation-containers").show();
+                });
+            });
 
 
-<script type="text/javascript">
+            $("#startAnalyseRelative").click((e) => {
+                $("#spinnerContainer").html(spinnerHtml);
+                $(".operation-containers").hide();
 
-    $(document).ready(()=>{
+                var dt = $("#dataTextArea").val();
 
-        $("#startRegeneration").click((e)=>{
+                $.ajax({
+                    method: "post",
+                    url: "/Settings/RelativeAnalysing",
+                    data: { serials: dt }
+                }).done(function (data) {
+                    $("#spinnerContainer").html("");
+                    $(".operation-containers").show();
+                }).fail(function (data) {
+                    console.log(data);
+                    $("#spinnerContainer").html("");
+                    $(".operation-containers").show();
+                });
+            });
 
-            $.ajax({
-                method: "post",
-                url: "/Settings/SyncFilters"
-            }).done(function (data) {
-                alert(data);
-            }).fail(function (data) {
-                console.log(data);
+
+            $("#startOwnRealAnalyse").click((e) => {
+                $("#spinnerContainer").html(spinnerHtml);
+                $(".operation-containers").hide();
+
+                var dt = $("#dataTextArea").val();
+
+                console.log(dt);
+
+                $.ajax({
+                    method: "post",
+                    url: "/Settings/RealDataAnalysing",
+                    data: { serials: dt }
+                }).done(function (data) {
+                    $("#spinnerContainer").html("");
+                    $(".operation-containers").show();
+                }).fail(function (data) {
+                    console.log(data);
+                    $("#spinnerContainer").html("");
+                    $(".operation-containers").show();
+                });
+            });
+
+
+            // Utility Processes
+
+            $("#startRestoreDb").click((e) => {
+
+                let isConfirmed = confirm("Do you want to continue to restore the database?");
+
+                if (isConfirmed) {
+
+                    $("#spinnerContainer").html(spinnerHtml);
+                    $(".operation-containers").hide();
+
+                    $.ajax({
+                        method: "post",
+                        url: "/Settings/RestoreDatabase"
+                    }).done(function (data) {
+                        $("#spinnerContainer").html("");
+                        $(".operation-containers").show();
+                    }).fail(function (data) {
+                        console.log(data);
+                        $("#spinnerContainer").html("");
+                        $(".operation-containers").show();
+                    });
+                }
+            });
+
+
+            $("#startBackupDb").click((e) => {
+
+                let isConfirmed = confirm("Do you want to continue to backup the database?");
+
+                if (isConfirmed) {
+
+                    $("#spinnerContainer").html(spinnerHtml);
+                    $(".operation-containers").hide();
+
+                    $.ajax({
+                        method: "post",
+                        url: "/Settings/BackupDatabase"
+                    }).done(function (data) {
+                        $("#spinnerContainer").html("");
+                        $(".operation-containers").show();
+                    }).fail(function (data) {
+                        console.log(data);
+                        $("#spinnerContainer").html("");
+                        $(".operation-containers").show();
+                    });
+                }
+            });
+
+
+            $("#startUpdateEmptyCountries").click((e) => {
+                $("#spinnerContainer").html(spinnerHtml);
+                $(".operation-containers").hide();
+
+                var dt = $("#dataTextArea").val();
+
+                console.log(dt);
+
+                $.ajax({
+                    method: "post",
+                    url: "/Settings/UpdateEmptyDataes"
+                }).done(function (data) {
+                    $("#spinnerContainer").html("");
+                    $(".operation-containers").show();
+                }).fail(function (data) {
+                    console.log(data);
+                    $("#spinnerContainer").html("");
+                    $(".operation-containers").show();
+                });
+            });
+
+
+            $("#clearCookieBtn").click((e) => {
+                $("#spinnerContainer").html(spinnerHtml);
+                $(".operation-containers").hide();
+
+                $.ajax({
+                    method: "post",
+                    url: "/Settings/ClearCookie"
+                }).done(function (data) {
+                    $("#spinnerContainer").html("");
+                    $(".operation-containers").show();
+                }).fail(function (data) {
+                    console.log(data);
+                    $("#spinnerContainer").html("");
+                    $(".operation-containers").show();
+                });
+            });
+
+            $("#updateCorners").click((e) => {
+                $("#spinnerContainer").html(spinnerHtml);
+                $(".operation-containers").hide();
+
+                $.ajax({
+                    method: "post",
+                    url: '/Settings/UpdateCorners'
+                }).done(function (data) {
+                    $("#spinnerContainer").html("");
+                    $(".operation-containers").show();
+                }).fail(function (data) {
+                    console.log(data);
+                    $("#spinnerContainer").html("");
+                    $(".operation-containers").show();
+                });
             });
         });
 
-        
-        $("#startDeletingNonMatched").click((e)=>{
-
-            $.ajax({
-                method: "post",
-                url: "/Settings/DeleteNonMatcheds"
-            }).done(function (data) {
-                alert(data);
-            }).fail(function (data) {
-                console.log(data);
-            });
-        });
-
-
-        $("#startUpdateEmptyCountries").click((e)=>{
-
-            var dt = $("#dataTextArea").val();
-
-            console.log(dt);
-
-            $.ajax({
-                method: "post",
-                url: "/Settings/UpdateEmptyCountries",
-                data: {serials: dt}
-            }).done(function (data) {
-                alert(data);
-            }).fail(function (data) {
-                console.log(data);
-            });
-        });
-
-
-    });
-
-</script>
+    </script>
+}

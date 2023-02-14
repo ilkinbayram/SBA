@@ -7,6 +7,8 @@ using Core.Utilities.UsableModel;
 using Core.Utilities.UsableModel.BaseModels;
 using Core.Utilities.UsableModel.TempTableModels.Country;
 using Newtonsoft.Json;
+using SBA.Business.Abstract;
+using SBA.Business.BusinessHelper;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -63,9 +65,13 @@ namespace SBA.Business.FunctionalServices.Concrete
             result.HT_Goals_HomeTeam = Convert.ToInt32(model.HT_Match_Result.Split('-')[0].Trim());
             result.FT_Goals_AwayTeam = Convert.ToInt32(model.FT_Match_Result.Split('-')[1].Trim());
             result.FT_Goals_HomeTeam = Convert.ToInt32(model.FT_Match_Result.Split('-')[0].Trim());
+            result.AwayCornersCount = model.AwayCornersCount;
+            result.HomeCornersCount = model.HomeCornersCount;
+            result.HasCorner = model.HasCorner;
 
             return result;
         }
+
 
         private bool ValidateScores(string resultHT, string resultFT)
         {
@@ -284,6 +290,8 @@ namespace SBA.Business.FunctionalServices.Concrete
 
             if (string.IsNullOrEmpty(src)) return null;
 
+            if (!rgxAwayTeam.IsMatch(source) || !rgxHomeTeam.IsMatch(source)) return null;
+
             string unchangableAwayTeam = rgxAwayTeam.Matches(source)[0].Groups[1].Value;
             string unchangableHomeTeam = rgxHomeTeam.Matches(source)[0].Groups[1].Value;
 
@@ -314,6 +322,114 @@ namespace SBA.Business.FunctionalServices.Concrete
 
             return null;
         }
+
+
+        public List<ComparisonInfoContainer> SelectListComparisonInfoFromDbBetweenTeams(string serial, IMatchBetService matchBetService, IFilterResultService filterResultService, CountryContainerTemp countryContainerTemp)
+        {
+            var result = new List<ComparisonInfoContainer>();
+
+            var rgxTeamsSentence = new Regex(PatternConstant.ComparisonInfoPattern.TeamsNames);
+            var rgxCountryLeagueMix = new Regex(PatternConstant.StartedMatchPattern.CountryAndLeague);
+            var rgxLeague = new Regex(PatternConstant.StartedMatchPattern.League);
+            var rgxCountry = new Regex(PatternConstant.StartedMatchPattern.Country);
+
+            var rgxHomeTeam = new Regex(PatternConstant.StartedMatchPattern.HomeTeam);
+            var rgxAwayTeam = new Regex(PatternConstant.StartedMatchPattern.AwayTeam);
+
+            var uriMatchInfo = string.Format("{0}{1}", _defaultMatchUrl, serial);
+
+            var source = _webOperation.GetMinifiedString(uriMatchInfo);
+
+            if (!rgxAwayTeam.IsMatch(source) || !rgxHomeTeam.IsMatch(source)) return null;
+
+            string unchangableAwayTeam = rgxAwayTeam.Matches(source)[0].Groups[1].Value;
+            string unchangableHomeTeam = rgxHomeTeam.Matches(source)[0].Groups[1].Value;
+            var country = source.ResolveCountryByRegex(countryContainerTemp, rgxCountryLeagueMix, rgxCountry);
+            var league = source.ResolveLeagueByRegex(countryContainerTemp, rgxCountryLeagueMix, rgxLeague);
+
+            var matchBets = matchBetService.GetMatchBetFilterResultQueryModels(x => x.Country == country && x.League == league && x.HasCorner && (x.HomeTeam == unchangableHomeTeam || x.AwayTeam == unchangableHomeTeam)).Data;
+            matchBets = matchBets.Where(x => x.HomeTeam == unchangableAwayTeam || x.AwayTeam == unchangableAwayTeam).ToList();
+
+            if (matchBets != null)
+            {
+                if (matchBets.Any())
+                {
+                    for (int i = 0; i < matchBets.Count; i++)
+                    {
+                        var mb = matchBets[i];
+
+                        var compInfo = new ComparisonInfoContainer(serial, 
+                                                                   unchangableHomeTeam, 
+                                                                   unchangableAwayTeam, 
+                                                                   mb.HomeTeam, 
+                                                                   mb.AwayTeam, 
+                                                                   country, 
+                                                                   Convert.ToInt32(mb.HT_Match_Result.Split("-")[0]),
+                                                                   Convert.ToInt32(mb.HT_Match_Result.Split("-")[1]), league,
+                                                                   Convert.ToInt32(mb.FT_Match_Result.Split("-")[0]),
+                                                                   Convert.ToInt32(mb.FT_Match_Result.Split("-")[1]),
+                                                                   mb.HomeCornersCount,
+                                                                   mb.AwayCornersCount,
+                                                                   mb.HasCorner);
+                        result.Add(compInfo);
+                    }
+                    return result;
+                }
+            }
+
+            return null;
+        }
+
+
+        public List<ComparisonInfoContainer> SelectListComparisonInfoBetweenTeamsWithCorner(string serial, IFilterResultService filterResultService, IMatchBetService matchBetService, CountryContainerTemp containerTemp)
+        {
+            var rgxTeamsSentence = new Regex(PatternConstant.ComparisonInfoPattern.TeamsNames);
+
+            var rgxHomeTeam = new Regex(PatternConstant.StartedMatchPattern.HomeTeam);
+            var rgxAwayTeam = new Regex(PatternConstant.StartedMatchPattern.AwayTeam);
+
+            var uri = string.Format("{0}{1}", _comparisonMatchUrl, serial);
+            var uriMatchInfo = string.Format("{0}{1}", _defaultMatchUrl, serial);
+
+            var source = _webOperation.GetMinifiedString(uriMatchInfo);
+
+            var src = _webOperation.GetMinifiedString(uri);
+
+            if (string.IsNullOrEmpty(src)) return null;
+
+            if (!rgxAwayTeam.IsMatch(source) || !rgxHomeTeam.IsMatch(source)) return null;
+
+            string unchangableAwayTeam = rgxAwayTeam.Matches(source)[0].Groups[1].Value;
+            string unchangableHomeTeam = rgxHomeTeam.Matches(source)[0].Groups[1].Value;
+
+            var splittedSources = src.Split("class=alt");
+
+            if (splittedSources.Length > 1)
+            {
+                var result = new List<ComparisonInfoContainer>();
+
+                for (int i = 1; i < splittedSources.Length; i++)
+                {
+                    var currentSrc = splittedSources[i];
+
+                    var readyItem = GetComparisonInfoByPattern(currentSrc);
+
+                    if (readyItem != null)
+                    {
+                        readyItem.Serial = serial;
+                        readyItem.UnchangableHomeTeam = unchangableHomeTeam;
+                        readyItem.UnchangableAwayTeam = unchangableAwayTeam;
+
+                        result.Add(readyItem);
+                    }
+                };
+
+                return result;
+            }
+
+            return null;
+        }
+
 
 
         public List<ComparisonInfoContainer> SelectListComparisonInfoBetweenTeams_TEST(string serial)
@@ -359,6 +475,19 @@ namespace SBA.Business.FunctionalServices.Concrete
 
 
         public List<PerformanceDataContainer> SelectListPerformanceDataContainers(List<MatchBetQM> qmModels, TeamSide teamSide, string unchangableAway)
+        {
+            var result = new List<PerformanceDataContainer>();
+
+            foreach (var model in qmModels)
+            {
+                if (GetPerformanceData(model, teamSide, unchangableAway) != null)
+                    result.Add(GetPerformanceData(model, teamSide, unchangableAway));
+            }
+
+            return result;
+        }
+
+        public List<PerformanceDataContainer> SelectListFullWithCornerPerformanceDataContainers(List<MatchBetQM> qmModels, TeamSide teamSide, string unchangableAway)
         {
             var result = new List<PerformanceDataContainer>();
 
@@ -1195,7 +1324,7 @@ namespace SBA.Business.FunctionalServices.Concrete
             var rgxMoreGoal1stHalf = new Regex(PatternConstant.UnstartedMatchPattern.MoreGoal_1st);
             var rgxMoreGoalEqual = new Regex(PatternConstant.UnstartedMatchPattern.MoreGoal_Equal);
             var rgxMoreGoal2ndHalf = new Regex(PatternConstant.UnstartedMatchPattern.MoreGoal_2nd);
-            var rgxHtCorner45Ust = new Regex(PatternConstant.UnstartedMatchPattern.HT_Corners_4_5_Over); 
+            var rgxHtCorner45Ust = new Regex(PatternConstant.UnstartedMatchPattern.HT_Corners_4_5_Over);
             var rgxHtCorner45Alt = new Regex(PatternConstant.UnstartedMatchPattern.HT_Corners_4_5_Under);
             var rgxFtCorner85Ust = new Regex(PatternConstant.UnstartedMatchPattern.Corners_8_5_Over);
             var rgxFtCorner85Alt = new Regex(PatternConstant.UnstartedMatchPattern.Corners_8_5_Under);

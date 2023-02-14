@@ -5,6 +5,37 @@ namespace Core.Utilities.UsableModel
 {
     public class ComparisonInfoContainer : BaseComparerContainerModel
     {
+        public ComparisonInfoContainer(string serial,
+                                       string unchangableHomeTeam,
+                                       string unchangableAwayTeam,
+                                       string homeTeam,
+                                       string awayTeam,
+                                       string countryName,
+                                       int hT_Goals_HomeTeam,
+                                       int hT_Goals_AwayTeam,
+                                       string leagueName,
+                                       int fT_Goals_HomeTeam,
+                                       int fT_Goals_AwayTeam,
+                                       int homeCornersCount,
+                                       int awayCornersCount,
+                                       bool hasCorner) : base(serial,
+                                                                    unchangableHomeTeam,
+                                                                    unchangableAwayTeam,
+                                                                    homeTeam,
+                                                                    awayTeam,
+                                                                    countryName,
+                                                                    hT_Goals_HomeTeam,
+                                                                    hT_Goals_AwayTeam,
+                                                                    leagueName,
+                                                                    fT_Goals_HomeTeam,
+                                                                    fT_Goals_AwayTeam,
+                                                                    homeCornersCount,
+                                                                    awayCornersCount,
+                                                                    hasCorner)
+        {
+
+        }
+
         public ComparisonInfoContainer()
         {
             Serial = string.Empty;

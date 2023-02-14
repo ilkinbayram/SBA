@@ -239,5 +239,177 @@ namespace Core.Extensions
 
             return resultRead;
         }
+
+        public static string ToResponseOverVisualise(this PercentageComplainer input)
+        {
+            if (input.Percentage >= 50)
+            {
+                if (input.FeatureName.ToLower() == "true")
+                {
+                    return $"{input.Percentage}% Üst";
+                }
+                else
+                {
+                    return $"{input.Percentage}% Alt";
+                }
+            }
+            else
+            {
+                if (input.FeatureName.ToLower() == "true")
+                {
+                    return $"{100 - input.Percentage}% Alt";
+                }
+                else
+                {
+                    return $"{100 - input.Percentage}% Üst";
+                }
+            }
+        }
+
+        public static string ToResponseOverVisualise(this PercentageComplainer input, string propertyName)
+        {
+            if (input == null)
+                return $"{propertyName} => FUCKED UP!!! XXXXXX";
+
+            if (input.Percentage >= 50)
+            {
+                if (input.FeatureName.ToLower() == "true")
+                {
+                    return $"{input.Percentage}% Üst";
+                }
+                else
+                {
+                    return $"{input.Percentage}% Alt";
+                }
+            }
+            else
+            {
+                if (input.FeatureName.ToLower() == "true")
+                {
+                    return $"{100 - input.Percentage}% Alt";
+                }
+                else
+                {
+                    return $"{100 - input.Percentage}% Üst";
+                }
+            }
+        }
+
+        public static string ToResponseWinLoseVisualise(this PercentageComplainer input)
+        {
+            if (input.Percentage >= 50)
+            {
+                if(input.FeatureName.ToLower() == "true")
+                {
+                    return $"{input.Percentage}% Bəli";
+                }
+                else
+                {
+                    return $"{input.Percentage}% Xeyr";
+                }
+            }
+            else
+            {
+                if (input.FeatureName.ToLower() == "true")
+                {
+                    return $"{100 - input.Percentage}% Xeyr";
+                }
+                else
+                {
+                    return $"{100 - input.Percentage}% Bəli";
+                }
+            }
+        }
+
+        public static string ToResponseWinLoseVisualise(this PercentageComplainer input, string propertyName)
+        {
+            if (input == null)
+                return $"{propertyName} => FUCKED UP!!! XXXXXX";
+
+            if (input.Percentage >= 50)
+            {
+                if (input.FeatureName.ToLower() == "true")
+                {
+                    return $"{input.Percentage}% Bəli";
+                }
+                else
+                {
+                    return $"{input.Percentage}% Xeyr";
+                }
+            }
+            else
+            {
+                if (input.FeatureName.ToLower() == "true")
+                {
+                    return $"{100 - input.Percentage}% Xeyr";
+                }
+                else
+                {
+                    return $"{100 - input.Percentage}% Bəli";
+                }
+            }
+        }
+
+        public static string ToResponseOverVisualise(this int input)
+        {
+            if (input > 50)
+            {
+                return $"{input}% Bəli";
+            }
+            else
+            {
+                return $"{100 - input}% Xeyr";
+            }
+        }
+
+        public static string ToResponseWinLoseVisualise(this int input)
+        {
+            if (input >= 50)
+            {
+                return $"{input}% Win";
+            }
+            else
+            {
+                return $"{100 - input}% Lose";
+            }
+        }
+
+        public static string ToResponseBothGoalVisualise(this PercentageComplainer input)
+        {
+            if (input.Percentage >= 50)
+            {
+                if (input.FeatureName.ToLower() == "true")
+                {
+                    return $"{input.Percentage}% Qol/Qol";
+                }
+                else
+                {
+                    return $"{input.Percentage}% Yox/Qol";
+                }
+            }
+            else
+            {
+                if (input.FeatureName.ToLower() == "true")
+                {
+                    return $"{100 - input.Percentage}% Yox/Qol";
+                }
+                else
+                {
+                    return $"{100 - input.Percentage}% Qol/Qol";
+                }
+            }
+        }
+
+        public static string ToResponseBothGoalVisualise(this int input)
+        {
+            if(input > 50)
+            {
+                return $"{input}% Qol-Qol";
+            }
+            else
+            {
+                return $"{100 - input}% Yox-Qol";
+            }
+        }
     }
 }

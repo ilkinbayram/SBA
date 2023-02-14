@@ -23,6 +23,8 @@ namespace SBA.DataAccess.Concrete.EntityFramework
         {
 
             var query =   from mb in Context.MatchBets
+                          join fr in Context.FilterResults
+                          on mb.SerialUniqueID equals fr.SerialUniqueID
                           where
                           (mb.Country == "AFC Kupası" ||
                           mb.Country == "AFC Şampiyonlar Ligi" ||
@@ -63,7 +65,9 @@ namespace SBA.DataAccess.Concrete.EntityFramework
                               HomeTeam = mb.HomeTeam,
                               AwayTeam = mb.AwayTeam,
                               FT_Match_Result = mb.FT_Match_Result,
-                              HT_Match_Result = mb.HT_Match_Result
+                              HT_Match_Result = mb.HT_Match_Result,
+                              AwayCornersCount = fr.AwayCornerCount,
+                              HomeCornersCount = fr.HomeCornerCount
                           };
 
             query = filter == null
@@ -74,5 +78,72 @@ namespace SBA.DataAccess.Concrete.EntityFramework
 
         }
 
+        public IQueryable<MatchBetQM> GetMatchBetQueryModelsForPerformanceResult(string countryName,
+                                                             string teamName,
+                                                             int takeCount,
+                                                             Expression<Func<MatchBetQM, bool>> filter = null)
+        {
+
+            var query = from mb in Context.MatchBets
+                        join fr in Context.FilterResults
+                        on mb.SerialUniqueID equals fr.SerialUniqueID
+                        where
+                        mb.Country == countryName &&
+
+                        (mb.HomeTeam == teamName || mb.AwayTeam == teamName)
+
+                        orderby mb.MatchDate descending
+
+                        select new MatchBetQM
+                        {
+                            Country = mb.Country,
+                            MatchDate = mb.MatchDate,
+                            SerialUniqueID = mb.SerialUniqueID,
+                            HomeTeam = mb.HomeTeam,
+                            AwayTeam = mb.AwayTeam,
+                            FT_Match_Result = mb.FT_Match_Result,
+                            HT_Match_Result = mb.HT_Match_Result,
+                            AwayCornersCount = fr.AwayCornerCount,
+                            HomeCornersCount = fr.HomeCornerCount,
+                            HasCorner = fr.IsCornerFound
+                        };
+
+            query = filter == null
+                    ? query.Take(takeCount)
+                    : query.Where(filter).Take(takeCount);
+
+            return query;
+
+        }
+
+        public IQueryable<MatchBetQM> GetMatchBetFilterResultQueryModels(Expression<Func<MatchBetQM, bool>> filter = null)
+        {
+
+            var query = from mb in Context.MatchBets
+                        join fr in Context.FilterResults
+                        on mb.SerialUniqueID equals fr.SerialUniqueID
+
+                        orderby mb.MatchDate descending
+
+                        select new MatchBetQM
+                        {
+                            Country = mb.Country,
+                            MatchDate = mb.MatchDate,
+                            SerialUniqueID = mb.SerialUniqueID,
+                            HomeTeam = mb.HomeTeam,
+                            AwayTeam = mb.AwayTeam,
+                            FT_Match_Result = mb.FT_Match_Result,
+                            HT_Match_Result = mb.HT_Match_Result,
+                            AwayCornersCount = fr.AwayCornerCount,
+                            HomeCornersCount = fr.HomeCornerCount,
+                            League = mb.LeagueName,
+                            HasCorner = fr.IsCornerFound
+                        };
+
+            return filter == null
+                   ? query
+                   : query.Where(filter);
+
+        }
     }
 }
