@@ -246,22 +246,22 @@ namespace Core.Extensions
             {
                 if (input.FeatureName.ToLower() == "true")
                 {
-                    return $"{input.Percentage}% Üst";
+                    return $"{input.Percentage}% Over";
                 }
                 else
                 {
-                    return $"{input.Percentage}% Alt";
+                    return $"{input.Percentage}% Under";
                 }
             }
             else
             {
                 if (input.FeatureName.ToLower() == "true")
                 {
-                    return $"{100 - input.Percentage}% Alt";
+                    return $"{100 - input.Percentage}% Under";
                 }
                 else
                 {
-                    return $"{100 - input.Percentage}% Üst";
+                    return $"{100 - input.Percentage}% Over";
                 }
             }
         }
@@ -354,11 +354,11 @@ namespace Core.Extensions
         {
             if (input > 50)
             {
-                return $"{input}% Bəli";
+                return $"{input}% Over";
             }
             else
             {
-                return $"{100 - input}% Xeyr";
+                return $"{100 - input}% Under";
             }
         }
 
@@ -380,22 +380,22 @@ namespace Core.Extensions
             {
                 if (input.FeatureName.ToLower() == "true")
                 {
-                    return $"{input.Percentage}% Qol/Qol";
+                    return $"{input.Percentage}% Yes";
                 }
                 else
                 {
-                    return $"{input.Percentage}% Yox/Qol";
+                    return $"{input.Percentage}% No";
                 }
             }
             else
             {
                 if (input.FeatureName.ToLower() == "true")
                 {
-                    return $"{100 - input.Percentage}% Yox/Qol";
+                    return $"{100 - input.Percentage}% Yes";
                 }
                 else
                 {
-                    return $"{100 - input.Percentage}% Qol/Qol";
+                    return $"{100 - input.Percentage}% No";
                 }
             }
         }
@@ -404,11 +404,11 @@ namespace Core.Extensions
         {
             if(input > 50)
             {
-                return $"{input}% Qol-Qol";
+                return $"{input}% Yes";
             }
             else
             {
-                return $"{100 - input}% Yox-Qol";
+                return $"{100 - input}% No";
             }
         }
     }

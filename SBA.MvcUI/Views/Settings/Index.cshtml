@@ -15,6 +15,33 @@
         </div>
     </div>
 </div>
+
+<div class="row mt-1 mb-1">
+    <div class="col-12 col-sm-12 col-md-12 my-1">
+        <div class="form-check form-switch">
+            <input class="form-check-input" name="IsOnurChecked" type="checkbox" data-ischecked="false" id="IsOnurChecked">
+            <label class="form-check-label lg" for="gridCheck">
+                User 0
+            </label>
+        </div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 my-1">
+        <div class="form-check form-switch">
+            <input class="form-check-input" name="IsMeChecked" type="checkbox" data-ischecked="false" id="IsMeChecked">
+            <label class="form-check-label lg" for="gridCheck">
+                User 1
+            </label>
+        </div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 my-1">
+        <div class="form-check form-switch">
+            <input class="form-check-input" name="IsEldarChecked" type="checkbox" data-ischecked="false" id="IsEldarChecked">
+            <label class="form-check-label lg" for="gridCheck">
+                User 3
+            </label>
+        </div>
+    </div>
+</div>
 <hr />
 
 <div class="row operation-containers">
@@ -93,16 +120,41 @@
 
         $(document).ready(() => {
 
+            $(".form-check-input").click(function (e) {
+                if ($(e.target).data("ischecked") == false) {
+                    $(e.target).data("ischecked", true);
+                } else {
+                    $(e.target).data("ischecked", false);
+                };
+            });
+
             $("#startAnalyseExternal").click((e) => {
+                
+                var dt = $("#dataTextArea").val();
+
+                let dataObj = {
+                    Serials: dt,
+                    CheckUser:{
+                        IsOnurChecked: $("#IsOnurChecked").data("ischecked"),
+                        IsMeChecked: $("#IsMeChecked").data("ischecked"),
+                        IsEldarChecked: $("#IsEldarChecked").data("ischecked")
+                    }
+                };
+
+                if (!dataObj.CheckUser.IsEldarChecked && 
+                    !dataObj.CheckUser.IsMeChecked && 
+                    !dataObj.CheckUser.IsOnurChecked) {
+                    alert("Analizin göndərilməsi üçün minimum 1 istifadəçi seçilməlidir.");
+                    return;
+                }
+
                 $("#spinnerContainer").html(spinnerHtml);
                 $(".operation-containers").hide();
-
-                var dt = $("#dataTextArea").val();
 
                 $.ajax({
                     method: "post",
                     url: "/Settings/AnalyseExternal",
-                    data: { serials: dt }
+                    data: { container: dataObj }
                 }).done(function (data) {
                     $("#spinnerContainer").html("");
                     $(".operation-containers").show();
@@ -136,17 +188,32 @@
 
 
             $("#startOwnRealAnalyse").click((e) => {
-                $("#spinnerContainer").html(spinnerHtml);
-                $(".operation-containers").hide();
 
                 var dt = $("#dataTextArea").val();
 
-                console.log(dt);
+                let dataObj = {
+                    Serials: dt,
+                    CheckUser: {
+                        IsOnurChecked: $("#IsOnurChecked").data("ischecked"),
+                        IsMeChecked: $("#IsMeChecked").data("ischecked"),
+                        IsEldarChecked: $("#IsEldarChecked").data("ischecked")
+                    }
+                };
+
+                if (!dataObj.CheckUser.IsEldarChecked &&
+                    !dataObj.CheckUser.IsMeChecked &&
+                    !dataObj.CheckUser.IsOnurChecked) {
+                    alert("Analizin göndərilməsi üçün minimum 1 istifadəçi seçilməlidir.");
+                    return;
+                }
+
+                $("#spinnerContainer").html(spinnerHtml);
+                $(".operation-containers").hide();
 
                 $.ajax({
                     method: "post",
                     url: "/Settings/RealDataAnalysing",
-                    data: { serials: dt }
+                    data: { container: dataObj }
                 }).done(function (data) {
                     $("#spinnerContainer").html("");
                     $(".operation-containers").show();

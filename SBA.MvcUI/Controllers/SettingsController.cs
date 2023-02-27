@@ -11,6 +11,7 @@ using SBA.Business.CoreAbilityServices.Job;
 using SBA.Business.ExternalServices.Abstract;
 using SBA.Business.FunctionalServices.Abstract;
 using SBA.Business.FunctionalServices.Concrete;
+using SBA.MvcUI.Models.SettingsModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -50,9 +51,9 @@ namespace SBA.MvcUI.Controllers
         }
 
         [HttpPost("/Settings/AnalyseExternal")]
-        public IActionResult AnalyseExternalResult(string serials)
+        public IActionResult AnalyseExternalResult(UserCheckerContainer container)
         {
-            List<string> listSerials = OperationalProcessor.SplitSerials(serials).ToList();
+            List<string> listSerials = OperationalProcessor.SplitSerials(container.Serials).ToList();
 
             if (listSerials.Count == 0)
             {
@@ -65,7 +66,7 @@ namespace SBA.MvcUI.Controllers
 
             pathes.Add("responseProfilerTemp", jsonPathFormat.GetJsonFileByFormat("responseProfilerTemp"));
 
-            job.ExecuteTTT(listSerials, pathes, CountryContainer, LeagueContainer);
+            job.ExecuteTTT(listSerials, pathes, CountryContainer, LeagueContainer, container.CheckUser);
 
             return Ok(204);
         }
@@ -82,7 +83,11 @@ namespace SBA.MvcUI.Controllers
 
             JobOperation job = new JobOperation(_telegramService, new List<TimeSerialContainer>(), _matchBetService, _filterResultService, new SystemCheckerContainer(), DescriptionJobResultEnum.Standart, CountryContainer);
 
-            job.ExecuteNisbi(listSerials, txtPathFormat.GetTextFileByFormat("LogFile"), LeagueContainer, CountryContainer);
+            var pathes = new Dictionary<string, string>();
+            pathes.Add("responseProfilerTempNisbi", jsonPathFormat.GetJsonFileByFormat("responseProfilerTempNisbi"));
+            pathes.Add("Report", txtPathFormat.GetTextFileByFormat("Report"));
+
+            job.ExecuteNisbi(listSerials, pathes, CountryContainer, LeagueContainer);
 
             return Ok(204);
         }
@@ -132,9 +137,9 @@ namespace SBA.MvcUI.Controllers
         }
 
         [HttpPost("/Settings/RealDataAnalysing")]
-        public IActionResult AnalyseRealCustomAnalysing(string serials)
+        public IActionResult AnalyseRealCustomAnalysing(UserCheckerContainer container)
         {
-            List<string> listSerials = OperationalProcessor.SplitSerials(serials).ToList();
+            List<string> listSerials = OperationalProcessor.SplitSerials(container.Serials).ToList();
 
             if (listSerials.Count == 0)
             {
@@ -143,7 +148,10 @@ namespace SBA.MvcUI.Controllers
 
             JobOperation job = new JobOperation(_telegramService, new List<TimeSerialContainer>(), _matchBetService, _filterResultService, new SystemCheckerContainer(), DescriptionJobResultEnum.Standart, CountryContainer);
 
-            job.ExecuteTTT2(listSerials, txtPathFormat.GetTextFileByFormat("LogFile"), LeagueContainer, CountryContainer);
+            var pathes = new Dictionary<string, string>();
+            pathes.Add("responseProfilerTemp", jsonPathFormat.GetJsonFileByFormat("responseProfilerTemp"));
+
+            job.ExecuteTTT2(listSerials, pathes, CountryContainer, LeagueContainer, container.CheckUser);
 
             return Ok(204);
         }
@@ -156,7 +164,7 @@ namespace SBA.MvcUI.Controllers
             for (int i = 0; i < allMatches.Count; i++)
             {
                 var match = allMatches[i];
-
+                #region LeagueStringCorrector
                 match.LeagueName = match.LeagueName
                                   .Replace("2018/2019", "").Trim()
                                   .Replace("2019/2020", "").Trim()
@@ -270,6 +278,8 @@ namespace SBA.MvcUI.Controllers
                                   .Replace("16.Tur", "").Trim()
                                   .Replace("La Liga", "LaLiga").Trim()
                                   .Replace("Canlı", "").Trim();
+                #endregion
+
             }
 
             var res = _matchBetService.UpdateRange(allMatches).Data;
@@ -307,6 +317,10 @@ namespace SBA.MvcUI.Controllers
                 writer.Write(string.Empty);
             }
             using (var writer = new StreamWriter(jsonPathFormat.GetJsonFileByFormat("responseProfilerTempNisbi")))
+            {
+                writer.Write(string.Empty);
+            }
+            using (var writer = new StreamWriter(jsonPathFormat.GetJsonFileByFormat("responseProfilerTempReal")))
             {
                 writer.Write(string.Empty);
             }

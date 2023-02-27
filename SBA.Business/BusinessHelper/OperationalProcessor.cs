@@ -499,7 +499,7 @@ namespace SBA.Business.BusinessHelper
         }
         
 
-        public static List<JobAnalyseModel> GetJobAnalyseModelResultTest2222(IMatchBetService matchBetService, CountryContainerTemp containerTemp, List<string> serials)
+        public static List<JobAnalyseModel> GetJobAnalyseModelResultTest2222(IMatchBetService matchBetService, CountryContainerTemp containerTemp, LeagueContainer leagueContainer, List<string> serials)
         {
             string mainUrl = _defaultMatchUrl;
 
@@ -507,6 +507,19 @@ namespace SBA.Business.BusinessHelper
 
             for (int i = 0; i < serials.Count; i++)
             {
+                var rgxCountryLeagueMix = new Regex(PatternConstant.UnstartedMatchPattern.CountryAndLeague);
+                var rgxLeague = new Regex(PatternConstant.UnstartedMatchPattern.League);
+                var rgxCountry = new Regex(PatternConstant.UnstartedMatchPattern.Country);
+
+                string src = _webOperator.GetMinifiedString($"{mainUrl}{serials[i]}");
+
+                string leagueName = src.ResolveLeagueByRegex(containerTemp, rgxCountryLeagueMix, rgxLeague);
+                string countryName = src.ResolveCountryByRegex(containerTemp, rgxCountryLeagueMix, rgxCountry);
+
+                bool validToGo = leagueContainer.LeagueHolders.Any(x => x.Country.Trim().ToLower() == countryName.ToLower().Trim() && x.League.ToLower().Trim() == leagueName.ToLower().Trim());
+
+                if (!validToGo) continue;
+
                 var analyseModelOne = new JobAnalyseModel
                 {
                     ComparisonInfoContainer = GetComparisonProfilerResult(serials[i], TeamSide.Home),
@@ -550,6 +563,47 @@ namespace SBA.Business.BusinessHelper
                 var analyseModelOne = new JobAnalyseModel
                 {
                     ComparisonOnlyDB = GetComparisonOnlyDbProfilerResult(serials[i], matchBetService, filterResultService, containerTemp, TeamSide.Home),
+                    ComparisonInfoContainer = GetComparisonProfilerResult(serials[i], TeamSide.Home),
+
+                    HomeTeam_FormPerformanceGuessContainer = GetFormPerformanceProfiler(serials[i], matchBetService, containerTemp, TeamSide.Home),
+                    AwayTeam_FormPerformanceGuessContainer = GetFormPerformanceProfiler(serials[i], matchBetService, containerTemp, TeamSide.Away)
+                };
+
+                if (analyseModelOne.ComparisonInfoContainer == null || analyseModelOne.HomeTeam_FormPerformanceGuessContainer == null || analyseModelOne.AwayTeam_FormPerformanceGuessContainer == null)
+                {
+                    continue;
+                }
+
+                listAnalyseModel.Add(analyseModelOne);
+            }
+
+            return listAnalyseModel;
+        }
+
+
+        public static List<JobAnalyseModelNisbi> GetJobAnalyseModelResultNisbi(IMatchBetService matchBetService, IFilterResultService filterResultService, CountryContainerTemp containerTemp, LeagueContainer leagueContainer, List<string> serials)
+        {
+            string mainUrl = _defaultMatchUrl;
+
+            List<JobAnalyseModelNisbi> listAnalyseModel = new List<JobAnalyseModelNisbi>();
+
+            for (int i = 0; i < serials.Count; i++)
+            {
+                var rgxCountryLeagueMix = new Regex(PatternConstant.UnstartedMatchPattern.CountryAndLeague);
+                var rgxLeague = new Regex(PatternConstant.UnstartedMatchPattern.League);
+                var rgxCountry = new Regex(PatternConstant.UnstartedMatchPattern.Country);
+
+                string src = _webOperator.GetMinifiedString($"{mainUrl}{serials[i]}");
+
+                string leagueName = src.ResolveLeagueByRegex(containerTemp, rgxCountryLeagueMix, rgxLeague);
+                string countryName = src.ResolveCountryByRegex(containerTemp, rgxCountryLeagueMix, rgxCountry);
+
+                bool validToGo = leagueContainer.LeagueHolders.Any(x => x.Country.Trim().ToLower() == countryName.ToLower().Trim() && x.League.ToLower().Trim() == leagueName.ToLower().Trim());
+
+                if (!validToGo) continue;
+
+                var analyseModelOne = new JobAnalyseModelNisbi
+                {
                     ComparisonInfoContainer = GetComparisonProfilerResult(serials[i], TeamSide.Home),
 
                     HomeTeam_FormPerformanceGuessContainer = GetFormPerformanceProfiler(serials[i], matchBetService, containerTemp, TeamSide.Home),
