@@ -214,7 +214,7 @@ namespace SBA.Business.CoreAbilityServices.Job
             {
                 iteration++;
 
-                var contentString = _webHelper.GetMinifiedString($"https://arsiv.mackolik.com/Match/Default.aspx?id={item.HomeTeam_FormPerformanceGuessContainer.Serial}#karsilastirma");
+                var contentString = _webHelper.GetMinifiedString($"http://arsiv.mackolik.com/Match/Default.aspx?id={item.HomeTeam_FormPerformanceGuessContainer.Serial}#karsilastirma");
                 string leagueName = contentString.ResolveLeagueByRegex(countryContainer, rgxLeague, rgxLeague2);
                 string countryName = contentString.ResolveCountryByRegex(countryContainer, rgxCountry, rgxLeague2);
                 var leagueHolder = league.LeagueHolders.FirstOrDefault(x => x.Country == countryName && x.League == leagueName);
@@ -248,7 +248,7 @@ namespace SBA.Business.CoreAbilityServices.Job
                 try
                 {
                     _botService = new TelegramMessagingManager();
-                    var contentString = _webHelper.GetMinifiedString($"https://arsiv.mackolik.com/Match/Default.aspx?id={bet.Serial}#karsilastirma");
+                    var contentString = _webHelper.GetMinifiedString($"http://arsiv.mackolik.com/Match/Default.aspx?id={bet.Serial}#karsilastirma");
                     string leagueName = contentString.ResolveLeagueByRegex(countryContainer, rgxLeague, rgxLeague2);
                     string countryName = contentString.ResolveCountryByRegex(countryContainer, rgxCountry, rgxLeague2);
                     var leagueHolder = league.LeagueHolders.FirstOrDefault(x => x.Country.ToLower() == countryName.ToLower() && x.League.ToLower() == leagueName.ToLower());
@@ -260,7 +260,7 @@ namespace SBA.Business.CoreAbilityServices.Job
 
                     var strBuilder = new StringBuilder();
                     strBuilder.Append("BET Statistic\n");
-                    strBuilder.Append($"LINK: https://arsiv.mackolik.com/Match/Default.aspx?id={bet.Serial}\n");
+                    strBuilder.Append($"LINK: http://arsiv.mackolik.com/Match/Default.aspx?id={bet.Serial}\n");
                     strBuilder.Append($"__________________________\n");
                     strBuilder.Append($"COUNTRY: {bet.Country}\n");
                     strBuilder.Append($"LEAGUE: {bet.League}\n");
@@ -342,7 +342,7 @@ namespace SBA.Business.CoreAbilityServices.Job
             {
                 iteration++;
 
-                var contentString = _webHelper.GetMinifiedString($"https://arsiv.mackolik.com/Match/Default.aspx?id={item.HomeTeam_FormPerformanceGuessContainer.Serial}#karsilastirma");
+                var contentString = _webHelper.GetMinifiedString($"http://arsiv.mackolik.com/Match/Default.aspx?id={item.HomeTeam_FormPerformanceGuessContainer.Serial}#karsilastirma");
                 string leagueName = contentString.ResolveLeagueByRegex(countryContainer, rgxLeague, rgxLeague2);
                 string countryName = contentString.ResolveCountryByRegex(countryContainer, rgxCountry, rgxLeague2);
                 var leagueHolder = league.LeagueHolders.FirstOrDefault(x => x.Country == countryName && x.League == leagueName);
@@ -372,7 +372,7 @@ namespace SBA.Business.CoreAbilityServices.Job
             foreach (var bet in responsesBet)
             {
                 _botService = new TelegramMessagingManager();
-                var contentString = _webHelper.GetMinifiedString($"https://arsiv.mackolik.com/Match/Default.aspx?id={bet.Serial}#karsilastirma");
+                var contentString = _webHelper.GetMinifiedString($"http://arsiv.mackolik.com/Match/Default.aspx?id={bet.Serial}#karsilastirma");
                 string leagueName = contentString.ResolveLeagueByRegex(countryContainer, rgxLeague, rgxLeague2);
                 string countryName = contentString.ResolveCountryByRegex(countryContainer, rgxCountry, rgxLeague2);
                 var leagueHolder = league.LeagueHolders.FirstOrDefault(x => x.Country.ToLower() == countryName.ToLower() && x.League.ToLower() == leagueName.ToLower());
@@ -384,7 +384,7 @@ namespace SBA.Business.CoreAbilityServices.Job
 
                 var strBuilder = new StringBuilder();
                 strBuilder.Append("BET Statistic\n");
-                strBuilder.Append($"LINK: https://arsiv.mackolik.com/Match/Default.aspx?id={bet.Serial}\n");
+                strBuilder.Append($"LINK: http://arsiv.mackolik.com/Match/Default.aspx?id={bet.Serial}\n");
                 strBuilder.Append($"__________________________\n");
                 strBuilder.Append($"COUNTRY: {bet.Country}\n");
                 strBuilder.Append($"LEAGUE: {bet.League}\n");
@@ -2232,7 +2232,7 @@ namespace SBA.Business.CoreAbilityServices.Job
                 TelegramMessagingManager botServiceManager = new TelegramMessagingManager();
                 try
                 {
-                    var contentString = _webHelper.GetMinifiedString($"https://arsiv.mackolik.com/Match/Default.aspx?id={item.HomeTeam_FormPerformanceGuessContainer.Serial}#karsilastirma");
+                    var contentString = _webHelper.GetMinifiedString($"http://arsiv.mackolik.com/Match/Default.aspx?id={item.HomeTeam_FormPerformanceGuessContainer.Serial}#karsilastirma");
                     string leagueName = contentString.ResolveLeagueByRegex(countryContainer, rgxLeague2, rgxLeague);
                     string countryName = contentString.ResolveCountryByRegex(countryContainer, rgxLeague2, rgxCountry);
                     var leagueHolder = leagueContainer.LeagueHolders.FirstOrDefault(x => x.Country.ToLower() == countryName.ToLower() && x.League.ToLower() == leagueName.ToLower());
@@ -2244,7 +2244,7 @@ namespace SBA.Business.CoreAbilityServices.Job
 
                     var strBuilder1 = new StringBuilder();
                     strBuilder1.Append("BET Statistic\n");
-                    strBuilder1.Append($"LINK:  https://arsiv.mackolik.com/Match/Default.aspx?id={item.ComparisonInfoContainer.Serial}\n");
+                    strBuilder1.Append($"LINK:  http://arsiv.mackolik.com/Match/Default.aspx?id={item.ComparisonInfoContainer.Serial}\n");
                     strBuilder1.Append($"COUNTRY:  {countryName}\n");
                     strBuilder1.Append($"LEAGUE:  {leagueName} \n");
                     strBuilder1.Append($"MATCH:  {item.ComparisonInfoContainer.Home} - {item.ComparisonInfoContainer.Away}\n");
@@ -2367,7 +2367,7 @@ namespace SBA.Business.CoreAbilityServices.Job
 
                     strBuilderCorner.Append($"=== CORNER Informations ===\n");
                     strBuilderCorner.Append($"---- LIGA Corner Informations ----\n");
-                    //strBuilderCorner.Append($"LINK:  https://arsiv.mackolik.com/Match/Default.aspx?id={item.ComparisonInfoContainer.Serial}\n");
+                    //strBuilderCorner.Append($"LINK:  http://arsiv.mackolik.com/Match/Default.aspx?id={item.ComparisonInfoContainer.Serial}\n");
                     //strBuilderCorner.Append($"MATCH:  {item.ComparisonInfoContainer.Home} - {item.ComparisonInfoContainer.Away}\n");
                     //strBuilderCorner.Append($"COUNTRY:  {countryName}\n");
                     //strBuilderCorner.Append($"LEAGUE:  {leagueName} \n");

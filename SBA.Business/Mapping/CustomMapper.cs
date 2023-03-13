@@ -816,7 +816,7 @@ namespace SBA.Business.Mapping
                 AnalyseResultVisualiser result = new AnalyseResultVisualiser
                 {
                     HomeTeamVsAwayTeam = string.Format("{0} vs {1}", profiler.ComparisonInfoContainer.Home, profiler.ComparisonInfoContainer.Away),
-                    TargetURL = String.Format("{0}{1}", "https://arsiv.mackolik.com/Match/Default.aspx?id=", profiler.ComparisonInfoContainer.Serial),
+                    TargetURL = String.Format("{0}{1}", "http://arsiv.mackolik.com/Match/Default.aspx?id=", profiler.ComparisonInfoContainer.Serial),
 
                     Is_FT_25_Over = profiler.Is_FT_25_Over,
                     Is_FT_25_Under = profiler.Is_FT_25_Under,

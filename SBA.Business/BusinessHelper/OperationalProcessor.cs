@@ -310,7 +310,7 @@ namespace SBA.Business.BusinessHelper
 
             if (!string.IsNullOrEmpty(serialsText))
             {
-                serialsText.Split(new string[] { "\r\n", "\t\n", "\n" }, StringSplitOptions.None).ToList().ForEach(x =>
+                serialsText.Split(new string[] { "\r\n", "\t\n", "\n", "|" }, StringSplitOptions.None).ToList().ForEach(x =>
                 {
                     if (x.Trim().Length > 4)
                         serials.Add(x.Trim());
@@ -1433,7 +1433,7 @@ namespace SBA.Business.BusinessHelper
             fResult.Is_SH_Win2 = fResult.SH_Result == 2;
             fResult.Is_SH_X = fResult.SH_Result == 9;
 
-            var src = webOperation.GetMinifiedString($"https://arsiv.mackolik.com/Match/Default.aspx?id={fResult.SerialUniqueID}#mac-bilgisi");
+            var src = webOperation.GetMinifiedString($"http://arsiv.mackolik.com/Match/Default.aspx?id={fResult.SerialUniqueID}#mac-bilgisi");
             var regexKorner2 = new Regex(">Korner<[\\s\\S]*?class=team-2-statistics-text[\\s\\S]*?>[\\s\\S]*?(.+?(?=<))");
             var firstSrcPart = src.Split(">Korner<")[0];
 
