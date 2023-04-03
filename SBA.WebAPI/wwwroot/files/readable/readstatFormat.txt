@@ -1,0 +1,235 @@
+﻿Maç: {0}
+Ev sahibi takım: {1}
+Deplasman takım: {2}
+Ülke: {3}
+Lig: {4}
+
+
+
+Ligin İstatistikleri:
+
+Full Time Maç başına Gol Ortalamasi: {5}
+Birinci Yarı Gol Ortalamasi: {6}
+İkinci Yarı Gol Ortalamasi: {7}
+Karşılıklı Gol olmasi yüzdesi: {8}%
+Full Time 1.5 Üst yüzdesi: {9}%
+Full Time 2.5 Üst yüzdesi: {10}%
+Full Time 3.5 Üst yüzdesi: {11}%
+Birinci Yarı 0.5 Üst yüzdesi: {12}%
+Birinci Yarı 1.5 Üst yüzdesi: {13}%
+İkinci Yarı 0.5 Üst yüzdesi: {14}%
+İkinci Yarı 1.5 Üst yüzdesi: {15}%
+
+
+
+Bir biriyle aralarında {1} kendi sahasinda - {2} deplasman sahada oynanan maçlara göre istatistikleri:
+
+{1} Full Time Maç başına Gol Ortalamasi: {16}
+{1} Birinci Yarı Gol Ortalamasi: {17}
+{1} İkinci Yarı Gol Ortalamasi: {18}
+{2} Full Time Maç başına Gol Ortalamasi: {19}
+{2} Birinci Yarı Gol Ortalamasi: {20}
+{2} İkinci Yarı Gol Ortalamasi: {21}
+{1} Full Time Galibiyet yüzdesi: {22}%
+Full Time Beraberlik yüzdesi: {23}%
+{2} Full Time Galibiyet yüzdesi: {24}%
+{1} Birinci Yarı Galibiyet yüzdesi: {25}%
+Birinci Yarı Beraberlik yüzdesi: {26}%
+{2} Birinci Yarı Galibiyet yüzdesi: {27}%
+{1} İkinci Yarı Galibiyet yüzdesi: {28}%
+İkinci Yarı Beraberlik yüzdesi: {29}%
+{2} İkinci Yarı Galibiyet yüzdesi: {30}%
+Full Time Karşılıklı Gol olmasi yüzdesi: {31}%
+Birinci Yarı Karşılıklı Gol olmasi yüzdesi: {32}%
+İkinci Yarı Karşılıklı Gol olmasi yüzdesi: {33}%
+Maç 1.5 Üst yüzdesi: {34}%
+Maç 2.5 Üst yüzdesi: {35}%
+Maç 3.5 Üst yüzdesi: {36}%
+Birinci Yarı 0.5 Üst yüzdesi: {37}%
+Birinci Yarı 1.5 Üst yüzdesi: {38}%
+İkinci Yarı 0.5 Üst yüzdesi: {39}%
+İkinci Yarı 1.5 Üst yüzdesi: {40}%
+{1} 0.5 Üst yüzdesi: {41}%
+{1} 1.5 Üst yüzdesi: {42}%
+{1} Birinci Yarı 0.5 Üst yüzdesi: {43}%
+{1} Birinci Yarı 1.5 Üst yüzdesi: {44}%
+{1} İkinci Yarı 0.5 Üst yüzdesi: {45}%
+{1} İkinci Yarı 1.5 Üst yüzdesi: {46}%
+{1} HBirinci YarıK: {47}%
+{2} 0.5 Üst yüzdesi: {48}%
+{2} 1.5 Üst yüzdesi: {49}%
+{2} Birinci Yarı 0.5 Üst yüzdesi: {50}%
+{2} Birinci Yarı 1.5 Üst yüzdesi: {51}%
+{2} İkinci Yarı 0.5 Üst yüzdesi: {52}%
+{2} İkinci Yarı 1.5 Üst yüzdesi: {53}%
+{2} Herhangi bir yariyi kazanacak: {54}%
+
+
+
+Bir biriyle aralarında genel oynanan tüm maçlara göre istatistikleri:
+
+{1} Full Time Maç başına Gol Ortalamasi: {55}
+{1} Birinci Yarı Gol Ortalamasi: {56}
+{1} İkinci Yarı Gol Ortalamasi: {57}
+{2} Full Time Maç başına Gol Ortalamasi: {58}
+{2} Birinci Yarı Gol Ortalamasi: {59}
+{2} İkinci Yarı Gol Ortalamasi: {60}
+{1} Full Time Galibiyet yüzdesi: {61}%
+Full Time Beraberlik yüzdesi: {62}%
+{2} Full Time Galibiyet yüzdesi: {63}%
+{1} Birinci Yarı Galibiyet yüzdesi: {64}%
+Birinci Yarı Beraberlik yüzdesi: {65}%
+{2} Birinci Yarı Galibiyet yüzdesi: {66}%
+{1} İkinci Yarı Galibiyet yüzdesi: {67}%
+İkinci Yarı Beraberlik yüzdesi: {68}%
+{2} İkinci Yarı Galibiyet yüzdesi: {69}%
+Full Time Karşılıklı Gol olmasi yüzdesi: {70}%
+Birinci Yarı Karşılıklı Gol olmasi yüzdesi: {71}%
+İkinci Yarı Karşılıklı Gol olmasi yüzdesi: {72}%
+Maç 1.5 Üst yüzdesi: {73}%
+Maç 2.5 Üst yüzdesi: {74}%
+Maç 3.5 Üst yüzdesi: {75}%
+Birinci Yarı 0.5 Üst yüzdesi: {76}%
+Birinci Yarı 1.5 Üst yüzdesi: {77}%
+İkinci Yarı 0.5 Üst yüzdesi: {78}%
+İkinci Yarı 1.5 Üst yüzdesi: {79}%
+{1} 0.5 Üst yüzdesi: {80}%
+{1} 1.5 Üst yüzdesi: {81}%
+{1} Birinci Yarı 0.5 Üst yüzdesi: {82}%
+{1} Birinci Yarı 1.5 Üst yüzdesi: {83}%
+{1} İkinci Yarı 0.5 Üst yüzdesi: {84}%
+{1} İkinci Yarı 1.5 Üst yüzdesi: {85}%
+{1} HBirinci YarıK: {86}%
+{2} 0.5 Üst yüzdesi: {87}%
+{2} 1.5 Üst yüzdesi: {88}%
+{2} Birinci Yarı 0.5 Üst yüzdesi: {89}%
+{2} Birinci Yarı 1.5 Üst yüzdesi: {90}%
+{2} İkinci Yarı 0.5 Üst yüzdesi: {91}%
+{2} İkinci Yarı 1.5 Üst yüzdesi: {92}%
+{2} Herhangi bir yariyi kazanacak: {93}%
+
+
+
+
+Ligde son 6 maçta {1} kendi sahasinda - {2} deplasmanda oynadigi maçlara göre istatistikleri:
+
+{1} kendi sahasinda istatistikleri.
+{198}
+{1} Full Time Maç başına Gol Ortalamasi: {94}
+{1} Birinci Yarı Gol Ortalamasi: {95}
+{1} İkinci Yarı Gol Ortalamasi: {96}
+{1} Full Time Galibiyet yüzdesi: {97}%
+Full Time Beraberlik yüzdesi: {98}%
+{1} Birinci Yarı Galibiyet yüzdesi: {99}%
+Birinci Yarı Beraberlik yüzdesi: {100}%
+{1} İkinci Yarı Galibiyet yüzdesi: {101}%
+İkinci Yarı Beraberlik yüzdesi: {102}%
+Full Time Karşılıklı Gol olmasi yüzdesi: {103}%
+Birinci Yarı Karşılıklı Gol olmasi yüzdesi: {104}%
+İkinci Yarı Karşılıklı Gol olmasi yüzdesi: {105}%
+Maç 1.5 Üst yüzdesi: {106}%
+Maç 2.5 Üst yüzdesi: {107}%
+Maç 3.5 Üst yüzdesi: {108}%
+Birinci Yarı 0.5 Üst yüzdesi: {109}%
+Birinci Yarı 1.5 Üst yüzdesi: {110}%
+İkinci Yarı 0.5 Üst yüzdesi: {111}%
+İkinci Yarı 1.5 Üst yüzdesi: {112}%
+{1} 0.5 Üst yüzdesi: {113}%
+{1} 1.5 Üst yüzdesi: {114}%
+{1} Birinci Yarı 0.5 Üst yüzdesi: {115}%
+{1} Birinci Yarı 1.5 Üst yüzdesi: {116}%
+{1} İkinci Yarı 0.5 Üst yüzdesi: {117}%
+{1} İkinci Yarı 1.5 Üst yüzdesi: {118}%
+{1} Herhangi bir yariyi kazanacak: {119}%{199}
+
+{2} deplasman sahada istatistikleri.
+{200}
+{2} Full Time Maç başına Gol Ortalamasi: {120}
+{2} Birinci Yarı Gol Ortalamasi: {121}
+{2} İkinci Yarı Gol Ortalamasi: {122}
+{2} Full Time Galibiyet yüzdesi: {123}%
+Full Time Beraberlik yüzdesi: {124}%
+{2} Birinci Yarı Galibiyet yüzdesi: {125}%
+Birinci Yarı Beraberlik yüzdesi: {126}%
+{2} İkinci Yarı Galibiyet yüzdesi: {127}%
+İkinci Yarı Beraberlik yüzdesi: {128}%
+Full Time Karşılıklı Gol olmasi yüzdesi: {129}%
+Birinci Yarı Karşılıklı Gol olmasi yüzdesi: {130}%
+İkinci Yarı Karşılıklı Gol olmasi yüzdesi: {131}%
+Maç 1.5 Üst yüzdesi: {132}%
+Maç 2.5 Üst yüzdesi: {133}%
+Maç 3.5 Üst yüzdesi: {134}%
+Birinci Yarı 0.5 Üst yüzdesi: {135}%
+Birinci Yarı 1.5 Üst yüzdesi: {136}%
+İkinci Yarı 0.5 Üst yüzdesi: {137}%
+İkinci Yarı 1.5 Üst yüzdesi: {138}%
+{2} 0.5 Üst yüzdesi: {139}%
+{2} 1.5 Üst yüzdesi: {140}%
+{2} Birinci Yarı 0.5 Üst yüzdesi: {141}%
+{2} Birinci Yarı 1.5 Üst yüzdesi: {142}%
+{2} İkinci Yarı 0.5 Üst yüzdesi: {143}%
+{2} İkinci Yarı 1.5 Üst yüzdesi: {144}%
+{2} Herhangi bir yariyi kazanacak: {145}%{201}
+
+
+
+
+Ligde son 10 maçta takımlarin genel oynadigi tüm maçlara göre istatistikleri:
+
+{1} istatistikleri.
+{202}
+{1} Full Time Maç başına Gol Ortalamasi: {146}
+{1} Birinci Yarı Gol Ortalamasi: {147}
+{1} İkinci Yarı Gol Ortalamasi: {148}
+{1} Full Time Galibiyet yüzdesi: {149}%
+Full Time Beraberlik yüzdesi: {150}%
+{1} Birinci Yarı Galibiyet yüzdesi: {151}%
+Birinci Yarı Beraberlik yüzdesi: {152}%
+{1} İkinci Yarı Galibiyet yüzdesi: {153}%
+İkinci Yarı Beraberlik yüzdesi: {154}%
+Full Time Karşılıklı Gol olmasi yüzdesi: {155}%
+Birinci Yarı Karşılıklı Gol olmasi yüzdesi: {156}%
+İkinci Yarı Karşılıklı Gol olmasi yüzdesi: {157}%
+Maç 1.5 Üst yüzdesi: {158}%
+Maç 2.5 Üst yüzdesi: {159}%
+Maç 3.5 Üst yüzdesi: {160}%
+Birinci Yarı 0.5 Üst yüzdesi: {161}%
+Birinci Yarı 1.5 Üst yüzdesi: {162}%
+İkinci Yarı 0.5 Üst yüzdesi: {163}%
+İkinci Yarı 1.5 Üst yüzdesi: {164}%
+{1} 0.5 Üst yüzdesi: {165}%
+{1} 1.5 Üst yüzdesi: {166}%
+{1} Birinci Yarı 0.5 Üst yüzdesi: {167}%
+{1} Birinci Yarı 1.5 Üst yüzdesi: {168}%
+{1} İkinci Yarı 0.5 Üst yüzdesi: {169}%
+{1} İkinci Yarı 1.5 Üst yüzdesi: {170}%
+{1} Herhangi bir yariyi kazanacak: {171}%{203}
+
+{2} istatistikleri.
+{204}
+{2} Full Time Maç başına Gol Ortalamasi: {172}
+{2} Birinci Yarı Gol Ortalamasi: {173}
+{2} İkinci Yarı Gol Ortalamasi: {174}
+{2} Full Time Galibiyet yüzdesi: {175}%
+Full Time Beraberlik yüzdesi: {176}%
+{2} Birinci Yarı Galibiyet yüzdesi: {177}%
+Birinci Yarı Beraberlik yüzdesi: {178}%
+{2} İkinci Yarı Galibiyet yüzdesi: {179}%
+İkinci Yarı Beraberlik yüzdesi: {180}%
+Full Time Karşılıklı Gol olmasi yüzdesi: {181}%
+Birinci Yarı Karşılıklı Gol olmasi yüzdesi: {182}%
+İkinci Yarı Karşılıklı Gol olmasi yüzdesi: {183}%
+Maç 1.5 Üst yüzdesi: {184}%
+Maç 2.5 Üst yüzdesi: {185}%
+Maç 3.5 Üst yüzdesi: {186}%
+Birinci Yarı 0.5 Üst yüzdesi: {187}%
+Birinci Yarı 1.5 Üst yüzdesi: {188}%
+İkinci Yarı 0.5 Üst yüzdesi: {189}%
+İkinci Yarı 1.5 Üst yüzdesi: {190}%
+{2} 0.5 Üst yüzdesi: {191}%
+{2} 1.5 Üst yüzdesi: {192}%
+{2} Birinci Yarı 0.5 Üst yüzdesi: {193}%
+{2} Birinci Yarı 1.5 Üst yüzdesi: {194}%
+{2} İkinci Yarı 0.5 Üst yüzdesi: {195}%
+{2} İkinci Yarı 1.5 Üst yüzdesi: {196}%
+{2} Herhangi bir yariyi kazanacak: {197}%{205}

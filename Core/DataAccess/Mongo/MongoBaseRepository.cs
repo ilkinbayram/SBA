@@ -73,7 +73,7 @@ namespace Core.DataAccess.Mongo
         {
             try
             {
-                entities.ForEach(x => x.Id = x.SerialUniqueID);
+                //entities.ForEach(x => x.Id = x.SerialUniqueID);
                 Database.GetCollection<TEntity>(_collectionName).InsertMany(entities);
                 return entities.Count;
             }

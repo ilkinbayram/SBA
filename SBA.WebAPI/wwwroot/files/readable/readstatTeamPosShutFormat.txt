@@ -1,0 +1,5 @@
+﻿
+{0} Full Time Maç başına Topla Oynama yüzdesi: {1}%
+{0} Full Time Maç başına şut ortalaması: {2}
+{0} Full Time Maç başına Kaleyi Bulan şut ortalaması: {3}
+{0} Full Time Kaleyi bulan şut yüzdesi: {4}%

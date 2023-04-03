@@ -6,6 +6,7 @@ using Core.Utilities.IoC;
 using DataAccess.Concrete.EntityFramework.Contexts;
 using Microsoft.EntityFrameworkCore;
 using SBA.Business.DependencyResolvers.Autofac;
+using SBA.ExternalDataAccess.Concrete.EntityFramework.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,10 +21,16 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
     });
 
 string sqlLocalDb = builder.Configuration.GetConnectionString("LocalDB");
+string sqlPromoDb = builder.Configuration.GetConnectionString("SbaPromoDB");
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(sqlLocalDb);
+});
+
+builder.Services.AddDbContext<ExternalAppDbContext>(options =>
+{
+    options.UseSqlServer(sqlPromoDb);
 });
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

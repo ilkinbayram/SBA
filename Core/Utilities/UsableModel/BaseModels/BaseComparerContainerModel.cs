@@ -18,6 +18,15 @@ namespace Core.Utilities.UsableModel.BaseModels
         private int _homeCornersCount;
         private int _awayCornersCount;
         private bool _hasCorner;
+        private int _homeShutCount;
+        private int _awayShutCount;
+        private bool _hasShut;
+        private int _homeShutOnTargetCount;
+        private int _awayShutOnTargetCount;
+        private bool _hasShutOnTarget;
+        private int _homePossesionCount;
+        private int _awayPossesionCount;
+        private bool _hasPossesion;
 
         public BaseComparerContainerModel(string serial, 
                                           string unchangableHomeTeam, 
@@ -32,7 +41,16 @@ namespace Core.Utilities.UsableModel.BaseModels
                                           int fT_Goals_AwayTeam, 
                                           int homeCornersCount,
                                           int awayCornersCount,
-                                          bool hasCorner)
+                                          bool hasCorner,
+                                          int homeShutCount,
+                                          int awayShutCount,
+                                          bool hasShut,
+                                          int homeShutOnTargetCount,
+                                          int awayShutOnTargetCount,
+                                          bool hasShutOnTarget,
+                                          int homePossesionCount,
+                                          int awayPossesionCount,
+                                          bool hasPossesion)
         {
             _serial = serial;
             _unchangableHomeTeam = unchangableHomeTeam;
@@ -48,6 +66,15 @@ namespace Core.Utilities.UsableModel.BaseModels
             _homeCornersCount = homeCornersCount;
             _awayCornersCount = awayCornersCount;
             _hasCorner = hasCorner;
+            _homeShutCount = homeShutCount;
+            _awayShutCount = awayShutCount;
+            _hasShut = hasShut;
+            _homeShutOnTargetCount = homeShutOnTargetCount;
+            _awayShutOnTargetCount = awayShutOnTargetCount;
+            _hasShutOnTarget = hasShutOnTarget;
+            _homePossesionCount = homePossesionCount;
+            _awayPossesionCount = awayPossesionCount;
+            _hasPossesion = hasPossesion;
         }
 
         public BaseComparerContainerModel()
@@ -59,6 +86,24 @@ namespace Core.Utilities.UsableModel.BaseModels
         {
             get => _hasCorner;
             set => _hasCorner = value;
+        }
+
+        public bool HasShut
+        {
+            get => _hasShut;
+            set => _hasShut = value;
+        }
+
+        public bool HasShutOnTarget
+        {
+            get => _hasShutOnTarget;
+            set => _hasShutOnTarget = value;
+        }
+
+        public bool HasPossesion
+        {
+            get => _hasPossesion;
+            set => _hasPossesion = value;
         }
 
         public string Serial
@@ -129,6 +174,39 @@ namespace Core.Utilities.UsableModel.BaseModels
         {
             get => _awayCornersCount;
             set => _awayCornersCount = value;
+        }
+
+        public int HomeShutCount
+        {
+            get => _homeShutCount;
+            set => _homeShutCount = value;
+        }
+        public int AwayShutCount
+        {
+            get => _awayShutCount;
+            set => _awayShutCount = value;
+        }
+
+        public int HomeShutOnTargetCount
+        {
+            get => _homeShutOnTargetCount;
+            set => _homeShutOnTargetCount = value;
+        }
+        public int AwayShutOnTargetCount
+        {
+            get => _awayShutOnTargetCount;
+            set => _awayShutOnTargetCount = value;
+        }
+
+        public int HomePossesionCount
+        {
+            get => _homePossesionCount;
+            set => _homePossesionCount = value;
+        }
+        public int AwayPossesionCount
+        {
+            get => _awayPossesionCount;
+            set => _awayPossesionCount = value;
         }
 
         public int SH_Goals_HomeTeam => Calculate_SH_Goals_Home();

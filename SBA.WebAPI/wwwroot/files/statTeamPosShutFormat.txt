@@ -1,0 +1,5 @@
+
+{0} FT TOY: {1}%
+{0} FT SHUTORT: {2}
+{0} FT KBSHUTORT: {3}
+{0} FT KBSY: {4}%

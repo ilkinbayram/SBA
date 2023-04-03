@@ -67,7 +67,13 @@ namespace SBA.DataAccess.Concrete.EntityFramework
                               FT_Match_Result = mb.FT_Match_Result,
                               HT_Match_Result = mb.HT_Match_Result,
                               AwayCornersCount = fr.AwayCornerCount,
-                              HomeCornersCount = fr.HomeCornerCount
+                              HomeCornersCount = fr.HomeCornerCount,
+                              AwayPossesion = fr.AwayPossesion,
+                              HomePossesion = fr.HomePossesion,
+                              AwayShotCount = fr.AwayShotCount,
+                              HomeShotCount = fr.HomeShotCount,
+                              AwayShotOnTargetCount = fr.AwayShotOnTargetCount,
+                              HomeShotOnTargetCount = fr.HomeShotOnTargetCount
                           };
 
             query = filter == null
@@ -105,7 +111,16 @@ namespace SBA.DataAccess.Concrete.EntityFramework
                             HT_Match_Result = mb.HT_Match_Result,
                             AwayCornersCount = fr.AwayCornerCount,
                             HomeCornersCount = fr.HomeCornerCount,
-                            HasCorner = fr.IsCornerFound
+                            AwayPossesion = fr.AwayPossesion,
+                            HomePossesion = fr.HomePossesion,
+                            AwayShotCount = fr.AwayShotCount,
+                            HomeShotCount = fr.HomeShotCount,
+                            AwayShotOnTargetCount = fr.AwayShotOnTargetCount,
+                            HomeShotOnTargetCount = fr.HomeShotOnTargetCount,
+                            HasCorner = fr.IsCornerFound,
+                            HasPossesion = fr.IsPossesionFound,
+                            HasShot = fr.IsShotFound,
+                            HasShotOnTarget = fr.IsShotOnTargetFound
                         };
 
             query = filter == null
@@ -136,8 +151,17 @@ namespace SBA.DataAccess.Concrete.EntityFramework
                             HT_Match_Result = mb.HT_Match_Result,
                             AwayCornersCount = fr.AwayCornerCount,
                             HomeCornersCount = fr.HomeCornerCount,
+                            AwayPossesion = fr.AwayPossesion,
+                            HomePossesion = fr.HomePossesion,
+                            AwayShotCount = fr.AwayShotCount,
+                            HomeShotCount = fr.HomeShotCount,
+                            AwayShotOnTargetCount = fr.AwayShotOnTargetCount,
+                            HomeShotOnTargetCount = fr.HomeShotOnTargetCount,
                             League = mb.LeagueName,
-                            HasCorner = fr.IsCornerFound
+                            HasCorner = fr.IsCornerFound,
+                            HasShotOnTarget = fr.IsShotOnTargetFound,
+                            HasShot = fr.IsShotFound,
+                            HasPossesion = fr.IsPossesionFound
                         };
 
             return filter == null

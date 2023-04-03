@@ -67,7 +67,16 @@ namespace SBA.Business.FunctionalServices.Concrete
             result.FT_Goals_HomeTeam = Convert.ToInt32(model.FT_Match_Result.Split('-')[0].Trim());
             result.AwayCornersCount = model.AwayCornersCount;
             result.HomeCornersCount = model.HomeCornersCount;
+            result.AwayShutCount = model.AwayShotCount;
+            result.HomeShutCount = model.HomeShotCount;
+            result.AwayShutOnTargetCount = model.AwayShotOnTargetCount;
+            result.HomeShutOnTargetCount = model.HomeShotOnTargetCount;
+            result.HomePossesionCount = model.HomePossesion;
+            result.AwayPossesionCount = model.AwayPossesion;
             result.HasCorner = model.HasCorner;
+            result.HasPossesion = model.HasPossesion;
+            result.HasShut = model.HasShot;
+            result.HasShutOnTarget = model.HasShotOnTarget;
 
             return result;
         }
@@ -370,7 +379,16 @@ namespace SBA.Business.FunctionalServices.Concrete
                                                                    Convert.ToInt32(mb.FT_Match_Result.Split("-")[1]),
                                                                    mb.HomeCornersCount,
                                                                    mb.AwayCornersCount,
-                                                                   mb.HasCorner);
+                                                                   mb.HasCorner,
+                                                                   mb.HomeShotCount,
+                                                                   mb.AwayShotCount,
+                                                                   mb.HasShot,
+                                                                   mb.HomeShotOnTargetCount,
+                                                                   mb.AwayShotOnTargetCount,
+                                                                   mb.HasShotOnTarget,
+                                                                   mb.HomePossesion,
+                                                                   mb.AwayPossesion,
+                                                                   mb.HasPossesion);
                         result.Add(compInfo);
                     }
                     return result;

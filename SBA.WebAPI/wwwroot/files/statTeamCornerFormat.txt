@@ -1,0 +1,9 @@
+
+{0} FT Cor-ORT: {1}
+{0} FT Cor-Win: {2}%
+FT Cor-BRB: {3}%
+{0} FT 3.5 Cor-U: {4}%
+{0} FT 4.5 Cor-U: {5}%
+FT 7.5 Cor-U: {6}%
+FT 8.5 Cor-U: {7}%
+FT 9.5 Cor-U: {8}%

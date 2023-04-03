@@ -7,74 +7,71 @@ namespace Core.Utilities.Helpers
     public class QuickConvert
     {
         public List<T> MixRange<T>(List<T> src, TeamSide teamSide)
-            where T : BaseComparerContainerModel, new()
+    where T : BaseComparerContainerModel, new()
         {
-            if (src == null || src.Count == 0) return null;
+            if (src is null || src.Count == 0)
+            {
+                return null;
+            }
 
-            var validSide = teamSide == TeamSide.Home
-                ? src.Where(x => x.HomeTeam == x.UnchangableHomeTeam).ToList()
-                : src.Where(x => x.AwayTeam == x.UnchangableAwayTeam).ToList();
+            var validSide = (teamSide == TeamSide.Home)
+                ? src.Where(c => c.HomeTeam == c.UnchangableHomeTeam).ToList()
+                : src.Where(c => c.AwayTeam == c.UnchangableAwayTeam).ToList();
 
-            var reversableSide = teamSide == TeamSide.Home
-                ? src.Where(x => x.AwayTeam == x.UnchangableHomeTeam).ToList().ReverseContent()
-                : src.Where(x => x.HomeTeam == x.UnchangableAwayTeam).ToList().ReverseContent();
+            var reversableSide = (teamSide == TeamSide.Home)
+                ? src.Where(c => c.AwayTeam == c.UnchangableHomeTeam).ToList().ReverseContent()
+                : src.Where(c => c.HomeTeam == c.UnchangableAwayTeam).ToList().ReverseContent();
 
-            validSide.AddRange(reversableSide);
-
-            return validSide;
+            return validSide.Concat(reversableSide).ToList();
         }
 
         public decimal ConvertToDecimal(string value)
         {
-            if (Decimal.TryParse(value, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out decimal _res))
+            if (decimal.TryParse(value, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out decimal result))
             {
-                return Decimal.Parse(value,
-   NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
+                return result;
             }
 
-            if (value.Contains(','))
+            value = value.Contains('.') ? value.Replace(',', '.') : value.Replace('.', ',');
+
+            if (decimal.TryParse(value, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out decimal result2))
             {
-                value = value.Replace(',', '.');
-            }
-            else
-            {
-                value = value.Replace('.', ',');
+                return result2;
             }
 
-            if (Decimal.TryParse(value, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out decimal _res2nd))
-            {
-                return Decimal.Parse(value,
-   NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
-            }
-            else
-            {
-                return (decimal)-1.00;
-            }
+            return -1.00M;
         }
     }
 
     public static class ConversionExtension
     {
         public static List<T> ReverseContent<T>(this List<T> src)
-            where T : BaseComparerContainerModel, new()
+    where T : BaseComparerContainerModel, new()
         {
-            var result = new List<T>();
-
-            src.ForEach(x =>
+            if (src is null)
             {
-                result.Add(new T
+                throw new ArgumentNullException(nameof(src));
+            }
+
+            var result = new List<T>(src.Count);
+
+            foreach (var item in src)
+            {
+                var reversed = new T
                 {
-                    AwayTeam = x.HomeTeam,
-                    HomeTeam = x.AwayTeam,
-                    FT_Goals_AwayTeam = x.FT_Goals_HomeTeam,
-                    FT_Goals_HomeTeam = x.FT_Goals_AwayTeam,
-                    HT_Goals_AwayTeam = x.HT_Goals_HomeTeam,
-                    HT_Goals_HomeTeam = x.HT_Goals_AwayTeam,
-                    Serial = x.Serial,
-                    UnchangableAwayTeam = x.UnchangableAwayTeam,
-                    UnchangableHomeTeam = x.UnchangableHomeTeam,
-                });
-            });
+                    AwayTeam = item.HomeTeam,
+                    HomeTeam = item.AwayTeam,
+                    FT_Goals_AwayTeam = item.FT_Goals_HomeTeam,
+                    FT_Goals_HomeTeam = item.FT_Goals_AwayTeam,
+                    HT_Goals_AwayTeam = item.HT_Goals_HomeTeam,
+                    HT_Goals_HomeTeam = item.HT_Goals_AwayTeam,
+                    Serial = item.Serial,
+                    UnchangableAwayTeam = item.UnchangableAwayTeam,
+                    UnchangableHomeTeam = item.UnchangableHomeTeam
+                };
+
+                result.Add(reversed);
+            }
 
             return result;
         }

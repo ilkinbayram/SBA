@@ -17,7 +17,16 @@ namespace Core.Entities.Concrete.SqlEntities.QueryModels
         public string FT_Match_Result { get; set; }
         public int HomeCornersCount { get; set; }
         public int AwayCornersCount { get; set; }
+        public int HomePossesion { get; set; }
+        public int AwayPossesion { get; set; }
+        public int HomeShotCount { get; set; }
+        public int AwayShotCount { get; set; }
+        public int HomeShotOnTargetCount { get; set; }
+        public int AwayShotOnTargetCount { get; set; }
         public bool HasCorner { get; set; }
+        public bool HasPossesion { get; set; }
+        public bool HasShot { get; set; }
+        public bool HasShotOnTarget { get; set; }
         public DateTime MatchDate { get; set; }
     }
 }

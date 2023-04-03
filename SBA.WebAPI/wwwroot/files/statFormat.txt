@@ -1,0 +1,259 @@
+﻿Mac: {0}
+Ev sahibi takim: {1}
+Deplasman takim: {2}
+Ulke: {3}
+Lig: {4}
+
+
+Belirleyiciler:
+
+Win = Galibiyet yuzdesi
+BRB = Beraberlik yuzdesi
+U = Ust yuzdesi
+KG = Karsilikli Gol olmasi yuzdesi
+FT = Full Time
+BY = Birinci Yari
+IY = Ikinci Yari
+Ort = Ortalama
+Gol-Ort = Mac basina Gol Ortalamasi
+HYK = Herhangi bir yariyi kazanacak
+TOY = Mac basina Topla Oynama yuzdesi
+SHUTORT = Mac basina sut ortalamasi
+KBSHUTORT = Mac basina Kaleyi Bulan sut ortalamasi
+KBSY = Kaleyi bulan sut yuzdesi
+Cor-ORT = Mac basina Korner Ortalamasi
+Cor-Win = Daha cok Korner kullanma yuzdesi
+Cor-BRB = Korner beraberlik yuzdesi
+Cor-U = Korner sayisina gore Ust yuzdesi
+
+
+
+Ligin Istatistikleri:
+
+FT Gol-Ort: {5}
+BY Gol-Ort: {6}
+IY Gol-Ort: {7}
+KG: {8}%
+FT 1.5 U: {9}%
+FT 2.5 U: {10}%
+FT 3.5 U: {11}%
+BY 0.5 U: {12}%
+BY 1.5 U: {13}%
+IY 0.5 U: {14}%
+IY 1.5 U: {15}%
+
+
+
+
+Bir biriyle aralarinda oynanan maclara gore istatistikleri:
+
+{1} kendi sahasinda - {2} deplasmanda
+
+{1} FT Gol-Ort: {16}
+{1} BY Gol-Ort: {17}
+{1} IY Gol-Ort: {18}
+{2} FT Gol-Ort: {19}
+{2} BY Gol-Ort: {20}
+{2} IY Gol-Ort: {21}
+{1} FT Win: {22}%
+FT BRB: {23}%
+{2} FT Win: {24}%
+{1} BY Win: {25}%
+BY BRB: {26}%
+{2} BY Win: {27}%
+{1} IY Win: {28}%
+IY BRB: {29}%
+{2} IY Win: {30}%
+FT KG: {31}%
+BY KG: {32}%
+IY KG: {33}%
+Mac 1.5 U: {34}%
+Mac 2.5 U: {35}%
+Mac 3.5 U: {36}%
+BY 0.5 U: {37}%
+BY 1.5 U: {38}%
+IY 0.5 U: {39}%
+IY 1.5 U: {40}%
+{1} 0.5 U: {41}%
+{1} 1.5 U: {42}%
+{1} BY 0.5 U: {43}%
+{1} BY 1.5 U: {44}%
+{1} IY 0.5 U: {45}%
+{1} IY 1.5 U: {46}%
+{1} HBYK: {47}%
+{2} 0.5 U: {48}%
+{2} 1.5 U: {49}%
+{2} BY 0.5 U: {50}%
+{2} BY 1.5 U: {51}%
+{2} IY 0.5 U: {52}%
+{2} IY 1.5 U: {53}%
+{2} HYK: {54}%
+
+
+Genel
+
+{1} FT Gol-Ort: {55}
+{1} BY Gol-Ort: {56}
+{1} IY Gol-Ort: {57}
+{2} FT Gol-Ort: {58}
+{2} BY Gol-Ort: {59}
+{2} IY Gol-Ort: {60}
+{1} FT Win: {61}%
+FT BRB: {62}%
+{2} FT Win: {63}%
+{1} BY Win: {64}%
+BYnin BRB: {65}%
+{2} BY Win: {66}%
+{1} IY Win: {67}%
+IY BRB: {68}%
+{2} IY Win: {69}%
+FT KG: {70}%
+BY KG: {71}%
+IY KG: {72}%
+Mac 1.5 U: {73}%
+Mac 2.5 U: {74}%
+Mac 3.5 U: {75}%
+BY 0.5 U: {76}%
+BY 1.5 U: {77}%
+IY 0.5 U: {78}%
+IY 1.5 U: {79}%
+{1} 0.5 U: {80}%
+{1} 1.5 U: {81}%
+{1} BY 0.5 U: {82}%
+{1} BY 1.5 U: {83}%
+{1} IY 0.5 U: {84}%
+{1} IY 1.5 U: {85}%
+{1} HBYK: {86}%
+{2} 0.5 U: {87}%
+{2} 1.5 U: {88}%
+{2} BY 0.5 U: {89}%
+{2} BY 1.5 U: {90}%
+{2} IY 0.5 U: {91}%
+{2} IY 1.5 U: {92}%
+{2} HYK: {93}%
+
+
+
+
+Ligde son 6 macta {1} kendi sahasinda - {2} deplasmanda oynadigi maclara gore istatistikleri:
+
+{1} kendi sahasinda istatistikleri.
+{198}
+{1} FT Gol-Ort: {94}
+{1} BY Gol-Ort: {95}
+{1} IY Gol-Ort: {96}
+{1} FT Win: {97}%
+FT BRB: {98}%
+{1} BY Win: {99}%
+BYnin BRB: {100}%
+{1} IY Win: {101}%
+IY BRB: {102}%
+FT KG: {103}%
+BY KG: {104}%
+IY KG: {105}%
+Mac 1.5 U: {106}%
+Mac 2.5 U: {107}%
+Mac 3.5 U: {108}%
+BY 0.5 U: {109}%
+BY 1.5 U: {110}%
+IY 0.5 U: {111}%
+IY 1.5 U: {112}%
+{1} 0.5 U: {113}%
+{1} 1.5 U: {114}%
+{1} BY 0.5 U: {115}%
+{1} BY 1.5 U: {116}%
+{1} IY 0.5 U: {117}%
+{1} IY 1.5 U: {118}%
+{1} HYK: {119}%{199}
+
+{2} deplasman sahada istatistikleri.
+{200}
+{2} FT Gol-Ort: {120}
+{2} BY Gol-Ort: {121}
+{2} IY Gol-Ort: {122}
+{2} FT Win: {123}%
+FT BRB: {124}%
+{2} BY Win: {125}%
+BYnin BRB: {126}%
+{2} IY Win: {127}%
+IY BRB: {128}%
+FT KG: {129}%
+BY KG: {130}%
+IY KG: {131}%
+Mac 1.5 U: {132}%
+Mac 2.5 U: {133}%
+Mac 3.5 U: {134}%
+BY 0.5 U: {135}%
+BY 1.5 U: {136}%
+IY 0.5 U: {137}%
+IY 1.5 U: {138}%
+{2} 0.5 U: {139}%
+{2} 1.5 U: {140}%
+{2} BY 0.5 U: {141}%
+{2} BY 1.5 U: {142}%
+{2} IY 0.5 U: {143}%
+{2} IY 1.5 U: {144}%
+{2} HYK: {145}%{201}
+
+
+
+
+Ligde son 10 macta takimlarin genel oynadigi maclara gore istatistikleri:
+
+{1} istatistikleri.
+{202}
+{1} FT Gol-Ort: {146}
+{1} BY Gol-Ort: {147}
+{1} IY Gol-Ort: {148}
+{1} FT Win: {149}%
+FT BRB: {150}%
+{1} BY Win: {151}%
+BYnin BRB: {152}%
+{1} IY Win: {153}%
+IY BRB: {154}%
+FT KG: {155}%
+BY KG: {156}%
+IY KG: {157}%
+Mac 1.5 U: {158}%
+Mac 2.5 U: {159}%
+Mac 3.5 U: {160}%
+BY 0.5 U: {161}%
+BY 1.5 U: {162}%
+IY 0.5 U: {163}%
+IY 1.5 U: {164}%
+{1} 0.5 U: {165}%
+{1} 1.5 U: {166}%
+{1} BY 0.5 U: {167}%
+{1} BY 1.5 U: {168}%
+{1} IY 0.5 U: {169}%
+{1} IY 1.5 U: {170}%
+{1} HYK: {171}%{203}
+
+{2} istatistikleri.
+{204}
+{2} FT Gol-Ort: {172}
+{2} BY Gol-Ort: {173}
+{2} IY Gol-Ort: {174}
+{2} FT Win: {175}%
+FT BRB: {176}%
+{2} BY Win: {177}%
+BYnin BRB: {178}%
+{2} IY Win: {179}%
+IY BRB: {180}%
+FT KG: {181}%
+BY KG: {182}%
+IY KG: {183}%
+Mac 1.5 U: {184}%
+Mac 2.5 U: {185}%
+Mac 3.5 U: {186}%
+BY 0.5 U: {187}%
+BY 1.5 U: {188}%
+IY 0.5 U: {189}%
+IY 1.5 U: {190}%
+{2} 0.5 U: {191}%
+{2} 1.5 U: {192}%
+{2} BY 0.5 U: {193}%
+{2} BY 1.5 U: {194}%
+{2} IY 0.5 U: {195}%
+{2} IY 1.5 U: {196}%
+{2} HYK: {197}%{205}

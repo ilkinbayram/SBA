@@ -29,6 +29,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Core\Core.csproj" />
 		<ProjectReference Include="..\SBA.Business\SBA.Business.csproj" />
+		<ProjectReference Include="..\SBA.ExternalDataAccess\SBA.ExternalDataAccess.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

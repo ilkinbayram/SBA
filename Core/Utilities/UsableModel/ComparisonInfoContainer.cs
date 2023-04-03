@@ -18,7 +18,16 @@ namespace Core.Utilities.UsableModel
                                        int fT_Goals_AwayTeam,
                                        int homeCornersCount,
                                        int awayCornersCount,
-                                       bool hasCorner) : base(serial,
+                                       bool hasCorner,
+                                       int homeShutCount,
+                                       int awayShutCount,
+                                       bool hasShut,
+                                       int homeShutOnTargetCount,
+                                       int awayShutOnTargetCount,
+                                       bool hasShutOnTarget,
+                                       int homePossesionCount,
+                                       int awayPossesionCount,
+                                       bool hasPossesion) : base(serial,
                                                                     unchangableHomeTeam,
                                                                     unchangableAwayTeam,
                                                                     homeTeam,
@@ -31,7 +40,16 @@ namespace Core.Utilities.UsableModel
                                                                     fT_Goals_AwayTeam,
                                                                     homeCornersCount,
                                                                     awayCornersCount,
-                                                                    hasCorner)
+                                                                    hasCorner,
+                                                                    homeShutCount,
+                                                                    awayShutCount,
+                                                                    hasShut,
+                                                                    homeShutOnTargetCount,
+                                                                    awayShutOnTargetCount,
+                                                                    hasShutOnTarget,
+                                                                    homePossesionCount,
+                                                                    awayPossesionCount,
+                                                                    hasPossesion)
         {
 
         }

@@ -70,6 +70,11 @@ namespace SBA.Business.CoreAbilityServices.Job
     public class JobOperation : BaseJobOperation
     {
         private ISocialBotMessagingService _botService;
+        private ILeagueStatisticsHolderService _leagueStatisticsHolderService;
+        private IComparisonStatisticsHolderService _comparisonStatisticsHolderService;
+        private IAverageStatisticsHolderService _averageStatisticsHolderService;
+        private ITeamPerformanceStatisticsHolderService _teamPerformanceStatisticsHolderService;
+        private IMatchIdentifierService _matchIdentifierService;
         private List<TimeSerialContainer> _timeSerials;
         private List<TimeSerialContainer> _analysableSerials = new List<TimeSerialContainer>();
         private readonly IMatchBetService _matchBetService;
@@ -89,10 +94,20 @@ namespace SBA.Business.CoreAbilityServices.Job
                             SystemCheckerContainer systemCheckerContainer,
                             DescriptionJobResultEnum descriptionJobResultEnum,
                             CountryContainerTemp containerTemp,
+                            ILeagueStatisticsHolderService leagueStatisticsHolderService,
+                            IComparisonStatisticsHolderService comparisonStatisticsHolderService,
+                            IAverageStatisticsHolderService averageStatisticsHolderService,
+                            ITeamPerformanceStatisticsHolderService teamPerformanceStatisticsHolderService,
+                            IMatchIdentifierService matchIdentifierService,
                             int addMinute = 3)
         {
             _matchBetService = matchBetService;
             _filterResultService = filterResultService;
+            _leagueStatisticsHolderService = leagueStatisticsHolderService;
+            _comparisonStatisticsHolderService = comparisonStatisticsHolderService;
+            _averageStatisticsHolderService = averageStatisticsHolderService;
+            _teamPerformanceStatisticsHolderService = teamPerformanceStatisticsHolderService;
+            _matchIdentifierService = matchIdentifierService;
             _systemCheckerContainer = systemCheckerContainer;
             _addMinute = addMinute;
             _botService = botService;
@@ -311,7 +326,7 @@ namespace SBA.Business.CoreAbilityServices.Job
                 content = reader.ReadToEnd();
                 if (content.Length < 10)
                 {
-                    responseProfiler = OperationalProcessor.GetJobAnalyseModelResultTest7777(_matchBetService, _filterResultService, _containerTemp, league, serials).Where(x => x.AverageProfiler != null && x.AverageProfilerHomeAway != null).ToList();
+                    responseProfiler = OperationalProcessor.GetJobAnalyseModelResultTest7777(_matchBetService, _filterResultService, _comparisonStatisticsHolderService, _averageStatisticsHolderService, _teamPerformanceStatisticsHolderService, _leagueStatisticsHolderService, _matchIdentifierService, _containerTemp, league, serials).Where(x => x.AverageProfiler != null && x.AverageProfilerHomeAway != null).ToList();
                 }
                 else
                 {
@@ -359,8 +374,8 @@ namespace SBA.Business.CoreAbilityServices.Job
                         IsHT_Win2 = CheckHT_Win2(item, contentString, leagueHolder),
                         IsSH_Win1 = CheckSH_Win1(item, contentString, leagueHolder),
                         IsSH_Win2 = CheckSH_Win2(item, contentString, leagueHolder),
-                        //IsFT_25Over = CheckFT25Over(item, contentString, leagueHolder),
-                        //IsFT_GG = CheckFT_GG(item, contentString, leagueHolder),
+                        IsFT_25Over = CheckFT25Over(item, contentString, leagueHolder),
+                        IsFT_GG = CheckFT_GG(item, item.ComparisonInfoContainer.Away, leagueHolder),
                         AnalyseModel = item
                     };
 
@@ -409,7 +424,8 @@ namespace SBA.Business.CoreAbilityServices.Job
                 if (bet.IsHT_Win2) strBuilder.Append($"Forecast:  HT 2\n");
                 if (bet.IsSH_Win1) strBuilder.Append($"Forecast:  SH 1\n");
                 if (bet.IsSH_Win2) strBuilder.Append($"Forecast:  SH 2\n");
-                if (bet.IsFT_15Over) strBuilder.Append($"Forecast:  FT 1,5 Over\n");
+                if (bet.IsFT_25Over) strBuilder.Append($"Forecast:  FT 2,5 Over\n");
+                if (bet.IsFT_GG) strBuilder.Append($"Forecast:  FT G/G\n");
                 strBuilder.Append($"\n");
                 strBuilder.Append($"=================================\n");
 
@@ -544,22 +560,18 @@ namespace SBA.Business.CoreAbilityServices.Job
 
             try
             {
-                bool isValidImportant = leagueHolder.GoalsAverage >= (decimal)2.8 && leagueHolder.Over_2_5_Percentage > 60;
-                var goalsSumAvgGeneral = item.AverageProfiler.Average_FT_Goals_HomeTeam + item.AverageProfiler.Average_FT_Goals_AwayTeam;
-                var goalsSumAvgHomeAway = item.AverageProfilerHomeAway.Average_FT_Goals_HomeTeam + item.AverageProfilerHomeAway.Average_FT_Goals_AwayTeam;
-                bool isSumAvgGeneral = leagueHolder.GoalsAverage < goalsSumAvgGeneral && leagueHolder.GoalsAverage < goalsSumAvgHomeAway;
+                bool isValidImportant = leagueHolder.GoalsAverage >= (decimal)2.7;
+                bool isHt85Over = item.AverageProfiler.HT_05_Over.Percentage >= 85 && item.AverageProfiler.HT_05_Over.FeatureName.ToLower() == "true" && item.AverageProfiler.SH_05_Over.Percentage >= 85 && item.AverageProfiler.SH_05_Over.FeatureName.ToLower() == "true";
+                bool isHomeGoalPerf = item.HomeTeam_FormPerformanceGuessContainer.General.Average_FT_Goals_HomeTeam >= (decimal)1.3;
+                bool isAwayGoalPerf = item.AwayTeam_FormPerformanceGuessContainer.General.Average_FT_Goals_AwayTeam >= (decimal)1.3;
+                bool countOver3 = item.HomeTeam_FormPerformanceGuessContainer.General.Average_FT_Goals_HomeTeam + item.AwayTeam_FormPerformanceGuessContainer.General.Average_FT_Goals_AwayTeam > 3;
+                bool over66percent = item.AverageProfilerHomeAway.FT_25_Over.Percentage >= 66 && item.AverageProfilerHomeAway.FT_25_Over.FeatureName.ToLower() == "true";
+                bool overAll = item.AverageProfilerHomeAway.Home_HT_05_Over.FeatureName.ToLower() == "true" &&
+                    item.AverageProfilerHomeAway.Home_SH_05_Over.FeatureName.ToLower() == "true" &&
+                    item.AverageProfilerHomeAway.Away_HT_05_Over.FeatureName.ToLower() == "true" &&
+                    item.AverageProfilerHomeAway.Away_SH_05_Over.FeatureName.ToLower() == "true";
 
-                if (!isValidImportant || !isSumAvgGeneral) return result;
-
-                bool isValid =
-                item.AverageProfilerHomeAway.FT_25_Over.Percentage >= 70 &&
-                item.AverageProfilerHomeAway.FT_25_Over.FeatureName.ToLower() == "true";
-
-                bool isValid2 =
-                    item.AverageProfilerHomeAway.Average_FT_Goals_HomeTeam >= (decimal)1.7 &&
-                    item.AverageProfilerHomeAway.Average_FT_Goals_AwayTeam >= (decimal)1.6;
-
-                result = isValid && isValid2;
+                result = isValidImportant && isHt85Over && isHomeGoalPerf && isAwayGoalPerf && countOver3 && over66percent && overAll;
 
                 return result;
             }
@@ -1310,19 +1322,33 @@ namespace SBA.Business.CoreAbilityServices.Job
 
             try
             {
-                bool isValidImportant = leagueHolder.GoalsAverage > (decimal)2.7 && leagueHolder.GG_Percentage > 60;
+                bool isValidImportant = leagueHolder.GoalsAverage > (decimal)2.6 && leagueHolder.GG_Percentage > 60;
 
                 if (!isValidImportant) return result;
 
                 bool isValid =
-                item.AverageProfilerHomeAway.FT_GG.Percentage > 70 &&
+                item.AverageProfilerHomeAway.FT_GG.Percentage > 66 &&
                 item.AverageProfilerHomeAway.FT_GG.FeatureName.ToLower() == "true";
 
-                bool isValid2 =
-                    item.AverageProfilerHomeAway.Average_FT_Goals_HomeTeam >= (decimal)1.7 &&
-                    item.AverageProfilerHomeAway.Average_FT_Goals_AwayTeam >= (decimal)1.7;
+                bool isStandingOk = true;
 
-                result = isValid && isValid2;
+                if (item.StandingInfoModel != null)
+                {
+                    if (item.StandingInfoModel.UpTeam.TeamName == contentString)
+                    {
+                        isStandingOk = item.StandingInfoModel.UpTeam.Order - item.StandingInfoModel.DownTeam.Order <= 5;
+                    }
+                }
+
+                bool isHomeGoalPerf = item.HomeTeam_FormPerformanceGuessContainer.General.Average_FT_Goals_HomeTeam >= (decimal)1.7;
+                bool isAwayGoalPerf = item.AwayTeam_FormPerformanceGuessContainer.General.Average_FT_Goals_AwayTeam >= (decimal)1.7;
+
+                bool overAll = item.AverageProfilerHomeAway.Home_HT_05_Over.FeatureName.ToLower() == "true" &&
+                    item.AverageProfilerHomeAway.Home_SH_05_Over.FeatureName.ToLower() == "true" &&
+                    item.AverageProfilerHomeAway.Away_HT_05_Over.FeatureName.ToLower() == "true" &&
+                    item.AverageProfilerHomeAway.Away_SH_05_Over.FeatureName.ToLower() == "true";
+
+                result = isValid && isStandingOk && isHomeGoalPerf && isAwayGoalPerf && overAll;
 
                 return result;
             }
@@ -2202,7 +2228,7 @@ namespace SBA.Business.CoreAbilityServices.Job
                 content = reader.ReadToEnd();
                 if (content.Length < 10)
                 {
-                    responseProfiler = OperationalProcessor.GetJobAnalyseModelResultTest7777(_matchBetService, _filterResultService, _containerTemp, leagueContainer, serials).Where(x => x.AverageProfiler != null && x.AverageProfilerHomeAway != null).ToList();
+                    responseProfiler = OperationalProcessor.GetJobAnalyseModelResultTest7777(_matchBetService, _filterResultService, _comparisonStatisticsHolderService, _averageStatisticsHolderService, _teamPerformanceStatisticsHolderService, _leagueStatisticsHolderService, _matchIdentifierService, _containerTemp, leagueContainer, serials).Where(x => x.AverageProfiler != null && x.AverageProfilerHomeAway != null).ToList();
                 }
                 else
                 {
@@ -2214,7 +2240,7 @@ namespace SBA.Business.CoreAbilityServices.Job
             {
                 using (var writer = new StreamWriter(path["responseProfilerTemp"]))
                 {
-                    writer.Write(JsonConvert.SerializeObject(responseProfiler));
+                    writer.Write(JsonConvert.SerializeObject(responseProfiler, Formatting.Indented));
                 }
             }
 
@@ -2226,8 +2252,12 @@ namespace SBA.Business.CoreAbilityServices.Job
             var rgxLeague2 = new Regex(PatternConstant.StartedMatchPattern.CountryAndLeague);
             int iteration = 0;
 
-            foreach (var item in responseProfiler)
+            var removeList = new List<JobAnalyseModel>();
+
+            for (int i = 0; i < responseProfiler.Count; i++)
             {
+                var item = responseProfiler[i];
+
                 iteration++;
                 TelegramMessagingManager botServiceManager = new TelegramMessagingManager();
                 try
@@ -2475,6 +2505,7 @@ namespace SBA.Business.CoreAbilityServices.Job
                         botServiceManager.SendMessage(userCheck.EldarID, strBuilderCorner.ToString());
                     if (userCheck.IsOnurChecked)
                         botServiceManager.SendMessage(userCheck.OnurID, strBuilderCorner.ToString());
+
                 }
                 catch (Exception ex)
                 {
@@ -2482,6 +2513,7 @@ namespace SBA.Business.CoreAbilityServices.Job
                     continue;
                 }
             }
+
         }
 
 

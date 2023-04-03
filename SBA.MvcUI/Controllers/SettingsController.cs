@@ -12,12 +12,7 @@ using SBA.Business.ExternalServices.Abstract;
 using SBA.Business.FunctionalServices.Abstract;
 using SBA.Business.FunctionalServices.Concrete;
 using SBA.MvcUI.Models.SettingsModels;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace SBA.MvcUI.Controllers
 {
@@ -26,6 +21,11 @@ namespace SBA.MvcUI.Controllers
         private readonly IDataMaintenanceService _dataMaintenanceService;
         private readonly IMatchBetService _matchBetService;
         private readonly IFilterResultService _filterResultService;
+        private readonly ILeagueStatisticsHolderService _leagueStatisticsHolderService;
+        private readonly ITeamPerformanceStatisticsHolderService _teamPerformanceStatisticsHolderService;
+        private readonly IComparisonStatisticsHolderService _comparisonStatisticsHolderService;
+        private readonly IAverageStatisticsHolderService _averageStatisticsHolderService;
+        private readonly IMatchIdentifierService _matchIdentifierService;
         private readonly IConfigHelper _configHelper;
         private readonly ISocialBotMessagingService _telegramService;
         private readonly IConfiguration _configuration;
@@ -35,7 +35,12 @@ namespace SBA.MvcUI.Controllers
                                   IConfigHelper configHelper,
                                   IFilterResultService filterResultService,
                                   ISocialBotMessagingService telegramService,
-                                  IConfiguration configuration) : base(matchBetService, configuration)
+                                  IConfiguration configuration,
+                                  ILeagueStatisticsHolderService leagueStatisticsHolderService,
+                                  ITeamPerformanceStatisticsHolderService teamPerformanceStatisticsHolderService,
+                                  IComparisonStatisticsHolderService comparisonStatisticsHolderService,
+                                  IMatchIdentifierService matchIdentifierService,
+                                  IAverageStatisticsHolderService averageStatisticsHolderService) : base(matchBetService, configuration)
         {
             _dataMaintenanceService = dataMaintenanceService;
             _matchBetService = matchBetService;
@@ -43,6 +48,12 @@ namespace SBA.MvcUI.Controllers
             _configHelper = configHelper;
             _telegramService = telegramService;
             _configuration = configuration;
+
+            _matchIdentifierService = matchIdentifierService;
+            _leagueStatisticsHolderService = leagueStatisticsHolderService;
+            _teamPerformanceStatisticsHolderService = teamPerformanceStatisticsHolderService;
+            _comparisonStatisticsHolderService = comparisonStatisticsHolderService;
+            _averageStatisticsHolderService = averageStatisticsHolderService;
         }
 
         public IActionResult Index()
@@ -60,7 +71,7 @@ namespace SBA.MvcUI.Controllers
                 return BadRequest(500);
             }
 
-            JobOperation job = new JobOperation(_telegramService, new List<TimeSerialContainer>(), _matchBetService, _filterResultService, new SystemCheckerContainer(), DescriptionJobResultEnum.Standart, CountryContainer);
+            JobOperation job = new JobOperation(_telegramService, new List<TimeSerialContainer>(), _matchBetService, _filterResultService, new SystemCheckerContainer(), DescriptionJobResultEnum.Standart, CountryContainer, _leagueStatisticsHolderService, _comparisonStatisticsHolderService, _averageStatisticsHolderService, _teamPerformanceStatisticsHolderService, _matchIdentifierService);
 
             var pathes = new Dictionary<string, string>();
 
@@ -81,7 +92,7 @@ namespace SBA.MvcUI.Controllers
                 return BadRequest(500);
             }
 
-            JobOperation job = new JobOperation(_telegramService, new List<TimeSerialContainer>(), _matchBetService, _filterResultService, new SystemCheckerContainer(), DescriptionJobResultEnum.Standart, CountryContainer);
+            JobOperation job = new JobOperation(_telegramService, new List<TimeSerialContainer>(), _matchBetService, _filterResultService, new SystemCheckerContainer(), DescriptionJobResultEnum.Standart, CountryContainer, _leagueStatisticsHolderService, _comparisonStatisticsHolderService, _averageStatisticsHolderService, _teamPerformanceStatisticsHolderService, _matchIdentifierService);
 
             var pathes = new Dictionary<string, string>();
             pathes.Add("responseProfilerTempNisbi", jsonPathFormat.GetJsonFileByFormat("responseProfilerTempNisbi"));
@@ -146,7 +157,7 @@ namespace SBA.MvcUI.Controllers
                 return BadRequest(500);
             }
 
-            JobOperation job = new JobOperation(_telegramService, new List<TimeSerialContainer>(), _matchBetService, _filterResultService, new SystemCheckerContainer(), DescriptionJobResultEnum.Standart, CountryContainer);
+            JobOperation job = new JobOperation(_telegramService, new List<TimeSerialContainer>(), _matchBetService, _filterResultService, new SystemCheckerContainer(), DescriptionJobResultEnum.Standart, CountryContainer, _leagueStatisticsHolderService, _comparisonStatisticsHolderService, _averageStatisticsHolderService, _teamPerformanceStatisticsHolderService, _matchIdentifierService);
 
             var pathes = new Dictionary<string, string>();
             pathes.Add("responseProfilerTemp", jsonPathFormat.GetJsonFileByFormat("responseProfilerTemp"));

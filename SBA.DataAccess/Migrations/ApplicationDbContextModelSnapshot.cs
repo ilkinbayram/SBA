@@ -31,7 +31,24 @@ namespace SBA.DataAccess.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("AwayCornerCount")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(-1);
+
+                    b.Property<int>("AwayPossesion")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(-1);
+
+                    b.Property<int>("AwayShotCount")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(-1);
+
+                    b.Property<int>("AwayShotOnTargetCount")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(-1);
 
                     b.Property<bool>("Away_FT_0_5_Over")
                         .HasColumnType("bit");
@@ -115,7 +132,24 @@ namespace SBA.DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("HomeCornerCount")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(-1);
+
+                    b.Property<int>("HomePossesion")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(-1);
+
+                    b.Property<int>("HomeShotCount")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(-1);
+
+                    b.Property<int>("HomeShotOnTargetCount")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(-1);
 
                     b.Property<bool>("Home_FT_0_5_Over")
                         .HasColumnType("bit");
@@ -144,7 +178,24 @@ namespace SBA.DataAccess.Migrations
                         .HasDefaultValue(true);
 
                     b.Property<bool>("IsCornerFound")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("IsPossesionFound")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("IsShotFound")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("IsShotOnTargetFound")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<bool>("Is_Corner_FT_Win1")
                         .HasColumnType("bit");

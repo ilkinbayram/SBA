@@ -141,6 +141,38 @@ namespace Core.Entities.Concrete
         public int AwayCornerCount { get; set; }
 
 
+        [BsonElement("homePossesion")]
+        public int HomePossesion { get; set; }
+
+        [BsonElement("awayPossesion")]
+        public int AwayPossesion { get; set; }
+
+
+        [BsonElement("homeShotCount")]
+        public int HomeShotCount { get; set; }
+
+        [BsonElement("awayShotCount")]
+        public int AwayShotCount { get; set; }
+
+
+
+        [BsonElement("homeShotOnTargetCount")]
+        public int HomeShotOnTargetCount { get; set; }
+
+        [BsonElement("awayShotOnTargetCount")]
+        public int AwayShotOnTargetCount { get; set; }
+
+
+        [BsonElement("isPossesionFound")]
+        public bool IsPossesionFound { get; set; }
+
+        [BsonElement("isShotFound")]
+        public bool IsShotFound { get; set; }
+
+        [BsonElement("isShotOnTargetFound")]
+        public bool IsShotOnTargetFound { get; set; }
+
+
         [BsonElement("is_Corner_FT_Win1")]
         public bool Is_Corner_FT_Win1 { get; set; }
 

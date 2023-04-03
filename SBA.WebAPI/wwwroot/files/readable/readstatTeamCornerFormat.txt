@@ -1,0 +1,9 @@
+﻿
+{0} Full Time Maç başına Korner Ortalamasi: {1}
+{0} Full Time Daha cok Korner kullanma yüzdesi: {2}%
+Full Time Korner beraberlik yüzdesi: {3}%
+{0} Full Time 3.5 Korner Üst yüzdesi: {4}%
+{0} Full Time 4.5 Korner Üst yüzdesi: {5}%
+Full Time 7.5 Korner Üst yüzdesi: {6}%
+Full Time 8.5 Korner Üst yüzdesi: {7}%
+Full Time 9.5 Korner Üst yüzdesi: {8}%

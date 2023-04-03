@@ -21,7 +21,12 @@
         public decimal Average_SH_Goals_AwayTeam { get; set; }
         public decimal Average_FT_Corners_HomeTeam { get; set; }
         public decimal Average_FT_Corners_AwayTeam { get; set; }
-
+        public decimal Average_FT_Shot_HomeTeam { get; set; }
+        public decimal Average_FT_Shot_AwayTeam { get; set; }
+        public decimal Average_FT_ShotOnTarget_HomeTeam { get; set; }
+        public decimal Average_FT_ShotOnTarget_AwayTeam { get; set; }
+        public decimal Average_FT_Possesion_HomeTeam { get; set; }
+        public decimal Average_FT_Possesion_AwayTeam { get; set; }
 
 
         public PercentageComplainer MoreGoalsBetweenTimes { get; set; }

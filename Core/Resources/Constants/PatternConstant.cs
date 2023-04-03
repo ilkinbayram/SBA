@@ -275,7 +275,6 @@
             public const string HT_FT_Away_Draw = @">İlk Yarı\/Maç Sonucu <[\s\S]*?>2\/X<[\s\S]*?compare-rate-bg-up[\s\S]*?[\>](-|\d\d*\.\d\d|\d\d*)";
             public const string HT_FT_Away_Away = @">İlk Yarı\/Maç Sonucu <[\s\S]*?>2\/2<[\s\S]*?compare-rate-bg-up[\s\S]*?[\>](-|\d\d*\.\d\d|\d\d*)";
 
-
             public const string FT_Win1_Under_15 = @">Maç Sonucu ve \(1,5\) Alt\/Üst <[\s\S]*?>1 ve Alt<[\s\S]*?compare-rate-bg-up[\s\S]*?[\>](-|\d\d*\.\d\d|\d\d*)";
             public const string FT_Draw_Under_15 = @">Maç Sonucu ve \(1,5\) Alt\/Üst <[\s\S]*?>X ve Alt<[\s\S]*?compare-rate-bg-up[\s\S]*?[\>](-|\d\d*\.\d\d|\d\d*)";
             public const string FT_Win2_Under_15 = @">Maç Sonucu ve \(1,5\) Alt\/Üst <[\s\S]*?>2 ve Alt<[\s\S]*?compare-rate-bg-up[\s\S]*?[\>](-|\d\d*\.\d\d|\d\d*)";
