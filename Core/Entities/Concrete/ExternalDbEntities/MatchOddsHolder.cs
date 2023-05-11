@@ -207,5 +207,16 @@ namespace Core.Entities.Concrete.ExternalDbEntities
         public decimal Goals45 { get; set; }
         public decimal Goals6 { get; set; }
 
+
+
+
+        public DateTime CreatedDateTime { get; set; }
+
+        public DateTime ModifiedDateTime { get; set; }
+
+        public string? CreatedBy { get; set; }
+
+        public string? ModifiedBy { get; set; }
+
     }
 }

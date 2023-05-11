@@ -13,6 +13,13 @@ namespace SBA.ExternalDataAccess.Concrete.EntityFramework.Configurations
 
             builder.Property(x => x.Id).UseIdentityColumn();
             builder.Property(x => x.Serial).HasDefaultValue(0);
+
+            builder.Property(x => x.CreatedBy).HasMaxLength(100).HasDefaultValue("System.Admin");
+            builder.Property(x => x.ModifiedBy).HasMaxLength(100).HasDefaultValue("System.Admin");
+
+            builder.Property(x => x.CreatedDateTime).HasDefaultValue(DateTime.Now);
+            builder.Property(x => x.ModifiedDateTime).HasDefaultValue(DateTime.Now);
+
             builder.Property(x => x.FT_Win1).HasPrecision(7, 2).HasDefaultValue(-1m);
             builder.Property(x => x.FT_Draw).HasPrecision(7, 2).HasDefaultValue(-1m);
             builder.Property(x => x.FT_Win2).HasPrecision(7, 2).HasDefaultValue(-1m);

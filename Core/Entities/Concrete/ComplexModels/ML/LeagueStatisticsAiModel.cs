@@ -4,9 +4,9 @@
     {
         public string CountryName { get; set; }
         public string LeagueName { get; set; }
-        public decimal Average_FullTime_Goals { get; set; }
-        public decimal Average_HalfTime_Goals { get; set; }
-        public decimal Average_SecondHalf_Goals { get; set; }
+        public decimal FullTime_Goals_Average { get; set; }
+        public decimal HalfTime_Goals_Average { get; set; }
+        public decimal SecondHald_Goals_Average { get; set; }
 
         public int BothTeamsToScore_Percentage { get; set; }
         public int FullTime_Over15_Percentage { get; set; }

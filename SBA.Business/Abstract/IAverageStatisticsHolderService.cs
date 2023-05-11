@@ -1,5 +1,6 @@
 ﻿using Core.Entities.Concrete.ExternalDbEntities;
 using Core.Entities.Dtos.ComplexDataes;
+using Core.Entities.Dtos.ComplexDataes.MobileUI;
 using Core.Utilities.Results;
 using System.Linq.Expressions;
 

@@ -2,7 +2,7 @@
 {
     public class PerformanceAiModel
     {
-        public HomeTeamAiPerformanceHolder HomeTeam { get; set; }
-        public AwayTeamAiPerformanceHolder AwayTeam { get; set; }
+        public List<TeamAiPerformanceHolder> HomePerformance { get; set; }
+        public List<TeamAiPerformanceHolder> AwayPerformance { get; set; }
     }
 }

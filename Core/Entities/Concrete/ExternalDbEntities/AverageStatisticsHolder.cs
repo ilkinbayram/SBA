@@ -8,39 +8,55 @@ namespace Core.Entities.Concrete.ExternalDbEntities
         {
             Average_FT_Goals_HomeTeam = -1;
             Average_FT_Goals_AwayTeam = -1;
+
             Average_HT_Goals_HomeTeam = -1;
             Average_HT_Goals_AwayTeam = -1;
+
             Average_SH_Goals_HomeTeam = -1;
             Average_SH_Goals_AwayTeam = -1;
+
             Average_FT_Corners_HomeTeam = -1;
             Average_FT_Corners_AwayTeam = -1;
+
             Average_FT_Shut_HomeTeam = -1;
             Average_FT_Shut_AwayTeam = -1;
+
             Average_FT_ShutOnTarget_HomeTeam = -1;
             Average_FT_ShutOnTarget_AwayTeam = -1;
+
             Home_Possesion = -1;
             Away_Possesion = -1;
+
             Is_FT_Win1 = -1;
             Is_FT_X = -1;
             Is_FT_Win2 = -1;
+
             Is_HT_Win1 = -1;
             Is_HT_X = -1;
             Is_HT_Win2 = -1;
+
             Is_SH_Win1 = -1;
             Is_SH_X = -1;
             Is_SH_Win2 = -1;
+
             Corner_Home_3_5_Over = -1;
+
             Corner_Home_4_5_Over = -1;
+
             Corner_Home_5_5_Over = -1;
+
             Corner_Away_3_5_Over = -1;
             Corner_Away_4_5_Over = -1;
             Corner_Away_5_5_Over = -1;
+
             Corner_7_5_Over = -1;
             Corner_8_5_Over = -1;
             Corner_9_5_Over = -1;
+
             Is_Corner_FT_Win1 = -1;
             Is_Corner_FT_X = -1;
             Is_Corner_FT_Win2 = -1;
+
             FT_GG = -1;
             SH_GG = -1;
             HT_GG = -1;
@@ -65,6 +81,7 @@ namespace Core.Entities.Concrete.ExternalDbEntities
             Away_FT_05_Over = -1;
             Away_FT_15_Over = -1;
             Away_Win_Any_Half = -1;
+            UniqueIdentity = Guid.NewGuid();
         }
 
         public int BySideType { get; set; }

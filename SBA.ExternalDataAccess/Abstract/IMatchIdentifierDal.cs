@@ -6,6 +6,9 @@ namespace SBA.ExternalDataAccess.Abstract
 {
     public interface IMatchIdentifierDal : IEntityRepository<MatchIdentifier>, IEntityQueryableRepository<MatchIdentifier>
     {
-        MatchProgramList GetMatchsProgram();
+        MatchProgramList GetGroupedMatchsProgram();
+        MatchDetailProgram GetAllMatchsProgram();
+        Task<MatchProgramList> GetGroupedMatchsProgramAsync();
+        Task<MatchDetailProgram> GetAllMatchsProgramAsync();
     }
 }

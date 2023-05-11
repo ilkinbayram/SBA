@@ -14,6 +14,12 @@ namespace SBA.DataAccess.Concrete.EntityFramework.Configurations
             builder.Property(x => x.Id).UseIdentityColumn();
             builder.Property(x => x.IsActive).HasDefaultValue(true);
 
+            builder.Property(x => x.CreatedBy).HasMaxLength(100).HasDefaultValue("System.Admin");
+            builder.Property(x => x.ModifiedBy).HasMaxLength(100).HasDefaultValue("System.Admin");
+
+            builder.Property(x => x.CreatedDateTime).HasDefaultValue(DateTime.Now);
+            builder.Property(x => x.ModifiedDateTime).HasDefaultValue(DateTime.Now);
+
             builder.Property(x => x.Country).HasMaxLength(100);
             builder.Property(x => x.LeagueName).HasMaxLength(100);
             builder.Property(x => x.HomeTeam).HasMaxLength(100);

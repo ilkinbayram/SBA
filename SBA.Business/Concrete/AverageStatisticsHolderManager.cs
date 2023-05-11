@@ -2,6 +2,7 @@
 using Business.Constants;
 using Core.Entities.Concrete.ExternalDbEntities;
 using Core.Entities.Dtos.ComplexDataes;
+using Core.Entities.Dtos.ComplexDataes.MobileUI;
 using Core.Utilities.Results;
 using SBA.Business.Abstract;
 using SBA.ExternalDataAccess.Abstract;

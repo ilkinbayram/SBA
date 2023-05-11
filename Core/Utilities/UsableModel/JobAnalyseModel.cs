@@ -15,7 +15,7 @@ namespace Core.Utilities.UsableModel
         public ComparisonGuessContainer ComparisonOnlyDB { get; set; }
         public FormPerformanceGuessContainer HomeTeam_FormPerformanceGuessContainer { get; set; }
         public FormPerformanceGuessContainer AwayTeam_FormPerformanceGuessContainer { get; set; }
-        public StandingInfoModel StandingInfoModel { get; set; }
+        public StandingInfoModel? StandingInfoModel { get; set; }
 
         #region ShortProps
 

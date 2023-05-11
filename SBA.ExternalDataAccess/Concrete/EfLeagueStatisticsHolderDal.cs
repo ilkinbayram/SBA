@@ -1,4 +1,5 @@
 ﻿using Core.DataAccess.EntityFramework;
+using Core.Entities.Concrete.ComplexModels.ML;
 using Core.Entities.Concrete.ComplexModels.RequestModelHelpers;
 using Core.Entities.Concrete.ComplexModels.Sql;
 using Core.Entities.Concrete.ComplexModels.SqlModelHelpers;

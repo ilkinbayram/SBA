@@ -65,6 +65,7 @@ namespace Core.Entities.Concrete.ExternalDbEntities
             Away_FT_05_Over = -1;
             Away_FT_15_Over = -1;
             Away_Win_Any_Half = -1;
+            UniqueIdentity = Guid.NewGuid();
         }
 
         public int BySideType { get; set; }

@@ -21,6 +21,10 @@ namespace SBA.ExternalDataAccess.Concrete.EntityFramework.Contexts
             modelBuilder.ApplyConfiguration(new AverageStatisticsHolderConfig());
             modelBuilder.ApplyConfiguration(new LeagueStatisticsHolderConfig());
             modelBuilder.ApplyConfiguration(new MatchIdentifierConfig());
+            modelBuilder.ApplyConfiguration(new MatchOddsHolderConfig());
+            modelBuilder.ApplyConfiguration(new StatisticInfoHolderConfig());
+            modelBuilder.ApplyConfiguration(new AiDataHolderConfiguration());
+            modelBuilder.ApplyConfiguration(new ForecastConfig());
         }
 
 
@@ -30,5 +34,8 @@ namespace SBA.ExternalDataAccess.Concrete.EntityFramework.Contexts
         public DbSet<TeamPerformanceStatisticsHolder> TeamPerformanceStatisticsHolders { get; set; }
         public DbSet<LeagueStatisticsHolder> LeagueStatisticsHolders { get; set; }
         public DbSet<MatchOddsHolder> MatchOddsHolders { get; set; }
+        public DbSet<StatisticInfoHolder> StatisticInfoes { get; set; }
+        public DbSet<AiDataHolder> AiDataHolders { get; set; }
+        public DbSet<Forecast> Forecasts { get; set; }
     }
 }

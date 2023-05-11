@@ -44,6 +44,15 @@ namespace SBA.Business.DependencyResolvers.Autofac
             builder.RegisterType<MatchIdentifierManager>().As<IMatchIdentifierService>();
             builder.RegisterType<EfMatchIdentifierDal>().As<IMatchIdentifierDal>();
 
+            builder.RegisterType<StatisticInfoHolderManager>().As<IStatisticInfoHolderService>();
+            builder.RegisterType<EfStatisticInfoHolderDal>().As<IStatisticInfoHolderDal>();
+
+            builder.RegisterType<AiDataHolderManager>().As<IAiDataHolderService>();
+            builder.RegisterType<EfAiDataHolderDal>().As<IAiDataHolderDal>();
+
+            builder.RegisterType<ForecastManager>().As<IForecastService>();
+            builder.RegisterType<EfForecastDal>().As<IForecastDal>();
+
             builder.RegisterType<LeagueStatisticsHolderManager>().As<ILeagueStatisticsHolderService>();
             builder.RegisterType<EfLeagueStatisticsHolderDal>().As<ILeagueStatisticsHolderDal>();
 

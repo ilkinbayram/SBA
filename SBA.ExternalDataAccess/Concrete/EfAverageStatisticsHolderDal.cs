@@ -1,6 +1,7 @@
 ﻿using Core.DataAccess.EntityFramework;
 using Core.Entities.Concrete.ExternalDbEntities;
 using Core.Entities.Dtos.ComplexDataes;
+using Core.Entities.Dtos.ComplexDataes.MobileUI;
 using SBA.ExternalDataAccess.Abstract;
 using SBA.ExternalDataAccess.Concrete.EntityFramework.Contexts;
 

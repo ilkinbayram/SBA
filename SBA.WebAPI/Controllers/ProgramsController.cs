@@ -26,10 +26,18 @@ namespace SBA.WebAPI.Controllers
         }
 
 
+        [HttpGet("get-grouped-matches/today")]
+        public async Task<IActionResult> GetTodayGroupedMatchesAsync()
+        {
+            var result = await _matchIdentifierService.GetGroupedMatchsProgramAsync();
+
+            return Ok(result);
+        }
+
         [HttpGet("get-matches/today")]
         public async Task<IActionResult> GetTodayMatchesAsync()
         {
-            var result = _matchIdentifierService.GetMatchsProgram();
+            var result = await _matchIdentifierService.GetAllMatchsProgramAsync();
 
             return Ok(result);
         }

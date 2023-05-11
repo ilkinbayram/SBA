@@ -16,5 +16,17 @@ namespace Core.Concrete.Base
 
         [BsonElement("isActive")]
         public bool IsActive { get; set; }
+
+        [BsonElement("createdDateTime")]
+        public DateTime CreatedDateTime { get; set; }
+
+        [BsonElement("modifiedDateTime")]
+        public DateTime ModifiedDateTime { get; set; }
+
+        [BsonElement("createdBy")]
+        public string CreatedBy { get; set; }
+
+        [BsonElement("modifiedBy")]
+        public string ModifiedBy { get; set; }
     }
 }

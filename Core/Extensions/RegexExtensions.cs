@@ -58,6 +58,39 @@ namespace Core.Extensions
             return string.Empty;
         }
 
+        public static DateTime? ResolveDateFormatByRegex(this string src, params Regex[] regexes)
+        {
+            foreach (var regex in regexes)
+            {
+                if (regex.IsMatch(src))
+                {
+                    var dateMatch = regex.Matches(src)[0].Groups[1].Value.Trim();
+                    if (!dateMatch.Contains(".") || dateMatch.Split(".").Length != 3) continue;
+                    var builder = new StringBuilder();
+
+                    if (dateMatch.Split(".")[0].Length == 1) builder.Append($"0");
+                    builder.Append($"{dateMatch.Split(".")[0]}.");
+
+                    if (dateMatch.Split(".")[1].Length == 1) builder.Append($"0");
+                    builder.Append($"{dateMatch.Split(".")[1]}.");
+
+                    builder.Append(dateMatch.Split(".")[2]);
+
+                    dateMatch = builder.ToString();
+
+                    bool isValidDate = DateTime.TryParseExact(dateMatch, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime _date);
+
+                    if (!isValidDate) continue;
+
+                    return DateTime.Parse(dateMatch);
+                }
+                else
+                    continue;
+            }
+
+            return null;
+        }
+
         public static string ResolveTextByRegex(this string src, params Regex[] regexes)
         {
             foreach (var regex in regexes)

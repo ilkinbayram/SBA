@@ -45,6 +45,7 @@ namespace Core.Entities.Concrete.ExternalDbEntities
             Team_FT_05_Over = -1;
             Team_FT_15_Over = -1;
             Team_Win_Any_Half = -1;
+            UniqueIdentity = Guid.NewGuid();
         }
 
         public int BySideType { get; set; }

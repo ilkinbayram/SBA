@@ -2,48 +2,48 @@
 {
     public class ComparisonAiStatisticsHolder
     {
-        public decimal Average_FullTime_Goals_HomeTeam { get; set; }
-        public decimal Average_FullTime_Goals_AwayTeam { get; set; }
-        public decimal Average_HalfTime_Goals_HomeTeam { get; set; }
-        public decimal Average_HalfTime_Goals_AwayTeam { get; set; }
-        public decimal Average_SecondHalf_Goals_HomeTeam { get; set; }
-        public decimal Average_SecondHalf_Goals_AwayTeam { get; set; }
+        public decimal Average_FT_Goals_HomeTeam { get; set; }
+        public decimal Average_FT_Goals_AwayTeam { get; set; }
+        public decimal Average_HT_Goals_HomeTeam { get; set; }
+        public decimal Average_HT_Goals_AwayTeam { get; set; }
+        public decimal Average_SH_Goals_HomeTeam { get; set; }
+        public decimal Average_SH_Goals_AwayTeam { get; set; }
 
-        public int FullTime_Home_Win_Percentage { get; set; }
-        public int FullTime_Draw_Percentage { get; set; }
-        public int FullTime_Away_Win_Percentage { get; set; }
+        public int FT_Home_Win_Percent { get; set; }
+        public int FT_Draw_Percent { get; set; }
+        public int FT_Away_Win_Percent { get; set; }
 
-        public int HalfTime_Home_Win_Percentage { get; set; }
-        public int HalfTime_Draw_Percentage { get; set; }
-        public int HalfTime_Away_Win_Percentage { get; set; }
+        public int HT_Home_Win_Percent { get; set; }
+        public int HT_Draw_Percent { get; set; }
+        public int HT_Away_Win_Percent { get; set; }
 
-        public int SecondHalf_Home_Win_Percentage { get; set; }
-        public int SecondHalf_Draw_Percentage { get; set; }
-        public int SecondHalf_Away_Win_Percentage { get; set; }
+        public int SH_Home_Win_Percent { get; set; }
+        public int SH_Draw_Percent { get; set; }
+        public int SH_Away_Win_Percent { get; set; }
 
-        public int FullTime_BothTeamToScore_Percentage { get; set; }
-        public int SecondHalf_BothTeamToScore_Percentage { get; set; }
-        public int HalfTime_BothTeamToScore_Percentage { get; set; }
-        public int FullTime_15_Over_Percentage { get; set; }
-        public int FullTime_25_Over_Percentage { get; set; }
-        public int FullTime_35_Over_Percentage { get; set; }
-        public int HalfTime_05_Over_Percentage { get; set; }
-        public int HalfTime_15_Over_Percentage { get; set; }
-        public int SecondHalf_05_Over_Percentage { get; set; }
-        public int SecondHalf_15_Over_Percentage { get; set; }
-        public int Home_HalfTime_05_Over_Percentage { get; set; }
-        public int Home_HalfTime_15_Over_Percentage { get; set; }
-        public int Home_SecondHalf_05_Over_Percentage { get; set; }
-        public int Home_SecondHalf_15_Over_Percentage { get; set; }
-        public int Home_FullTime_05_Over_Percentage { get; set; }
-        public int Home_FullTime_15_Over_Percentage { get; set; }
-        public int Home_Win_Any_Half_Percentage { get; set; }
-        public int Away_HalfTime_05_Over_Percentage { get; set; }
-        public int Away_HalfTime_15_Over_Percentage { get; set; }
-        public int Away_SecondHalf_05_Over_Percentage { get; set; }
-        public int Away_SecondHalf_15_Over_Percentage { get; set; }
-        public int Away_FullTime_05_Over_Percentage { get; set; }
-        public int Away_FullTime_15_Over_Percentage { get; set; }
-        public int Away_Win_Any_Half_Percentage { get; set; }
+        public int FT_BothTeamToScore_Percent { get; set; }
+        public int SH_BothTeamToScore_Percent { get; set; }
+        public int HT_BothTeamToScore_Percent { get; set; }
+        public int FT_15_Over_Percent { get; set; }
+        public int FT_25_Over_Percent { get; set; }
+        public int FT_35_Over_Percent { get; set; }
+        public int HT_05_Over_Percent { get; set; }
+        public int HT_15_Over_Percent { get; set; }
+        public int SH_05_Over_Percent { get; set; }
+        public int SH_15_Over_Percent { get; set; }
+        public int Home_HT_05_Over_Percent { get; set; }
+        public int Home_HT_15_Over_Percent { get; set; }
+        public int Home_SH_05_Over_Percent { get; set; }
+        public int Home_SH_15_Over_Percent { get; set; }
+        public int Home_FT_05_Over_Percent { get; set; }
+        public int Home_FT_15_Over_Percent { get; set; }
+        public int Home_Win_Any_Half_Percent { get; set; }
+        public int Away_HT_05_Over_Percent { get; set; }
+        public int Away_HT_15_Over_Percent { get; set; }
+        public int Away_SH_05_Over_Percent { get; set; }
+        public int Away_SH_15_Over_Percent { get; set; }
+        public int Away_FT_05_Over_Percent { get; set; }
+        public int Away_FT_15_Over_Percent { get; set; }
+        public int Away_Win_Any_Half_Percent { get; set; }
     }
 }

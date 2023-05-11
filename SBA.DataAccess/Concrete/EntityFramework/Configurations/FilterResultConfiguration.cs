@@ -14,6 +14,12 @@ namespace SBA.DataAccess.Concrete.EntityFramework.Configurations
 
             builder.Property(x => x.Id).UseIdentityColumn();
 
+            builder.Property(x => x.CreatedBy).HasMaxLength(100).HasDefaultValue("System.Admin");
+            builder.Property(x => x.ModifiedBy).HasMaxLength(100).HasDefaultValue("System.Admin");
+
+            builder.Property(x => x.CreatedDateTime).HasDefaultValue(DateTime.Now);
+            builder.Property(x => x.ModifiedDateTime).HasDefaultValue(DateTime.Now);
+
             builder.Property(x => x.HomeCornerCount).HasDefaultValue(-1);
             builder.Property(x => x.AwayCornerCount).HasDefaultValue(-1);
             builder.Property(x => x.HomePossesion).HasDefaultValue(-1);

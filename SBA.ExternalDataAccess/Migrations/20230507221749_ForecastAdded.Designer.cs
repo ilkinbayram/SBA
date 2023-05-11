@@ -12,8 +12,8 @@ using SBA.ExternalDataAccess.Concrete.EntityFramework.Contexts;
 namespace SBA.ExternalDataAccess.Migrations
 {
     [DbContext(typeof(ExternalAppDbContext))]
-    [Migration("20230327082304_defaultsAreRemoved")]
-    partial class defaultsAreRemoved
+    [Migration("20230507221749_ForecastAdded")]
+    partial class ForecastAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,53 @@ namespace SBA.ExternalDataAccess.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("Core.Entities.Concrete.ExternalDbEntities.AiDataHolder", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("CreatedBy")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasDefaultValue("System.Admin");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 5, 8, 2, 17, 43, 647, DateTimeKind.Local).AddTicks(798));
+
+                    b.Property<int>("DataType")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.Property<string>("JsonTextContent")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedBy")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasDefaultValue("System.Admin");
+
+                    b.Property<DateTime>("ModifiedDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 5, 8, 2, 17, 43, 647, DateTimeKind.Local).AddTicks(1150));
+
+                    b.Property<int>("Serial")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AiDataHolders", (string)null);
+                });
 
             modelBuilder.Entity("Core.Entities.Concrete.ExternalDbEntities.AverageStatisticsHolder", b =>
                 {
@@ -130,6 +177,17 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<int>("Corner_Home_5_5_Over")
                         .HasColumnType("int");
 
+                    b.Property<string>("CreatedBy")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasDefaultValue("System.Admin");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 5, 8, 2, 17, 43, 642, DateTimeKind.Local).AddTicks(5814));
+
                     b.Property<int>("FT_15_Over")
                         .HasColumnType("int");
 
@@ -217,6 +275,17 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<int>("MatchIdentifierId")
                         .HasColumnType("int");
 
+                    b.Property<string>("ModifiedBy")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasDefaultValue("System.Admin");
+
+                    b.Property<DateTime>("ModifiedDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 5, 8, 2, 17, 43, 642, DateTimeKind.Local).AddTicks(6017));
+
                     b.Property<int>("SH_05_Over")
                         .HasColumnType("int");
 
@@ -225,6 +294,9 @@ namespace SBA.ExternalDataAccess.Migrations
 
                     b.Property<int>("SH_GG")
                         .HasColumnType("int");
+
+                    b.Property<Guid>("UniqueIdentity")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -339,6 +411,17 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<int>("Corner_Home_5_5_Over")
                         .HasColumnType("int");
 
+                    b.Property<string>("CreatedBy")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasDefaultValue("System.Admin");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 5, 8, 2, 17, 43, 641, DateTimeKind.Local).AddTicks(6704));
+
                     b.Property<int>("FT_15_Over")
                         .HasColumnType("int");
 
@@ -426,6 +509,17 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<int>("MatchIdentifierId")
                         .HasColumnType("int");
 
+                    b.Property<string>("ModifiedBy")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasDefaultValue("System.Admin");
+
+                    b.Property<DateTime>("ModifiedDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 5, 8, 2, 17, 43, 641, DateTimeKind.Local).AddTicks(6934));
+
                     b.Property<int>("SH_05_Over")
                         .HasColumnType("int");
 
@@ -435,11 +529,68 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<int>("SH_GG")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("UniqueIdentity")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("LeagueStaisticsHolderId");
 
                     b.ToTable("ComparisonStatisticsHolders", (string)null);
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.ExternalDbEntities.Forecast", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("CreatedBy")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasDefaultValue("System.Admin");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 5, 8, 2, 17, 43, 647, DateTimeKind.Local).AddTicks(3581));
+
+                    b.Property<bool>("IsChecked")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("IsSuccess")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("Key")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MatchIdentifierId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ModifiedBy")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasDefaultValue("System.Admin");
+
+                    b.Property<DateTime>("ModifiedDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 5, 8, 2, 17, 43, 647, DateTimeKind.Local).AddTicks(3719));
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MatchIdentifierId");
+
+                    b.ToTable("Forecasts", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.Concrete.ExternalDbEntities.LeagueStatisticsHolder", b =>
@@ -458,10 +609,21 @@ namespace SBA.ExternalDataAccess.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("CreatedBy")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasDefaultValue("System.Admin");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 5, 8, 2, 17, 43, 643, DateTimeKind.Local).AddTicks(226));
+
                     b.Property<DateTime>("DateOfAnalyse")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 3, 27, 0, 0, 0, 0, DateTimeKind.Local));
+                        .HasDefaultValue(new DateTime(2023, 5, 8, 0, 0, 0, 0, DateTimeKind.Local));
 
                     b.Property<decimal>("FT_GoalsAverage")
                         .HasPrecision(7, 2)
@@ -494,6 +656,17 @@ namespace SBA.ExternalDataAccess.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
+                    b.Property<string>("ModifiedBy")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasDefaultValue("System.Admin");
+
+                    b.Property<DateTime>("ModifiedDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 5, 8, 2, 17, 43, 643, DateTimeKind.Local).AddTicks(407));
+
                     b.Property<decimal>("SH_GoalsAverage")
                         .HasPrecision(7, 2)
                         .HasColumnType("decimal(7,2)");
@@ -522,6 +695,17 @@ namespace SBA.ExternalDataAccess.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("CreatedBy")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasDefaultValue("System.Admin");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 5, 8, 2, 17, 43, 643, DateTimeKind.Local).AddTicks(2713));
+
                     b.Property<string>("HomeTeam")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -530,7 +714,18 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<DateTime>("MatchDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 3, 27, 0, 0, 0, 0, DateTimeKind.Local));
+                        .HasDefaultValue(new DateTime(2023, 5, 8, 0, 0, 0, 0, DateTimeKind.Local));
+
+                    b.Property<string>("ModifiedBy")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasDefaultValue("System.Admin");
+
+                    b.Property<DateTime>("ModifiedDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 5, 8, 2, 17, 43, 643, DateTimeKind.Local).AddTicks(2890));
 
                     b.Property<int>("Serial")
                         .ValueGeneratedOnAdd()
@@ -538,6 +733,9 @@ namespace SBA.ExternalDataAccess.Migrations
                         .HasDefaultValue(0);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Serial")
+                        .IsUnique();
 
                     b.ToTable("MatchIdentifiers", (string)null);
                 });
@@ -557,22 +755,40 @@ namespace SBA.ExternalDataAccess.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("Away_2_5_Over")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Away_2_5_Under")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Away_3_5_Over")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Away_3_5_Under")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Away_4_5_Over")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Away_4_5_Under")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Cards_3_5_Over")
                         .HasColumnType("decimal(18,2)");
@@ -592,8 +808,22 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<decimal>("Cards_5_5_Under")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("CreatedBy")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasDefaultValue("System.Admin");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 5, 8, 2, 17, 43, 643, DateTimeKind.Local).AddTicks(6835));
+
                     b.Property<decimal>("Even_Tek")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_1_5_Over")
                         .HasColumnType("decimal(18,2)");
@@ -614,16 +844,28 @@ namespace SBA.ExternalDataAccess.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("FT_4_5_Over")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_4_5_Under")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_5_5_Over")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_5_5_Under")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_Corners_Range_0_8")
                         .HasColumnType("decimal(18,2)");
@@ -635,40 +877,76 @@ namespace SBA.ExternalDataAccess.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("FT_Double_1_2")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_Double_1_X")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_Double_X_2")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_Draw")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_Draw_Over_15")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_Draw_Over_25")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_Draw_Over_35")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_Draw_Over_45")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_Draw_Under_15")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_Draw_Under_25")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_Draw_Under_35")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_Draw_Under_45")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_GG")
                         .HasColumnType("decimal(18,2)");
@@ -686,58 +964,112 @@ namespace SBA.ExternalDataAccess.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("FT_Win1")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_Win1_Over_15")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_Win1_Over_25")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_Win1_Over_35")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_Win1_Over_45")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_Win1_Under_15")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_Win1_Under_25")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_Win1_Under_35")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_Win1_Under_45")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_Win2")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_Win2_Over_15")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_Win2_Over_25")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_Win2_Over_35")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_Win2_Over_45")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_Win2_Under_15")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_Win2_Under_25")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_Win2_Under_35")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FT_Win2_Under_45")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FirstCorner_Away")
                         .HasColumnType("decimal(18,2)");
@@ -749,13 +1081,22 @@ namespace SBA.ExternalDataAccess.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("FirstGoal_Away")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FirstGoal_Home")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("FirstGoal_None")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Goals01")
                         .HasColumnType("decimal(18,2)");
@@ -770,10 +1111,16 @@ namespace SBA.ExternalDataAccess.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("HT_0_5_Over")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("HT_0_5_Under")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("HT_1_5_Over")
                         .HasColumnType("decimal(18,2)");
@@ -782,10 +1129,16 @@ namespace SBA.ExternalDataAccess.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("HT_2_5_Over")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("HT_2_5_Under")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("HT_Corners_10_5_Over")
                         .HasColumnType("decimal(18,2)");
@@ -833,31 +1186,58 @@ namespace SBA.ExternalDataAccess.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("HT_FT_Away_Away")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("HT_FT_Away_Draw")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("HT_FT_Away_Home")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("HT_FT_Draw_Away")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("HT_FT_Draw_Draw")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("HT_FT_Draw_Home")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("HT_FT_Home_Away")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("HT_FT_Home_Draw")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("HT_FT_Home_Home")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("HT_MoreCorner_Away")
                         .HasColumnType("decimal(18,2)");
@@ -875,76 +1255,148 @@ namespace SBA.ExternalDataAccess.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("Handicap_01_Draw")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Handicap_01_Win1")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Handicap_01_Win2")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Handicap_02_Draw")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Handicap_02_Win1")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Handicap_02_Win2")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Handicap_03_Draw")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Handicap_03_Win1")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Handicap_03_Win2")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Handicap_04_Draw")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Handicap_04_Win1")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Handicap_04_Win2")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Handicap_10_Draw")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Handicap_10_Win1")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Handicap_10_Win2")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Handicap_20_Draw")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Handicap_20_Win1")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Handicap_20_Win2")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Handicap_30_Draw")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Handicap_30_Win1")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Handicap_30_Win2")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Handicap_40_Draw")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Handicap_40_Win1")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Handicap_40_Win2")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Home_1_5_Over")
                         .HasColumnType("decimal(18,2)");
@@ -953,34 +1405,75 @@ namespace SBA.ExternalDataAccess.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("Home_2_5_Over")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Home_2_5_Under")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Home_3_5_Over")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Home_3_5_Under")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Home_4_5_Over")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Home_4_5_Under")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
+
+                    b.Property<string>("ModifiedBy")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasDefaultValue("System.Admin");
+
+                    b.Property<DateTime>("ModifiedDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 5, 8, 2, 17, 43, 643, DateTimeKind.Local).AddTicks(7313));
 
                     b.Property<decimal>("MoreGoal_1st")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("MoreGoal_2nd")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("MoreGoal_Equal")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Odd_Cut")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("SH_Draw")
                         .HasColumnType("decimal(18,2)");
@@ -992,98 +1485,235 @@ namespace SBA.ExternalDataAccess.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("Score_0_0")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Score_0_1")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Score_0_2")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Score_0_3")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Score_0_4")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Score_0_5")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Score_0_6")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Score_1_0")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Score_1_1")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Score_1_2")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Score_1_3")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Score_1_4")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Score_1_5")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Score_2_0")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Score_2_1")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Score_2_2")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Score_2_3")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Score_2_4")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Score_3_0")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Score_3_1")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Score_3_2")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Score_3_3")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Score_4_0")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Score_4_1")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Score_4_2")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Score_5_0")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Score_5_1")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Score_6_0")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
 
                     b.Property<decimal>("Score_Other")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)")
+                        .HasDefaultValue(-1m);
+
+                    b.Property<int>("Serial")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MatchOddsHolders", (string)null);
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.ExternalDbEntities.StatisticInfoHolder", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<decimal>("AwayPercent")
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)");
+
+                    b.Property<string>("AwayValue")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("BySideType")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("HomePercent")
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)");
+
+                    b.Property<string>("HomeValue")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("ParentId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Serial")
                         .HasColumnType("int");
 
+                    b.Property<int>("StatisticType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
-                    b.ToTable("MatchOddsHolders");
+                    b.ToTable("StatisticInfoHolders", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.Concrete.ExternalDbEntities.TeamPerformanceStatisticsHolder", b =>
@@ -1136,6 +1766,17 @@ namespace SBA.ExternalDataAccess.Migrations
 
                     b.Property<int>("Corner_Team_5_5_Over")
                         .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasDefaultValue("System.Admin");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 5, 8, 2, 17, 43, 642, DateTimeKind.Local).AddTicks(1552));
 
                     b.Property<int>("FT_15_Over")
                         .HasColumnType("int");
@@ -1191,6 +1832,17 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<int>("MatchIdentifierId")
                         .HasColumnType("int");
 
+                    b.Property<string>("ModifiedBy")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasDefaultValue("System.Admin");
+
+                    b.Property<DateTime>("ModifiedDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 5, 8, 2, 17, 43, 642, DateTimeKind.Local).AddTicks(1761));
+
                     b.Property<int>("SH_05_Over")
                         .HasColumnType("int");
 
@@ -1224,6 +1876,9 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<int>("Team_Win_Any_Half")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("UniqueIdentity")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("LeagueStaisticsHolderId");
@@ -1253,6 +1908,17 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Navigation("LeagueStatisticsHolder");
                 });
 
+            modelBuilder.Entity("Core.Entities.Concrete.ExternalDbEntities.Forecast", b =>
+                {
+                    b.HasOne("Core.Entities.Concrete.ExternalDbEntities.MatchIdentifier", "MatchIdentifier")
+                        .WithMany("Forecasts")
+                        .HasForeignKey("MatchIdentifierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MatchIdentifier");
+                });
+
             modelBuilder.Entity("Core.Entities.Concrete.ExternalDbEntities.TeamPerformanceStatisticsHolder", b =>
                 {
                     b.HasOne("Core.Entities.Concrete.ExternalDbEntities.LeagueStatisticsHolder", "LeagueStatisticsHolder")
@@ -1271,6 +1937,11 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Navigation("ComparisonStatisticsHolders");
 
                     b.Navigation("TeamPerformanceStatisticsHolders");
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.ExternalDbEntities.MatchIdentifier", b =>
+                {
+                    b.Navigation("Forecasts");
                 });
 #pragma warning restore 612, 618
         }

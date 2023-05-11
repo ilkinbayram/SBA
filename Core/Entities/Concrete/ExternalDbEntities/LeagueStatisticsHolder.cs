@@ -32,6 +32,14 @@ namespace Core.Entities.Concrete.ExternalDbEntities
         public int SH_Over05_Percentage { get; set; }
         public int SH_Over15_Percentage { get; set; }
 
+        public DateTime CreatedDateTime { get; set; }
+
+        public DateTime ModifiedDateTime { get; set; }
+
+        public string? CreatedBy { get; set; }
+
+        public string? ModifiedBy { get; set; }
+
         public virtual List<ComparisonStatisticsHolder> ComparisonStatisticsHolders { get; set; }
         public virtual List<TeamPerformanceStatisticsHolder> TeamPerformanceStatisticsHolders { get; set; }
         public virtual List<AverageStatisticsHolder> AverageStatisticsHolders { get; set; }

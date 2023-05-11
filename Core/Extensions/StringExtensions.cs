@@ -11,6 +11,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Core.Utilities.UsableModel;
 using Core.Utilities.UsableModel.Test;
+using Core.Resources;
+using System.Text;
+using System.Collections;
 
 namespace Core.Extensions
 {
@@ -36,6 +39,16 @@ namespace Core.Extensions
             }
 
             return key;
+        }
+
+        public static string TranslateResource(this string key, int lang)
+        {
+            string result = string.Empty;
+            if (lang == 1)
+                result = ResourceAz.ResourceManager.GetString(key);
+            if (lang == 2)
+                result = ResourceTr.ResourceManager.GetString(key);
+            return string.IsNullOrEmpty(result) ? key : result;
         }
 
         public static string GetTextFileByFormat(this string srcFormat, string fileName)
@@ -411,5 +424,72 @@ namespace Core.Extensions
                 return $"{100 - input}% No";
             }
         }
+
+
+        public static string SerializeSpecial(this object obj)
+        {
+            StringBuilder sb = new StringBuilder();
+            SerializeSpecialInternal(obj, sb);
+            return sb.ToString();
+        }
+
+        private static void SerializeSpecialInternal(object obj, StringBuilder sb)
+        {
+            Type objType = obj.GetType();
+            var properties = objType.GetProperties();
+
+            sb.Append("[");
+            bool isFirst = true;
+            foreach (var property in properties)
+            {
+                object value = property.GetValue(obj);
+
+                if (value == null || (IsList(value) && ((IList)value).Count == 0)) continue;
+
+                if (!isFirst) sb.Append(",");
+                isFirst = false;
+
+                sb.Append(property.Name);
+                sb.Append("=");
+
+                if (IsSimpleType(property.PropertyType))
+                {
+                    if (property.PropertyType == typeof(string))
+                    {
+                        sb.Append($"'{value}'");
+                    }
+                    else
+                    {
+                        sb.Append(value);
+                        if (property.Name.EndsWith("Percent"))
+                        {
+                            sb.Append("%");
+                        }
+                    }
+                }
+                else if (typeof(IEnumerable).IsAssignableFrom(property.PropertyType))
+                {
+                    sb.Append("(");
+                    bool isFirstItem = true;
+                    foreach (var item in (IEnumerable)value)
+                    {
+                        if (!isFirstItem) sb.Append(",");
+                        isFirstItem = false;
+                        SerializeSpecialInternal(item, sb);
+                    }
+                    sb.Append(")");
+                }
+                else
+                {
+                    SerializeSpecialInternal(value, sb);
+                }
+            }
+            sb.Append("]");
+        }
+
+        private static bool IsSimpleType(Type type) =>
+            type.IsPrimitive || type == typeof(string) || type == typeof(decimal) || type == typeof(DateTime);
+
+        private static bool IsList(object obj) => typeof(IList).IsAssignableFrom(obj.GetType());
     }
 }

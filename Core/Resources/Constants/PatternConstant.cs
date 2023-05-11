@@ -500,6 +500,10 @@
             public const string TeamsNames = @"page-title-out[\s\S]*?page-title[\s\S]*?>([^\W][^<]+)";
 
             public const string CountryName = @"<td>[\s\S]*?<td[\s\S]*?title=[\s\S]*?([^\W][^>]+)";
+
+            public const string MatchDate = @"center[\s\S]*?>([^\W][^<]+)";
+
+            public const string Season = @"<td>([^\W][^<]+)";
         }
 
         public static class StandingInfoPattern

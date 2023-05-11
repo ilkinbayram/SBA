@@ -1,9 +1,5 @@
-﻿using Corberros.Hidden.Berros;
-using System.Net.Http.Headers;
-using System.Net.Http;
-using System.Text;
+﻿using SBA.Business.ExternalServices;
 using System.Text.RegularExpressions;
-using SBA.Business.ExternalServices;
 
 var _httpClient = new HttpClient();
 var trClient = new GoogleTranslationService("AIzaSyCUgz3xO-A0UoK-yaVBZ3dIzjZeBBLuHS0");

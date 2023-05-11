@@ -98,6 +98,18 @@ namespace SBA.DataAccess.Migrations
                     b.Property<bool>("Corner_Home_5_5_Over")
                         .HasColumnType("bit");
 
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasDefaultValue("System.Admin");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 4, 4, 18, 0, 22, 639, DateTimeKind.Local).AddTicks(3986));
+
                     b.Property<bool>("FT_1_5_Over")
                         .HasColumnType("bit");
 
@@ -236,6 +248,18 @@ namespace SBA.DataAccess.Migrations
                     b.Property<int>("ModelType")
                         .HasColumnType("int");
 
+                    b.Property<string>("ModifiedBy")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasDefaultValue("System.Admin");
+
+                    b.Property<DateTime>("ModifiedDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 4, 4, 18, 0, 22, 639, DateTimeKind.Local).AddTicks(4130));
+
                     b.Property<int>("MoreGoalsBetweenTimes")
                         .HasColumnType("int");
 
@@ -281,6 +305,18 @@ namespace SBA.DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasDefaultValue("System.Admin");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 4, 4, 18, 0, 22, 638, DateTimeKind.Local).AddTicks(8659));
 
                     b.Property<decimal>("FTDraw_Odd")
                         .HasPrecision(7, 2)
@@ -393,6 +429,18 @@ namespace SBA.DataAccess.Migrations
 
                     b.Property<int>("ModelType")
                         .HasColumnType("int");
+
+                    b.Property<string>("ModifiedBy")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasDefaultValue("System.Admin");
+
+                    b.Property<DateTime>("ModifiedDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 4, 4, 18, 0, 22, 638, DateTimeKind.Local).AddTicks(8805));
 
                     b.Property<int>("SerialUniqueID")
                         .HasColumnType("int");

@@ -1,4 +1,6 @@
-﻿using Core.Resources.Enums;
+﻿using Core.Entities.Concrete.ComplexModels.ML;
+using Core.Extensions;
+using Core.Resources.Enums;
 using Core.Utilities.Helpers.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -19,6 +21,8 @@ namespace SBA.WebAPI.Controllers
         private readonly IAverageStatisticsHolderService _averageStatisticsHolderService;
         private readonly ITeamPerformanceStatisticsHolderService _teamPerformanceStatisticsHolderService;
         private readonly ILeagueStatisticsHolderService _leagueStatisticsHolderService;
+        private readonly IStatisticInfoHolderService _statisticInfoHolderService;
+        private readonly IAiDataHolderService _aiDataHolderService;
         private readonly ITranslationService _translationService;
         private readonly IConfiguration _configuration;
         private readonly ChatGPTService _aiService;
@@ -29,7 +33,9 @@ namespace SBA.WebAPI.Controllers
                                     IAverageStatisticsHolderService averageStatisticsHolderService,
                                     ILeagueStatisticsHolderService leagueStatisticsHolderService,
                                     ITranslationService translationService,
-                                    IConfiguration configuration)
+                                    IConfiguration configuration,
+                                    IStatisticInfoHolderService statisticInfoHolderService,
+                                    IAiDataHolderService aiDataHolderService)
         {
             _comparisonStatisticsHolderService = comparisonStatisticsHolderService;
             _teamPerformanceStatisticsHolderService = teamPerformanceStatisticsHolderService;
@@ -40,6 +46,8 @@ namespace SBA.WebAPI.Controllers
             string apiKey = _configuration.GetValue<string>("OpenAI-SecretKey");
             _aiService = new ChatGPTService(apiKey);
             _formatBinder = new FileFormatBinder();
+            _statisticInfoHolderService = statisticInfoHolderService;
+            _aiDataHolderService = aiDataHolderService;
         }
 
         [HttpGet("getaverage/home-away/{serial}")]
@@ -50,6 +58,73 @@ namespace SBA.WebAPI.Controllers
 
             return Ok(result);
         }
+
+        #region MobileServices
+        [HttpGet("getstatistics/mobile/{serial}/{language}")]
+        public IActionResult GetAllMobileStatistics(int serial, int language)
+        {
+            var result = _statisticInfoHolderService.GetAllStatisticResultById(serial, language);
+
+            return Ok(result);
+        }
+
+        [HttpGet("getaverage/mobile/home-away/{serial}/{language}")]
+        public IActionResult GetAverageOnlyHomeAwayMobileStatistics(int serial, int language)
+        {
+            int bySideType = (int)BySideType.HomeAway;
+            var result = _statisticInfoHolderService.GetAverageStatisticResultById(serial, bySideType, language);
+
+            return Ok(result);
+        }
+
+        [HttpGet("getaverage/mobile/general/{serial}/{language}")]
+        public IActionResult GetAverageOnlyGeneralMobileStatistics(int serial, int language)
+        {
+            int bySideType = (int)BySideType.General;
+            var result = _statisticInfoHolderService.GetAverageStatisticResultById(serial, bySideType, language);
+
+            return Ok(result);
+        }
+
+        [HttpGet("getperformance/mobile/home-away/{serial}/{language}")]
+        public IActionResult GetPerformanceOnlyHomeAwayMobileStatistics(int serial, int language)
+        {
+            int bySideType = (int)BySideType.HomeAway;
+            var result = _statisticInfoHolderService.GetPerformanceStatisticResultById(serial, bySideType, language);
+
+            return Ok(result);
+        }
+
+        [HttpGet("getperformance/mobile/general/{serial}/{language}")]
+        public IActionResult GetPerformanceOnlyGeneralMobileStatistics(int serial, int language)
+        {
+            int bySideType = (int)BySideType.General;
+            var result = _statisticInfoHolderService.GetPerformanceStatisticResultById(serial, bySideType, language);
+
+            return Ok(result);
+        }
+
+        [HttpGet("getcomparison/mobile/home-away/{serial}/{language}")]
+        public IActionResult GetComparisonOnlyHomeAwayMobileStatistics(int serial, int language)
+        {
+            int bySideType = (int)BySideType.HomeAway;
+            var result = _statisticInfoHolderService.GetComparisonStatisticResultById(serial, bySideType, language);
+
+            return Ok(result);
+        }
+
+        [HttpGet("getcomparison/mobile/general/{serial}/{language}")]
+        public IActionResult GetComparisonOnlyGeneralMobileStatistics(int serial, int language)
+        {
+            int bySideType = (int)BySideType.General;
+            var result = _statisticInfoHolderService.GetComparisonStatisticResultById(serial, bySideType, language);
+
+            return Ok(result);
+        }
+        #endregion
+
+
+
 
         [HttpGet("getaverage/general/{serial}")]
         public IActionResult GetAverageOnlyGeneralStatistics(int serial)
@@ -147,59 +222,28 @@ namespace SBA.WebAPI.Controllers
         [HttpGet("get-ai-guess/{serial}")]
         public async Task<string> GetAIGuessAsync(int serial)
         {
-            //string statPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot","files","statFormat.txt");
-            //string statPosShutPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot","files", "statTeamPosShutFormat.txt");
-            //string statTeamCornerPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot","files", "statTeamCornerFormat.txt");
-            //string statAllCornerPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot","files", "statAllTeamsCornerFormat.txt");
+            var aiModel = await _aiDataHolderService.GetAsync(x=>x.Serial == serial);
 
-            //string statFormat;
-            //string statPosShutFormat;
-            //string statTeamCornerFormat;
-            //string statAllCornerFormat;
+            if (aiModel.Data == null)
+                return "Data Has Not Been Found...";
 
-            //using (var sr = new StreamReader(statPath))
-            //{
-            //    statFormat = sr.ReadToEnd();
-            //}
+            var statisticsModel = JsonConvert.DeserializeObject<AiAnalyseModel>(aiModel.Data.JsonTextContent);
 
-            //using (var sr = new StreamReader(statPosShutPath))
-            //{
-            //    statPosShutFormat = sr.ReadToEnd();
-            //}
+            if (statisticsModel == null)
+                return "Data Has Not Been Found...";
 
-            //using (var sr = new StreamReader(statTeamCornerPath))
-            //{
-            //    statTeamCornerFormat = sr.ReadToEnd();
-            //}
+            statisticsModel.AwayTeamPerformanceMatches = null;
+            statisticsModel.HomeTeamPerformanceMatches = null;
+            statisticsModel.ComparisonDataes = null;
 
-            //using (var sr = new StreamReader(statAllCornerPath))
-            //{
-            //    statAllCornerFormat = sr.ReadToEnd();
-            //}
-
-            var resultComplexData = _leagueStatisticsHolderService.GetAiComplexStatistics(serial);
-
-            if (resultComplexData is null)
-                return "AI Model Could not be found!";
-
-            //var resultAiModel = _formatBinder.BindComplexStats(statFormat, statPosShutFormat, statTeamCornerFormat, statAllCornerFormat, resultComplexData);
-
-            var aiModel = resultComplexData.MapToAI();
-
-            JsonSerializerSettings settings = new JsonSerializerSettings
+            var serializerOptions = new JsonSerializerSettings
             {
-                Converters = new List<JsonConverter> { new IgnoreNegativeValuesConverter() },
+                Formatting = Formatting.None,
                 NullValueHandling = NullValueHandling.Ignore
             };
+            string statisticsData = JsonConvert.SerializeObject(statisticsModel, serializerOptions);
 
-            var jsonAiModel = JsonConvert.SerializeObject(aiModel, settings);
-
-            var resultGuess = await _aiService.CallOpenAIAsync(jsonAiModel);
-
-            //var messages = new Messages.AdvisorGuessMessages();
-
-            //if (!resultGuess.ToLower().Contains("error"))
-            //    resultGuess = string.Format("{0}\n{1}", resultGuess, messages.Message);
+            var resultGuess = await _aiService.CallOpenAIAsync(statisticsData);
 
             return resultGuess;
         }

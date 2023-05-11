@@ -2,52 +2,56 @@
 {
     public class PerformanceAiStatisticsHolder
     {
-        public decimal Individual_Average_FullTime_Goals { get; set; }
-        public decimal Individual_Average_HalfTime_Goals { get; set; }
-        public decimal Individual_Average_SecondHalf_Goals { get; set; }
+        public decimal Team_Average_FT_Goals { get; set; }
+        public decimal Team_Average_HT_Goals { get; set; }
+        public decimal Team_Average_SH_Goals { get; set; }
 
+        public int FT_Win_Percent { get; set; }
+        public int FT_Draw_Percent { get; set; }
 
-        public decimal Individual_Average_FullTime_Shot { get; set; }
-        public decimal Individual_Average_FullTime_ShotOnTarget { get; set; }
-        public decimal Individual_Average_FullTime_Corners { get; set; }
-        public int FullTime_Corner_Win_Percentage { get; set; }
-        public int FullTime_Corner_Draw_Percentage { get; set; }
-        public int FullTime_Corner_75_Over_Percentage { get; set; }
-        public int FullTime_Corner_85_Over_Percentage { get; set; }
-        public int FullTime_Corner_95_Over_Percentage { get; set; }
-        public int Individual_FullTime_Corner_35_Over_Percentage { get; set; }
-        public int Individual_FullTime_Corner_45_Over_Percentage { get; set; }
-        public int Individual_Average_Possesion_Of_Ball { get; set; }
-        public int Individual_ShutOnTarget_Percentage
+        public int HT_Win_Percent { get; set; }
+        public int HT_Draw_Percent { get; set; }
+
+        public int SH_Win_Percent { get; set; }
+        public int SH_Draw_Percent { get; set; }
+
+        public int FT_BothTeamToScore_Percent { get; set; }
+        public int SH_BothTeamToScore_Percent { get; set; }
+        public int HT_BothTeamToScore_Percent { get; set; }
+        public int FT_15_Over_Percent { get; set; }
+        public int FT_25_Over_Percent { get; set; }
+        public int FT_35_Over_Percent { get; set; }
+        public int HT_05_Over_Percent { get; set; }
+        public int HT_15_Over_Percent { get; set; }
+        public int SH_05_Over_Percent { get; set; }
+        public int SH_15_Over_Percent { get; set; }
+        public int Team_HT_05_Over_Percent { get; set; }
+        public int Team_HT_15_Over_Percent { get; set; }
+        public int Team_SH_05_Over_Percent { get; set; }
+        public int Team_SH_15_Over_Percent { get; set; }
+        public int Team_FT_05_Over_Percent { get; set; }
+        public int Team_FT_15_Over_Percent { get; set; }
+        public int Team_Win_Any_Half_Percent { get; set; }
+
+        public PerformanceAiMoreDetailsHolder? MoreMatchInfoDetails { get; set; }
+    }
+
+    public class PerformanceAiMoreDetailsHolder
+    {
+        public decimal Team_Average_FT_Shot { get; set; }
+        public decimal Team_Average_FT_ShotOnTarget { get; set; }
+        public decimal Team_Average_FT_Corners { get; set; }
+        public int FT_Corner_Win_Percent { get; set; }
+        public int FT_Corner_Draw_Percent { get; set; }
+        public int FT_Corner_75_Over_Percent { get; set; }
+        public int FT_Corner_85_Over_Percent { get; set; }
+        public int FT_Corner_95_Over_Percent { get; set; }
+        public int Team_FT_Corner_35_Over_Percent { get; set; }
+        public int Team_FT_Corner_45_Over_Percent { get; set; }
+        public int Team_Average_BallPossesion_Percent { get; set; }
+        public int Team_ShutOnTarget_Percent
         {
-            get => Convert.ToInt32(this.Individual_Average_FullTime_ShotOnTarget * 100 / this.Individual_Average_FullTime_Shot);
+            get => Convert.ToInt32(this.Team_Average_FT_ShotOnTarget * 100 / this.Team_Average_FT_Shot);
         }
-
-        public int FullTime_Win_Percentage { get; set; }
-        public int FullTime_Draw_Percentage { get; set; }
-
-        public int HalfTime_Win_Percentage { get; set; }
-        public int HalfTime_Draw_Percentage { get; set; }
-
-        public int SecondHalf_Win_Percentage { get; set; }
-        public int SecondHalf_Draw_Percentage { get; set; }
-
-        public int FullTime_BothTeamToScore_Percentage { get; set; }
-        public int SecondHalf_BothTeamToScore_Percentage { get; set; }
-        public int HalfTime_BothTeamToScore_Percentage { get; set; }
-        public int FullTime_15_Over_Percentage { get; set; }
-        public int FullTime_25_Over_Percentage { get; set; }
-        public int FullTime_35_Over_Percentage { get; set; }
-        public int HalfTime_05_Over_Percentage { get; set; }
-        public int HalfTime_15_Over_Percentage { get; set; }
-        public int SecondHalf_05_Over_Percentage { get; set; }
-        public int SecondHalf_15_Over_Percentage { get; set; }
-        public int Individual_HalfTime_05_Over_Percentage { get; set; }
-        public int Individual_HalfTime_15_Over_Percentage { get; set; }
-        public int Individual_SecondHalf_05_Over_Percentage { get; set; }
-        public int Individual_SecondHalf_15_Over_Percentage { get; set; }
-        public int Individual_FullTime_05_Over_Percentage { get; set; }
-        public int Individual_FullTime_15_Over_Percentage { get; set; }
-        public int Individual_Win_Any_Half_Percentage { get; set; }
     }
 }

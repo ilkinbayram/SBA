@@ -1,4 +1,5 @@
-﻿using Core.Entities.Concrete.SqlEntities.QueryModels;
+﻿using Core.Entities.Concrete.ComplexModels.ML;
+using Core.Entities.Concrete.SqlEntities.QueryModels;
 using Core.Extensions;
 using Core.Resources.Constants;
 using Core.Resources.Enums;
@@ -11,6 +12,7 @@ using SBA.Business.Abstract;
 using SBA.Business.BusinessHelper;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -37,6 +39,11 @@ namespace SBA.Business.FunctionalServices.Concrete
         private ComparisonInfoContainer GetComparisonInfoByPattern(string src)
         {
             return GenerateComparisonInfoByRegex(src);
+        }
+
+        private ComparisonAiModel? GetComparisonAiModelByPattern(string src)
+        {
+            return GenerateComparisonAiModelByRegex(src);
         }
 
         private PerformanceDataContainer GetPerformanceData(MatchBetQM model, TeamSide teamSide, string unchangableTeam)
@@ -92,7 +99,7 @@ namespace SBA.Business.FunctionalServices.Concrete
             return !notValid;
         }
 
-        public StandingInfoModel GetStandingInfoByPattern(string serial)
+        public StandingInfoModel? GetStandingInfoByPattern(string serial)
         {
             return GenerateStandingInfoByRegex(serial);
         }
@@ -330,6 +337,47 @@ namespace SBA.Business.FunctionalServices.Concrete
             }
 
             return null;
+        }
+
+        public List<ComparisonAiModel> SelectListComparisonAiModel(string serial, int takeCount)
+        {
+            var rgxHomeTeam = new Regex(PatternConstant.StartedMatchPattern.HomeTeam);
+            var rgxAwayTeam = new Regex(PatternConstant.StartedMatchPattern.AwayTeam);
+
+            var uri = string.Format("{0}{1}", _comparisonMatchUrl, serial);
+            var uriMatchInfo = string.Format("{0}{1}", _defaultMatchUrl, serial);
+
+            var source = _webOperation.GetMinifiedString(uriMatchInfo);
+
+            var src = _webOperation.GetMinifiedString(uri);
+
+            if (string.IsNullOrEmpty(src)) return null;
+
+            if (!rgxAwayTeam.IsMatch(source) || !rgxHomeTeam.IsMatch(source)) return null;
+
+            string unchangableAwayTeam = rgxAwayTeam.Matches(source)[0].Groups[1].Value;
+            string unchangableHomeTeam = rgxHomeTeam.Matches(source)[0].Groups[1].Value;
+
+            var splittedSources = src.Split("class=alt");
+
+            var result = new List<ComparisonAiModel>();
+
+            if (splittedSources.Length > 1)
+            {
+                for (int i = 1; i < splittedSources.Length; i++)
+                {
+                    var currentSrc = splittedSources[i];
+
+                    var readyItem = GetComparisonAiModelByPattern(currentSrc);
+
+                    if (readyItem != null)
+                    {
+                        result.Add(readyItem);
+                    }
+                };
+            }
+
+            return result.OrderByDescending(x=>x.MatchDate).Take(takeCount).ToList();
         }
 
 
@@ -1602,13 +1650,122 @@ namespace SBA.Business.FunctionalServices.Concrete
             return result;
         }
 
-        private StandingInfoModel GenerateStandingInfoByRegex(string serial)
+        private ComparisonAiModel? GenerateComparisonAiModelByRegex(string src)
         {
-            var uri = string.Format("{0}{1}", _defaultMatchUrl, serial);
-            var src = _webOperation.GetMinifiedStringAsync(uri).Result;
+            var rgxHomeTeam = new Regex(PatternConstant.ComparisonInfoPattern.HomeTeam);
+            var rgxAwayTeam = new Regex(PatternConstant.ComparisonInfoPattern.AwayTeam);
+            var rgxHtRes = new Regex(PatternConstant.ComparisonInfoPattern.HT_Result);
+            var rgxFtRes = new Regex(PatternConstant.ComparisonInfoPattern.FT_Result);
+            var rgxSeason = new Regex(PatternConstant.ComparisonInfoPattern.Season);
+            var rgxMatchDate = new Regex(PatternConstant.ComparisonInfoPattern.MatchDate);
 
-            if (string.IsNullOrEmpty(src)) return null;
+            string htResult = src.ResolveScoreByRegex(rgxHtRes);
+            string ftResult = src.ResolveScoreByRegex(rgxFtRes);
+            string seasonResult = src.ResolveScoreByRegex(rgxSeason);
 
+            string matchDateTimeTxt = src.ResolveTextByRegex(rgxMatchDate);
+
+            if (string.IsNullOrEmpty(htResult) || string.IsNullOrEmpty(ftResult)) return null;
+
+            int ftHomeGoals = Convert.ToInt32(ftResult.Split('-')[0].Trim());
+            int ftAwayGoals = Convert.ToInt32(ftResult.Split('-')[1].Trim());
+            int htHomeGoals = Convert.ToInt32(htResult.Split('-')[0].Trim());
+            int htAwayGoals = Convert.ToInt32(htResult.Split('-')[1].Trim());
+
+            string ftResultAsTxt = string.Empty;
+            string htResultAsTxt = string.Empty;
+            string shResultAsTxt = string.Empty;
+
+            if (htHomeGoals > htAwayGoals)
+            {
+                htResultAsTxt = "Home Won";
+            }
+            else if (htAwayGoals > htHomeGoals)
+            {
+                htResultAsTxt = "Away Won";
+            }
+            else
+            {
+                htResultAsTxt = "Draw";
+            }
+
+            if (ftHomeGoals > ftAwayGoals)
+            {
+                ftResultAsTxt = "Home Won";
+            }
+            else if (ftAwayGoals > ftHomeGoals)
+            {
+                ftResultAsTxt = "Away Won";
+            }
+            else
+            {
+                ftResultAsTxt = "Draw";
+            }
+
+            if ((ftHomeGoals - htHomeGoals) > (ftAwayGoals - htAwayGoals))
+            {
+                shResultAsTxt = "Home Won";
+            }
+            else if ((ftHomeGoals - htHomeGoals) < (ftAwayGoals - htAwayGoals))
+            {
+                shResultAsTxt = "Away Won";
+            }
+            else
+            {
+                shResultAsTxt = "Draw";
+            }
+
+            var result = new ComparisonAiModel
+            {
+                HomeTeam = src.ResolveTextByRegex(rgxHomeTeam),
+                AwayTeam = src.ResolveTextByRegex(rgxAwayTeam),
+                HT_Goals_AwayTeam = htAwayGoals,
+                HT_Goals_HomeTeam = htHomeGoals,
+                FT_Goals_AwayTeam = ftAwayGoals,
+                FT_Goals_HomeTeam = ftHomeGoals,
+                SH_Goals_AwayTeam = ftAwayGoals - htAwayGoals,
+                SH_Goals_HomeTeam = ftHomeGoals - htHomeGoals,
+                Season = seasonResult,
+                MatchDate = CustomGenerate(matchDateTimeTxt),
+                FullTime_Result = ftResultAsTxt,
+                HalfTime_Result = htResultAsTxt,
+                SecondHalf_Result = shResultAsTxt
+            };
+
+            return result;
+        }
+
+        private DateTime CustomGenerate(string date)
+        {
+            try
+            {
+                string dayTxt = date.Split('.')[0];
+                string monthTxt = date.Split('.')[1];
+
+                if (dayTxt[0] == '0')
+                {
+                    dayTxt = dayTxt.Substring(1, 1);
+                }
+
+                if (monthTxt[0] == '0')
+                {
+                    monthTxt = monthTxt.Substring(1, 1);
+                }
+
+                int day = Convert.ToInt32(dayTxt);
+                int month = Convert.ToInt32(monthTxt);
+                int year = Convert.ToInt32(date.Split('.')[2]);
+
+                return new DateTime(year, month, day);
+            }
+            catch (Exception)
+            {
+                return DateTime.MinValue;
+            }
+        }
+
+        private StandingInfoModel? GenerateStandingInfoByRegex(string serial)
+        {
             var rgxUpTeamName = new Regex(PatternConstant.StandingInfoPattern.UpTeam.Team);
             var rgxUpOrder = new Regex(PatternConstant.StandingInfoPattern.UpTeam.Order);
             var rgxUpMatchesCount = new Regex(PatternConstant.StandingInfoPattern.UpTeam.PlayedMatchesCount);
@@ -1627,6 +1784,11 @@ namespace SBA.Business.FunctionalServices.Concrete
 
             try
             {
+                var uri = string.Format("{0}{1}", _defaultMatchUrl, serial);
+                var src = _webOperation.GetMinifiedStringAsync(uri).Result;
+
+                if (string.IsNullOrEmpty(src)) return null;
+
                 var result = new StandingInfoModel
                 {
                     UpTeam = new StandingDetail

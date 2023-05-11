@@ -1,7 +1,10 @@
-﻿using Core.Entities.Concrete.ExternalDbEntities;
+﻿using Core.Entities.Concrete.ComplexModels.ML;
+using Core.Entities.Concrete.ComplexModels.RequestModelHelpers;
+using Core.Entities.Concrete.ExternalDbEntities;
 using Core.Resources.Enums;
 using Core.Utilities.UsableModel;
 using Core.Utilities.UsableModel.TempTableModels.Initialization;
+using System;
 
 namespace Core.Extensions
 {
@@ -488,7 +491,7 @@ namespace Core.Extensions
                         Corner_Team_3_5_Over = homePerformance.HomeAway.Corner_Home_3_5_Over.OverridePercentage(),
                         Corner_Team_4_5_Over = homePerformance.HomeAway.Corner_Home_4_5_Over.OverridePercentage(),
                         Corner_Team_5_5_Over = homePerformance.HomeAway.Corner_Home_5_5_Over.OverridePercentage(),
-                        
+
                         Average_FT_Shut_Team = homePerformance.HomeAway.Average_FT_Shot_HomeTeam,
                         Average_FT_ShutOnTarget_Team = homePerformance.HomeAway.Average_FT_ShotOnTarget_HomeTeam,
                         Team_Possesion = homePerformance.HomeAway.Average_FT_Possesion_HomeTeam.ConvertFromDecimal()
@@ -705,9 +708,8 @@ namespace Core.Extensions
             if (percentageComplainer == null) return -999;
 
             bool isFeatureEnabled = percentageComplainer.FeatureName.ToLower() == "true";
-            bool isPercentageGreaterThan50 = percentageComplainer.Percentage > 50;
 
-            if (isPercentageGreaterThan50 ^ isFeatureEnabled)
+            if (!isFeatureEnabled) // false
             {
                 return 100 - percentageComplainer.Percentage;
             }
@@ -721,6 +723,153 @@ namespace Core.Extensions
         {
             if (pointerValue < 0) return -1;
             return Convert.ToInt32(pointerValue);
+        }
+
+
+        public static StandingAiModel? MapAiStandingModel(this StandingInfoModel? inputModel, string homeTeamName)
+        {
+            if(inputModel == null) return null;
+
+            var homeStandingInfo = inputModel.UpTeam.TeamName == homeTeamName ? inputModel.UpTeam : inputModel.DownTeam;
+            var awayStandingInfo = inputModel.UpTeam.TeamName == homeTeamName ? inputModel.DownTeam : inputModel.UpTeam;
+
+            return new StandingAiModel
+            {
+                HomeTeam_StandingDetails = new StandingTeamAiDetailsModel
+                {
+                    TeamName = homeStandingInfo.TeamName,
+                    Order = homeStandingInfo.Order,
+                    Point = homeStandingInfo.Point,
+                    MatchesCount = homeStandingInfo.MatchesCount,
+                    WinsCount = homeStandingInfo.WinsCount,
+                    DrawsCount = homeStandingInfo.DrawsCount,
+                    LostsCount = homeStandingInfo.LostsCount
+                },
+                AwayTeam_StandingDetails = new StandingTeamAiDetailsModel
+                {
+                    TeamName = awayStandingInfo.TeamName,
+                    Order = awayStandingInfo.Order,
+                    Point = awayStandingInfo.Point,
+                    MatchesCount = awayStandingInfo.MatchesCount,
+                    WinsCount = awayStandingInfo.WinsCount,
+                    DrawsCount = awayStandingInfo.DrawsCount,
+                    LostsCount = awayStandingInfo.LostsCount
+                }
+            };
+        }
+
+
+        public static LeagueStatisticsAiModel? MapLeagueStatisticsAiModel(this LeagueStatisticsHolder? inputModel)
+        {
+            if (inputModel == null) return null;
+
+            return new LeagueStatisticsAiModel
+            {
+                CountryName = inputModel.CountryName,
+                LeagueName = inputModel.LeagueName,
+                FullTime_Goals_Average = Math.Round(inputModel.FT_GoalsAverage, 2),
+                HalfTime_Goals_Average = Math.Round(inputModel.HT_GoalsAverage, 2),
+                SecondHald_Goals_Average = Math.Round(inputModel.SH_GoalsAverage, 2),
+                BothTeamsToScore_Percentage = inputModel.GG_Percentage,
+                FullTime_Over15_Percentage = inputModel.FT_Over15_Percentage,
+                FullTime_Over25_Percentage = inputModel.FT_Over25_Percentage,
+                FullTime_Over35_Percentage = inputModel.FT_Over35_Percentage,
+                HalfTime_Over05_Percentage = inputModel.HT_Over05_Percentage,
+                HalfTime_Over15_Percentage = inputModel.HT_Over15_Percentage,
+                SecondHalf_Over05_Percentage = inputModel.SH_Over05_Percentage,
+                SecondHalf_Over15_Percentage = inputModel.SH_Over15_Percentage
+            };
+        }
+
+        public static ComparisonAiStatisticsHolder? MapToComparisonAiModel(this ComparisonStatisticsHolder? input)
+        {
+            if (input == null)
+                return null;
+
+            return new ComparisonAiStatisticsHolder
+            {
+                Average_FT_Goals_AwayTeam = Math.Round(input.Average_FT_Goals_AwayTeam, 2),
+                Average_FT_Goals_HomeTeam = Math.Round(input.Average_FT_Goals_HomeTeam, 2),
+                Average_HT_Goals_AwayTeam = Math.Round(input.Average_HT_Goals_AwayTeam, 2),
+                Average_HT_Goals_HomeTeam = Math.Round(input.Average_HT_Goals_HomeTeam, 2),
+                Average_SH_Goals_AwayTeam = Math.Round(input.Average_SH_Goals_AwayTeam, 2),
+                Average_SH_Goals_HomeTeam = Math.Round(input.Average_SH_Goals_HomeTeam, 2),
+                Away_FT_05_Over_Percent = input.Away_FT_05_Over,
+                Away_FT_15_Over_Percent = input.Away_FT_15_Over,
+                Away_HT_05_Over_Percent = input.Away_HT_05_Over,
+                Away_HT_15_Over_Percent = input.Away_HT_15_Over,
+                Away_SH_05_Over_Percent = input.Away_SH_05_Over,
+                Away_SH_15_Over_Percent = input.Away_SH_15_Over,
+                Home_FT_05_Over_Percent = input.Home_FT_05_Over,
+                Home_FT_15_Over_Percent = input.Home_FT_15_Over,
+                Home_HT_05_Over_Percent = input.Home_HT_05_Over,
+                Home_HT_15_Over_Percent = input.Home_HT_15_Over,
+                Home_SH_05_Over_Percent = input.Home_SH_05_Over,
+                Home_SH_15_Over_Percent = input.Home_SH_15_Over,
+                Home_Win_Any_Half_Percent = input.Home_Win_Any_Half,
+                Away_Win_Any_Half_Percent = input.Away_Win_Any_Half,
+                FT_15_Over_Percent = input.FT_15_Over,
+                FT_25_Over_Percent = input.FT_25_Over,
+                FT_35_Over_Percent = input.FT_35_Over,
+                HT_05_Over_Percent = input.HT_05_Over,
+                HT_15_Over_Percent = input.HT_15_Over,
+                SH_05_Over_Percent = input.SH_05_Over,
+                SH_15_Over_Percent = input.SH_15_Over,
+                FT_BothTeamToScore_Percent = input.FT_GG,
+                HT_BothTeamToScore_Percent = input.HT_GG,
+                SH_BothTeamToScore_Percent = input.SH_GG,
+                FT_Home_Win_Percent = input.Is_FT_Win1,
+                FT_Draw_Percent = input.Is_FT_X,
+                FT_Away_Win_Percent = input.Is_FT_Win2,
+                HT_Home_Win_Percent = input.Is_HT_Win1,
+                HT_Draw_Percent = input.Is_HT_X,
+                HT_Away_Win_Percent = input.Is_HT_Win2,
+                SH_Home_Win_Percent = input.Is_SH_Win1,
+                SH_Draw_Percent = input.Is_SH_X,
+                SH_Away_Win_Percent = input.Is_SH_Win2
+            };
+        }
+
+        public static PerformanceAiStatisticsHolder? MapToComparisonAiModel(this TeamPerformanceStatisticsHolder? input)
+        {
+            if (input == null)
+                return null;
+
+            return new PerformanceAiStatisticsHolder
+            {
+                Team_Average_FT_Goals = Math.Round(input.Average_FT_Goals_Team, 2),
+                Team_Average_HT_Goals = Math.Round(input.Average_HT_Goals_Team, 2),
+                Team_Average_SH_Goals = Math.Round(input.Average_SH_Goals_Team, 2),
+                Team_FT_05_Over_Percent = input.Team_FT_05_Over,
+                Team_FT_15_Over_Percent = input.Team_FT_15_Over,
+                Team_HT_05_Over_Percent = input.Team_HT_05_Over,
+                Team_HT_15_Over_Percent = input.Team_HT_15_Over,
+                Team_SH_05_Over_Percent = input.Team_SH_05_Over,
+                Team_SH_15_Over_Percent = input.Team_SH_15_Over,
+                Team_Win_Any_Half_Percent = input.Team_Win_Any_Half,
+                FT_15_Over_Percent = input.FT_15_Over,
+                FT_25_Over_Percent = input.FT_25_Over,
+                FT_35_Over_Percent = input.FT_35_Over,
+                HT_05_Over_Percent = input.HT_05_Over,
+                HT_15_Over_Percent = input.HT_15_Over,
+                SH_05_Over_Percent = input.SH_05_Over,
+                SH_15_Over_Percent = input.SH_15_Over,
+                FT_BothTeamToScore_Percent = input.FT_GG,
+                HT_BothTeamToScore_Percent = input.HT_GG,
+                SH_BothTeamToScore_Percent = input.SH_GG,
+                FT_Win_Percent = input.Is_FT_Win,
+                FT_Draw_Percent = input.Is_FT_X,
+                HT_Win_Percent = input.Is_HT_Win,
+                HT_Draw_Percent = input.Is_HT_X,
+                SH_Win_Percent = input.Is_SH_Win,
+                SH_Draw_Percent = input.Is_SH_X,
+                MoreMatchInfoDetails = input.Average_FT_Shut_Team >= 0 && input.Team_Possesion >= 1 ? new PerformanceAiMoreDetailsHolder
+                {
+                    Team_Average_BallPossesion_Percent = input.Team_Possesion,
+                    Team_Average_FT_Shot = Math.Round(input.Average_FT_Shut_Team, 2),
+                    Team_Average_FT_ShotOnTarget = Math.Round(input.Average_FT_ShutOnTarget_Team, 2)
+                } : null
+            };
         }
 
 

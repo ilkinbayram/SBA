@@ -8,5 +8,15 @@ namespace Core.Entities.Concrete.ExternalDbEntities
         public string HomeTeam { get; set; }
         public string AwayTeam { get; set; }
         public DateTime MatchDateTime { get; set; }
+
+        public DateTime CreatedDateTime { get; set; }
+
+        public DateTime ModifiedDateTime { get; set; }
+
+        public string? CreatedBy { get; set; }
+
+        public string? ModifiedBy { get; set; }
+
+        public virtual List<Forecast> Forecasts { get; set; }
     }
 }

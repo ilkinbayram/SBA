@@ -29,6 +29,9 @@ namespace SBA.MvcUI.Controllers
         private readonly IComparisonStatisticsHolderService _comparisonStatisticsHolderService;
         private readonly IAverageStatisticsHolderService _averageStatisticsHolderService;
         private readonly IMatchIdentifierService _matchIdentifierService;
+        private readonly IStatisticInfoHolderService _statisticInfoHolderService;
+        private readonly IAiDataHolderService _aiDataHolderService;
+        private readonly IForecastService _forecastService;
         private readonly IConfigHelper _configHelper;
         private readonly ISocialBotMessagingService _telegramService;
         private readonly IConfiguration _configuration;
@@ -42,7 +45,10 @@ namespace SBA.MvcUI.Controllers
                               ITeamPerformanceStatisticsHolderService teamPerformanceStatisticsHolderService,
                               IComparisonStatisticsHolderService comparisonStatisticsHolderService,
                               IMatchIdentifierService matchIdentifierService,
-                              IAverageStatisticsHolderService averageStatisticsHolderService) : base(matchBetService, configuration)
+                              IStatisticInfoHolderService statisticInfoHolderService,
+                              IAverageStatisticsHolderService averageStatisticsHolderService,
+                              IAiDataHolderService aiDataHolderService,
+                              IForecastService forecastService) : base(matchBetService, configuration)
         {
             _proceeder = new MatchInfoProceeder();
 
@@ -56,8 +62,11 @@ namespace SBA.MvcUI.Controllers
             _teamPerformanceStatisticsHolderService = teamPerformanceStatisticsHolderService;
             _comparisonStatisticsHolderService = comparisonStatisticsHolderService;
             _averageStatisticsHolderService = averageStatisticsHolderService;
+            _statisticInfoHolderService = statisticInfoHolderService;
 
             _configuration = configuration;
+            _aiDataHolderService = aiDataHolderService;
+            _forecastService = forecastService;
         }
 
         public IActionResult Index()
@@ -249,7 +258,7 @@ namespace SBA.MvcUI.Controllers
             };
 
 
-            JobOperation job = new JobOperation(_telegramService, timeSerialContainers, _matchBetService, _filterResultService, _systemCheckerContainer, descriptionJobResultEnum, CountryContainer, _leagueStatisticsHolderService, _comparisonStatisticsHolderService, _averageStatisticsHolderService, _teamPerformanceStatisticsHolderService, _matchIdentifierService);
+            JobOperation job = new JobOperation(_telegramService, timeSerialContainers, _matchBetService, _filterResultService, _systemCheckerContainer, descriptionJobResultEnum, CountryContainer, _leagueStatisticsHolderService, _comparisonStatisticsHolderService, _averageStatisticsHolderService, _teamPerformanceStatisticsHolderService, _matchIdentifierService, _statisticInfoHolderService, _aiDataHolderService, _forecastService, _configuration);
             ST.Timer aTimer = new ST.Timer();
             aTimer.Elapsed += new ST.ElapsedEventHandler(job.InTimeReflected);
             aTimer.Interval = 10000;
@@ -268,7 +277,7 @@ namespace SBA.MvcUI.Controllers
                 IsAnalyseAnyTime = true
             };
 
-            JobOperation job = new JobOperation(_telegramService, timeSerialContainers, _matchBetService, _filterResultService, _systemCheckerContainer, DescriptionJobResultEnum.Standart, CountryContainer, _leagueStatisticsHolderService, _comparisonStatisticsHolderService, _averageStatisticsHolderService, _teamPerformanceStatisticsHolderService, _matchIdentifierService);
+            JobOperation job = new JobOperation(_telegramService, timeSerialContainers, _matchBetService, _filterResultService, _systemCheckerContainer, DescriptionJobResultEnum.Standart, CountryContainer, _leagueStatisticsHolderService, _comparisonStatisticsHolderService, _averageStatisticsHolderService, _teamPerformanceStatisticsHolderService, _matchIdentifierService, _statisticInfoHolderService, _aiDataHolderService, _forecastService, _configuration);
             ST.Timer aTimer = new ST.Timer();
             aTimer.Elapsed += new ST.ElapsedEventHandler(job.TestInTimeReflected);
             aTimer.Interval = 20000;
@@ -295,7 +304,7 @@ namespace SBA.MvcUI.Controllers
                 SerialsText = serialText
             };
 
-            JobOperation job = new JobOperation(_telegramService, timeSerialContainers, _matchBetService, _filterResultService, _systemCheckerContainer, DescriptionJobResultEnum.Standart, CountryContainer, _leagueStatisticsHolderService, _comparisonStatisticsHolderService, _averageStatisticsHolderService, _teamPerformanceStatisticsHolderService, _matchIdentifierService);
+            JobOperation job = new JobOperation(_telegramService, timeSerialContainers, _matchBetService, _filterResultService, _systemCheckerContainer, DescriptionJobResultEnum.Standart, CountryContainer, _leagueStatisticsHolderService, _comparisonStatisticsHolderService, _averageStatisticsHolderService, _teamPerformanceStatisticsHolderService, _matchIdentifierService, _statisticInfoHolderService, _aiDataHolderService, _forecastService, _configuration);
 
             job.Execute_TEST();
         }

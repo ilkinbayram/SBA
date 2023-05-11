@@ -397,11 +397,25 @@ namespace SBA.Business.Concrete
             }
         }
 
-        public MatchProgramList GetMatchsProgram()
+        public MatchProgramList GetGroupedMatchsProgram()
         {
-            return _matchIdentifierDal.GetMatchsProgram();
+            return _matchIdentifierDal.GetGroupedMatchsProgram();
         }
 
+        public MatchDetailProgram GetAllMatchsProgram()
+        {
+            return _matchIdentifierDal.GetAllMatchsProgram();
+        }
+
+        public async Task<MatchProgramList> GetGroupedMatchsProgramAsync()
+        {
+            return await _matchIdentifierDal.GetGroupedMatchsProgramAsync();
+        }
+
+        public async Task<MatchDetailProgram> GetAllMatchsProgramAsync()
+        {
+            return await _matchIdentifierDal.GetAllMatchsProgramAsync();
+        }
 
         #endregion
     }
