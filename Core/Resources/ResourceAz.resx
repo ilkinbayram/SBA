@@ -133,13 +133,13 @@
     <value>Matçda 1.5 Üst Faizi</value>
   </data>
   <data name="FT_15_O_FC" xml:space="preserve">
-    <value>ON 1,5 Ü</value>
+    <value>Oyun Nəticəsi 1,5 Üst</value>
   </data>
   <data name="FT_25" xml:space="preserve">
     <value>Matçda 2.5 Üst Faizi</value>
   </data>
   <data name="FT_25_O_FC" xml:space="preserve">
-    <value>ON 2,5 Ü</value>
+    <value>Oyun Nəticəsi 2,5 Üst</value>
   </data>
   <data name="FT_35" xml:space="preserve">
     <value>Matçda 3.5 Üst Faizi</value>
@@ -148,7 +148,7 @@
     <value>Matçda Qol-Qol Faizi</value>
   </data>
   <data name="FT_GG_FC" xml:space="preserve">
-    <value>ON Qol-Qol</value>
+    <value>Oyun Nəticəsi Qarşılıqlı qol var</value>
   </data>
   <data name="FT_X" xml:space="preserve">
     <value>Bərabərlik Faizi</value>
@@ -163,16 +163,28 @@
     <value>1-ci Hissə Qol-Qol Faizi</value>
   </data>
   <data name="HT_Win_1_FC" xml:space="preserve">
-    <value>BH Ev qələbə</value>
+    <value>Birinci Hissə Ev sahibi takım qələbə</value>
   </data>
   <data name="HT_Win_2_FC" xml:space="preserve">
-    <value>BH Səfər qələbə</value>
+    <value>Birinci Hissə Səfər komanda qələbə</value>
   </data>
   <data name="HT_X" xml:space="preserve">
     <value>1-ci Hissə Bərabərlik Faizi</value>
   </data>
+  <data name="Ind_Avg_Conc_Goal_FT" xml:space="preserve">
+    <value>Oyun Ərzində Yediyi Qol Ortalaması</value>
+  </data>
+  <data name="Ind_Avg_Conc_Goal_HT" xml:space="preserve">
+    <value>1-ci Hissə Yediyi Qol Ortalaması</value>
+  </data>
+  <data name="Ind_Avg_Conc_Goal_SH" xml:space="preserve">
+    <value>2-ci Hissə Yediyi Qol Ortalaması</value>
+  </data>
   <data name="Ind_Avg_Corner_FT" xml:space="preserve">
     <value>Künc zərbəsi ortalaması</value>
+  </data>
+  <data name="Ind_Avg_GK_Saves_FT" xml:space="preserve">
+    <value>Qapıçının Qurtarış Ortalaması</value>
   </data>
   <data name="Ind_Avg_Goal_FT" xml:space="preserve">
     <value>Qol Ortalaması</value>
@@ -244,10 +256,10 @@
     <value>2-ci Hissə Qol-Qol Faizi</value>
   </data>
   <data name="SH_Win_1_FC" xml:space="preserve">
-    <value>İH Ev qələbə</value>
+    <value>İkinci Hissə Ev sahibi takım qələbə</value>
   </data>
   <data name="SH_Win_2_FC" xml:space="preserve">
-    <value>İH Səfər qələbə</value>
+    <value>İkinci Hissə Səfər takım qələbə</value>
   </data>
   <data name="SH_X" xml:space="preserve">
     <value>2-ci Hissə Bərabərlik Faizi</value>

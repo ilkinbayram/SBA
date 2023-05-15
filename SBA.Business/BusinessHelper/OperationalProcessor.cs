@@ -1,4 +1,5 @@
-﻿using Core.Entities.Concrete;
+﻿using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
+using Core.Entities.Concrete;
 using Core.Entities.Concrete.Base;
 using Core.Entities.Concrete.ComplexModels.ML;
 using Core.Entities.Concrete.ExternalDbEntities;
@@ -824,8 +825,11 @@ namespace SBA.Business.BusinessHelper
             var result = new List<StatisticInfoHolder>
             {
                 new StatisticInfoHolder(input.UniqueIdentity, 100, "Ind_Avg_Goal_FT", input.Average_FT_Goals_HomeTeam.ToString("0.00"), input.Average_FT_Goals_AwayTeam.ToString("0.00"), input.Average_FT_Goals_HomeTeam, input.Average_FT_Goals_AwayTeam, serial, (int)StatisticType.Comparison, bySide),
+                new StatisticInfoHolder(input.UniqueIdentity, 103, "Ind_Avg_Conc_Goal_FT", input.Average_FT_Conceded_Goals_HomeTeam.ToString("0.00"), input.Average_FT_Conceded_Goals_AwayTeam.ToString("0.00"), input.Average_FT_Conceded_Goals_HomeTeam, input.Average_FT_Conceded_Goals_AwayTeam, serial, (int)StatisticType.Comparison, bySide),
                 new StatisticInfoHolder(input.UniqueIdentity, 105, "Ind_Avg_Goal_HT", input.Average_HT_Goals_HomeTeam.ToString("0.00"), input.Average_HT_Goals_AwayTeam.ToString("0.00"), input.Average_HT_Goals_HomeTeam, input.Average_HT_Goals_AwayTeam, serial, (int)StatisticType.Comparison, bySide),
+                new StatisticInfoHolder(input.UniqueIdentity, 107, "Ind_Avg_Conc_Goal_HT", input.Average_HT_Conceded_Goals_HomeTeam.ToString("0.00"), input.Average_HT_Conceded_Goals_AwayTeam.ToString("0.00"), input.Average_HT_Conceded_Goals_HomeTeam, input.Average_HT_Conceded_Goals_AwayTeam, serial, (int)StatisticType.Comparison, bySide),
                 new StatisticInfoHolder(input.UniqueIdentity, 110, "Ind_Avg_Goal_SH", input.Average_SH_Goals_HomeTeam.ToString("0.00"), input.Average_SH_Goals_AwayTeam.ToString("0.00"), input.Average_SH_Goals_HomeTeam, input.Average_SH_Goals_AwayTeam, serial, (int)StatisticType.Comparison, bySide),
+                new StatisticInfoHolder(input.UniqueIdentity, 113, "Ind_Avg_Conc_Goal_SH", input.Average_SH_Conceded_Goals_HomeTeam.ToString("0.00"), input.Average_SH_Conceded_Goals_AwayTeam.ToString("0.00"), input.Average_SH_Conceded_Goals_HomeTeam, input.Average_SH_Conceded_Goals_AwayTeam, serial, (int)StatisticType.Comparison, bySide),
                 new StatisticInfoHolder(input.UniqueIdentity, 115, "Ind_FT_Win", string.Format("{0}%", input.Is_FT_Win1), string.Format("{0}%", input.Is_FT_Win2), (decimal)input.Is_FT_Win1 / 100, (decimal)input.Is_FT_Win2 / 100, serial, (int)StatisticType.Comparison, bySide),
                 new StatisticInfoHolder(input.UniqueIdentity, 120, "FT_X", string.Format("{0}%", input.Is_FT_X), string.Format("{0}%", input.Is_FT_X), (decimal)input.Is_FT_X / 100, (decimal)input.Is_FT_X / 100, serial, (int)StatisticType.Comparison, bySide),
                 new StatisticInfoHolder(input.UniqueIdentity, 125, "Ind_HT_Win", string.Format("{0}%", input.Is_HT_Win1), string.Format("{0}%", input.Is_HT_Win2), (decimal)input.Is_HT_Win1 / 100, (decimal)input.Is_HT_Win2 / 100, serial, (int)StatisticType.Comparison, bySide),
@@ -855,6 +859,7 @@ namespace SBA.Business.BusinessHelper
             if (input.Average_FT_Corners_HomeTeam >= 0 && input.Average_FT_Corners_AwayTeam >= 0)
             {
                 result.Add(new StatisticInfoHolder(input.UniqueIdentity, 50, "Ind_Poss_FT", string.Format("{0}%", input.Home_Possesion), string.Format("{0}%", input.Away_Possesion), (decimal)input.Home_Possesion / 100, (decimal)input.Away_Possesion / 100, serial, (int)StatisticType.Comparison, bySide));
+                result.Add(new StatisticInfoHolder(input.UniqueIdentity, 104, "Ind_Avg_GK_Saves_FT", input.Average_FT_GK_Saves_HomeTeam.ToString("0.00"), input.Average_FT_GK_Saves_AwayTeam.ToString("0.00"), input.Average_FT_GK_Saves_HomeTeam, input.Average_FT_GK_Saves_AwayTeam, serial, (int)StatisticType.Comparison, bySide));
 
                 result.Add(new StatisticInfoHolder(input.UniqueIdentity, 55, "Ind_Avg_Shut_FT", input.Average_FT_Shut_HomeTeam.ToString("0.00"), input.Average_FT_Shut_AwayTeam.ToString("0.00"), input.Average_FT_Shut_HomeTeam, input.Average_FT_Shut_AwayTeam, serial, (int)StatisticType.Comparison, bySide));
                 result.Add(new StatisticInfoHolder(input.UniqueIdentity, 60, "Ind_Avg_ShutOnTrg_FT", input.Average_FT_ShutOnTarget_HomeTeam.ToString("0.00"), input.Average_FT_ShutOnTarget_AwayTeam.ToString("0.00"), input.Average_FT_ShutOnTarget_HomeTeam, input.Average_FT_ShutOnTarget_AwayTeam, serial, (int)StatisticType.Comparison, bySide));
@@ -883,8 +888,11 @@ namespace SBA.Business.BusinessHelper
             var result = new List<StatisticInfoHolder>
             {
                 new StatisticInfoHolder(inputHome.UniqueIdentity, 100, "Ind_Avg_Goal_FT", inputHome.Average_FT_Goals_Team.ToString("0.00"), inputAway.Average_FT_Goals_Team.ToString("0.00"), inputHome.Average_FT_Goals_Team, inputAway.Average_FT_Goals_Team, serial, (int)StatisticType.Performance, bySide),
+                new StatisticInfoHolder(inputHome.UniqueIdentity, 103, "Ind_Avg_Conc_Goal_FT", inputHome.Average_FT_Conceded_Goals_Team.ToString("0.00"), inputAway.Average_FT_Conceded_Goals_Team.ToString("0.00"), inputHome.Average_FT_Conceded_Goals_Team, inputAway.Average_FT_Conceded_Goals_Team, serial, (int)StatisticType.Performance, bySide),
                 new StatisticInfoHolder(inputHome.UniqueIdentity, 105, "Ind_Avg_Goal_HT", inputHome.Average_HT_Goals_Team.ToString("0.00"), inputAway.Average_HT_Goals_Team.ToString("0.00"), inputHome.Average_HT_Goals_Team, inputAway.Average_HT_Goals_Team, serial, (int)StatisticType.Performance, bySide),
+                new StatisticInfoHolder(inputHome.UniqueIdentity, 107, "Ind_Avg_Conc_Goal_HT", inputHome.Average_HT_Conceded_Goals_Team.ToString("0.00"), inputAway.Average_HT_Conceded_Goals_Team.ToString("0.00"), inputHome.Average_HT_Conceded_Goals_Team, inputAway.Average_HT_Conceded_Goals_Team, serial, (int)StatisticType.Performance, bySide),
                 new StatisticInfoHolder(inputHome.UniqueIdentity, 110, "Ind_Avg_Goal_SH", inputHome.Average_SH_Goals_Team.ToString("0.00"), inputAway.Average_SH_Goals_Team.ToString("0.00"), inputHome.Average_SH_Goals_Team, inputAway.Average_SH_Goals_Team, serial, (int)StatisticType.Performance, bySide),
+                new StatisticInfoHolder(inputHome.UniqueIdentity, 113, "Ind_Avg_Conc_Goal_SH", inputHome.Average_SH_Conceded_Goals_Team.ToString("0.00"), inputAway.Average_SH_Conceded_Goals_Team.ToString("0.00"), inputHome.Average_SH_Conceded_Goals_Team, inputAway.Average_SH_Conceded_Goals_Team, serial, (int)StatisticType.Performance, bySide),
                 new StatisticInfoHolder(inputHome.UniqueIdentity, 115, "Ind_FT_Win", string.Format("{0}%", inputHome.Is_FT_Win), string.Format("{0}%", inputAway.Is_FT_Win), (decimal)inputHome.Is_FT_Win / 100, (decimal)inputAway.Is_FT_Win / 100, serial, (int)StatisticType.Performance, bySide),
                 new StatisticInfoHolder(inputHome.UniqueIdentity, 120, "FT_X", string.Format("{0}%", inputHome.Is_FT_X), string.Format("{0}%", inputAway.Is_FT_X), (decimal)inputHome.Is_FT_X / 100, (decimal)inputAway.Is_FT_X / 100, serial, (int)StatisticType.Performance, bySide),
                 new StatisticInfoHolder(inputHome.UniqueIdentity, 125, "Ind_HT_Win", string.Format("{0}%", inputHome.Is_HT_Win), string.Format("{0}%", inputAway.Is_HT_Win), (decimal)inputHome.Is_HT_Win / 100, (decimal)inputAway.Is_HT_Win / 100, serial, (int)StatisticType.Performance, bySide),
@@ -914,6 +922,8 @@ namespace SBA.Business.BusinessHelper
             if (inputHome.Average_FT_Corners_Team >= 0 && inputAway.Average_FT_Corners_Team >= 0)
             {
                 result.Add(new StatisticInfoHolder(inputHome.UniqueIdentity, 50, "Ind_Poss_FT", string.Format("{0}%", inputHome.Team_Possesion), string.Format("{0}%", inputAway.Team_Possesion), (decimal)inputHome.Team_Possesion / 100, (decimal)inputAway.Team_Possesion / 100, serial, (int)StatisticType.Performance, bySide));
+
+                new StatisticInfoHolder(inputHome.UniqueIdentity, 104, "Ind_Avg_GK_Saves_FT", inputHome.Average_FT_GK_Saves_Team.ToString("0.00"), inputAway.Average_FT_GK_Saves_Team.ToString("0.00"), inputHome.Average_FT_GK_Saves_Team, inputAway.Average_FT_GK_Saves_Team, serial, (int)StatisticType.Performance, bySide);
 
                 result.Add(new StatisticInfoHolder(inputHome.UniqueIdentity, 55, "Ind_Avg_Shut_FT", inputHome.Average_FT_Shut_Team.ToString("0.00"), inputAway.Average_FT_Shut_Team.ToString("0.00"), inputHome.Average_FT_Shut_Team, inputAway.Average_FT_Shut_Team, serial, (int)StatisticType.Performance, bySide));
                 result.Add(new StatisticInfoHolder(inputHome.UniqueIdentity, 60, "Ind_Avg_ShutOnTrg_FT", inputHome.Average_FT_ShutOnTarget_Team.ToString("0.00"), inputAway.Average_FT_ShutOnTarget_Team.ToString("0.00"), inputHome.Average_FT_ShutOnTarget_Team, inputAway.Average_FT_ShutOnTarget_Team, serial, (int)StatisticType.Performance, bySide));
@@ -962,21 +972,33 @@ namespace SBA.Business.BusinessHelper
 
         private static JobAnalyseModel CreateAnalyseModel(string serial, IMatchBetService matchBetService, IFilterResultService filterResultService, CountryContainerTemp containerTemp)
         {
-            var analyseModel = new JobAnalyseModel
+            try
             {
-                ComparisonOnlyDB = GetComparisonOnlyDbProfilerResult(serial, matchBetService, filterResultService, containerTemp, TeamSide.Home),
-                ComparisonInfoContainer = GetComparisonProfilerResult(serial, TeamSide.Home),
-                HomeTeam_FormPerformanceGuessContainer = GetFormPerformanceProfiler(serial, matchBetService, containerTemp, TeamSide.Home),
-                AwayTeam_FormPerformanceGuessContainer = GetFormPerformanceProfiler(serial, matchBetService, containerTemp, TeamSide.Away),
-                StandingInfoModel = GetStandingInfoModel(serial)
-            };
+                var compRes = GetComparisonOnlyDbProfilerResult(serial, matchBetService, filterResultService, containerTemp, TeamSide.Home);
+                var compDbRes = GetComparisonProfilerResult(serial, TeamSide.Home);
+                var perfHome = GetFormPerformanceProfiler(serial, matchBetService, containerTemp, TeamSide.Home);
+                var perfAway = GetFormPerformanceProfiler(serial, matchBetService, containerTemp, TeamSide.Away);
 
-            if (analyseModel.ComparisonInfoContainer == null || analyseModel.HomeTeam_FormPerformanceGuessContainer == null || analyseModel.AwayTeam_FormPerformanceGuessContainer == null)
+                var analyseModel = new JobAnalyseModel
+                {
+                    ComparisonOnlyDB = compRes,
+                    ComparisonInfoContainer = compDbRes,
+                    HomeTeam_FormPerformanceGuessContainer = perfHome,
+                    AwayTeam_FormPerformanceGuessContainer = perfAway,
+                    StandingInfoModel = GetStandingInfoModel(serial)
+                };
+
+                if (analyseModel.ComparisonInfoContainer == null || analyseModel.HomeTeam_FormPerformanceGuessContainer == null || analyseModel.AwayTeam_FormPerformanceGuessContainer == null)
+                {
+                    return null;
+                }
+
+                return analyseModel;
+            }
+            catch (Exception ex)
             {
                 return null;
             }
-
-            return analyseModel;
         }
 
         private static DateTime CalculateMatchDateTime(string timeMatch)
@@ -1446,35 +1468,35 @@ namespace SBA.Business.BusinessHelper
                     Average_HT_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(list6PerformanceData, "HT_Goals_HomeTeam", teamSide),
                     Average_SH_Goals_AwayTeam = GenerateHomeAwayGoalsAverage(list6PerformanceData, "SH_Goals_AwayTeam", teamSide),
                     Average_SH_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(list6PerformanceData, "SH_Goals_HomeTeam", teamSide),
-                    Average_FT_Conceded_Goals_AwayTeam = GenerateHomeAwayGoalsAverage(list6PerformanceData, "FT_Goals_HomeTeam", teamSide),
-                    Average_FT_Conceded_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(list6PerformanceData, "FT_Goals_AwayTeam", teamSide),
-                    Average_HT_Conceded_Goals_AwayTeam = GenerateHomeAwayGoalsAverage(list6PerformanceData, "HT_Goals_HomeTeam", teamSide),
-                    Average_HT_Conceded_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(list6PerformanceData, "HT_Goals_AwayTeam", teamSide),
-                    Average_SH_Conceded_Goals_AwayTeam = GenerateHomeAwayGoalsAverage(list6PerformanceData, "SH_Goals_HomeTeam", teamSide),
-                    Average_SH_Conceded_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(list6PerformanceData, "SH_Goals_AwayTeam", teamSide),
-                    Average_FT_Corners_AwayTeam = GenerateHomeAwayCornersPossesionShutAverage(list6PerformanceData, "AwayCornersCount", teamSide),
-                    Average_FT_Corners_HomeTeam = GenerateHomeAwayCornersPossesionShutAverage(list6PerformanceData, "HomeCornersCount", teamSide),
+                    Average_FT_Conceded_Goals_AwayTeam = GenerateHomeAwayGoalsAverage(list6PerformanceData, "FT_Conceded_Goals_AwayTeam", teamSide),
+                    Average_FT_Conceded_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(list6PerformanceData, "FT_Conceded_Goals_HomeTeam", teamSide),
+                    Average_HT_Conceded_Goals_AwayTeam = GenerateHomeAwayGoalsAverage(list6PerformanceData, "HT_Conceded_Goals_AwayTeam", teamSide),
+                    Average_HT_Conceded_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(list6PerformanceData, "HT_Conceded_Goals_HomeTeam", teamSide),
+                    Average_SH_Conceded_Goals_AwayTeam = GenerateHomeAwayGoalsAverage(list6PerformanceData, "SH_Conceded_Goals_AwayTeam", teamSide),
+                    Average_SH_Conceded_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(list6PerformanceData, "SH_Conceded_Goals_HomeTeam", teamSide),
+                    Average_FT_Corners_AwayTeam = GenerateHomeAwayCornersPossesionShutAverage(list6PerformanceData, "AwayCornersCount", teamSide, x => x.HasCorner == true),
+                    Average_FT_Corners_HomeTeam = GenerateHomeAwayCornersPossesionShutAverage(list6PerformanceData, "HomeCornersCount", teamSide, x => x.HasCorner == true),
 
-                    Average_FT_Possesion_HomeTeam = GenerateHomeAwayCornersPossesionShutAverage(list6PerformanceData, "HomePossesionCount", teamSide),
-                    Average_FT_Possesion_AwayTeam = GenerateHomeAwayCornersPossesionShutAverage(list6PerformanceData, "AwayPossesionCount", teamSide),
-                    Average_FT_Shot_AwayTeam = GenerateHomeAwayCornersPossesionShutAverage(list6PerformanceData, "AwayShutCount", teamSide),
-                    Average_FT_Shot_HomeTeam = GenerateHomeAwayCornersPossesionShutAverage(list6PerformanceData, "HomeShutCount", teamSide),
-                    Average_FT_ShotOnTarget_AwayTeam = GenerateHomeAwayCornersPossesionShutAverage(list6PerformanceData, "AwayShutOnTargetCount", teamSide),
-                    Average_FT_ShotOnTarget_HomeTeam = GenerateHomeAwayCornersPossesionShutAverage(list6PerformanceData, "HomeShutOnTargetCount", teamSide),
-                    Average_FT_GK_Saves_HomeTeam = GenerateHomeAwayGKSavesAverage(list6PerformanceData, "AwayShutOnTargetCount", "FT_Goals_AwayTeam", teamSide),
-                    Average_FT_GK_Saves_AwayTeam = GenerateHomeAwayGKSavesAverage(list6PerformanceData, "HomeShutOnTargetCount", "FT_Goals_HomeTeam", teamSide),
+                    Average_FT_Possesion_HomeTeam = GenerateHomeAwayCornersPossesionShutAverage(list6PerformanceData, "HomePossesionCount", teamSide, x => x.HasPossesion == true),
+                    Average_FT_Possesion_AwayTeam = GenerateHomeAwayCornersPossesionShutAverage(list6PerformanceData, "AwayPossesionCount", teamSide, x => x.HasPossesion == true),
+                    Average_FT_Shot_AwayTeam = GenerateHomeAwayCornersPossesionShutAverage(list6PerformanceData, "AwayShutCount", teamSide, x => x.HasShut == true),
+                    Average_FT_Shot_HomeTeam = GenerateHomeAwayCornersPossesionShutAverage(list6PerformanceData, "HomeShutCount", teamSide, x => x.HasShut == true),
+                    Average_FT_ShotOnTarget_AwayTeam = GenerateHomeAwayCornersPossesionShutAverage(list6PerformanceData, "AwayShutOnTargetCount", teamSide, x => x.HasShutOnTarget == true),
+                    Average_FT_ShotOnTarget_HomeTeam = GenerateHomeAwayCornersPossesionShutAverage(list6PerformanceData, "HomeShutOnTargetCount", teamSide, x => x.HasShutOnTarget == true),
+                    Average_FT_GK_Saves_HomeTeam = GenerateHomeAwayCornersPossesionShutAverage(list6PerformanceData, "FT_GK_Saves_HomeTeam", teamSide, x => x.HasGK_Saves == true),
+                    Average_FT_GK_Saves_AwayTeam = GenerateHomeAwayCornersPossesionShutAverage(list6PerformanceData, "FT_GK_Saves_AwayTeam", teamSide, x => x.HasGK_Saves == true),
 
-                    Corner_Away_3_5_Over = GenerateBySideCornerPossesionShutComparison(list6PerformanceData, "Corner_Away_3_5_Over", teamSide),
-                    Corner_Away_4_5_Over = GenerateBySideCornerPossesionShutComparison(list6PerformanceData, "Corner_Away_4_5_Over", teamSide),
-                    Corner_Away_5_5_Over = GenerateBySideCornerPossesionShutComparison(list6PerformanceData, "Corner_Away_5_5_Over", teamSide),
+                    Corner_Away_3_5_Over = GenerateBySideCornerPossesionShutComparison(list6PerformanceData, "Corner_Away_3_5_Over", teamSide, x => x.HasCorner == true),
+                    Corner_Away_4_5_Over = GenerateBySideCornerPossesionShutComparison(list6PerformanceData, "Corner_Away_4_5_Over", teamSide, x => x.HasCorner == true),
+                    Corner_Away_5_5_Over = GenerateBySideCornerPossesionShutComparison(list6PerformanceData, "Corner_Away_5_5_Over", teamSide, x => x.HasCorner == true),
 
-                    Corner_Home_3_5_Over = GenerateBySideCornerPossesionShutComparison(list6PerformanceData, "Corner_Home_3_5_Over", teamSide),
-                    Corner_Home_4_5_Over = GenerateBySideCornerPossesionShutComparison(list6PerformanceData, "Corner_Home_4_5_Over", teamSide),
-                    Corner_Home_5_5_Over = GenerateBySideCornerPossesionShutComparison(list6PerformanceData, "Corner_Home_5_5_Over", teamSide),
+                    Corner_Home_3_5_Over = GenerateBySideCornerPossesionShutComparison(list6PerformanceData, "Corner_Home_3_5_Over", teamSide, x => x.HasCorner == true),
+                    Corner_Home_4_5_Over = GenerateBySideCornerPossesionShutComparison(list6PerformanceData, "Corner_Home_4_5_Over", teamSide, x => x.HasCorner == true),
+                    Corner_Home_5_5_Over = GenerateBySideCornerPossesionShutComparison(list6PerformanceData, "Corner_Home_5_5_Over", teamSide, x => x.HasCorner == true),
 
-                    Corner_7_5_Over = GenerateBySideCornerPossesionShutComparison(list6PerformanceData, "Corner_7_5_Over", teamSide),
-                    Corner_8_5_Over = GenerateBySideCornerPossesionShutComparison(list6PerformanceData, "Corner_8_5_Over", teamSide),
-                    Corner_9_5_Over = GenerateBySideCornerPossesionShutComparison(list6PerformanceData, "Corner_9_5_Over", teamSide),
+                    Corner_7_5_Over = GenerateBySideCornerPossesionShutComparison(list6PerformanceData, "Corner_7_5_Over", teamSide, x => x.HasCorner == true),
+                    Corner_8_5_Over = GenerateBySideCornerPossesionShutComparison(list6PerformanceData, "Corner_8_5_Over", teamSide, x => x.HasCorner == true),
+                    Corner_9_5_Over = GenerateBySideCornerPossesionShutComparison(list6PerformanceData, "Corner_9_5_Over", teamSide, x => x.HasCorner == true),
 
                     Away_FT_05_Over = GenerateBySideComparison(list6PerformanceData, "Away_FT_05_Over", teamSide),
                     Away_FT_15_Over = GenerateBySideComparison(list6PerformanceData, "Away_FT_15_Over", teamSide),
@@ -1515,9 +1537,9 @@ namespace SBA.Business.BusinessHelper
                     Is_SH_Win1 = GenerateBySideComparison(list6PerformanceData, "Is_SH_Win1", teamSide),
                     Is_SH_X = GenerateBySideComparison(list6PerformanceData, "Is_SH_X", teamSide),
                     Is_SH_Win2 = GenerateBySideComparison(list6PerformanceData, "Is_SH_Win2", teamSide),
-                    Is_Corner_FT_Win1 = GenerateBySideCornerPossesionShutComparison(list6PerformanceData, "Is_Corner_FT_Win1", teamSide),
-                    Is_Corner_FT_X = GenerateBySideCornerPossesionShutComparison(list6PerformanceData, "Is_Corner_FT_X", teamSide),
-                    Is_Corner_FT_Win2 = GenerateBySideCornerPossesionShutComparison(list6PerformanceData, "Is_Corner_FT_Win2", teamSide)
+                    Is_Corner_FT_Win1 = GenerateBySideCornerPossesionShutComparison(list6PerformanceData, "Is_Corner_FT_Win1", teamSide, x => x.HasCorner == true),
+                    Is_Corner_FT_X = GenerateBySideCornerPossesionShutComparison(list6PerformanceData, "Is_Corner_FT_X", teamSide, x => x.HasCorner == true),
+                    Is_Corner_FT_Win2 = GenerateBySideCornerPossesionShutComparison(list6PerformanceData, "Is_Corner_FT_Win2", teamSide, x => x.HasCorner == true)
                 };
 
                 ////////////////// General
@@ -1535,35 +1557,35 @@ namespace SBA.Business.BusinessHelper
                     Average_HT_Goals_HomeTeam = GenerateGeneralGoalsAverage(list10PerformanceDataGeneral, "HT_Goals_HomeTeam", teamSide),
                     Average_SH_Goals_AwayTeam = GenerateGeneralGoalsAverage(list10PerformanceDataGeneral, "SH_Goals_AwayTeam", teamSide),
                     Average_SH_Goals_HomeTeam = GenerateGeneralGoalsAverage(list10PerformanceDataGeneral, "SH_Goals_HomeTeam", teamSide),
-                    Average_FT_Conceded_Goals_AwayTeam = GenerateGeneralGoalsAverage(list10PerformanceDataGeneral, "FT_Goals_HomeTeam", teamSide),
-                    Average_FT_Conceded_Goals_HomeTeam = GenerateGeneralGoalsAverage(list10PerformanceDataGeneral, "FT_Goals_AwayTeam", teamSide),
-                    Average_HT_Conceded_Goals_AwayTeam = GenerateGeneralGoalsAverage(list10PerformanceDataGeneral, "HT_Goals_HomeTeam", teamSide),
-                    Average_HT_Conceded_Goals_HomeTeam = GenerateGeneralGoalsAverage(list10PerformanceDataGeneral, "HT_Goals_AwayTeam", teamSide),
-                    Average_SH_Conceded_Goals_AwayTeam = GenerateGeneralGoalsAverage(list10PerformanceDataGeneral, "SH_Goals_HomeTeam", teamSide),
-                    Average_SH_Conceded_Goals_HomeTeam = GenerateGeneralGoalsAverage(list10PerformanceDataGeneral, "SH_Goals_AwayTeam", teamSide),
-                    Average_FT_Corners_AwayTeam = GenerateGeneralCornersPossesionShutAverage(list10PerformanceDataGeneral, "AwayCornersCount", teamSide),
-                    Average_FT_Corners_HomeTeam = GenerateGeneralCornersPossesionShutAverage(list10PerformanceDataGeneral, "HomeCornersCount", teamSide),
+                    Average_FT_Conceded_Goals_AwayTeam = GenerateGeneralGoalsAverage(list10PerformanceDataGeneral, "FT_Conceded_Goals_AwayTeam", teamSide),
+                    Average_FT_Conceded_Goals_HomeTeam = GenerateGeneralGoalsAverage(list10PerformanceDataGeneral, "FT_Conceded_Goals_HomeTeam", teamSide),
+                    Average_HT_Conceded_Goals_AwayTeam = GenerateGeneralGoalsAverage(list10PerformanceDataGeneral, "HT_Conceded_Goals_AwayTeam", teamSide),
+                    Average_HT_Conceded_Goals_HomeTeam = GenerateGeneralGoalsAverage(list10PerformanceDataGeneral, "HT_Conceded_Goals_HomeTeam", teamSide),
+                    Average_SH_Conceded_Goals_AwayTeam = GenerateGeneralGoalsAverage(list10PerformanceDataGeneral, "SH_Conceded_Goals_AwayTeam", teamSide),
+                    Average_SH_Conceded_Goals_HomeTeam = GenerateGeneralGoalsAverage(list10PerformanceDataGeneral, "SH_Conceded_Goals_HomeTeam", teamSide),
+                    Average_FT_Corners_AwayTeam = GenerateGeneralCornersPossesionShutAverage(list10PerformanceDataGeneral, "AwayCornersCount", teamSide, x => x.HasCorner == true),
+                    Average_FT_Corners_HomeTeam = GenerateGeneralCornersPossesionShutAverage(list10PerformanceDataGeneral, "HomeCornersCount", teamSide, x => x.HasCorner == true),
 
-                    Average_FT_Possesion_HomeTeam = GenerateGeneralCornersPossesionShutAverage(list10PerformanceDataGeneral, "HomePossesionCount", teamSide),
-                    Average_FT_Possesion_AwayTeam = GenerateGeneralCornersPossesionShutAverage(list10PerformanceDataGeneral, "AwayPossesionCount", teamSide),
-                    Average_FT_Shot_AwayTeam = GenerateGeneralCornersPossesionShutAverage(list10PerformanceDataGeneral, "AwayShutCount", teamSide),
-                    Average_FT_Shot_HomeTeam = GenerateGeneralCornersPossesionShutAverage(list10PerformanceDataGeneral, "HomeShutCount", teamSide),
-                    Average_FT_ShotOnTarget_AwayTeam = GenerateGeneralCornersPossesionShutAverage(list10PerformanceDataGeneral, "AwayShutOnTargetCount", teamSide),
-                    Average_FT_ShotOnTarget_HomeTeam = GenerateGeneralCornersPossesionShutAverage(list10PerformanceDataGeneral, "HomeShutOnTargetCount", teamSide),
-                    Average_FT_GK_Saves_HomeTeam = GenerateGeneralGKSavesAverage(list10PerformanceDataGeneral, "AwayShutOnTargetCount", "FT_Goals_AwayTeam", teamSide),
-                    Average_FT_GK_Saves_AwayTeam = GenerateGeneralGKSavesAverage(list10PerformanceDataGeneral, "HomeShutOnTargetCount", "FT_Goals_HomeTeam", teamSide),
+                    Average_FT_Possesion_HomeTeam = GenerateGeneralCornersPossesionShutAverage(list10PerformanceDataGeneral, "HomePossesionCount", teamSide, x => x.HasPossesion == true),
+                    Average_FT_Possesion_AwayTeam = GenerateGeneralCornersPossesionShutAverage(list10PerformanceDataGeneral, "AwayPossesionCount", teamSide, x => x.HasPossesion == true),
+                    Average_FT_Shot_AwayTeam = GenerateGeneralCornersPossesionShutAverage(list10PerformanceDataGeneral, "AwayShutCount", teamSide, x => x.HasShut == true),
+                    Average_FT_Shot_HomeTeam = GenerateGeneralCornersPossesionShutAverage(list10PerformanceDataGeneral, "HomeShutCount", teamSide, x => x.HasShut == true),
+                    Average_FT_ShotOnTarget_AwayTeam = GenerateGeneralCornersPossesionShutAverage(list10PerformanceDataGeneral, "AwayShutOnTargetCount", teamSide, x => x.HasShutOnTarget == true),
+                    Average_FT_ShotOnTarget_HomeTeam = GenerateGeneralCornersPossesionShutAverage(list10PerformanceDataGeneral, "HomeShutOnTargetCount", teamSide, x => x.HasShutOnTarget == true),
+                    Average_FT_GK_Saves_HomeTeam = GenerateGeneralCornersPossesionShutAverage(list10PerformanceDataGeneral, "FT_GK_Saves_HomeTeam", teamSide, x => x.HasGK_Saves),
+                    Average_FT_GK_Saves_AwayTeam = GenerateGeneralCornersPossesionShutAverage(list10PerformanceDataGeneral, "FT_GK_Saves_AwayTeam", teamSide, x => x.HasGK_Saves),
 
-                    Corner_Away_3_5_Over = GenerateGeneralCornerPossesionShutComparison(list10PerformanceDataGeneral, "Corner_Away_3_5_Over", teamSide),
-                    Corner_Away_4_5_Over = GenerateGeneralCornerPossesionShutComparison(list10PerformanceDataGeneral, "Corner_Away_4_5_Over", teamSide),
-                    Corner_Away_5_5_Over = GenerateGeneralCornerPossesionShutComparison(list10PerformanceDataGeneral, "Corner_Away_5_5_Over", teamSide),
+                    Corner_Away_3_5_Over = GenerateGeneralCornerPossesionShutComparison(list10PerformanceDataGeneral, "Corner_Away_3_5_Over", teamSide, x => x.HasCorner == true),
+                    Corner_Away_4_5_Over = GenerateGeneralCornerPossesionShutComparison(list10PerformanceDataGeneral, "Corner_Away_4_5_Over", teamSide, x => x.HasCorner == true),
+                    Corner_Away_5_5_Over = GenerateGeneralCornerPossesionShutComparison(list10PerformanceDataGeneral, "Corner_Away_5_5_Over", teamSide, x => x.HasCorner == true),
 
-                    Corner_Home_3_5_Over = GenerateGeneralCornerPossesionShutComparison(list10PerformanceDataGeneral, "Corner_Home_3_5_Over", teamSide),
-                    Corner_Home_4_5_Over = GenerateGeneralCornerPossesionShutComparison(list10PerformanceDataGeneral, "Corner_Home_4_5_Over", teamSide),
-                    Corner_Home_5_5_Over = GenerateGeneralCornerPossesionShutComparison(list10PerformanceDataGeneral, "Corner_Home_5_5_Over", teamSide),
+                    Corner_Home_3_5_Over = GenerateGeneralCornerPossesionShutComparison(list10PerformanceDataGeneral, "Corner_Home_3_5_Over", teamSide, x => x.HasCorner == true),
+                    Corner_Home_4_5_Over = GenerateGeneralCornerPossesionShutComparison(list10PerformanceDataGeneral, "Corner_Home_4_5_Over", teamSide, x => x.HasCorner == true),
+                    Corner_Home_5_5_Over = GenerateGeneralCornerPossesionShutComparison(list10PerformanceDataGeneral, "Corner_Home_5_5_Over", teamSide, x => x.HasCorner == true),
 
-                    Corner_7_5_Over = GenerateGeneralCornerPossesionShutComparison(list10PerformanceDataGeneral, "Corner_7_5_Over", teamSide),
-                    Corner_8_5_Over = GenerateGeneralCornerPossesionShutComparison(list10PerformanceDataGeneral, "Corner_8_5_Over", teamSide),
-                    Corner_9_5_Over = GenerateGeneralCornerPossesionShutComparison(list10PerformanceDataGeneral, "Corner_9_5_Over", teamSide),
+                    Corner_7_5_Over = GenerateGeneralCornerPossesionShutComparison(list10PerformanceDataGeneral, "Corner_7_5_Over", teamSide, x => x.HasCorner == true),
+                    Corner_8_5_Over = GenerateGeneralCornerPossesionShutComparison(list10PerformanceDataGeneral, "Corner_8_5_Over", teamSide, x => x.HasCorner == true),
+                    Corner_9_5_Over = GenerateGeneralCornerPossesionShutComparison(list10PerformanceDataGeneral, "Corner_9_5_Over", teamSide, x => x.HasCorner == true),
 
                     Away_FT_05_Over = GenerateGeneralComparison(list10PerformanceDataGeneral, "Away_FT_05_Over", teamSide),
                     Away_FT_15_Over = GenerateGeneralComparison(list10PerformanceDataGeneral, "Away_FT_15_Over", teamSide),
@@ -1604,9 +1626,9 @@ namespace SBA.Business.BusinessHelper
                     Is_SH_Win1 = GenerateGeneralComparison(list10PerformanceDataGeneral, "Is_SH_Win1", teamSide),
                     Is_SH_X = GenerateGeneralComparison(list10PerformanceDataGeneral, "Is_SH_X", teamSide),
                     Is_SH_Win2 = GenerateGeneralComparison(list10PerformanceDataGeneral, "Is_SH_Win2", teamSide),
-                    Is_Corner_FT_Win1 = GenerateGeneralCornerPossesionShutComparison(list10PerformanceDataGeneral, "Is_Corner_FT_Win1", teamSide),
-                    Is_Corner_FT_X = GenerateGeneralCornerPossesionShutComparison(list10PerformanceDataGeneral, "Is_Corner_FT_X", teamSide),
-                    Is_Corner_FT_Win2 = GenerateGeneralCornerPossesionShutComparison(list10PerformanceDataGeneral, "Is_Corner_FT_Win2", teamSide)
+                    Is_Corner_FT_Win1 = GenerateGeneralCornerPossesionShutComparison(list10PerformanceDataGeneral, "Is_Corner_FT_Win1", teamSide, x => x.HasCorner == true),
+                    Is_Corner_FT_X = GenerateGeneralCornerPossesionShutComparison(list10PerformanceDataGeneral, "Is_Corner_FT_X", teamSide, x => x.HasCorner == true),
+                    Is_Corner_FT_Win2 = GenerateGeneralCornerPossesionShutComparison(list10PerformanceDataGeneral, "Is_Corner_FT_Win2", teamSide, x => x.HasCorner == true)
                 };
 
                 return result;
@@ -1638,12 +1660,12 @@ namespace SBA.Business.BusinessHelper
                         Average_HT_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "HT_Goals_HomeTeam", teamSide),
                         Average_SH_Goals_AwayTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "SH_Goals_AwayTeam", teamSide),
                         Average_SH_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "SH_Goals_HomeTeam", teamSide),
-                        Average_FT_Conceded_Goals_AwayTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "FT_Goals_HomeTeam", teamSide),
-                        Average_FT_Conceded_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "FT_Goals_AwayTeam", teamSide),
-                        Average_HT_Conceded_Goals_AwayTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "HT_Goals_HomeTeam", teamSide),
-                        Average_HT_Conceded_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "HT_Goals_AwayTeam", teamSide),
-                        Average_SH_Conceded_Goals_AwayTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "SH_Goals_HomeTeam", teamSide),
-                        Average_SH_Conceded_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "SH_Goals_AwayTeam", teamSide),
+                        Average_FT_Conceded_Goals_AwayTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "FT_Conceded_Goals_AwayTeam", teamSide),
+                        Average_FT_Conceded_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "FT_Conceded_Goals_HomeTeam", teamSide),
+                        Average_HT_Conceded_Goals_AwayTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "HT_Conceded_Goals_AwayTeam", teamSide),
+                        Average_HT_Conceded_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "HT_Conceded_Goals_HomeTeam", teamSide),
+                        Average_SH_Conceded_Goals_AwayTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "SH_Conceded_Goals_AwayTeam", teamSide),
+                        Average_SH_Conceded_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "SH_Conceded_Goals_HomeTeam", teamSide),
 
                         Away_FT_05_Over = GenerateBySideComparison(comparisonContainer, "Away_FT_05_Over", teamSide),
                         Away_FT_15_Over = GenerateBySideComparison(comparisonContainer, "Away_FT_15_Over", teamSide),
@@ -1694,12 +1716,12 @@ namespace SBA.Business.BusinessHelper
                         Average_HT_Goals_HomeTeam = GenerateGeneralGoalsAverage(comparisonContainer, "HT_Goals_HomeTeam", teamSide),
                         Average_SH_Goals_AwayTeam = GenerateGeneralGoalsAverage(comparisonContainer, "SH_Goals_AwayTeam", teamSide),
                         Average_SH_Goals_HomeTeam = GenerateGeneralGoalsAverage(comparisonContainer, "SH_Goals_HomeTeam", teamSide),
-                        Average_FT_Conceded_Goals_AwayTeam = GenerateGeneralGoalsAverage(comparisonContainer, "FT_Goals_HomeTeam", teamSide),
-                        Average_FT_Conceded_Goals_HomeTeam = GenerateGeneralGoalsAverage(comparisonContainer, "FT_Goals_AwayTeam", teamSide),
-                        Average_HT_Conceded_Goals_AwayTeam = GenerateGeneralGoalsAverage(comparisonContainer, "HT_Goals_HomeTeam", teamSide),
-                        Average_HT_Conceded_Goals_HomeTeam = GenerateGeneralGoalsAverage(comparisonContainer, "HT_Goals_AwayTeam", teamSide),
-                        Average_SH_Conceded_Goals_AwayTeam = GenerateGeneralGoalsAverage(comparisonContainer, "SH_Goals_HomeTeam", teamSide),
-                        Average_SH_Conceded_Goals_HomeTeam = GenerateGeneralGoalsAverage(comparisonContainer, "SH_Goals_AwayTeam", teamSide),
+                        Average_FT_Conceded_Goals_AwayTeam = GenerateGeneralGoalsAverage(comparisonContainer, "FT_Conceded_Goals_AwayTeam", teamSide),
+                        Average_FT_Conceded_Goals_HomeTeam = GenerateGeneralGoalsAverage(comparisonContainer, "FT_Conceded_Goals_HomeTeam", teamSide),
+                        Average_HT_Conceded_Goals_AwayTeam = GenerateGeneralGoalsAverage(comparisonContainer, "HT_Conceded_Goals_AwayTeam", teamSide),
+                        Average_HT_Conceded_Goals_HomeTeam = GenerateGeneralGoalsAverage(comparisonContainer, "HT_Conceded_Goals_HomeTeam", teamSide),
+                        Average_SH_Conceded_Goals_AwayTeam = GenerateGeneralGoalsAverage(comparisonContainer, "SH_Conceded_Goals_AwayTeam", teamSide),
+                        Average_SH_Conceded_Goals_HomeTeam = GenerateGeneralGoalsAverage(comparisonContainer, "SH_Conceded_Goals_HomeTeam", teamSide),
 
                         Away_FT_05_Over = GenerateGeneralComparison(comparisonContainer, "Away_FT_05_Over", teamSide),
                         Away_FT_15_Over = GenerateGeneralComparison(comparisonContainer, "Away_FT_15_Over", teamSide),
@@ -1777,38 +1799,38 @@ namespace SBA.Business.BusinessHelper
                         Average_HT_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "HT_Goals_HomeTeam", teamSide),
                         Average_SH_Goals_AwayTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "SH_Goals_AwayTeam", teamSide),
                         Average_SH_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "SH_Goals_HomeTeam", teamSide),
-                        Average_FT_Conceded_Goals_AwayTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "FT_Goals_HomeTeam", teamSide),
-                        Average_FT_Conceded_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "FT_Goals_AwayTeam", teamSide),
-                        Average_HT_Conceded_Goals_AwayTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "HT_Goals_HomeTeam", teamSide),
-                        Average_HT_Conceded_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "HT_Goals_AwayTeam", teamSide),
-                        Average_SH_Conceded_Goals_AwayTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "SH_Goals_HomeTeam", teamSide),
-                        Average_SH_Conceded_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "SH_Goals_AwayTeam", teamSide),
-                        Average_FT_Corners_AwayTeam = GenerateHomeAwayCornersPossesionShutAverage(comparisonContainer, "AwayCornersCount", teamSide),
-                        Average_FT_Corners_HomeTeam = GenerateHomeAwayCornersPossesionShutAverage(comparisonContainer, "HomeCornersCount", teamSide),
+                        Average_FT_Conceded_Goals_AwayTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "FT_Conceded_Goals_AwayTeam", teamSide),
+                        Average_FT_Conceded_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "FT_Conceded_Goals_HomeTeam", teamSide),
+                        Average_HT_Conceded_Goals_AwayTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "HT_Conceded_Goals_AwayTeam", teamSide),
+                        Average_HT_Conceded_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "HT_Conceded_Goals_HomeTeam", teamSide),
+                        Average_SH_Conceded_Goals_AwayTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "SH_Conceded_Goals_AwayTeam", teamSide),
+                        Average_SH_Conceded_Goals_HomeTeam = GenerateHomeAwayGoalsAverage(comparisonContainer, "SH_Conceded_Goals_HomeTeam", teamSide),
+                        Average_FT_Corners_AwayTeam = GenerateHomeAwayCornersPossesionShutAverage(comparisonContainer, "AwayCornersCount", teamSide, x => x.HasCorner == true),
+                        Average_FT_Corners_HomeTeam = GenerateHomeAwayCornersPossesionShutAverage(comparisonContainer, "HomeCornersCount", teamSide, x => x.HasCorner == true),
 
 
-                        Average_FT_Possesion_HomeTeam = GenerateHomeAwayCornersPossesionShutAverage(comparisonContainer, "HomePossesionCount", teamSide),
-                        Average_FT_Possesion_AwayTeam = GenerateHomeAwayCornersPossesionShutAverage(comparisonContainer, "AwayPossesionCount", teamSide),
-                        Average_FT_Shot_HomeTeam = GenerateHomeAwayCornersPossesionShutAverage(comparisonContainer, "HomeShutCount", teamSide),
-                        Average_FT_Shot_AwayTeam = GenerateHomeAwayCornersPossesionShutAverage(comparisonContainer, "AwayShutCount", teamSide),
-                        Average_FT_ShotOnTarget_HomeTeam = GenerateHomeAwayCornersPossesionShutAverage(comparisonContainer, "HomeShutOnTargetCount", teamSide),
-                        Average_FT_ShotOnTarget_AwayTeam = GenerateHomeAwayCornersPossesionShutAverage(comparisonContainer, "AwayShutOnTargetCount", teamSide),
+                        Average_FT_Possesion_HomeTeam = GenerateHomeAwayCornersPossesionShutAverage(comparisonContainer, "HomePossesionCount", teamSide, x => x.HasPossesion == true),
+                        Average_FT_Possesion_AwayTeam = GenerateHomeAwayCornersPossesionShutAverage(comparisonContainer, "AwayPossesionCount", teamSide, x => x.HasPossesion == true),
+                        Average_FT_Shot_HomeTeam = GenerateHomeAwayCornersPossesionShutAverage(comparisonContainer, "HomeShutCount", teamSide, x => x.HasShut == true),
+                        Average_FT_Shot_AwayTeam = GenerateHomeAwayCornersPossesionShutAverage(comparisonContainer, "AwayShutCount", teamSide, x => x.HasShut == true),
+                        Average_FT_ShotOnTarget_HomeTeam = GenerateHomeAwayCornersPossesionShutAverage(comparisonContainer, "HomeShutOnTargetCount", teamSide, x => x.HasShutOnTarget == true),
+                        Average_FT_ShotOnTarget_AwayTeam = GenerateHomeAwayCornersPossesionShutAverage(comparisonContainer, "AwayShutOnTargetCount", teamSide, x => x.HasShutOnTarget == true),
 
-                        Average_FT_GK_Saves_AwayTeam = GenerateHomeAwayGKSavesAverage(comparisonContainer, "HomeShutOnTargetCount", "FT_Goals_HomeTeam", teamSide),
-                        Average_FT_GK_Saves_HomeTeam = GenerateHomeAwayGKSavesAverage(comparisonContainer, "AwayShutOnTargetCount", "FT_Goals_AwayTeam", teamSide),
+                        Average_FT_GK_Saves_AwayTeam = GenerateHomeAwayCornersPossesionShutAverage(comparisonContainer, "FT_GK_Saves_AwayTeam", teamSide, x => x.HasGK_Saves == true),
+                        Average_FT_GK_Saves_HomeTeam = GenerateHomeAwayCornersPossesionShutAverage(comparisonContainer, "FT_GK_Saves_HomeTeam", teamSide, x => x.HasGK_Saves == true),
 
 
-                        Corner_Away_3_5_Over = GenerateBySideCornerPossesionShutComparison(comparisonContainer, "Corner_Away_3_5_Over", teamSide),
-                        Corner_Away_4_5_Over = GenerateBySideCornerPossesionShutComparison(comparisonContainer, "Corner_Away_4_5_Over", teamSide),
-                        Corner_Away_5_5_Over = GenerateBySideCornerPossesionShutComparison(comparisonContainer, "Corner_Away_5_5_Over", teamSide),
+                        Corner_Away_3_5_Over = GenerateBySideCornerPossesionShutComparison(comparisonContainer, "Corner_Away_3_5_Over", teamSide, x => x.HasCorner == true),
+                        Corner_Away_4_5_Over = GenerateBySideCornerPossesionShutComparison(comparisonContainer, "Corner_Away_4_5_Over", teamSide, x => x.HasCorner == true),
+                        Corner_Away_5_5_Over = GenerateBySideCornerPossesionShutComparison(comparisonContainer, "Corner_Away_5_5_Over", teamSide, x => x.HasCorner == true),
 
-                        Corner_Home_3_5_Over = GenerateBySideCornerPossesionShutComparison(comparisonContainer, "Corner_Home_3_5_Over", teamSide),
-                        Corner_Home_4_5_Over = GenerateBySideCornerPossesionShutComparison(comparisonContainer, "Corner_Home_4_5_Over", teamSide),
-                        Corner_Home_5_5_Over = GenerateBySideCornerPossesionShutComparison(comparisonContainer, "Corner_Home_5_5_Over", teamSide),
+                        Corner_Home_3_5_Over = GenerateBySideCornerPossesionShutComparison(comparisonContainer, "Corner_Home_3_5_Over", teamSide, x => x.HasCorner == true),
+                        Corner_Home_4_5_Over = GenerateBySideCornerPossesionShutComparison(comparisonContainer, "Corner_Home_4_5_Over", teamSide, x => x.HasCorner == true),
+                        Corner_Home_5_5_Over = GenerateBySideCornerPossesionShutComparison(comparisonContainer, "Corner_Home_5_5_Over", teamSide, x => x.HasCorner == true),
 
-                        Corner_7_5_Over = GenerateBySideCornerPossesionShutComparison(comparisonContainer, "Corner_7_5_Over", teamSide),
-                        Corner_8_5_Over = GenerateBySideCornerPossesionShutComparison(comparisonContainer, "Corner_8_5_Over", teamSide),
-                        Corner_9_5_Over = GenerateBySideCornerPossesionShutComparison(comparisonContainer, "Corner_9_5_Over", teamSide),
+                        Corner_7_5_Over = GenerateBySideCornerPossesionShutComparison(comparisonContainer, "Corner_7_5_Over", teamSide, x => x.HasCorner == true),
+                        Corner_8_5_Over = GenerateBySideCornerPossesionShutComparison(comparisonContainer, "Corner_8_5_Over", teamSide, x => x.HasCorner == true),
+                        Corner_9_5_Over = GenerateBySideCornerPossesionShutComparison(comparisonContainer, "Corner_9_5_Over", teamSide, x => x.HasCorner == true),
 
                         Away_FT_05_Over = GenerateBySideComparison(comparisonContainer, "Away_FT_05_Over", teamSide),
                         Away_FT_15_Over = GenerateBySideComparison(comparisonContainer, "Away_FT_15_Over", teamSide),
@@ -1849,9 +1871,9 @@ namespace SBA.Business.BusinessHelper
                         Is_SH_Win1 = GenerateBySideComparison(comparisonContainer, "Is_SH_Win1", teamSide),
                         Is_SH_X = GenerateBySideComparison(comparisonContainer, "Is_SH_X", teamSide),
                         Is_SH_Win2 = GenerateBySideComparison(comparisonContainer, "Is_SH_Win2", teamSide),
-                        Is_Corner_FT_Win1 = GenerateBySideCornerPossesionShutComparison(comparisonContainer, "Is_Corner_FT_Win1", teamSide),
-                        Is_Corner_FT_X = GenerateBySideCornerPossesionShutComparison(comparisonContainer, "Is_Corner_FT_X", teamSide),
-                        Is_Corner_FT_Win2 = GenerateBySideCornerPossesionShutComparison(comparisonContainer, "Is_Corner_FT_Win2", teamSide)
+                        Is_Corner_FT_Win1 = GenerateBySideCornerPossesionShutComparison(comparisonContainer, "Is_Corner_FT_Win1", teamSide, x => x.HasCorner == true),
+                        Is_Corner_FT_X = GenerateBySideCornerPossesionShutComparison(comparisonContainer, "Is_Corner_FT_X", teamSide, x => x.HasCorner == true),
+                        Is_Corner_FT_Win2 = GenerateBySideCornerPossesionShutComparison(comparisonContainer, "Is_Corner_FT_Win2", teamSide, x => x.HasCorner == true)
                     },
                     General = new GuessModel
                     {
@@ -1862,38 +1884,38 @@ namespace SBA.Business.BusinessHelper
                         Average_HT_Goals_HomeTeam = GenerateGeneralGoalsAverage(comparisonContainer, "HT_Goals_HomeTeam", teamSide),
                         Average_SH_Goals_AwayTeam = GenerateGeneralGoalsAverage(comparisonContainer, "SH_Goals_AwayTeam", teamSide),
                         Average_SH_Goals_HomeTeam = GenerateGeneralGoalsAverage(comparisonContainer, "SH_Goals_HomeTeam", teamSide),
-                        Average_FT_Conceded_Goals_AwayTeam = GenerateGeneralGoalsAverage(comparisonContainer, "FT_Goals_HomeTeam", teamSide),
-                        Average_FT_Conceded_Goals_HomeTeam = GenerateGeneralGoalsAverage(comparisonContainer, "FT_Goals_AwayTeam", teamSide),
-                        Average_HT_Conceded_Goals_AwayTeam = GenerateGeneralGoalsAverage(comparisonContainer, "HT_Goals_HomeTeam", teamSide),
-                        Average_HT_Conceded_Goals_HomeTeam = GenerateGeneralGoalsAverage(comparisonContainer, "HT_Goals_AwayTeam", teamSide),
-                        Average_SH_Conceded_Goals_AwayTeam = GenerateGeneralGoalsAverage(comparisonContainer, "SH_Goals_HomeTeam", teamSide),
-                        Average_SH_Conceded_Goals_HomeTeam = GenerateGeneralGoalsAverage(comparisonContainer, "SH_Goals_AwayTeam", teamSide),
-                        Average_FT_Corners_AwayTeam = GenerateGeneralCornersPossesionShutAverage(comparisonContainer, "AwayCornersCount", teamSide),
-                        Average_FT_Corners_HomeTeam = GenerateGeneralCornersPossesionShutAverage(comparisonContainer, "HomeCornersCount", teamSide),
+                        Average_FT_Conceded_Goals_AwayTeam = GenerateGeneralGoalsAverage(comparisonContainer, "FT_Conceded_Goals_AwayTeam", teamSide),
+                        Average_FT_Conceded_Goals_HomeTeam = GenerateGeneralGoalsAverage(comparisonContainer, "FT_Conceded_Goals_HomeTeam", teamSide),
+                        Average_HT_Conceded_Goals_AwayTeam = GenerateGeneralGoalsAverage(comparisonContainer, "HT_Conceded_Goals_AwayTeam", teamSide),
+                        Average_HT_Conceded_Goals_HomeTeam = GenerateGeneralGoalsAverage(comparisonContainer, "HT_Conceded_Goals_HomeTeam", teamSide),
+                        Average_SH_Conceded_Goals_AwayTeam = GenerateGeneralGoalsAverage(comparisonContainer, "SH_Conceded_Goals_AwayTeam", teamSide),
+                        Average_SH_Conceded_Goals_HomeTeam = GenerateGeneralGoalsAverage(comparisonContainer, "SH_Conceded_Goals_HomeTeam", teamSide),
+                        Average_FT_Corners_AwayTeam = GenerateGeneralCornersPossesionShutAverage(comparisonContainer, "AwayCornersCount", teamSide, x => x.HasCorner == true),
+                        Average_FT_Corners_HomeTeam = GenerateGeneralCornersPossesionShutAverage(comparisonContainer, "HomeCornersCount", teamSide, x => x.HasCorner == true),
 
-                        Average_FT_GK_Saves_AwayTeam = GenerateGeneralGKSavesAverage(comparisonContainer, "HomeShutOnTargetCount", "FT_Goals_HomeTeam", teamSide),
-                        Average_FT_GK_Saves_HomeTeam = GenerateGeneralGKSavesAverage(comparisonContainer, "AwayShutOnTargetCount", "FT_Goals_AwayTeam", teamSide),
+                        Average_FT_GK_Saves_AwayTeam = GenerateGeneralCornersPossesionShutAverage(comparisonContainer, "FT_GK_Saves_AwayTeam", teamSide, x => x.HasGK_Saves),
+                        Average_FT_GK_Saves_HomeTeam = GenerateGeneralCornersPossesionShutAverage(comparisonContainer, "FT_GK_Saves_HomeTeam", teamSide, x => x.HasGK_Saves),
 
-                        Average_FT_Possesion_HomeTeam = GenerateGeneralCornersPossesionShutAverage(comparisonContainer, "HomePossesionCount", teamSide),
-                        Average_FT_Possesion_AwayTeam = GenerateGeneralCornersPossesionShutAverage(comparisonContainer, "AwayPossesionCount", teamSide),
-                        Average_FT_Shot_HomeTeam = GenerateGeneralCornersPossesionShutAverage(comparisonContainer, "HomeShutCount", teamSide),
-                        Average_FT_Shot_AwayTeam = GenerateGeneralCornersPossesionShutAverage(comparisonContainer, "AwayShutCount", teamSide),
-                        Average_FT_ShotOnTarget_HomeTeam = GenerateGeneralCornersPossesionShutAverage(comparisonContainer, "HomeShutOnTargetCount", teamSide),
-                        Average_FT_ShotOnTarget_AwayTeam = GenerateGeneralCornersPossesionShutAverage(comparisonContainer, "AwayShutOnTargetCount", teamSide),
+                        Average_FT_Possesion_HomeTeam = GenerateGeneralCornersPossesionShutAverage(comparisonContainer, "HomePossesionCount", teamSide, x => x.HasPossesion),
+                        Average_FT_Possesion_AwayTeam = GenerateGeneralCornersPossesionShutAverage(comparisonContainer, "AwayPossesionCount", teamSide, x => x.HasPossesion),
+                        Average_FT_Shot_HomeTeam = GenerateGeneralCornersPossesionShutAverage(comparisonContainer, "HomeShutCount", teamSide, x => x.HasShut),
+                        Average_FT_Shot_AwayTeam = GenerateGeneralCornersPossesionShutAverage(comparisonContainer, "AwayShutCount", teamSide, x => x.HasShut),
+                        Average_FT_ShotOnTarget_HomeTeam = GenerateGeneralCornersPossesionShutAverage(comparisonContainer, "HomeShutOnTargetCount", teamSide, x => x.HasShutOnTarget),
+                        Average_FT_ShotOnTarget_AwayTeam = GenerateGeneralCornersPossesionShutAverage(comparisonContainer, "AwayShutOnTargetCount", teamSide, x => x.HasShutOnTarget),
 
 
 
-                        Corner_Away_3_5_Over = GenerateGeneralCornerPossesionShutComparison(comparisonContainer, "Corner_Away_3_5_Over", teamSide),
-                        Corner_Away_4_5_Over = GenerateGeneralCornerPossesionShutComparison(comparisonContainer, "Corner_Away_4_5_Over", teamSide),
-                        Corner_Away_5_5_Over = GenerateGeneralCornerPossesionShutComparison(comparisonContainer, "Corner_Away_5_5_Over", teamSide),
+                        Corner_Away_3_5_Over = GenerateGeneralCornerPossesionShutComparison(comparisonContainer, "Corner_Away_3_5_Over", teamSide, x => x.HasCorner),
+                        Corner_Away_4_5_Over = GenerateGeneralCornerPossesionShutComparison(comparisonContainer, "Corner_Away_4_5_Over", teamSide, x => x.HasCorner),
+                        Corner_Away_5_5_Over = GenerateGeneralCornerPossesionShutComparison(comparisonContainer, "Corner_Away_5_5_Over", teamSide, x => x.HasCorner),
 
-                        Corner_Home_3_5_Over = GenerateGeneralCornerPossesionShutComparison(comparisonContainer, "Corner_Home_3_5_Over", teamSide),
-                        Corner_Home_4_5_Over = GenerateGeneralCornerPossesionShutComparison(comparisonContainer, "Corner_Home_4_5_Over", teamSide),
-                        Corner_Home_5_5_Over = GenerateGeneralCornerPossesionShutComparison(comparisonContainer, "Corner_Home_5_5_Over", teamSide),
+                        Corner_Home_3_5_Over = GenerateGeneralCornerPossesionShutComparison(comparisonContainer, "Corner_Home_3_5_Over", teamSide, x => x.HasCorner),
+                        Corner_Home_4_5_Over = GenerateGeneralCornerPossesionShutComparison(comparisonContainer, "Corner_Home_4_5_Over", teamSide, x => x.HasCorner),
+                        Corner_Home_5_5_Over = GenerateGeneralCornerPossesionShutComparison(comparisonContainer, "Corner_Home_5_5_Over", teamSide, x => x.HasCorner),
 
-                        Corner_7_5_Over = GenerateGeneralCornerPossesionShutComparison(comparisonContainer, "Corner_7_5_Over", teamSide),
-                        Corner_8_5_Over = GenerateGeneralCornerPossesionShutComparison(comparisonContainer, "Corner_8_5_Over", teamSide),
-                        Corner_9_5_Over = GenerateGeneralCornerPossesionShutComparison(comparisonContainer, "Corner_9_5_Over", teamSide),
+                        Corner_7_5_Over = GenerateGeneralCornerPossesionShutComparison(comparisonContainer, "Corner_7_5_Over", teamSide, x => x.HasCorner),
+                        Corner_8_5_Over = GenerateGeneralCornerPossesionShutComparison(comparisonContainer, "Corner_8_5_Over", teamSide, x => x.HasCorner),
+                        Corner_9_5_Over = GenerateGeneralCornerPossesionShutComparison(comparisonContainer, "Corner_9_5_Over", teamSide, x => x.HasCorner),
 
                         Away_FT_05_Over = GenerateGeneralComparison(comparisonContainer, "Away_FT_05_Over", teamSide),
                         Away_FT_15_Over = GenerateGeneralComparison(comparisonContainer, "Away_FT_15_Over", teamSide),
@@ -1934,9 +1956,9 @@ namespace SBA.Business.BusinessHelper
                         Is_SH_Win1 = GenerateGeneralComparison(comparisonContainer, "Is_SH_Win1", teamSide),
                         Is_SH_X = GenerateGeneralComparison(comparisonContainer, "Is_SH_X", teamSide),
                         Is_SH_Win2 = GenerateGeneralComparison(comparisonContainer, "Is_SH_Win2", teamSide),
-                        Is_Corner_FT_Win1 = GenerateGeneralCornerPossesionShutComparison(comparisonContainer, "Is_Corner_FT_Win1", teamSide),
-                        Is_Corner_FT_X = GenerateGeneralCornerPossesionShutComparison(comparisonContainer, "Is_Corner_FT_X", teamSide),
-                        Is_Corner_FT_Win2 = GenerateGeneralCornerPossesionShutComparison(comparisonContainer, "Is_Corner_FT_Win2", teamSide)
+                        Is_Corner_FT_Win1 = GenerateGeneralCornerPossesionShutComparison(comparisonContainer, "Is_Corner_FT_Win1", teamSide, x => x.HasCorner),
+                        Is_Corner_FT_X = GenerateGeneralCornerPossesionShutComparison(comparisonContainer, "Is_Corner_FT_X", teamSide, x => x.HasCorner),
+                        Is_Corner_FT_Win2 = GenerateGeneralCornerPossesionShutComparison(comparisonContainer, "Is_Corner_FT_Win2", teamSide, x => x.HasCorner)
                     },
 
                     Serial = serial
@@ -2098,7 +2120,7 @@ namespace SBA.Business.BusinessHelper
         }
 
 
-        private static PercentageComplainer GenerateGeneralCornerPossesionShutComparison<T>(List<T> containers, string propertyName, TeamSide teamSide)
+        private static PercentageComplainer GenerateGeneralCornerPossesionShutComparison<T>(List<T> containers, string propertyName, TeamSide teamSide, Func<T, bool> expression)
 where T : BaseComparerContainerModel, new()
         {
             if (containers == null || !containers.Any())
@@ -2106,7 +2128,9 @@ where T : BaseComparerContainerModel, new()
                 return null;
             }
 
-            if (containers.Any(c => !c.HasCorner || !c.HasShut || !c.HasShutOnTarget || !c.HasPossesion))
+            var filteredListContainer = containers.Where(expression).ToList();
+
+            if (filteredListContainer.Count == 0)
             {
                 return new PercentageComplainer
                 {
@@ -2118,7 +2142,7 @@ where T : BaseComparerContainerModel, new()
                 };
             }
 
-            var mixedData = _quickConvertService.MixRange(containers, teamSide);
+            var mixedData = _quickConvertService.MixRange(filteredListContainer, teamSide);
 
             var sideContainers = (teamSide == TeamSide.Away)
                 ? mixedData.Where(c => c.AwayTeam == c.UnchangableAwayTeam)
@@ -2147,6 +2171,11 @@ where T : BaseComparerContainerModel, new()
         private static PercentageComplainer GenerateBySideComparison<T>(List<T> containers, string propertyName, TeamSide teamSide)
 where T : BaseComparerContainerModel, new()
         {
+            if (propertyName.ToLower().Contains("is_sh_"))
+            {
+
+            }
+
             if (containers is null || containers.Count == 0)
             {
                 return null;
@@ -2176,7 +2205,7 @@ where T : BaseComparerContainerModel, new()
         }
 
 
-        private static PercentageComplainer GenerateBySideCornerPossesionShutComparison<T>(List<T> containers, string propertyName, TeamSide teamSide)
+        private static PercentageComplainer GenerateBySideCornerPossesionShutComparison<T>(List<T> containers, string propertyName, TeamSide teamSide, Func<T, bool> filter)
     where T : BaseComparerContainerModel, new()
         {
             if (containers is null || containers.Count == 0)
@@ -2184,7 +2213,9 @@ where T : BaseComparerContainerModel, new()
                 return null;
             }
 
-            if (containers.Any(c => !c.HasCorner || !c.HasShut || !c.HasShutOnTarget || !c.HasPossesion))
+            var filteredList = containers.Where(filter).ToList();
+
+            if (filteredList.Count == 0)
             {
                 return new PercentageComplainer
                 {
@@ -2197,8 +2228,8 @@ where T : BaseComparerContainerModel, new()
             }
 
             IEnumerable<T> sideContainers = (teamSide == TeamSide.Away)
-                ? containers.Where(c => c.AwayTeam == c.UnchangableAwayTeam)
-                : containers.Where(c => c.HomeTeam == c.UnchangableHomeTeam);
+                ? filteredList.Where(c => c.AwayTeam == c.UnchangableAwayTeam)
+                : filteredList.Where(c => c.HomeTeam == c.UnchangableHomeTeam);
 
             if (!sideContainers.Any())
             {
@@ -2243,17 +2274,12 @@ where T : BaseComparerContainerModel, new()
             return averageGoals;
         }
 
-        private static decimal GenerateGeneralCornersPossesionShutAverage<T>(List<T> listContainers, string propertyName, TeamSide teamSide)
+        private static decimal GenerateGeneralCornersPossesionShutAverage<T>(List<T> listContainers, string propertyName, TeamSide teamSide, Func<T, bool> expression)
     where T : BaseComparerContainerModel, new()
         {
             if (listContainers is null || listContainers.Count == 0)
             {
                 return -1.00M;
-            }
-
-            if (listContainers.Any(x => !x.HasCorner || !x.HasPossesion || !x.HasShut || !x.HasShutOnTarget))
-            {
-                return -99M;
             }
 
             var cornersProperty = typeof(T).GetProperty(propertyName);
@@ -2263,44 +2289,16 @@ where T : BaseComparerContainerModel, new()
                 throw new ArgumentException($"The property '{propertyName}' does not exist on type '{typeof(T).Name}'.");
             }
 
-            var mixedData = _quickConvertService.MixRange(listContainers, teamSide);
+            var filteredListContainer = listContainers.Where(expression).ToList();
 
-            var totalCorners = mixedData.Select(x => (int)cornersProperty.GetValue(x)).Sum();
-            var averageCorners = totalCorners / (decimal)listContainers.Count;
+            if (filteredListContainer.Count == 0) return -9999;
+
+            var mixedData = _quickConvertService.MixRange(filteredListContainer, teamSide);
+
+            var totalCorners = mixedData.Where(expression).Select(x => (int)cornersProperty.GetValue(x)).Sum();
+            var averageCorners = totalCorners / (decimal)filteredListContainer.Count;
 
             return averageCorners;
-        }
-
-        private static decimal GenerateGeneralGKSavesAverage<T>(List<T> listContainers, string targetShotName, string goalsPropName, TeamSide teamSide)
-    where T : BaseComparerContainerModel, new()
-        {
-            if (listContainers is null || listContainers.Count == 0)
-            {
-                return -1.00M;
-            }
-
-            if (listContainers.Any(x => !x.HasCorner || !x.HasPossesion || !x.HasShut || !x.HasShutOnTarget))
-            {
-                return -99M;
-            }
-
-            var targetShotProperty = typeof(T).GetProperty(targetShotName);
-            var goalsProperty = typeof(T).GetProperty(goalsPropName);
-
-            if (targetShotProperty is null || goalsProperty is null)
-            {
-                throw new ArgumentException($"The property '{targetShotName}' or '{goalsPropName}' does not exist on type '{typeof(T).Name}'.");
-            }
-
-            var mixedData = _quickConvertService.MixRange(listContainers, teamSide);
-
-            var totalTargetShots = mixedData.Select(x => (int)targetShotProperty.GetValue(x)).Sum();
-            var averageTargetShots = totalTargetShots / (decimal)listContainers.Count;
-
-            var totalGoals = mixedData.Select(x => (int)goalsProperty.GetValue(x)).Sum();
-            var averageGoals = totalGoals / (decimal)listContainers.Count;
-
-            return totalTargetShots - averageGoals;
         }
 
         private static decimal GenerateHomeAwayGoalsAverage<T>(List<T> listContainers, string propertyName, TeamSide teamSide)
@@ -2335,12 +2333,13 @@ where T : BaseComparerContainerModel, new()
             return result;
         }
 
-        private static decimal GenerateHomeAwayCornersPossesionShutAverage<T>(List<T> listContainers, string propertyName, TeamSide teamSide)
+        private static decimal GenerateHomeAwayCornersPossesionShutAverage<T>(List<T> listContainers, string propertyName, TeamSide teamSide, Func<T, bool> filter)
     where T : BaseComparerContainerModel
         {
-            if (listContainers is null || listContainers.Count == 0 || listContainers.All(c => !c.HasCorner || !c.HasPossesion || !c.HasShut || !c.HasShutOnTarget))
+            var filteredList = listContainers.Where(filter).ToList();
+            if (filteredList.Count == 0)
             {
-                return -99M;
+                return -999M;
             }
 
             var cornersProperty = typeof(T).GetProperty(propertyName);
@@ -2351,57 +2350,18 @@ where T : BaseComparerContainerModel, new()
             }
 
             var filteredContainers = (teamSide == TeamSide.Away)
-                ? listContainers.Where(c => c.AwayTeam == c.UnchangableAwayTeam)
-                : listContainers.Where(c => c.HomeTeam == c.UnchangableHomeTeam);
+                ? filteredList.Where(c => c.AwayTeam == c.UnchangableAwayTeam)
+                : filteredList.Where(c => c.HomeTeam == c.UnchangableHomeTeam);
 
             if (!filteredContainers.Any())
             {
-                return -1m;
+                return -999m;
             }
 
             var total = filteredContainers.Sum(c => (int)c.GetType().GetProperty(propertyName).GetValue(c));
             var count = filteredContainers.Count();
             return (decimal)total / count;
         }
-
-
-        private static decimal GenerateHomeAwayGKSavesAverage<T>(List<T> listContainers, string propertyTargetShot, string propertyGoalsAvg, TeamSide teamSide)
-    where T : BaseComparerContainerModel
-        {
-            if (listContainers is null || listContainers.Count == 0 || listContainers.All(c => !c.HasCorner || !c.HasPossesion || !c.HasShut || !c.HasShutOnTarget))
-            {
-                return -99M;
-            }
-
-            var targetProperty = typeof(T).GetProperty(propertyTargetShot);
-            var goalsProperty = typeof(T).GetProperty(propertyGoalsAvg);
-
-            if (targetProperty is null || goalsProperty is null)
-            {
-                throw new ArgumentException($"The property '{targetProperty}' or '{goalsProperty}' does not exist on type '{typeof(T).Name}'.");
-            }
-
-            var filteredContainers = (teamSide == TeamSide.Away)
-                ? listContainers.Where(c => c.AwayTeam == c.UnchangableAwayTeam)
-                : listContainers.Where(c => c.HomeTeam == c.UnchangableHomeTeam);
-
-            if (!filteredContainers.Any())
-            {
-                return -1m;
-            }
-
-            var totalTarget = filteredContainers.Sum(c => (int)c.GetType().GetProperty(propertyTargetShot).GetValue(c));
-            var countTarget = filteredContainers.Count();
-
-            var totalGoals = filteredContainers.Sum(c => (int)c.GetType().GetProperty(propertyGoalsAvg).GetValue(c));
-            var countGoals = filteredContainers.Count();
-
-            var avgTarget = (decimal)totalTarget / countTarget;
-            var avgGoals = (decimal)totalGoals / countGoals;
-
-            return avgTarget - avgGoals;
-        }
-
 
         private static int GetGeneralCountFound<T>(List<T> listContainers, TeamSide teamSide)
             where T : BaseComparerContainerModel, new()

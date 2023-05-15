@@ -133,13 +133,13 @@
     <value>Maçta 1.5 Üst Yüzdesi</value>
   </data>
   <data name="FT_15_O_FC" xml:space="preserve">
-    <value>MS 1,5 Ü</value>
+    <value>Maç Sonucu 1,5 Üst</value>
   </data>
   <data name="FT_25" xml:space="preserve">
     <value>Maçta 2.5 Üst Yüzdesi</value>
   </data>
   <data name="FT_25_O_FC" xml:space="preserve">
-    <value>MS 2,5 Ü</value>
+    <value>Maç Sonucu 2,5 Üst</value>
   </data>
   <data name="FT_35" xml:space="preserve">
     <value>Maçta 3.5 Üst Yüzdesi</value>
@@ -148,7 +148,7 @@
     <value>Karşılıklı Gol Yüzdesi</value>
   </data>
   <data name="FT_GG_FC" xml:space="preserve">
-    <value>MS KG Var</value>
+    <value>Maç Sonucu Karşılıklı gol Var</value>
   </data>
   <data name="FT_X" xml:space="preserve">
     <value>Beraberlik Yüzdesi</value>
@@ -163,16 +163,28 @@
     <value>İlk Yarı Karşılıklı Gol Yüzdesi</value>
   </data>
   <data name="HT_Win_1_FC" xml:space="preserve">
-    <value>BY Ev Galibiyet</value>
+    <value>İlk Yarı Ev sahibi takımın Galibiyeti</value>
   </data>
   <data name="HT_Win_2_FC" xml:space="preserve">
-    <value>BY Dep Galibiyet</value>
+    <value>İlk Yarı Deplasman takımın Galibiyeti</value>
   </data>
   <data name="HT_X" xml:space="preserve">
     <value>İlk Yarı Beraberlik Yüzdesi</value>
   </data>
+  <data name="Ind_Avg_Conc_Goal_FT" xml:space="preserve">
+    <value>Maçta Yediği Gol Ortalaması</value>
+  </data>
+  <data name="Ind_Avg_Conc_Goal_HT" xml:space="preserve">
+    <value>İlk Yarı Yediği Gol Ortalaması</value>
+  </data>
+  <data name="Ind_Avg_Conc_Goal_SH" xml:space="preserve">
+    <value>İkinci Yarı Yediği Gol Ortalaması</value>
+  </data>
   <data name="Ind_Avg_Corner_FT" xml:space="preserve">
     <value>Korner Ortalaması</value>
+  </data>
+  <data name="Ind_Avg_GK_Saves_FT" xml:space="preserve">
+    <value>Kalecinin Kurtarış Ortalaması</value>
   </data>
   <data name="Ind_Avg_Goal_FT" xml:space="preserve">
     <value>Maçta Gol Ortalaması</value>
@@ -244,10 +256,10 @@
     <value>İkinci Yarı Karşılıklı Gol Yüzdesi</value>
   </data>
   <data name="SH_Win_1_FC" xml:space="preserve">
-    <value>İY Ev Galibiyet</value>
+    <value>İkinci Yarı Ev sahibi takımın Galibiyeti</value>
   </data>
   <data name="SH_Win_2_FC" xml:space="preserve">
-    <value>İY Dep Galibiyet</value>
+    <value>İkinci Yarı Deplasman takımın Galibiyeti</value>
   </data>
   <data name="SH_X" xml:space="preserve">
     <value>İkinci Yarı Beraberlik Yüzdesi</value>

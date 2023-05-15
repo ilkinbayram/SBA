@@ -8,6 +8,12 @@
         public decimal Average_HT_Goals_AwayTeam { get; set; }
         public decimal Average_SH_Goals_HomeTeam { get; set; }
         public decimal Average_SH_Goals_AwayTeam { get; set; }
+        public decimal Average_FT_Conceded_Goals_HomeTeam { get; set; }
+        public decimal Average_FT_Conceded_Goals_AwayTeam { get; set; }
+        public decimal Average_HT_Conceded_Goals_HomeTeam { get; set; }
+        public decimal Average_HT_Conceded_Goals_AwayTeam { get; set; }
+        public decimal Average_SH_Conceded_Goals_HomeTeam { get; set; }
+        public decimal Average_SH_Conceded_Goals_AwayTeam { get; set; }
 
         public int Is_FT_Win1 { get; set; }
         public int Is_FT_X { get; set; }

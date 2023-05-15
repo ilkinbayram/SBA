@@ -71,12 +71,17 @@ namespace SBA.Business.ExternalServices.ChatGPT
                 new RequestMessageGPT()
                 {
                      Role = "system",
-                     Content = "Bu istatistikler (STATISTICS-INFO) analiz et. Bu istatistiklere dayanarak bu maçla ilgili Garanti bir tahminde bulun. Sence Macta en az ve en fazla kac tane gol olur? Tahminini sadece rakam olarak ve koseli parantezler icinde yaz. Ornek cevap: [|5|10|]"
+                     Content = "Bu istatistikleri analiz et. Bu istatistiklere dayanarak tüm verilere göre ben sana kendi tahminimi gönderiyorum. Eğer benim bahis tahminimle tamamen razı isen o zaman sadece 'TRUE200' cevabı döndür? Eğer bahis tahminimin bu istatistiklere göre riskli ve gerçekleşme olasılığı az olan bir ihtimal olarak değerlendiriyorsan sadece 'FALSE400' cevabı döndür."
                 },
                 new RequestMessageGPT()
                 {
                      Role = "user",
-                     Content = ConvertToContent(statisticModel, "GARANTİ BAHİS TAHMİNİM => Maçta en az 14 tane gol olacaktır.")
+                     Content = statisticModel
+                },
+                new RequestMessageGPT()
+                {
+                     Role = "user",
+                     Content = $"Benim BAHİS TAHMİNİM => {prediction}"
                 }
             };
 

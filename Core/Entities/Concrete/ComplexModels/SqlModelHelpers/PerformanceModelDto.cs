@@ -5,11 +5,14 @@
         public decimal Average_FT_Goals_Team { get; set; }
         public decimal Average_HT_Goals_Team { get; set; }
         public decimal Average_SH_Goals_Team { get; set; }
-
+        public decimal Average_FT_Conceded_Goals_Team { get; set; }
+        public decimal Average_HT_Conceded_Goals_Team { get; set; }
+        public decimal Average_SH_Conceded_Goals_Team { get; set; }
 
         public decimal Average_FT_Shut_Team { get; set; }
         public decimal Average_FT_ShutOnTarget_Team { get; set; }
         public decimal Average_FT_Corners_Team { get; set; }
+        public decimal Average_FT_GK_Saves_Team { get; set; }
         public int Is_FT_CornerWinTeam { get; set; }
         public int Is_FT_CornerX { get; set; }
         public int FT_Corner_75_Over { get; set; }

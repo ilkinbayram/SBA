@@ -93,6 +93,13 @@ namespace Core.Extensions
                         Average_SH_Goals_HomeTeam = comparison.HomeAway.Average_SH_Goals_HomeTeam,
                         Average_SH_Goals_AwayTeam = comparison.HomeAway.Average_SH_Goals_AwayTeam,
 
+                        Average_FT_Conceded_Goals_HomeTeam = comparison.HomeAway.Average_FT_Conceded_Goals_HomeTeam,
+                        Average_FT_Conceded_Goals_AwayTeam = comparison.HomeAway.Average_FT_Conceded_Goals_AwayTeam,
+                        Average_HT_Conceded_Goals_HomeTeam = comparison.HomeAway.Average_HT_Conceded_Goals_HomeTeam,
+                        Average_HT_Conceded_Goals_AwayTeam = comparison.HomeAway.Average_HT_Conceded_Goals_AwayTeam,
+                        Average_SH_Conceded_Goals_HomeTeam = comparison.HomeAway.Average_SH_Conceded_Goals_HomeTeam,
+                        Average_SH_Conceded_Goals_AwayTeam = comparison.HomeAway.Average_SH_Conceded_Goals_AwayTeam,
+
                         Away_FT_05_Over = comparison.HomeAway.Away_FT_05_Over.OverridePercentage(),
                         Away_FT_15_Over = comparison.HomeAway.Away_FT_15_Over.OverridePercentage(),
                         Away_HT_05_Over = comparison.HomeAway.Away_HT_05_Over.OverridePercentage(),
@@ -141,6 +148,8 @@ namespace Core.Extensions
                         {
                             result.Average_FT_Corners_HomeTeam = comparisonOnlyDB.HomeAway.Average_FT_Corners_HomeTeam;
                             result.Average_FT_Corners_AwayTeam = comparisonOnlyDB.HomeAway.Average_FT_Corners_AwayTeam;
+                            result.Average_FT_GK_Saves_HomeTeam = comparisonOnlyDB.HomeAway.Average_FT_GK_Saves_HomeTeam;
+                            result.Average_FT_GK_Saves_AwayTeam = comparisonOnlyDB.HomeAway.Average_FT_GK_Saves_AwayTeam;
 
                             result.Is_Corner_FT_Win1 = comparisonOnlyDB.HomeAway.Is_Corner_FT_Win1.OverridePercentage();
                             result.Is_Corner_FT_X = comparisonOnlyDB.HomeAway.Is_Corner_FT_X.OverridePercentage();
@@ -180,6 +189,13 @@ namespace Core.Extensions
                         Average_HT_Goals_AwayTeam = comparison.General.Average_HT_Goals_AwayTeam,
                         Average_SH_Goals_HomeTeam = comparison.General.Average_SH_Goals_HomeTeam,
                         Average_SH_Goals_AwayTeam = comparison.General.Average_SH_Goals_AwayTeam,
+
+                        Average_FT_Conceded_Goals_HomeTeam = comparison.General.Average_FT_Conceded_Goals_HomeTeam,
+                        Average_FT_Conceded_Goals_AwayTeam = comparison.General.Average_FT_Conceded_Goals_AwayTeam,
+                        Average_HT_Conceded_Goals_HomeTeam = comparison.General.Average_HT_Conceded_Goals_HomeTeam,
+                        Average_HT_Conceded_Goals_AwayTeam = comparison.General.Average_HT_Conceded_Goals_AwayTeam,
+                        Average_SH_Conceded_Goals_HomeTeam = comparison.General.Average_SH_Conceded_Goals_HomeTeam,
+                        Average_SH_Conceded_Goals_AwayTeam = comparison.General.Average_SH_Conceded_Goals_AwayTeam,
 
                         Away_FT_05_Over = comparison.General.Away_FT_05_Over.OverridePercentage(),
                         Away_FT_15_Over = comparison.General.Away_FT_15_Over.OverridePercentage(),
@@ -230,6 +246,8 @@ namespace Core.Extensions
 
                             result.Average_FT_Corners_HomeTeam = comparisonOnlyDB.General.Average_FT_Corners_HomeTeam;
                             result.Average_FT_Corners_AwayTeam = comparisonOnlyDB.General.Average_FT_Corners_AwayTeam;
+                            result.Average_FT_GK_Saves_HomeTeam = comparisonOnlyDB.General.Average_FT_GK_Saves_HomeTeam;
+                            result.Average_FT_GK_Saves_AwayTeam = comparisonOnlyDB.General.Average_FT_GK_Saves_AwayTeam;
 
                             result.Is_Corner_FT_Win1 = comparisonOnlyDB.General.Is_Corner_FT_Win1.OverridePercentage();
                             result.Is_Corner_FT_X = comparisonOnlyDB.General.Is_Corner_FT_X.OverridePercentage();
@@ -450,6 +468,11 @@ namespace Core.Extensions
                         Average_SH_Goals_Team = homePerformance.HomeAway.Average_SH_Goals_HomeTeam,
                         Average_FT_Corners_Team = homePerformance.HomeAway.Average_FT_Corners_HomeTeam,
 
+                        Average_HT_Conceded_Goals_Team = homePerformance.HomeAway.Average_HT_Conceded_Goals_HomeTeam,
+                        Average_FT_Conceded_Goals_Team = homePerformance.HomeAway.Average_FT_Conceded_Goals_HomeTeam,
+                        Average_SH_Conceded_Goals_Team = homePerformance.HomeAway.Average_SH_Conceded_Goals_HomeTeam,
+                        Average_FT_GK_Saves_Team = homePerformance.HomeAway.Average_FT_GK_Saves_HomeTeam,
+
                         Team_FT_05_Over = homePerformance.HomeAway.Home_FT_05_Over.OverridePercentage(),
                         Team_FT_15_Over = homePerformance.HomeAway.Home_FT_15_Over.OverridePercentage(),
                         Team_HT_05_Over = homePerformance.HomeAway.Home_HT_05_Over.OverridePercentage(),
@@ -510,6 +533,11 @@ namespace Core.Extensions
                         Average_HT_Goals_Team = homePerformance.General.Average_HT_Goals_HomeTeam,
                         Average_SH_Goals_Team = homePerformance.General.Average_SH_Goals_HomeTeam,
                         Average_FT_Corners_Team = homePerformance.General.Average_FT_Corners_HomeTeam,
+
+                        Average_HT_Conceded_Goals_Team = homePerformance.General.Average_HT_Conceded_Goals_HomeTeam,
+                        Average_FT_Conceded_Goals_Team = homePerformance.General.Average_FT_Conceded_Goals_HomeTeam,
+                        Average_SH_Conceded_Goals_Team = homePerformance.General.Average_SH_Conceded_Goals_HomeTeam,
+                        Average_FT_GK_Saves_Team = homePerformance.General.Average_FT_GK_Saves_HomeTeam,
 
                         Team_FT_05_Over = homePerformance.General.Home_FT_05_Over.OverridePercentage(),
                         Team_FT_15_Over = homePerformance.General.Home_FT_15_Over.OverridePercentage(),
@@ -589,6 +617,11 @@ namespace Core.Extensions
                         Average_SH_Goals_Team = awayPerformance.HomeAway.Average_SH_Goals_AwayTeam,
                         Average_FT_Corners_Team = awayPerformance.HomeAway.Average_FT_Corners_AwayTeam,
 
+                        Average_HT_Conceded_Goals_Team = awayPerformance.HomeAway.Average_HT_Conceded_Goals_AwayTeam,
+                        Average_FT_Conceded_Goals_Team = awayPerformance.HomeAway.Average_FT_Conceded_Goals_AwayTeam,
+                        Average_SH_Conceded_Goals_Team = awayPerformance.HomeAway.Average_SH_Conceded_Goals_AwayTeam,
+                        Average_FT_GK_Saves_Team = awayPerformance.HomeAway.Average_FT_GK_Saves_AwayTeam,
+
                         Team_FT_05_Over = awayPerformance.HomeAway.Away_FT_05_Over.OverridePercentage(),
                         Team_FT_15_Over = awayPerformance.HomeAway.Away_FT_15_Over.OverridePercentage(),
                         Team_HT_05_Over = awayPerformance.HomeAway.Away_HT_05_Over.OverridePercentage(),
@@ -650,6 +683,11 @@ namespace Core.Extensions
                         Average_HT_Goals_Team = awayPerformance.General.Average_HT_Goals_AwayTeam,
                         Average_SH_Goals_Team = awayPerformance.General.Average_SH_Goals_AwayTeam,
                         Average_FT_Corners_Team = awayPerformance.General.Average_FT_Corners_AwayTeam,
+
+                        Average_HT_Conceded_Goals_Team = awayPerformance.General.Average_HT_Conceded_Goals_AwayTeam,
+                        Average_FT_Conceded_Goals_Team = awayPerformance.General.Average_FT_Conceded_Goals_AwayTeam,
+                        Average_SH_Conceded_Goals_Team = awayPerformance.General.Average_SH_Conceded_Goals_AwayTeam,
+                        Average_FT_GK_Saves_Team = awayPerformance.General.Average_FT_GK_Saves_AwayTeam,
 
                         Team_FT_05_Over = awayPerformance.General.Away_FT_05_Over.OverridePercentage(),
                         Team_FT_15_Over = awayPerformance.General.Away_FT_15_Over.OverridePercentage(),
@@ -794,6 +832,12 @@ namespace Core.Extensions
                 Average_HT_Goals_HomeTeam = Math.Round(input.Average_HT_Goals_HomeTeam, 2),
                 Average_SH_Goals_AwayTeam = Math.Round(input.Average_SH_Goals_AwayTeam, 2),
                 Average_SH_Goals_HomeTeam = Math.Round(input.Average_SH_Goals_HomeTeam, 2),
+                Average_HT_Conceded_Goals_AwayTeam = Math.Round(input.Average_HT_Conceded_Goals_AwayTeam, 2),
+                Average_HT_Conceded_Goals_HomeTeam = Math.Round(input.Average_HT_Conceded_Goals_HomeTeam, 2),
+                Average_SH_Conceded_Goals_AwayTeam = Math.Round(input.Average_SH_Conceded_Goals_AwayTeam, 2),
+                Average_SH_Conceded_Goals_HomeTeam = Math.Round(input.Average_SH_Conceded_Goals_HomeTeam, 2),
+                Average_FT_Conceded_Goals_AwayTeam = Math.Round(input.Average_FT_Conceded_Goals_AwayTeam, 2),
+                Average_FT_Conceded_Goals_HomeTeam = Math.Round(input.Average_FT_Conceded_Goals_HomeTeam, 2),
                 Away_FT_05_Over_Percent = input.Away_FT_05_Over,
                 Away_FT_15_Over_Percent = input.Away_FT_15_Over,
                 Away_HT_05_Over_Percent = input.Away_HT_05_Over,
@@ -840,6 +884,9 @@ namespace Core.Extensions
                 Team_Average_FT_Goals = Math.Round(input.Average_FT_Goals_Team, 2),
                 Team_Average_HT_Goals = Math.Round(input.Average_HT_Goals_Team, 2),
                 Team_Average_SH_Goals = Math.Round(input.Average_SH_Goals_Team, 2),
+                Team_Average_FT_Conceded_Goals = Math.Round(input.Average_FT_Conceded_Goals_Team, 2),
+                Team_Average_HT_Conceded_Goals = Math.Round(input.Average_HT_Conceded_Goals_Team, 2),
+                Team_Average_SH_Conceded_Goals = Math.Round(input.Average_SH_Conceded_Goals_Team, 2),
                 Team_FT_05_Over_Percent = input.Team_FT_05_Over,
                 Team_FT_15_Over_Percent = input.Team_FT_15_Over,
                 Team_HT_05_Over_Percent = input.Team_HT_05_Over,
@@ -863,11 +910,20 @@ namespace Core.Extensions
                 HT_Draw_Percent = input.Is_HT_X,
                 SH_Win_Percent = input.Is_SH_Win,
                 SH_Draw_Percent = input.Is_SH_X,
-                MoreMatchInfoDetails = input.Average_FT_Shut_Team >= 0 && input.Team_Possesion >= 1 ? new PerformanceAiMoreDetailsHolder
+                MoreMatchInfoDetails = input.Average_FT_Shut_Team >= 0 && input.Team_Possesion >= 1 && input.Average_FT_ShutOnTarget_Team >= 0 && input.Average_FT_Corners_Team >= 0 ? new PerformanceAiMoreDetailsHolder
                 {
                     Team_Average_BallPossesion_Percent = input.Team_Possesion,
                     Team_Average_FT_Shot = Math.Round(input.Average_FT_Shut_Team, 2),
-                    Team_Average_FT_ShotOnTarget = Math.Round(input.Average_FT_ShutOnTarget_Team, 2)
+                    Team_Average_FT_ShotOnTarget = Math.Round(input.Average_FT_ShutOnTarget_Team, 2),
+                    Team_Average_FT_GK_Saves = Math.Round(input.Average_FT_GK_Saves_Team, 2),
+                    FT_Corner_75_Over_Percent = input.Corner_7_5_Over,
+                    FT_Corner_85_Over_Percent = input.Corner_8_5_Over,
+                    FT_Corner_95_Over_Percent = input.Corner_9_5_Over,
+                    FT_Corner_Win_Percent = input.Is_Corner_FT_Win,
+                    FT_Corner_Draw_Percent = input.Is_Corner_FT_X,
+                    Team_Average_FT_Corners = input.Average_FT_Corners_Team,
+                    Team_FT_Corner_35_Over_Percent = input.Corner_Team_3_5_Over,
+                    Team_FT_Corner_45_Over_Percent = input.Corner_Team_4_5_Over
                 } : null
             };
         }

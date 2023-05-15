@@ -9,6 +9,10 @@ namespace Core.Entities.Concrete.ExternalDbEntities
             Average_FT_Goals_Team = -1;
             Average_HT_Goals_Team = -1;
             Average_SH_Goals_Team = -1;
+            Average_FT_Conceded_Goals_Team = -1;
+            Average_HT_Conceded_Goals_Team = -1;
+            Average_SH_Conceded_Goals_Team = -1;
+            Average_FT_GK_Saves_Team = -1;
             Average_FT_Corners_Team = -1;
             Average_FT_Corners_Team = -1;
             Average_FT_Shut_Team = -1;
@@ -57,6 +61,13 @@ namespace Core.Entities.Concrete.ExternalDbEntities
         public decimal Average_HT_Goals_Team { get; set; }
         public decimal Average_SH_Goals_Team { get; set; }
         public decimal Average_FT_Corners_Team { get; set; }
+
+        public decimal Average_FT_Conceded_Goals_Team { get; set; }
+        public decimal Average_HT_Conceded_Goals_Team { get; set; }
+        public decimal Average_SH_Conceded_Goals_Team { get; set; }
+
+        public decimal Average_FT_GK_Saves_Team { get; set; }
+
 
         public decimal Average_FT_Shut_Team { get; set; }
         public decimal Average_FT_ShutOnTarget_Team { get; set; }

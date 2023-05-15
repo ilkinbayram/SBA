@@ -28,17 +28,17 @@ namespace Core.Utilities.UsableModel.BaseModels
         private int _awayPossesionCount;
         private bool _hasPossesion;
 
-        public BaseComparerContainerModel(string serial, 
-                                          string unchangableHomeTeam, 
-                                          string unchangableAwayTeam, 
-                                          string homeTeam, 
-                                          string awayTeam, 
-                                          string countryName, 
+        public BaseComparerContainerModel(string serial,
+                                          string unchangableHomeTeam,
+                                          string unchangableAwayTeam,
+                                          string homeTeam,
+                                          string awayTeam,
+                                          string countryName,
                                           int hT_Goals_HomeTeam,
-                                          int hT_Goals_AwayTeam, 
-                                          string leagueName, 
-                                          int fT_Goals_HomeTeam, 
-                                          int fT_Goals_AwayTeam, 
+                                          int hT_Goals_AwayTeam,
+                                          string leagueName,
+                                          int fT_Goals_HomeTeam,
+                                          int fT_Goals_AwayTeam,
                                           int homeCornersCount,
                                           int awayCornersCount,
                                           bool hasCorner,
@@ -211,6 +211,8 @@ namespace Core.Utilities.UsableModel.BaseModels
 
         public int SH_Goals_HomeTeam => Calculate_SH_Goals_Home();
         public int SH_Goals_AwayTeam => Calculate_SH_Goals_Away();
+
+
 
         public bool Corner_Home_3_5_Over => HomeCornersCount > 3;
         public bool Corner_Home_4_5_Over => HomeCornersCount > 4;
@@ -416,6 +418,60 @@ namespace Core.Utilities.UsableModel.BaseModels
         public bool Is_SH_X => SH_Result == 9;
         public bool Is_SH_Win2 => SH_Result == 2;
 
+        public int HT_Conceded_Goals_HomeTeam
+        {
+            get => Calculate_HT_HomeConcededGoals();
+            set => HT_Conceded_Goals_HomeTeam = value;
+        }
+
+        public int HT_Conceded_Goals_AwayTeam
+        {
+            get => Calculate_HT_AwayConcededGoals();
+            set => HT_Conceded_Goals_AwayTeam = value;
+        }
+
+        public int SH_Conceded_Goals_HomeTeam
+        {
+            get => Calculate_SH_HomeConcededGoals();
+            set => SH_Conceded_Goals_HomeTeam = value;
+        }
+
+        public int SH_Conceded_Goals_AwayTeam
+        {
+            get => Calculate_SH_AwayConcededGoals();
+            set => SH_Conceded_Goals_AwayTeam = value;
+        }
+        public int FT_Conceded_Goals_HomeTeam
+        {
+            get => Calculate_FT_HomeConcededGoals();
+            set => FT_Conceded_Goals_HomeTeam = value;
+        }
+
+        public int FT_Conceded_Goals_AwayTeam
+        {
+            get => Calculate_FT_AwayConcededGoals();
+            set => FT_Conceded_Goals_AwayTeam = value;
+        }
+
+
+        public int FT_GK_Saves_HomeTeam
+        {
+            get => Calculate_Home_GK_Saves();
+            set => FT_GK_Saves_HomeTeam = value;
+        }
+        public int FT_GK_Saves_AwayTeam
+        {
+            get => Calculate_Away_GK_Saves();
+            set => FT_GK_Saves_AwayTeam = value;
+        }
+
+        public bool HasGK_Saves
+        {
+            get => FT_GK_Saves_AwayTeam >= 0 && FT_GK_Saves_AwayTeam >= 0;
+            set => HasGK_Saves = value;
+        }
+
+
         public int Calculate_SH_Goals_Away()
         {
             return FT_Goals_AwayTeam - HT_Goals_AwayTeam;
@@ -424,6 +480,57 @@ namespace Core.Utilities.UsableModel.BaseModels
         public int Calculate_SH_Goals_Home()
         {
             return FT_Goals_HomeTeam - HT_Goals_HomeTeam;
+        }
+
+        public int Calculate_HT_HomeConcededGoals()
+        {
+            return HT_Goals_AwayTeam;
+        }
+
+        public int Calculate_HT_AwayConcededGoals()
+        {
+            return HT_Goals_HomeTeam;
+        }
+
+        public int Calculate_SH_HomeConcededGoals()
+        {
+            return SH_Goals_AwayTeam;
+        }
+
+        public int Calculate_SH_AwayConcededGoals()
+        {
+            return SH_Goals_HomeTeam;
+        }
+
+        public int Calculate_FT_HomeConcededGoals()
+        {
+            return FT_Goals_AwayTeam;
+        }
+
+        public int Calculate_FT_AwayConcededGoals()
+        {
+            return FT_Goals_HomeTeam;
+        }
+
+        public bool CheckHasGK_Saves()
+        {
+            return HasShut && HasShutOnTarget;
+        }
+
+        public int Calculate_Home_GK_Saves()
+        {
+            if (CheckHasGK_Saves())
+                return AwayShutOnTargetCount - FT_Goals_AwayTeam;
+
+            return -9999;
+        }
+
+        public int Calculate_Away_GK_Saves()
+        {
+            if (CheckHasGK_Saves())
+                return HomeShutOnTargetCount - FT_Goals_HomeTeam;
+
+            return -9999;
         }
     }
 }

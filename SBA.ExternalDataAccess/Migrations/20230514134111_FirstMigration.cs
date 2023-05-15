@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SBA.ExternalDataAccess.Migrations
 {
-    public partial class ExternalAiFirst : Migration
+    public partial class FirstMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,8 +18,8 @@ namespace SBA.ExternalDataAccess.Migrations
                     Serial = table.Column<int>(type: "int", nullable: false),
                     DataType = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     JsonTextContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 7, 18, 47, 30, 59, DateTimeKind.Local).AddTicks(7924)),
-                    ModifiedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 7, 18, 47, 30, 59, DateTimeKind.Local).AddTicks(8088)),
+                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 14, 17, 41, 5, 793, DateTimeKind.Local).AddTicks(9754)),
+                    ModifiedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 14, 17, 41, 5, 793, DateTimeKind.Local).AddTicks(9887)),
                     CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, defaultValue: "System.Admin"),
                     ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, defaultValue: "System.Admin")
                 },
@@ -37,7 +37,7 @@ namespace SBA.ExternalDataAccess.Migrations
                     CountFound = table.Column<int>(type: "int", nullable: false),
                     CountryName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     LeagueName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
-                    DateOfAnalyse = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 7, 0, 0, 0, 0, DateTimeKind.Local)),
+                    DateOfAnalyse = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 14, 0, 0, 0, 0, DateTimeKind.Local)),
                     FT_GoalsAverage = table.Column<decimal>(type: "decimal(7,2)", precision: 7, scale: 2, nullable: false),
                     HT_GoalsAverage = table.Column<decimal>(type: "decimal(7,2)", precision: 7, scale: 2, nullable: false),
                     SH_GoalsAverage = table.Column<decimal>(type: "decimal(7,2)", precision: 7, scale: 2, nullable: false),
@@ -49,8 +49,8 @@ namespace SBA.ExternalDataAccess.Migrations
                     HT_Over15_Percentage = table.Column<int>(type: "int", nullable: false),
                     SH_Over05_Percentage = table.Column<int>(type: "int", nullable: false),
                     SH_Over15_Percentage = table.Column<int>(type: "int", nullable: false),
-                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 7, 18, 47, 30, 55, DateTimeKind.Local).AddTicks(2382)),
-                    ModifiedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 7, 18, 47, 30, 55, DateTimeKind.Local).AddTicks(2551)),
+                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 14, 17, 41, 5, 790, DateTimeKind.Local).AddTicks(2160)),
+                    ModifiedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 14, 17, 41, 5, 790, DateTimeKind.Local).AddTicks(2294)),
                     CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, defaultValue: "System.Admin"),
                     ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, defaultValue: "System.Admin")
                 },
@@ -68,9 +68,9 @@ namespace SBA.ExternalDataAccess.Migrations
                     Serial = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     HomeTeam = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     AwayTeam = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    MatchDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 7, 0, 0, 0, 0, DateTimeKind.Local)),
-                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 7, 18, 47, 30, 55, DateTimeKind.Local).AddTicks(4907)),
-                    ModifiedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 7, 18, 47, 30, 55, DateTimeKind.Local).AddTicks(5052)),
+                    MatchDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 14, 0, 0, 0, 0, DateTimeKind.Local)),
+                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 14, 17, 41, 5, 790, DateTimeKind.Local).AddTicks(5616)),
+                    ModifiedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 14, 17, 41, 5, 790, DateTimeKind.Local).AddTicks(5813)),
                     CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, defaultValue: "System.Admin"),
                     ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, defaultValue: "System.Admin")
                 },
@@ -262,8 +262,8 @@ namespace SBA.ExternalDataAccess.Migrations
                     Goals23 = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Goals45 = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Goals6 = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 7, 18, 47, 30, 55, DateTimeKind.Local).AddTicks(7620)),
-                    ModifiedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 7, 18, 47, 30, 55, DateTimeKind.Local).AddTicks(7864)),
+                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 14, 17, 41, 5, 790, DateTimeKind.Local).AddTicks(9026)),
+                    ModifiedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 14, 17, 41, 5, 790, DateTimeKind.Local).AddTicks(9232)),
                     CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, defaultValue: "System.Admin"),
                     ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, defaultValue: "System.Admin")
                 },
@@ -363,8 +363,8 @@ namespace SBA.ExternalDataAccess.Migrations
                     Away_Win_Any_Half = table.Column<int>(type: "int", nullable: false),
                     MatchIdentifierId = table.Column<int>(type: "int", nullable: false),
                     UniqueIdentity = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 7, 18, 47, 30, 54, DateTimeKind.Local).AddTicks(7797)),
-                    ModifiedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 7, 18, 47, 30, 54, DateTimeKind.Local).AddTicks(8024)),
+                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 14, 17, 41, 5, 789, DateTimeKind.Local).AddTicks(6611)),
+                    ModifiedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 14, 17, 41, 5, 789, DateTimeKind.Local).AddTicks(7031)),
                     CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, defaultValue: "System.Admin"),
                     ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, defaultValue: "System.Admin")
                 },
@@ -393,6 +393,14 @@ namespace SBA.ExternalDataAccess.Migrations
                     Average_HT_Goals_AwayTeam = table.Column<decimal>(type: "decimal(7,2)", precision: 7, scale: 2, nullable: false),
                     Average_SH_Goals_HomeTeam = table.Column<decimal>(type: "decimal(7,2)", precision: 7, scale: 2, nullable: false),
                     Average_SH_Goals_AwayTeam = table.Column<decimal>(type: "decimal(7,2)", precision: 7, scale: 2, nullable: false),
+                    Average_FT_Conceded_Goals_HomeTeam = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Average_FT_Conceded_Goals_AwayTeam = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Average_HT_Conceded_Goals_HomeTeam = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Average_HT_Conceded_Goals_AwayTeam = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Average_SH_Conceded_Goals_HomeTeam = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Average_SH_Conceded_Goals_AwayTeam = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Average_FT_GK_Saves_HomeTeam = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Average_FT_GK_Saves_AwayTeam = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Average_FT_Corners_HomeTeam = table.Column<decimal>(type: "decimal(7,2)", precision: 7, scale: 2, nullable: false),
                     Average_FT_Corners_AwayTeam = table.Column<decimal>(type: "decimal(7,2)", precision: 7, scale: 2, nullable: false),
                     Average_FT_Shut_HomeTeam = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
@@ -448,8 +456,8 @@ namespace SBA.ExternalDataAccess.Migrations
                     Away_Win_Any_Half = table.Column<int>(type: "int", nullable: false),
                     MatchIdentifierId = table.Column<int>(type: "int", nullable: false),
                     UniqueIdentity = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 7, 18, 47, 30, 53, DateTimeKind.Local).AddTicks(5212)),
-                    ModifiedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 7, 18, 47, 30, 53, DateTimeKind.Local).AddTicks(5485)),
+                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 14, 17, 41, 5, 787, DateTimeKind.Local).AddTicks(8191)),
+                    ModifiedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 14, 17, 41, 5, 787, DateTimeKind.Local).AddTicks(8846)),
                     CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, defaultValue: "System.Admin"),
                     ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, defaultValue: "System.Admin")
                 },
@@ -477,6 +485,10 @@ namespace SBA.ExternalDataAccess.Migrations
                     Average_HT_Goals_Team = table.Column<decimal>(type: "decimal(7,2)", precision: 7, scale: 2, nullable: false),
                     Average_SH_Goals_Team = table.Column<decimal>(type: "decimal(7,2)", precision: 7, scale: 2, nullable: false),
                     Average_FT_Corners_Team = table.Column<decimal>(type: "decimal(7,2)", precision: 7, scale: 2, nullable: false),
+                    Average_FT_Conceded_Goals_Team = table.Column<decimal>(type: "decimal(7,2)", precision: 7, scale: 2, nullable: false),
+                    Average_HT_Conceded_Goals_Team = table.Column<decimal>(type: "decimal(7,2)", precision: 7, scale: 2, nullable: false),
+                    Average_SH_Conceded_Goals_Team = table.Column<decimal>(type: "decimal(7,2)", precision: 7, scale: 2, nullable: false),
+                    Average_FT_GK_Saves_Team = table.Column<decimal>(type: "decimal(7,2)", precision: 7, scale: 2, nullable: false),
                     Average_FT_Shut_Team = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Average_FT_ShutOnTarget_Team = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Team_Possesion = table.Column<int>(type: "int", nullable: false),
@@ -513,8 +525,8 @@ namespace SBA.ExternalDataAccess.Migrations
                     Team_Win_Any_Half = table.Column<int>(type: "int", nullable: false),
                     MatchIdentifierId = table.Column<int>(type: "int", nullable: false),
                     UniqueIdentity = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 7, 18, 47, 30, 54, DateTimeKind.Local).AddTicks(2783)),
-                    ModifiedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 7, 18, 47, 30, 54, DateTimeKind.Local).AddTicks(2974)),
+                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 14, 17, 41, 5, 788, DateTimeKind.Local).AddTicks(9593)),
+                    ModifiedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 14, 17, 41, 5, 789, DateTimeKind.Local).AddTicks(116)),
                     CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, defaultValue: "System.Admin"),
                     ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, defaultValue: "System.Admin")
                 },
@@ -529,6 +541,32 @@ namespace SBA.ExternalDataAccess.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Forecasts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Key = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsSuccess = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
+                    IsChecked = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
+                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 14, 17, 41, 5, 794, DateTimeKind.Local).AddTicks(1992)),
+                    ModifiedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 5, 14, 17, 41, 5, 794, DateTimeKind.Local).AddTicks(2170)),
+                    CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, defaultValue: "System.Admin"),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, defaultValue: "System.Admin"),
+                    MatchIdentifierId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Forecasts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Forecasts_MatchIdentifiers_MatchIdentifierId",
+                        column: x => x.MatchIdentifierId,
+                        principalTable: "MatchIdentifiers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AverageStatisticsHolders_LeagueStaisticsHolderId",
                 table: "AverageStatisticsHolders",
@@ -538,6 +576,11 @@ namespace SBA.ExternalDataAccess.Migrations
                 name: "IX_ComparisonStatisticsHolders_LeagueStaisticsHolderId",
                 table: "ComparisonStatisticsHolders",
                 column: "LeagueStaisticsHolderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Forecasts_MatchIdentifierId",
+                table: "Forecasts",
+                column: "MatchIdentifierId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MatchIdentifiers_Serial",
@@ -563,7 +606,7 @@ namespace SBA.ExternalDataAccess.Migrations
                 name: "ComparisonStatisticsHolders");
 
             migrationBuilder.DropTable(
-                name: "MatchIdentifiers");
+                name: "Forecasts");
 
             migrationBuilder.DropTable(
                 name: "MatchOddsHolders");
@@ -573,6 +616,9 @@ namespace SBA.ExternalDataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "TeamPerformanceStatisticsHolders");
+
+            migrationBuilder.DropTable(
+                name: "MatchIdentifiers");
 
             migrationBuilder.DropTable(
                 name: "LeagueStatisticsHolders");

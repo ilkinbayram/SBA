@@ -22,7 +22,11 @@ namespace SBA.ExternalDataAccess.Concrete.EntityFramework.Configurations
             builder.Property(x => x.Average_FT_Goals_Team).HasPrecision(7, 2);
             builder.Property(x => x.Average_HT_Goals_Team).HasPrecision(7, 2);
             builder.Property(x => x.Average_SH_Goals_Team).HasPrecision(7, 2);
+            builder.Property(x => x.Average_FT_Conceded_Goals_Team).HasPrecision(7, 2);
+            builder.Property(x => x.Average_HT_Conceded_Goals_Team).HasPrecision(7, 2);
+            builder.Property(x => x.Average_SH_Conceded_Goals_Team).HasPrecision(7, 2);
             builder.Property(x => x.Average_FT_Corners_Team).HasPrecision(7, 2);
+            builder.Property(x => x.Average_FT_GK_Saves_Team).HasPrecision(7, 2);
 
             builder.HasOne(p => p.LeagueStatisticsHolder).WithMany(x => x.TeamPerformanceStatisticsHolders).HasForeignKey(x => x.LeagueStaisticsHolderId);
         }

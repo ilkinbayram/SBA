@@ -59,16 +59,29 @@ namespace Core.Utilities.Helpers
             {
                 var reversed = new T
                 {
-                    AwayTeam = item.HomeTeam,
-                    HomeTeam = item.AwayTeam,
-                    FT_Goals_AwayTeam = item.FT_Goals_HomeTeam,
-                    FT_Goals_HomeTeam = item.FT_Goals_AwayTeam,
-                    HT_Goals_AwayTeam = item.HT_Goals_HomeTeam,
-                    HT_Goals_HomeTeam = item.HT_Goals_AwayTeam,
-                    Serial = item.Serial,
-                    UnchangableAwayTeam = item.UnchangableAwayTeam,
-                    UnchangableHomeTeam = item.UnchangableHomeTeam
                 };
+
+                reversed.AwayTeam = item.HomeTeam;
+                reversed.HomeTeam = item.AwayTeam;
+                reversed.FT_Goals_AwayTeam = item.FT_Goals_HomeTeam;
+                reversed.FT_Goals_HomeTeam = item.FT_Goals_AwayTeam;
+                reversed.HT_Goals_AwayTeam = item.HT_Goals_HomeTeam;
+                reversed.HT_Goals_HomeTeam = item.HT_Goals_AwayTeam;
+                reversed.Serial = item.Serial;
+                reversed.UnchangableAwayTeam = item.UnchangableAwayTeam;
+                reversed.UnchangableHomeTeam = item.UnchangableHomeTeam;
+                reversed.AwayCornersCount = item.HomeCornersCount;
+                reversed.AwayPossesionCount = item.HomePossesionCount;
+                reversed.AwayShutCount = item.HomeShutCount;
+                reversed.AwayShutOnTargetCount = item.HomeShutOnTargetCount;
+                reversed.HomeCornersCount = item.AwayCornersCount;
+                reversed.HomePossesionCount = item.AwayPossesionCount;
+                reversed.HomeShutCount = item.AwayShutCount;
+                reversed.HomeShutOnTargetCount= item.AwayShutOnTargetCount;
+                reversed.HasCorner = item.HasCorner;
+                reversed.HasPossesion = item.HasPossesion;
+                reversed.HasShut = item.HasShut;
+                reversed.HasShutOnTarget = item.HasShutOnTarget;
 
                 result.Add(reversed);
             }

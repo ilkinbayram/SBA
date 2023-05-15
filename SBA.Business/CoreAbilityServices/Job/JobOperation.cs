@@ -383,7 +383,8 @@ namespace SBA.Business.CoreAbilityServices.Job
 
                 if (leagueHolder != null)
                 {
-                    bool ggResult = CheckFT_GG_222(item, item.ComparisonInfoContainer.Away, leagueHolder); // +
+                    bool ggResult = CheckFT_GG(item, item.ComparisonInfoContainer.Away, leagueHolder); // +
+                    bool overResult = CheckFT25Over(item, contentString, leagueHolder, ggResult);
 
                     var match = new ResultModel
                     {
@@ -391,12 +392,12 @@ namespace SBA.Business.CoreAbilityServices.Job
                         Country = countryName,
                         League = leagueName,
                         Match = $"{item.ComparisonInfoContainer.Home} - {item.ComparisonInfoContainer.Away}",
-                        IsHT_Win1 = CheckHT_Win1_222(item, contentString, leagueHolder, true),
-                        IsHT_Win2 = CheckHT_Win2_222(item, contentString, leagueHolder, true),
-                        IsSH_Win1 = CheckSH_Win1_222(item, contentString, leagueHolder, true),
-                        IsSH_Win2 = CheckSH_Win2_222(item, contentString, leagueHolder, true),
-                        IsFT_15Over = CheckFT15Over_222(item, contentString, leagueHolder, ggResult),
-                        IsFT_25Over = CheckFT25Over_222(item, contentString, leagueHolder, ggResult),
+                        IsHT_Win1 = CheckHT_Win1(item, contentString, leagueHolder, true),
+                        IsHT_Win2 = CheckHT_Win2(item, contentString, leagueHolder, true),
+                        IsSH_Win1 = CheckSH_Win1(item, contentString, leagueHolder, true),
+                        IsSH_Win2 = CheckSH_Win2(item, contentString, leagueHolder, true),
+                        IsFT_15Over = CheckFT15Over(item, contentString, leagueHolder, ggResult, overResult),
+                        IsFT_25Over = overResult,
                         IsFT_GG = ggResult,
                         AnalyseModel = item
                     };
@@ -413,24 +414,35 @@ namespace SBA.Business.CoreAbilityServices.Job
                 var aiStatisticsModel = _aiDataHolderService.Get(x => x.Serial == serial).Data;
 
                 var aiAnalyseModel = JsonConvert.DeserializeObject<AiAnalyseModel>(aiStatisticsModel.JsonTextContent);
+
+                if (aiAnalyseModel == null)
+                    continue;
+
                 aiAnalyseModel.AwayTeamPerformanceMatches = null;
                 aiAnalyseModel.HomeTeamPerformanceMatches = null;
                 aiAnalyseModel.ComparisonDataes = null;
-                aiAnalyseModel.StatisticPercentageModel.General_H2H_Comparison_Statistics_ByLast_10_Matches = null;
-                aiAnalyseModel.StatisticPercentageModel.General_Form_Performance_Statistics_By_Last_10_Matches_Of_HomeTeam = null;
-                aiAnalyseModel.StatisticPercentageModel.General_Form_Performance_Statistics_By_Last_10_Matches_Of_AwayTeam = null;
 
-                if (aiAnalyseModel == null) 
-                    continue;
+                if (aiAnalyseModel.StatisticPercentageModel != null)
+                {
+                    aiAnalyseModel.StatisticPercentageModel.General_Form_Performance_Statistics_By_Last_10_Matches_Of_HomeTeam = null;
+                    aiAnalyseModel.StatisticPercentageModel.General_Form_Performance_Statistics_By_Last_10_Matches_Of_AwayTeam = null;
+                    aiAnalyseModel.StatisticPercentageModel.General_H2H_Comparison_Statistics_ByLast_10_Matches = null;
+                }
+
+                var serializerOptions = new JsonSerializerSettings
+                {
+                    Formatting = Formatting.None,
+                    NullValueHandling = NullValueHandling.Ignore
+                };
+
+                string statisticsData = JsonConvert.SerializeObject(aiAnalyseModel, serializerOptions);
 
                 var forecastCollection = new List<Forecast>();
-
-                string statisticsData = aiAnalyseModel.SerializeSpecial();
 
                 if (bet.IsHT_Win1)
                 {
                     var aiResponse = Task.Run(() => _chatGPTService.CheckForecastAsync(statisticsData, "HT_Win_1_FC".TranslateResource(2))).Result;
-                    if (aiResponse.ToLower().Contains("TRUE200"))
+                    if (aiResponse.ToUpper().Contains("TRUE200"))
                     {
                         forecastCollection.Add(new Forecast("HT_Win_1", match));
                     }
@@ -439,7 +451,7 @@ namespace SBA.Business.CoreAbilityServices.Job
                 if (bet.IsHT_Win2)
                 {
                     var aiResponse = Task.Run(() => _chatGPTService.CheckForecastAsync(statisticsData, "HT_Win_2_FC".TranslateResource(2))).Result;
-                    if (aiResponse.ToLower().Contains("TRUE200"))
+                    if (aiResponse.ToUpper().Contains("TRUE200"))
                     {
                         forecastCollection.Add(new Forecast("HT_Win_2", match));
                     }
@@ -448,7 +460,7 @@ namespace SBA.Business.CoreAbilityServices.Job
                 if (bet.IsSH_Win1)
                 {
                     string aiResponse = Task.Run(() => _chatGPTService.CheckForecastAsync(statisticsData, "FT_15_O_FC".TranslateResource(2))).Result;
-                    if (aiResponse.ToLower().Contains("TRUE200"))
+                    if (aiResponse.ToUpper().Contains("TRUE200"))
                     {
                         forecastCollection.Add(new Forecast("SH_Win_1", match));
                     }
@@ -457,7 +469,7 @@ namespace SBA.Business.CoreAbilityServices.Job
                 if (bet.IsSH_Win2)
                 {
                     var aiResponse = Task.Run(() => _chatGPTService.CheckForecastAsync(statisticsData, "SH_Win_2_FC".TranslateResource(2))).Result;
-                    if (aiResponse.ToLower().Contains("TRUE200"))
+                    if (aiResponse.ToUpper().Contains("TRUE200"))
                     {
                         forecastCollection.Add(new Forecast("SH_Win_2", match));
                     }
@@ -466,7 +478,7 @@ namespace SBA.Business.CoreAbilityServices.Job
                 if (bet.IsFT_15Over)
                 {
                     var aiResponse = Task.Run(() => _chatGPTService.CheckForecastAsync(statisticsData, "FT_15_O_FC".TranslateResource(2))).Result;
-                    if (aiResponse.ToLower().Contains("TRUE200"))
+                    if (aiResponse.ToUpper().Contains("TRUE200"))
                     {
                         forecastCollection.Add(new Forecast("FT_15_O", match));
                     }
@@ -475,7 +487,7 @@ namespace SBA.Business.CoreAbilityServices.Job
                 if (bet.IsFT_25Over)
                 {
                     var aiResponse = Task.Run(() => _chatGPTService.CheckForecastAsync(statisticsData, "FT_25_O_FC".TranslateResource(2))).Result;
-                    if (aiResponse.ToLower().Contains("TRUE200"))
+                    if (aiResponse.ToUpper().Contains("TRUE200"))
                     {
                         forecastCollection.Add(new Forecast("FT_25_O", match));
                     }
@@ -484,13 +496,16 @@ namespace SBA.Business.CoreAbilityServices.Job
                 if (bet.IsFT_GG)
                 {
                     var aiResponse = Task.Run(() => _chatGPTService.CheckForecastAsync(statisticsData, "FT_GG_FC".TranslateResource(2))).Result;
-                    if (aiResponse.ToLower().Contains("TRUE200"))
+                    if (aiResponse.ToUpper().Contains("TRUE200"))
                     {
                         forecastCollection.Add(new Forecast("FT_GG", match));
                     }
                 }
 
-                _forecastService.AddRange(forecastCollection);
+                if (forecastCollection.Count > 0)
+                {
+                    _forecastService.AddRange(forecastCollection);
+                }
             }
 
             //foreach (var bet in responsesBet)
@@ -672,15 +687,55 @@ namespace SBA.Business.CoreAbilityServices.Job
             {
                 if (ggResult)
                 {
-                    bool homeForce = item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Goals_HomeTeam >= (decimal)2 &&
-                                     item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Conceded_Goals_AwayTeam >= (decimal)2;
-                    bool awayForce = item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Goals_AwayTeam >= (decimal)2 &&
-                                     item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Conceded_Goals_HomeTeam >= (decimal)2;
+                    bool avgGoalCount = item.AverageProfilerHomeAway.Average_FT_Goals_HomeTeam > (decimal)1.6 && item.AverageProfilerHomeAway.Average_FT_Goals_AwayTeam > (decimal)1.6;
 
-                    if (homeForce || awayForce)
+                    bool avgGoalConcededHome = item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Goals_HomeTeam > (decimal)1.6 && item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Conceded_Goals_HomeTeam > (decimal)1.6;
+
+                    bool avgGoalConcededAway = item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Goals_AwayTeam > (decimal)1.6 && item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Conceded_Goals_AwayTeam > (decimal)1.6;
+
+                    bool fiftyPercentUp = item.AverageProfilerHomeAway.FT_25_Over.Percentage > 55 && item.AverageProfilerHomeAway.FT_GG.FeatureName.ToLower() == "true" && item.HomeTeam_FormPerformanceGuessContainer.HomeAway.FT_25_Over.Percentage > 55 && item.HomeTeam_FormPerformanceGuessContainer.HomeAway.FT_25_Over.FeatureName.ToLower() == "true" && item.AwayTeam_FormPerformanceGuessContainer.HomeAway.FT_25_Over.Percentage > 55 && item.AwayTeam_FormPerformanceGuessContainer.HomeAway.FT_25_Over.FeatureName.ToLower() == "true";
+
+                    bool comparison = item.ComparisonInfoContainer.HomeAway.FT_25_Over.Percentage > 55 && item.ComparisonInfoContainer.HomeAway.FT_25_Over.FeatureName.ToLower() == "true";
+
+                    bool leagueStat = leagueHolder.Over_2_5_Percentage > 54 && leagueHolder.GoalsAverage > (decimal)2.7;
+
+                    result = avgGoalCount && avgGoalConcededHome && avgGoalConcededAway && fiftyPercentUp && comparison && leagueStat;
+                }
+                else
+                {
+                    bool avgGoalCount = item.AverageProfilerHomeAway.Average_FT_Goals_HomeTeam >= (decimal)2.75;
+                    bool avgGoalCountAway = item.AverageProfilerHomeAway.Average_FT_Goals_AwayTeam >= (decimal)2.75;
+
+                    bool ifContiditionResult = false;
+
+                    if (avgGoalCount)
                     {
-                        result = true;
+                        bool avgGoalConcededAway = item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Conceded_Goals_AwayTeam > (decimal)2.75;
+
+                        bool fiftyPercentUp = item.AverageProfilerHomeAway.FT_25_Over.Percentage > 55 && item.AverageProfilerHomeAway.FT_GG.FeatureName.ToLower() == "true" && item.HomeTeam_FormPerformanceGuessContainer.HomeAway.FT_25_Over.Percentage > 55 && item.HomeTeam_FormPerformanceGuessContainer.HomeAway.FT_25_Over.FeatureName.ToLower() == "true" && item.AwayTeam_FormPerformanceGuessContainer.HomeAway.FT_25_Over.Percentage > 55 && item.AwayTeam_FormPerformanceGuessContainer.HomeAway.FT_25_Over.FeatureName.ToLower() == "true";
+
+                        bool comparison = item.ComparisonInfoContainer.HomeAway.FT_25_Over.Percentage > 55 && item.ComparisonInfoContainer.HomeAway.FT_25_Over.FeatureName.ToLower() == "true";
+
+                        ifContiditionResult = avgGoalConcededAway && fiftyPercentUp && comparison;
                     }
+                    else if(avgGoalCountAway)
+                    {
+                        bool avgGoalConcededHome = item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Conceded_Goals_HomeTeam > (decimal)2.75;
+
+                        bool fiftyPercentUp = item.AverageProfilerHomeAway.FT_25_Over.Percentage > 55 && item.AverageProfilerHomeAway.FT_GG.FeatureName.ToLower() == "true" && item.HomeTeam_FormPerformanceGuessContainer.HomeAway.FT_25_Over.Percentage > 55 && item.HomeTeam_FormPerformanceGuessContainer.HomeAway.FT_25_Over.FeatureName.ToLower() == "true" && item.AwayTeam_FormPerformanceGuessContainer.HomeAway.FT_25_Over.Percentage > 55 && item.AwayTeam_FormPerformanceGuessContainer.HomeAway.FT_25_Over.FeatureName.ToLower() == "true";
+
+                        bool comparison = item.ComparisonInfoContainer.HomeAway.FT_25_Over.Percentage > 55 && item.ComparisonInfoContainer.HomeAway.FT_25_Over.FeatureName.ToLower() == "true";
+
+                        ifContiditionResult = fiftyPercentUp && fiftyPercentUp && comparison;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                    bool leagueStat = leagueHolder.Over_2_5_Percentage > 54 && leagueHolder.GoalsAverage > (decimal)2.7;
+
+                    result = ifContiditionResult && leagueStat;
                 }
 
                 return result;
@@ -856,14 +911,14 @@ namespace SBA.Business.CoreAbilityServices.Job
             }
         }
 
-        private bool CheckFT15Over(JobAnalyseModel item, string contentString, LeagueHolder leagueHolder, bool ggResult)
+        private bool CheckFT15Over(JobAnalyseModel item, string contentString, LeagueHolder leagueHolder, bool ggResult, bool overResult)
         {
-            bool result = ggResult;
+            bool result = ggResult || overResult;
             if (result) return result;
 
             try
             {
-                bool isValidImportant = leagueHolder.Over_1_5_Percentage >= 75 && leagueHolder.GoalsAverage >= (decimal)2.70;
+                bool isValidImportant = leagueHolder.Over_1_5_Percentage >= 75 && leagueHolder.GoalsAverage >= (decimal)2.50;
 
                 if (!isValidImportant) return isValidImportant;
 
@@ -871,12 +926,10 @@ namespace SBA.Business.CoreAbilityServices.Job
 
                 bool isValid =
                 item.AverageProfilerHomeAway.FT_15_Over.Percentage >= indicatorOver &&
-                item.AverageProfilerHomeAway.FT_15_Over.FeatureName.ToLower() == "true" &&
-                item.AverageProfiler.FT_15_Over.Percentage >= indicatorOver &&
-                item.AverageProfiler.FT_15_Over.FeatureName.ToLower() == "true";
+                item.AverageProfilerHomeAway.FT_15_Over.FeatureName.ToLower() == "true";
 
-                bool goalAndLeftGoal = item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Goals_HomeTeam >= (decimal)1.6 && item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_HT_Conceded_Goals_AwayTeam >= (decimal)1.6 &&
-                    item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Goals_AwayTeam >= (decimal)1.6 && item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_HT_Conceded_Goals_HomeTeam >= (decimal)1.6;
+                bool goalAndLeftGoal = item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Goals_HomeTeam >= (decimal)1.3 && item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_HT_Conceded_Goals_AwayTeam >= (decimal)1.3 &&
+                    item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Goals_AwayTeam >= (decimal)1.3 && item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_HT_Conceded_Goals_HomeTeam >= (decimal)1.3;
 
                 result = isValid && goalAndLeftGoal;
 
@@ -1322,31 +1375,53 @@ namespace SBA.Business.CoreAbilityServices.Job
 
         private bool CheckFT_GG(JobAnalyseModel item, string contentString, LeagueHolder leagueHolder)
         {
-            bool result = false;
-
             try
             {
-                bool isValidImportant = false;
+                //bool isValidImportant = false;
 
-                bool isHomeGoalPerf = false;
-                bool isAwayGoalPerf = false;
+                //bool isHomeGoalPerf = false;
+                //bool isAwayGoalPerf = false;
 
-                isValidImportant = leagueHolder.GoalsAverage >= (decimal)2.8 && leagueHolder.GG_Percentage >= 60;
-                isHomeGoalPerf = item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Goals_HomeTeam >= (decimal)1.8;
-                isHomeGoalPerf = item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Goals_AwayTeam >= (decimal)1.8;
+                //isValidImportant = leagueHolder.GoalsAverage >= (decimal)2.8 && leagueHolder.GG_Percentage >= 60;
+                //isHomeGoalPerf = item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Goals_HomeTeam >= (decimal)1.8;
+                //isHomeGoalPerf = item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Goals_AwayTeam >= (decimal)1.8;
 
-                if (!isValidImportant) return result;
+                //if (!isValidImportant) return result;
 
-                bool isValid =
-                    item.AverageProfilerHomeAway.FT_GG.Percentage > leagueHolder.GG_Percentage &&
-                    item.AverageProfilerHomeAway.FT_GG.FeatureName.ToLower() == "true";
+                //bool isValid =
+                //    item.AverageProfilerHomeAway.FT_GG.Percentage > leagueHolder.GG_Percentage &&
+                //    item.AverageProfilerHomeAway.FT_GG.FeatureName.ToLower() == "true";
 
-                bool ggForceHome = item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Conceded_Goals_AwayTeam >= (decimal)1.7;
-                bool ggForceAway = item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Conceded_Goals_HomeTeam >= (decimal)1.7;
+                //bool ggForceHome = item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Conceded_Goals_AwayTeam >= (decimal)1.7;
+                //bool ggForceAway = item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Conceded_Goals_HomeTeam >= (decimal)1.7;
 
-                result = isValid && isHomeGoalPerf && isAwayGoalPerf && ggForceHome && ggForceAway;
+                //result = isValid && isHomeGoalPerf && isAwayGoalPerf && ggForceHome && ggForceAway;
 
-                return result;
+                bool avgGoalCount = item.AverageProfilerHomeAway.Average_FT_Goals_HomeTeam > (decimal)1.2 && item.AverageProfilerHomeAway.Average_FT_Goals_AwayTeam > (decimal)1.2;
+
+                bool avgGoalConcededHome = item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Goals_HomeTeam > (decimal)1.2 && item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Conceded_Goals_HomeTeam > (decimal)1.2;
+
+                bool avgGoalConcededAway = item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Goals_AwayTeam > (decimal)1.2 && item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Conceded_Goals_AwayTeam > (decimal)1.2;
+
+                bool fiftyPercentUp = item.AverageProfilerHomeAway.FT_GG.Percentage > 50 && item.AverageProfilerHomeAway.FT_GG.FeatureName.ToLower() == "true" && item.HomeTeam_FormPerformanceGuessContainer.HomeAway.FT_GG.Percentage > 50 && item.HomeTeam_FormPerformanceGuessContainer.HomeAway.FT_GG.FeatureName.ToLower() == "true" && item.AwayTeam_FormPerformanceGuessContainer.HomeAway.FT_GG.Percentage > 50 && item.AwayTeam_FormPerformanceGuessContainer.HomeAway.FT_GG.FeatureName.ToLower() == "true";
+
+                bool firstHalfAverage = item.AverageProfilerHomeAway.Average_HT_Goals_HomeTeam > (decimal)0.5 && item.AverageProfilerHomeAway.Average_HT_Goals_AwayTeam > (decimal)0.5;
+
+                bool firstHalfHome = item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_HT_Goals_HomeTeam > (decimal)0.5 && item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_HT_Conceded_Goals_HomeTeam > (decimal)0.5;
+
+                bool firstHalfAway = item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_HT_Goals_AwayTeam > (decimal)0.5 && item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_HT_Conceded_Goals_AwayTeam > (decimal)0.5;
+
+                bool secondHalfAverage = item.AverageProfilerHomeAway.Average_SH_Goals_HomeTeam > (decimal)0.5 && item.AverageProfilerHomeAway.Average_SH_Goals_AwayTeam > (decimal)0.5;
+
+                bool secondHalfHome = item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_SH_Goals_HomeTeam > (decimal)0.5 && item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_SH_Conceded_Goals_HomeTeam > (decimal)0.5;
+
+                bool secondHalfAway = item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_SH_Goals_AwayTeam > (decimal)0.5 && item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_SH_Conceded_Goals_AwayTeam > (decimal)0.5;
+
+                bool comparison = item.ComparisonInfoContainer.HomeAway.FT_GG.Percentage > 55 && item.ComparisonInfoContainer.HomeAway.FT_GG.FeatureName.ToLower() == "true";
+
+                bool leagueStat = leagueHolder.GG_Percentage > 54 && leagueHolder.GoalsAverage > (decimal)2.6;
+
+                return avgGoalCount && avgGoalConcededHome && avgGoalConcededAway && fiftyPercentUp && firstHalfAverage && firstHalfHome && firstHalfAway && secondHalfAverage && secondHalfHome && secondHalfAway && comparison && leagueStat;
             }
             catch (Exception ex)
             {
@@ -1537,31 +1612,48 @@ namespace SBA.Business.CoreAbilityServices.Job
 
             try
             {
-                bool isValidHomeAway =
-                item.AverageProfilerHomeAway.Is_HT_Win1.Percentage > 65 &&
+                bool isValidCompact =
+                item.AverageProfilerHomeAway.Is_HT_Win1.Percentage > 55 &&
                 item.AverageProfilerHomeAway.Is_HT_Win1.FeatureName.ToLower() == "true" &&
-                item.AverageProfilerHomeAway.Is_HT_X.Percentage > 65 &&
-                item.AverageProfilerHomeAway.Is_HT_X.FeatureName.ToLower() == "false" &&
-                item.AverageProfilerHomeAway.Is_HT_Win2.Percentage > 65 &&
-                item.AverageProfilerHomeAway.Is_HT_Win2.FeatureName.ToLower() == "false";
+                item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Is_HT_Win1.Percentage > 53 &&
+                item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Is_HT_Win1.FeatureName.ToLower() == "true" &&
+                item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Is_HT_Win1.Percentage > 53 &&
+                item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Is_HT_Win1.FeatureName.ToLower() == "true";
 
-                bool forceHtHome = ((item.AverageProfilerHomeAway.Average_HT_Goals_HomeTeam + (decimal)0.01) / (item.AverageProfilerHomeAway.Average_HT_Goals_AwayTeam + (decimal)0.01)) >= (decimal)2.00;
+                bool isValidHome = item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_HT_Goals_HomeTeam > (decimal)1;
 
-                if (!isValidHomeAway || !forceHtHome)
-                    return result;
+                bool isValidAway = item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_HT_Conceded_Goals_AwayTeam > (decimal)1;
 
-                if (hasMoreDetails)
-                {
-                    forceHtHome = item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_HT_Goals_HomeTeam >= (decimal)0.75 &&
-                                   item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_ShotOnTarget_AwayTeam / (decimal)1.75 < item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_GK_Saves_HomeTeam / 2 &&
-                                   item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_ShotOnTarget_HomeTeam / (decimal)2 >
-                                   item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_GK_Saves_AwayTeam / (decimal)1.75 &&
-                                   item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_HT_Conceded_Goals_AwayTeam >= (decimal)0.75;
-                }
+                bool isHomeWinning = item.AverageProfilerHomeAway.Is_FT_Win1.Percentage > 60 && item.AverageProfilerHomeAway.Is_FT_Win1.FeatureName.ToLower() == "true";
 
-                result = forceHtHome;
+                return isValidCompact && isValidHome && isValidAway && isHomeWinning;
 
-                return result;
+
+                //bool isValidHomeAway =
+                //item.AverageProfilerHomeAway.Is_HT_Win1.Percentage > 65 &&
+                //item.AverageProfilerHomeAway.Is_HT_Win1.FeatureName.ToLower() == "true" &&
+                //item.AverageProfilerHomeAway.Is_HT_X.Percentage > 65 &&
+                //item.AverageProfilerHomeAway.Is_HT_X.FeatureName.ToLower() == "false" &&
+                //item.AverageProfilerHomeAway.Is_HT_Win2.Percentage > 65 &&
+                //item.AverageProfilerHomeAway.Is_HT_Win2.FeatureName.ToLower() == "false";
+
+                //bool forceHtHome = ((item.AverageProfilerHomeAway.Average_HT_Goals_HomeTeam + (decimal)0.01) / (item.AverageProfilerHomeAway.Average_HT_Goals_AwayTeam + (decimal)0.01)) >= (decimal)2.00;
+
+                //if (!isValidHomeAway || !forceHtHome)
+                //    return result;
+
+                //if (hasMoreDetails)
+                //{
+                //    forceHtHome = item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_HT_Goals_HomeTeam >= (decimal)0.75 &&
+                //                   item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_ShotOnTarget_AwayTeam / (decimal)1.75 < item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_GK_Saves_HomeTeam / 2 &&
+                //                   item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_ShotOnTarget_HomeTeam / (decimal)2 >
+                //                   item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_GK_Saves_AwayTeam / (decimal)1.75 &&
+                //                   item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_HT_Conceded_Goals_AwayTeam >= (decimal)0.75;
+                //}
+
+                //result = forceHtHome;
+
+                //return result;
             }
             catch (Exception ex)
             {
@@ -1596,30 +1688,46 @@ namespace SBA.Business.CoreAbilityServices.Job
 
             try
             {
-                bool isValidHomeAway =
-                item.AverageProfilerHomeAway.Is_HT_Win2.Percentage >= 66 &&
+                bool isValidCompact =
+                item.AverageProfilerHomeAway.Is_HT_Win2.Percentage > 55 &&
                 item.AverageProfilerHomeAway.Is_HT_Win2.FeatureName.ToLower() == "true" &&
-                item.AverageProfilerHomeAway.Is_HT_X.Percentage >= 66 &&
-                item.AverageProfilerHomeAway.Is_HT_X.FeatureName.ToLower() == "false" &&
-                item.AverageProfilerHomeAway.Is_HT_Win1.Percentage >= 66 &&
-                item.AverageProfilerHomeAway.Is_HT_Win1.FeatureName.ToLower() == "false";
+                item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Is_HT_Win2.Percentage > 53 &&
+                item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Is_HT_Win2.FeatureName.ToLower() == "true" &&
+                item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Is_HT_Win2.Percentage > 53 &&
+                item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Is_HT_Win2.FeatureName.ToLower() == "true";
 
-                bool forceHtAway = ((item.AverageProfilerHomeAway.Average_HT_Goals_AwayTeam + (decimal)0.01) / (item.AverageProfilerHomeAway.Average_HT_Goals_HomeTeam + (decimal)0.01)) >= (decimal)2.00;
+                bool isValidHome = item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_HT_Goals_AwayTeam > (decimal)1;
 
-                if (!isValidHomeAway || !forceHtAway)
-                    return result;
+                bool isValidAway = item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_HT_Conceded_Goals_HomeTeam > (decimal)1;
 
-                if (hasMoreDetails)
-                {
-                    forceHtAway = item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_HT_Goals_AwayTeam >= (decimal)0.75 &&
-                                   item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_ShotOnTarget_HomeTeam / (decimal)1.75 < item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_GK_Saves_AwayTeam / 2 &&
-                                   item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_ShotOnTarget_AwayTeam / (decimal)2 >
-                                   item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_GK_Saves_HomeTeam / (decimal)1.75 &&
-                                   item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_HT_Conceded_Goals_HomeTeam >= (decimal)0.75;
-                }
-                result = forceHtAway;
+                bool isHomeWinning = item.AverageProfilerHomeAway.Is_FT_Win2.Percentage > 60 && item.AverageProfilerHomeAway.Is_FT_Win2.FeatureName.ToLower() == "true";
 
-                return result;
+                return isValidCompact && isValidHome && isValidAway && isHomeWinning;
+
+                //bool isValidHomeAway =
+                //item.AverageProfilerHomeAway.Is_HT_Win2.Percentage >= 66 &&
+                //item.AverageProfilerHomeAway.Is_HT_Win2.FeatureName.ToLower() == "true" &&
+                //item.AverageProfilerHomeAway.Is_HT_X.Percentage >= 66 &&
+                //item.AverageProfilerHomeAway.Is_HT_X.FeatureName.ToLower() == "false" &&
+                //item.AverageProfilerHomeAway.Is_HT_Win1.Percentage >= 66 &&
+                //item.AverageProfilerHomeAway.Is_HT_Win1.FeatureName.ToLower() == "false";
+
+                //bool forceHtAway = ((item.AverageProfilerHomeAway.Average_HT_Goals_AwayTeam + (decimal)0.01) / (item.AverageProfilerHomeAway.Average_HT_Goals_HomeTeam + (decimal)0.01)) >= (decimal)2.00;
+
+                //if (!isValidHomeAway || !forceHtAway)
+                //    return result;
+
+                //if (hasMoreDetails)
+                //{
+                //    forceHtAway = item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_HT_Goals_AwayTeam >= (decimal)0.75 &&
+                //                   item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_ShotOnTarget_HomeTeam / (decimal)1.75 < item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_GK_Saves_AwayTeam / 2 &&
+                //                   item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_ShotOnTarget_AwayTeam / (decimal)2 >
+                //                   item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_GK_Saves_HomeTeam / (decimal)1.75 &&
+                //                   item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_HT_Conceded_Goals_HomeTeam >= (decimal)0.75;
+                //}
+                //result = forceHtAway;
+
+                //return result;
             }
             catch (Exception ex)
             {
@@ -1654,31 +1762,47 @@ namespace SBA.Business.CoreAbilityServices.Job
 
             try
             {
-                bool isValidHomeAway =
-                item.AverageProfilerHomeAway.Is_SH_Win1.Percentage > 65 &&
+                bool isValidCompact =
+                item.AverageProfilerHomeAway.Is_SH_Win1.Percentage > 55 &&
                 item.AverageProfilerHomeAway.Is_SH_Win1.FeatureName.ToLower() == "true" &&
-                item.AverageProfilerHomeAway.Is_SH_X.Percentage > 65 &&
-                item.AverageProfilerHomeAway.Is_SH_X.FeatureName.ToLower() == "false" &&
-                item.AverageProfilerHomeAway.Is_SH_Win2.Percentage > 65 &&
-                item.AverageProfilerHomeAway.Is_SH_Win2.FeatureName.ToLower() == "false";
+                item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Is_SH_Win1.Percentage > 53 &&
+                item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Is_SH_Win1.FeatureName.ToLower() == "true" &&
+                item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Is_SH_Win1.Percentage > 53 &&
+                item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Is_SH_Win1.FeatureName.ToLower() == "true";
 
-                bool forceShHome = ((item.AverageProfilerHomeAway.Average_SH_Goals_HomeTeam + (decimal)0.01) / (item.AverageProfilerHomeAway.Average_SH_Goals_AwayTeam + (decimal)0.01)) >= (decimal)2.00;
+                bool isValidHome = item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_SH_Goals_HomeTeam > (decimal)1;
 
-                if (!isValidHomeAway || !forceShHome)
-                    return result;
+                bool isValidAway = item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_SH_Conceded_Goals_AwayTeam > (decimal)1;
 
-                if (hasMoreDetails)
-                {
-                    forceShHome = item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_SH_Goals_HomeTeam >= (decimal)1 &&
-                                   item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_ShotOnTarget_AwayTeam / (decimal)1.65 < item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_GK_Saves_HomeTeam / 2 &&
-                                   item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_ShotOnTarget_HomeTeam / (decimal)2 >
-                                   item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_GK_Saves_AwayTeam / (decimal)1.75 &&
-                                   item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_SH_Conceded_Goals_AwayTeam >= (decimal)1;
-                }
+                bool isHomeWinning = item.AverageProfilerHomeAway.Is_FT_Win1.Percentage > 60 && item.AverageProfilerHomeAway.Is_FT_Win1.FeatureName.ToLower() == "true";
 
-                result = forceShHome;
+                return isValidCompact && isValidHome && isValidAway && isHomeWinning;
 
-                return result;
+                //bool isValidHomeAway =
+                //item.AverageProfilerHomeAway.Is_SH_Win1.Percentage > 65 &&
+                //item.AverageProfilerHomeAway.Is_SH_Win1.FeatureName.ToLower() == "true" &&
+                //item.AverageProfilerHomeAway.Is_SH_X.Percentage > 65 &&
+                //item.AverageProfilerHomeAway.Is_SH_X.FeatureName.ToLower() == "false" &&
+                //item.AverageProfilerHomeAway.Is_SH_Win2.Percentage > 65 &&
+                //item.AverageProfilerHomeAway.Is_SH_Win2.FeatureName.ToLower() == "false";
+
+                //bool forceShHome = ((item.AverageProfilerHomeAway.Average_SH_Goals_HomeTeam + (decimal)0.01) / (item.AverageProfilerHomeAway.Average_SH_Goals_AwayTeam + (decimal)0.01)) >= (decimal)2.00;
+
+                //if (!isValidHomeAway || !forceShHome)
+                //    return result;
+
+                //if (hasMoreDetails)
+                //{
+                //    forceShHome = item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_SH_Goals_HomeTeam >= (decimal)1 &&
+                //                   item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_ShotOnTarget_AwayTeam / (decimal)1.65 < item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_GK_Saves_HomeTeam / 2 &&
+                //                   item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_ShotOnTarget_HomeTeam / (decimal)2 >
+                //                   item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_GK_Saves_AwayTeam / (decimal)1.75 &&
+                //                   item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_SH_Conceded_Goals_AwayTeam >= (decimal)1;
+                //}
+
+                //result = forceShHome;
+
+                //return result;
             }
             catch (Exception ex)
             {
@@ -1713,30 +1837,46 @@ namespace SBA.Business.CoreAbilityServices.Job
 
             try
             {
-                bool isValidHomeAway =
-                item.AverageProfilerHomeAway.Is_SH_Win2.Percentage >= 66 &&
+                bool isValidCompact =
+                item.AverageProfilerHomeAway.Is_SH_Win2.Percentage > 55 &&
                 item.AverageProfilerHomeAway.Is_SH_Win2.FeatureName.ToLower() == "true" &&
-                item.AverageProfilerHomeAway.Is_SH_X.Percentage >= 66 &&
-                item.AverageProfilerHomeAway.Is_SH_X.FeatureName.ToLower() == "false" &&
-                item.AverageProfilerHomeAway.Is_SH_Win1.Percentage >= 66 &&
-                item.AverageProfilerHomeAway.Is_SH_Win1.FeatureName.ToLower() == "false";
+                item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Is_SH_Win2.Percentage > 53 &&
+                item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Is_SH_Win2.FeatureName.ToLower() == "true" &&
+                item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Is_SH_Win2.Percentage > 53 &&
+                item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Is_SH_Win2.FeatureName.ToLower() == "true";
 
-                bool forceShAway = ((item.AverageProfilerHomeAway.Average_SH_Goals_AwayTeam + (decimal)0.01) / (item.AverageProfilerHomeAway.Average_SH_Goals_HomeTeam + (decimal)0.01)) >= (decimal)2.00;
+                bool isValidHome = item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_SH_Goals_AwayTeam > (decimal)1;
 
-                if (!isValidHomeAway || !forceShAway)
-                    return result;
+                bool isValidAway = item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_SH_Conceded_Goals_HomeTeam > (decimal)1;
 
-                if (hasMoreDetails)
-                {
-                    forceShAway = item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_SH_Goals_AwayTeam >= (decimal)0.75 &&
-                                   item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_ShotOnTarget_HomeTeam / (decimal)1.75 < item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_GK_Saves_AwayTeam / 2 &&
-                                   item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_ShotOnTarget_AwayTeam / (decimal)2 >
-                                   item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_GK_Saves_HomeTeam / (decimal)1.75 &&
-                                   item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_SH_Conceded_Goals_HomeTeam >= (decimal)0.75;
-                }
-                result = forceShAway;
+                bool isHomeWinning = item.AverageProfilerHomeAway.Is_FT_Win2.Percentage > 60 && item.AverageProfilerHomeAway.Is_FT_Win2.FeatureName.ToLower() == "true";
 
-                return result;
+                return isValidCompact && isValidHome && isValidAway && isHomeWinning;
+
+                //bool isValidHomeAway =
+                //item.AverageProfilerHomeAway.Is_SH_Win2.Percentage >= 66 &&
+                //item.AverageProfilerHomeAway.Is_SH_Win2.FeatureName.ToLower() == "true" &&
+                //item.AverageProfilerHomeAway.Is_SH_X.Percentage >= 66 &&
+                //item.AverageProfilerHomeAway.Is_SH_X.FeatureName.ToLower() == "false" &&
+                //item.AverageProfilerHomeAway.Is_SH_Win1.Percentage >= 66 &&
+                //item.AverageProfilerHomeAway.Is_SH_Win1.FeatureName.ToLower() == "false";
+
+                //bool forceShAway = ((item.AverageProfilerHomeAway.Average_SH_Goals_AwayTeam + (decimal)0.01) / (item.AverageProfilerHomeAway.Average_SH_Goals_HomeTeam + (decimal)0.01)) >= (decimal)2.00;
+
+                //if (!isValidHomeAway || !forceShAway)
+                //    return result;
+
+                //if (hasMoreDetails)
+                //{
+                //    forceShAway = item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_SH_Goals_AwayTeam >= (decimal)0.75 &&
+                //                   item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_ShotOnTarget_HomeTeam / (decimal)1.75 < item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_GK_Saves_AwayTeam / 2 &&
+                //                   item.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_ShotOnTarget_AwayTeam / (decimal)2 >
+                //                   item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_GK_Saves_HomeTeam / (decimal)1.75 &&
+                //                   item.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_SH_Conceded_Goals_HomeTeam >= (decimal)0.75;
+                //}
+                //result = forceShAway;
+
+                //return result;
             }
             catch (Exception ex)
             {

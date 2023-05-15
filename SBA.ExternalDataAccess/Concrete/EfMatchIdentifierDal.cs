@@ -82,7 +82,7 @@ namespace SBA.ExternalDataAccess.Concrete
         {
             var result = await (from mid in Context.MatchIdentifiers
                           join cmpHA in Context.ComparisonStatisticsHolders on mid.Id equals cmpHA.MatchIdentifierId
-                          where cmpHA.BySideType == 1 && mid.MatchDateTime.Date == DateTime.Now.Date
+                          where cmpHA.BySideType == 1 // && mid.MatchDateTime.Date == DateTime.Now.Date
                           join lg in Context.LeagueStatisticsHolders on cmpHA.LeagueStaisticsHolderId equals lg.Id
                           select new MatchDetail
                           {

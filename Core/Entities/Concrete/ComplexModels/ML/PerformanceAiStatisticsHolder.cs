@@ -5,6 +5,9 @@
         public decimal Team_Average_FT_Goals { get; set; }
         public decimal Team_Average_HT_Goals { get; set; }
         public decimal Team_Average_SH_Goals { get; set; }
+        public decimal Team_Average_FT_Conceded_Goals { get; set; }
+        public decimal Team_Average_HT_Conceded_Goals { get; set; }
+        public decimal Team_Average_SH_Conceded_Goals { get; set; }
 
         public int FT_Win_Percent { get; set; }
         public int FT_Draw_Percent { get; set; }
@@ -38,6 +41,7 @@
 
     public class PerformanceAiMoreDetailsHolder
     {
+        public decimal Team_Average_FT_GK_Saves { get; set; }
         public decimal Team_Average_FT_Shot { get; set; }
         public decimal Team_Average_FT_ShotOnTarget { get; set; }
         public decimal Team_Average_FT_Corners { get; set; }

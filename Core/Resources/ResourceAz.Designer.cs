@@ -106,7 +106,7 @@ namespace Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ON 1,5 Ü.
+        ///   Looks up a localized string similar to Oyun Nəticəsi 1,5 Üst.
         /// </summary>
         internal static string FT_15_O_FC {
             get {
@@ -124,7 +124,7 @@ namespace Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ON 2,5 Ü.
+        ///   Looks up a localized string similar to Oyun Nəticəsi 2,5 Üst.
         /// </summary>
         internal static string FT_25_O_FC {
             get {
@@ -151,7 +151,7 @@ namespace Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ON Qol-Qol.
+        ///   Looks up a localized string similar to Oyun Nəticəsi Qarşılıqlı qol var.
         /// </summary>
         internal static string FT_GG_FC {
             get {
@@ -196,7 +196,7 @@ namespace Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to BH Ev qələbə.
+        ///   Looks up a localized string similar to Birinci Hissə Ev sahibi takım qələbə.
         /// </summary>
         internal static string HT_Win_1_FC {
             get {
@@ -205,7 +205,7 @@ namespace Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to BH Səfər qələbə.
+        ///   Looks up a localized string similar to Birinci Hissə Səfər komanda qələbə.
         /// </summary>
         internal static string HT_Win_2_FC {
             get {
@@ -223,11 +223,47 @@ namespace Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Oyun Ərzində Yediyi Qol Ortalaması.
+        /// </summary>
+        internal static string Ind_Avg_Conc_Goal_FT {
+            get {
+                return ResourceManager.GetString("Ind_Avg_Conc_Goal_FT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1-ci Hissə Yediyi Qol Ortalaması.
+        /// </summary>
+        internal static string Ind_Avg_Conc_Goal_HT {
+            get {
+                return ResourceManager.GetString("Ind_Avg_Conc_Goal_HT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2-ci Hissə Yediyi Qol Ortalaması.
+        /// </summary>
+        internal static string Ind_Avg_Conc_Goal_SH {
+            get {
+                return ResourceManager.GetString("Ind_Avg_Conc_Goal_SH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Künc zərbəsi ortalaması.
         /// </summary>
         internal static string Ind_Avg_Corner_FT {
             get {
                 return ResourceManager.GetString("Ind_Avg_Corner_FT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Qapıçının Qurtarış Ortalaması.
+        /// </summary>
+        internal static string Ind_Avg_GK_Saves_FT {
+            get {
+                return ResourceManager.GetString("Ind_Avg_GK_Saves_FT", resourceCulture);
             }
         }
         
@@ -439,7 +475,7 @@ namespace Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to İH Ev qələbə.
+        ///   Looks up a localized string similar to İkinci Hissə Ev sahibi takım qələbə.
         /// </summary>
         internal static string SH_Win_1_FC {
             get {
@@ -448,7 +484,7 @@ namespace Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to İH Səfər qələbə.
+        ///   Looks up a localized string similar to İkinci Hissə Səfər takım qələbə.
         /// </summary>
         internal static string SH_Win_2_FC {
             get {
