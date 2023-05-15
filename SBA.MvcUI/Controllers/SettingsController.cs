@@ -372,5 +372,46 @@ namespace SBA.MvcUI.Controllers
 
             return Ok(204);
         }
+
+        [HttpPost("/Settings/SynchroniseDbs")]
+        public IActionResult SynchroniseDbs()
+        {
+            List<MatchBet> syncMatchBets = new List<MatchBet>();
+            List<FilterResult> syncFilterResults = new List<FilterResult>();
+
+            using (var reader = new StreamReader(jsonPathFormat.GetJsonFileByFormat("SyncFilterResult")))
+            {
+                string content = reader.ReadToEnd();
+
+                if (content.Length > 20)
+                    syncFilterResults = JsonConvert.DeserializeObject<List<FilterResult>>(content);
+            }
+
+            using (var reader = new StreamReader(jsonPathFormat.GetJsonFileByFormat("SyncMatchBet")))
+            {
+                string content = reader.ReadToEnd();
+
+                if (content.Length > 20)
+                    syncMatchBets = JsonConvert.DeserializeObject<List<MatchBet>>(content);
+            }
+
+            if (syncMatchBets.Count > 0)
+            {
+                _matchBetService.AddRange(syncMatchBets);
+                _filterResultService.AddRange(syncFilterResults);
+
+                using (var writer = new StreamWriter(jsonPathFormat.GetJsonFileByFormat("SyncFilterResult")))
+                {
+                    writer.Write(JsonConvert.SerializeObject(new List<FilterResult>()));
+                }
+
+                using (var writer = new StreamWriter(jsonPathFormat.GetJsonFileByFormat("SyncMatchBet")))
+                {
+                    writer.Write(JsonConvert.SerializeObject(new List<MatchBet>()));
+                }
+            }
+
+            return Ok(204);
+        }
     }
 }

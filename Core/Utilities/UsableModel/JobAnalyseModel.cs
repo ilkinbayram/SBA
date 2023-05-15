@@ -371,6 +371,18 @@ namespace Core.Utilities.UsableModel
                         Average_FT_Corners_HomeTeam = Calculator.GetSpecialBetAverage(
                                     this.ComparisonOnlyDB, "General|Average_FT_Corners_HomeTeam",
                                     this.HomeTeam_FormPerformanceGuessContainer.General.Average_FT_Corners_HomeTeam),
+                        Average_FT_Shot_HomeTeam = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "General|Average_FT_Shot_HomeTeam",
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.Average_FT_Shot_HomeTeam),
+                        Average_FT_ShotOnTarget_HomeTeam = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "General|Average_FT_ShotOnTarget_HomeTeam",
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.Average_FT_ShotOnTarget_HomeTeam),
+                        Average_FT_Possesion_HomeTeam = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "General|Average_FT_Possesion_HomeTeam",
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.Average_FT_Possesion_HomeTeam),
+                        Average_FT_GK_Saves_HomeTeam = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "General|Average_FT_GK_Saves_HomeTeam",
+                                    this.HomeTeam_FormPerformanceGuessContainer.General.Average_FT_GK_Saves_HomeTeam),
                         Home_HT_05_Over = Calculator.GetBetAverage(
                                     this.ComparisonInfoContainer.General.Home_HT_05_Over,
                                     this.HomeTeam_FormPerformanceGuessContainer.General.Home_HT_05_Over),
@@ -417,6 +429,18 @@ namespace Core.Utilities.UsableModel
                         Average_FT_Corners_AwayTeam = Calculator.GetSpecialBetAverage(
                                     this.ComparisonOnlyDB, "General|Average_FT_Corners_AwayTeam",
                                     this.HomeTeam_FormPerformanceGuessContainer.General.Average_FT_Corners_AwayTeam),
+                        Average_FT_Shot_AwayTeam = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "General|Average_FT_Shot_AwayTeam",
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.Average_FT_Shot_AwayTeam),
+                        Average_FT_ShotOnTarget_AwayTeam = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "General|Average_FT_ShotOnTarget_AwayTeam",
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.Average_FT_ShotOnTarget_AwayTeam),
+                        Average_FT_Possesion_AwayTeam = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "General|Average_FT_Possesion_AwayTeam",
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.Average_FT_Possesion_AwayTeam),
+                        Average_FT_GK_Saves_AwayTeam = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "General|Average_FT_GK_Saves_AwayTeam",
+                                    this.AwayTeam_FormPerformanceGuessContainer.General.Average_FT_GK_Saves_AwayTeam),
                         Away_HT_05_Over = Calculator.GetBetAverage(
                                     this.ComparisonInfoContainer.General.Away_HT_05_Over,
                                     this.AwayTeam_FormPerformanceGuessContainer.General.Away_HT_05_Over),
@@ -628,6 +652,18 @@ namespace Core.Utilities.UsableModel
                                 Calculator.GetSpecialBetAverage(
                                     this.ComparisonOnlyDB, "HomeAway|Average_FT_Corners_HomeTeam",
                                     this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Corners_HomeTeam),
+                        Average_FT_Shot_HomeTeam = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "HomeAway|Average_FT_Shot_HomeTeam",
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Shot_HomeTeam),
+                        Average_FT_ShotOnTarget_HomeTeam = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "HomeAway|Average_FT_ShotOnTarget_HomeTeam",
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_ShotOnTarget_HomeTeam),
+                        Average_FT_Possesion_HomeTeam = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "HomeAway|Average_FT_Possesion_HomeTeam",
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Possesion_HomeTeam),
+                        Average_FT_GK_Saves_HomeTeam = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "HomeAway|Average_FT_GK_Saves_HomeTeam",
+                                    this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_GK_Saves_HomeTeam),
                         Home_HT_05_Over = Calculator.GetBetAverage(
                                     this.ComparisonInfoContainer.HomeAway.Home_HT_05_Over,
                                     this.HomeTeam_FormPerformanceGuessContainer.HomeAway.Home_HT_05_Over),
@@ -675,6 +711,18 @@ namespace Core.Utilities.UsableModel
                                 Calculator.GetSpecialBetAverage(
                                     this.ComparisonOnlyDB, "HomeAway|Average_FT_Corners_AwayTeam",
                                     this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Corners_AwayTeam),
+                        Average_FT_Shot_AwayTeam = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "HomeAway|Average_FT_Shot_AwayTeam",
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Shot_AwayTeam),
+                        Average_FT_ShotOnTarget_AwayTeam = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "HomeAway|Average_FT_ShotOnTarget_AwayTeam",
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_ShotOnTarget_AwayTeam),
+                        Average_FT_Possesion_AwayTeam = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "HomeAway|Average_FT_Possesion_AwayTeam",
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_Possesion_AwayTeam),
+                        Average_FT_GK_Saves_AwayTeam = Calculator.GetSpecialBetAverage(
+                                    this.ComparisonOnlyDB, "HomeAway|Average_FT_GK_Saves_AwayTeam",
+                                    this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Average_FT_GK_Saves_AwayTeam),
                         Away_HT_05_Over = Calculator.GetBetAverage(
                                     this.ComparisonInfoContainer.HomeAway.Away_HT_05_Over,
                                     this.AwayTeam_FormPerformanceGuessContainer.HomeAway.Away_HT_05_Over),

@@ -1,5 +1,4 @@
-﻿using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
-using Core.Entities.Concrete;
+﻿using Core.Entities.Concrete;
 using Core.Entities.Concrete.Base;
 using Core.Entities.Concrete.ComplexModels.ML;
 using Core.Entities.Concrete.ExternalDbEntities;
@@ -16,7 +15,6 @@ using Newtonsoft.Json;
 using SBA.Business.Abstract;
 using SBA.Business.FunctionalServices.Concrete;
 using SBA.Business.Mapping;
-using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace SBA.Business.BusinessHelper
@@ -799,7 +797,10 @@ namespace SBA.Business.BusinessHelper
                 result.Add(new StatisticInfoHolder(input.UniqueIdentity, 50, "Ind_Poss_FT", string.Format("{0}%", input.Home_Possesion), string.Format("{0}%", input.Away_Possesion), (decimal)input.Home_Possesion / 100, (decimal)input.Away_Possesion / 100, serial, (int)StatisticType.Average, bySide));
 
                 result.Add(new StatisticInfoHolder(input.UniqueIdentity, 55, "Ind_Avg_Shut_FT", input.Average_FT_Shut_HomeTeam.ToString("0.00"), input.Average_FT_Shut_AwayTeam.ToString("0.00"), input.Average_FT_Shut_HomeTeam, input.Average_FT_Shut_AwayTeam, serial, (int)StatisticType.Average, bySide));
+
                 result.Add(new StatisticInfoHolder(input.UniqueIdentity, 60, "Ind_Avg_ShutOnTrg_FT", input.Average_FT_ShutOnTarget_HomeTeam.ToString("0.00"), input.Average_FT_ShutOnTarget_AwayTeam.ToString("0.00"), input.Average_FT_ShutOnTarget_HomeTeam, input.Average_FT_ShutOnTarget_AwayTeam, serial, (int)StatisticType.Average, bySide));
+
+                result.Add(new StatisticInfoHolder(input.UniqueIdentity, 104, "Ind_Avg_GK_Saves_FT", input.Average_FT_GK_Saves_HomeTeam.ToString("0.00"), input.Average_FT_GK_Saves_AwayTeam.ToString("0.00"), input.Average_FT_GK_Saves_HomeTeam, input.Average_FT_GK_Saves_AwayTeam, serial, (int)StatisticType.Average, bySide));
 
                 result.Add(new StatisticInfoHolder(input.UniqueIdentity, 300, "Ind_Avg_Corner_FT", input.Average_FT_Corners_HomeTeam.ToString("0.00"), input.Average_FT_Corners_AwayTeam.ToString("0.00"), input.Average_FT_Corners_HomeTeam, input.Average_FT_Corners_AwayTeam, serial, (int)StatisticType.Average, bySide));
 
@@ -923,7 +924,7 @@ namespace SBA.Business.BusinessHelper
             {
                 result.Add(new StatisticInfoHolder(inputHome.UniqueIdentity, 50, "Ind_Poss_FT", string.Format("{0}%", inputHome.Team_Possesion), string.Format("{0}%", inputAway.Team_Possesion), (decimal)inputHome.Team_Possesion / 100, (decimal)inputAway.Team_Possesion / 100, serial, (int)StatisticType.Performance, bySide));
 
-                new StatisticInfoHolder(inputHome.UniqueIdentity, 104, "Ind_Avg_GK_Saves_FT", inputHome.Average_FT_GK_Saves_Team.ToString("0.00"), inputAway.Average_FT_GK_Saves_Team.ToString("0.00"), inputHome.Average_FT_GK_Saves_Team, inputAway.Average_FT_GK_Saves_Team, serial, (int)StatisticType.Performance, bySide);
+                result.Add(new StatisticInfoHolder(inputHome.UniqueIdentity, 104, "Ind_Avg_GK_Saves_FT", inputHome.Average_FT_GK_Saves_Team.ToString("0.00"), inputAway.Average_FT_GK_Saves_Team.ToString("0.00"), inputHome.Average_FT_GK_Saves_Team, inputAway.Average_FT_GK_Saves_Team, serial, (int)StatisticType.Performance, bySide));
 
                 result.Add(new StatisticInfoHolder(inputHome.UniqueIdentity, 55, "Ind_Avg_Shut_FT", inputHome.Average_FT_Shut_Team.ToString("0.00"), inputAway.Average_FT_Shut_Team.ToString("0.00"), inputHome.Average_FT_Shut_Team, inputAway.Average_FT_Shut_Team, serial, (int)StatisticType.Performance, bySide));
                 result.Add(new StatisticInfoHolder(inputHome.UniqueIdentity, 60, "Ind_Avg_ShutOnTrg_FT", inputHome.Average_FT_ShutOnTarget_Team.ToString("0.00"), inputAway.Average_FT_ShutOnTarget_Team.ToString("0.00"), inputHome.Average_FT_ShutOnTarget_Team, inputAway.Average_FT_ShutOnTarget_Team, serial, (int)StatisticType.Performance, bySide));

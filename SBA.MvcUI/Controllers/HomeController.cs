@@ -4,6 +4,7 @@ using Core.Resources.Enums;
 using Core.Utilities.Helpers.Abstracts;
 using Core.Utilities.UsableModel;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using SBA.Business.Abstract;
 using SBA.Business.BusinessHelper;
 using SBA.Business.CoreAbilityServices.Job;
@@ -172,8 +173,41 @@ namespace SBA.MvcUI.Controllers
                 }
 
                 // OperationalProcessor.WriteObject(matchBetList, "tempMatchBet", FileType.Json);
+
+                List<MatchBet> syncMatchBets = new List<MatchBet>();
+                List<FilterResult> syncFilterResults = new List<FilterResult>();
+
+                using (var reader = new StreamReader(jsonPathFormat.GetJsonFileByFormat("SyncFilterResult")))
+                {
+                    string content = reader.ReadToEnd();
+
+                    if (content.Length > 20)
+                        syncFilterResults = JsonConvert.DeserializeObject<List<FilterResult>>(content);
+                }
+
+                using (var reader = new StreamReader(jsonPathFormat.GetJsonFileByFormat("SyncMatchBet")))
+                {
+                    string content = reader.ReadToEnd();
+
+                    if (content.Length > 20)
+                        syncMatchBets = JsonConvert.DeserializeObject<List<MatchBet>>(content);
+                }
+
+                syncMatchBets.AddRange(matchBetList);
+                syncFilterResults.AddRange(filterResultList);
+
                 _matchBetService.AddRange(matchBetList);
                 _filterResultService.AddRange(filterResultList);
+
+                using (var writer = new StreamWriter(jsonPathFormat.GetJsonFileByFormat("SyncFilterResult")))
+                {
+                    writer.Write(JsonConvert.SerializeObject(syncFilterResults));
+                }
+
+                using (var writer = new StreamWriter(jsonPathFormat.GetJsonFileByFormat("SyncMatchBet")))
+                {
+                    writer.Write(JsonConvert.SerializeObject(syncMatchBets));
+                }
             }
 
             var seconds = watch.ElapsedMilliseconds / 1000;

@@ -27,6 +27,12 @@ namespace SBA.ExternalDataAccess.Concrete.EntityFramework.Configurations
             builder.Property(x => x.Average_SH_Goals_AwayTeam).HasPrecision(7, 2);
             builder.Property(x => x.Average_FT_Corners_HomeTeam).HasPrecision(7, 2);
             builder.Property(x => x.Average_FT_Corners_AwayTeam).HasPrecision(7, 2);
+            builder.Property(x => x.Average_FT_GK_Saves_HomeTeam).HasPrecision(7, 2);
+            builder.Property(x => x.Average_FT_GK_Saves_AwayTeam).HasPrecision(7, 2);
+            builder.Property(x => x.Average_FT_ShutOnTarget_HomeTeam).HasPrecision(7, 2);
+            builder.Property(x => x.Average_FT_ShutOnTarget_AwayTeam).HasPrecision(7, 2);
+            builder.Property(x => x.Average_FT_Shut_HomeTeam).HasPrecision(7, 2);
+            builder.Property(x => x.Average_FT_Shut_AwayTeam).HasPrecision(7, 2);
 
             builder.HasOne(p => p.LeagueStatisticsHolder).WithMany(x => x.AverageStatisticsHolders).HasForeignKey(x=>x.LeagueStaisticsHolderId);
         }

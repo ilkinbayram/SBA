@@ -28,6 +28,8 @@ namespace SBA.Business.Abstract
         IDataResult<IQueryable<MatchBet>> Query(Expression<Func<MatchBet, bool>> filter = null);
         IDataResult<List<MatchBetQM>> GetMatchBetQueryModels(string countryName, string teamName, int takeCount, Expression<Func<MatchBetQM, bool>> filter = null);
 
+        IDataResult<int> SyncRange(List<MatchBet> entities);
+
         IDataResult<List<MatchBetQM>> GetMatchBetFilterResultQueryModels(Expression<Func<MatchBetQM, bool>> filter = null);
 
 

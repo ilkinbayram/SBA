@@ -43,7 +43,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<int>(-500, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<int>(-500, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -111,7 +111,7 @@ namespace Business.Concrete
         {
             try
             {
-                var response = filter == null 
+                var response = filter == null
                     ? _matchBetDal.GetMatchBetQueryModelsForPerformanceResult(countryName, teamName, takeCount).ToList()
                     : _matchBetDal.GetMatchBetQueryModelsForPerformanceResult(countryName, teamName, takeCount, filter).ToList();
 
@@ -183,7 +183,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<int>(-1, true, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<int>(-1, true, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
         public IDataResult<int> AddRange(List<MatchBet> entities)
@@ -205,7 +205,35 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<int>(-1, true, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<int>(-1, true, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+            }
+        }
+
+        public IDataResult<int> SyncRange(List<MatchBet> entities)
+        {
+            try
+            {
+                int affectedRows = 0;
+                var addingEntities = entities.Where(e => !_matchBetDal.Query().Select(x => x.SerialUniqueID).Contains(e.SerialUniqueID)).ToList();
+
+                if (addingEntities.Count > 0)
+                    affectedRows = _matchBetDal.AddRange(addingEntities);
+
+                IDataResult<int> dataResult;
+                if (affectedRows > 0)
+                {
+                    dataResult = new SuccessDataResult<int>(affectedRows, Messages.BusinessDataAdded);
+                }
+                else
+                {
+                    dataResult = new ErrorDataResult<int>(-1, false, Messages.BusinessDataWasNotAdded);
+                }
+
+                return dataResult;
+            }
+            catch (Exception exception)
+            {
+                return new ErrorDataResult<int>(-1, true, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -237,7 +265,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<int>(-1, true, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<int>(-1, true, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -263,7 +291,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<int>(-1, true, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<int>(-1, true, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -286,7 +314,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<int>(-1, true, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<int>(-1, true, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
 
         }
@@ -305,7 +333,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<List<GetMatchBetDto>>(null, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<List<GetMatchBetDto>>(null, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -319,7 +347,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<GetMatchBetDto>(null, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<GetMatchBetDto>(null, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -333,7 +361,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<IQueryable<MatchBet>>(null, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<IQueryable<MatchBet>>(null, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -359,7 +387,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<int>(-1, true, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<int>(-1, true, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -391,7 +419,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<int>(-1, true, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<int>(-1, true, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -405,7 +433,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<MatchBet>(null, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<MatchBet>(null, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -419,7 +447,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<List<MatchBet>>(null, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<List<MatchBet>>(null, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -442,7 +470,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<int>(-1, true, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<int>(-1, true, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -465,7 +493,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<int>(-1, true, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<int>(-1, true, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -488,7 +516,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<int>(-1, true, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<int>(-1, true, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -511,7 +539,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<int>(-1, true, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<int>(-1, true, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -525,7 +553,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<GetMatchBetDto>(null, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<GetMatchBetDto>(null, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -539,7 +567,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<List<GetMatchBetDto>>(null, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<List<GetMatchBetDto>>(null, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -553,7 +581,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<IQueryable<MatchBet>>(null, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<IQueryable<MatchBet>>(null, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
         #endregion

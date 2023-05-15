@@ -24,6 +24,8 @@ namespace SBA.Business.Abstract
         IDataResult<int> RemoveRange(List<FilterResult> entities);
         IDataResult<IQueryable<FilterResult>> Query(Expression<Func<FilterResult, bool>> filter = null);
 
+        IDataResult<int> SyncRange(List<FilterResult> entities);
+
         Task<IDataResult<List<GetFilterResultDto>>> GetDtoListAsync(Expression<Func<FilterResult, bool>> filter = null, int takeCount = 20000000);
         Task<IDataResult<GetFilterResultDto>> GetDtoAsync(Expression<Func<FilterResult, bool>> filter = null);
         Task<IDataResult<int>> RemoveRangeAsync(List<FilterResult> entities);

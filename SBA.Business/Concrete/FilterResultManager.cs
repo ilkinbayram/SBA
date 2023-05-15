@@ -5,6 +5,7 @@ using Core.Entities.Dtos.FilterResult;
 using Core.Utilities.Results;
 using SBA.Business.Abstract;
 using SBA.DataAccess.Abstract;
+using SBA.DataAccess.Concrete.EntityFramework;
 using System.Linq.Expressions;
 
 namespace Business.Concrete
@@ -34,7 +35,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<int>(-500, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<int>(-500, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -53,7 +54,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<int>(-500, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<int>(-500, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -160,7 +161,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<int>(-1, true, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<int>(-1, true, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
         public IDataResult<int> AddRange(List<FilterResult> filterResults)
@@ -183,7 +184,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<int>(-1, true, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<int>(-1, true, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -206,7 +207,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<int>(-1, true, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<int>(-1, true, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
 
         }
@@ -225,7 +226,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<List<GetFilterResultDto>>(null, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<List<GetFilterResultDto>>(null, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -239,7 +240,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<GetFilterResultDto>(null, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<GetFilterResultDto>(null, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -252,7 +253,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<IQueryable<FilterResult>>(null, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<IQueryable<FilterResult>>(null, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -278,7 +279,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<int>(-1, true, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<int>(-1, true, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -311,7 +312,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<int>(-1, true, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<int>(-1, true, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -325,7 +326,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<FilterResult>(null, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<FilterResult>(null, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -339,7 +340,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<List<FilterResult>>(null, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<List<FilterResult>>(null, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -362,7 +363,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<int>(-1, true, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<int>(-1, true, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -385,7 +386,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<int>(-1, true, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<int>(-1, true, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -408,7 +409,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<int>(-1, true, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<int>(-1, true, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -431,7 +432,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<int>(-1, true, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<int>(-1, true, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -445,7 +446,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<GetFilterResultDto>(null, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<GetFilterResultDto>(null, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -459,7 +460,7 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<List<GetFilterResultDto>>(null, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<List<GetFilterResultDto>>(null, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
 
@@ -472,7 +473,35 @@ namespace Business.Concrete
             }
             catch (Exception exception)
             {
-                return new ErrorDataResult<IQueryable<FilterResult>>(null, $"Exception Message: { $"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+                return new ErrorDataResult<IQueryable<FilterResult>>(null, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
+            }
+        }
+
+        public IDataResult<int> SyncRange(List<FilterResult> entities)
+        {
+            try
+            {
+                int affectedRows = 0;
+                var addingEntities = entities.Where(e => !_filterResultDal.Query().Select(x => x.SerialUniqueID).Contains(e.SerialUniqueID)).ToList();
+
+                if (addingEntities.Count > 0)
+                    affectedRows = _filterResultDal.AddRange(addingEntities);
+
+                IDataResult<int> dataResult;
+                if (affectedRows > 0)
+                {
+                    dataResult = new SuccessDataResult<int>(affectedRows, Messages.BusinessDataAdded);
+                }
+                else
+                {
+                    dataResult = new ErrorDataResult<int>(-1, false, Messages.BusinessDataWasNotAdded);
+                }
+
+                return dataResult;
+            }
+            catch (Exception exception)
+            {
+                return new ErrorDataResult<int>(-1, true, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
         #endregion

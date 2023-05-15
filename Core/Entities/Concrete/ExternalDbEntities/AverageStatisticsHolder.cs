@@ -24,6 +24,9 @@ namespace Core.Entities.Concrete.ExternalDbEntities
             Average_FT_ShutOnTarget_HomeTeam = -1;
             Average_FT_ShutOnTarget_AwayTeam = -1;
 
+            Average_FT_GK_Saves_HomeTeam = -1;
+            Average_FT_GK_Saves_AwayTeam = -1;
+
             Home_Possesion = -1;
             Away_Possesion = -1;
 
@@ -102,6 +105,8 @@ namespace Core.Entities.Concrete.ExternalDbEntities
         public decimal Average_FT_Shut_AwayTeam { get; set; }
         public decimal Average_FT_ShutOnTarget_HomeTeam { get; set; }
         public decimal Average_FT_ShutOnTarget_AwayTeam { get; set; }
+        public decimal Average_FT_GK_Saves_HomeTeam { get; set; }
+        public decimal Average_FT_GK_Saves_AwayTeam { get; set; }
         public int Home_Possesion { get; set; }
         public int Away_Possesion { get; set; }
 

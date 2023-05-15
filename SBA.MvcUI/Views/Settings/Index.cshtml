@@ -110,6 +110,13 @@
         </h5>
         <button type="button" id="updateCorners" class="btn btn-lg btn-warning">Update</button>
     </div>
+
+    <div class="col-sm-4 col-md-4">
+        <h5>
+            Synchronise Between DB~s
+        </h5>
+        <button type="button" id="syncDbs" class="btn btn-lg btn-primary">Update</button>
+    </div>
 </div>
 
 
@@ -321,6 +328,23 @@
                 $.ajax({
                     method: "post",
                     url: '/Settings/UpdateCorners'
+                }).done(function (data) {
+                    $("#spinnerContainer").html("");
+                    $(".operation-containers").show();
+                }).fail(function (data) {
+                    console.log(data);
+                    $("#spinnerContainer").html("");
+                    $(".operation-containers").show();
+                });
+            });
+
+            $("#syncDbs").click((e) => {
+                $("#spinnerContainer").html(spinnerHtml);
+                $(".operation-containers").hide();
+
+                $.ajax({
+                    method: "post",
+                    url: '/Settings/SynchroniseDbs'
                 }).done(function (data) {
                     $("#spinnerContainer").html("");
                     $(".operation-containers").show();

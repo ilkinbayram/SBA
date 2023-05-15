@@ -25,6 +25,8 @@
         public decimal Average_FT_Shot_AwayTeam { get; set; }
         public decimal Average_FT_ShotOnTarget_HomeTeam { get; set; }
         public decimal Average_FT_ShotOnTarget_AwayTeam { get; set; }
+        public decimal Average_FT_GK_Saves_HomeTeam { get; set; }
+        public decimal Average_FT_GK_Saves_AwayTeam { get; set; }
         public decimal Average_FT_Possesion_HomeTeam { get; set; }
         public decimal Average_FT_Possesion_AwayTeam { get; set; }
 

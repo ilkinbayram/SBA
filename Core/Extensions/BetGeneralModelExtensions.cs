@@ -357,6 +357,8 @@ namespace Core.Extensions
                         Average_FT_Shut_HomeTeam = averageHomeAway.Average_FT_Shot_HomeTeam,
                         Average_FT_ShutOnTarget_AwayTeam = averageHomeAway.Average_FT_ShotOnTarget_AwayTeam,
                         Average_FT_ShutOnTarget_HomeTeam = averageHomeAway.Average_FT_ShotOnTarget_HomeTeam,
+                        Average_FT_GK_Saves_HomeTeam = averageHomeAway.Average_FT_GK_Saves_HomeTeam,
+                        Average_FT_GK_Saves_AwayTeam = averageHomeAway.Average_FT_GK_Saves_AwayTeam,
                         Home_Possesion = averageHomeAway.Average_FT_Possesion_HomeTeam.ConvertFromDecimal(),
                         Away_Possesion = averageHomeAway.Average_FT_Possesion_AwayTeam.ConvertFromDecimal()
                     };
@@ -440,6 +442,8 @@ namespace Core.Extensions
                         Average_FT_Shut_HomeTeam = averageGeneral.Average_FT_Shot_HomeTeam,
                         Average_FT_ShutOnTarget_AwayTeam = averageGeneral.Average_FT_ShotOnTarget_AwayTeam,
                         Average_FT_ShutOnTarget_HomeTeam = averageGeneral.Average_FT_ShotOnTarget_HomeTeam,
+                        Average_FT_GK_Saves_HomeTeam = averageGeneral.Average_FT_GK_Saves_HomeTeam,
+                        Average_FT_GK_Saves_AwayTeam = averageGeneral.Average_FT_GK_Saves_AwayTeam,
                         Home_Possesion = averageGeneral.Average_FT_Possesion_HomeTeam.ConvertFromDecimal(),
                         Away_Possesion = averageGeneral.Average_FT_Possesion_AwayTeam.ConvertFromDecimal()
                     };
