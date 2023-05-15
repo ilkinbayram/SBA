@@ -53,6 +53,9 @@ namespace SBA.Business.DependencyResolvers.Autofac
             builder.RegisterType<ForecastManager>().As<IForecastService>();
             builder.RegisterType<EfForecastDal>().As<IForecastDal>();
 
+            builder.RegisterType<LogManager>().As<ILogService>();
+            builder.RegisterType<EfLogDal>().As<ILogDal>();
+
             builder.RegisterType<LeagueStatisticsHolderManager>().As<ILeagueStatisticsHolderService>();
             builder.RegisterType<EfLeagueStatisticsHolderDal>().As<ILeagueStatisticsHolderDal>();
 
