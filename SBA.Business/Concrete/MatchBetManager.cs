@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Business.Constants;
 using Core.Entities.Concrete;
+using Core.Entities.Concrete.ComplexModels.Sql;
 using Core.Entities.Concrete.SqlEntities.QueryModels;
 using Core.Entities.Dtos.MatchBet;
 using Core.Utilities.Results;
@@ -8,11 +9,7 @@ using Core.Utilities.UsableModel;
 using SBA.Business.Abstract;
 using SBA.Business.Mapping;
 using SBA.DataAccess.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
@@ -583,6 +580,11 @@ namespace Business.Concrete
             {
                 return new ErrorDataResult<IQueryable<MatchBet>>(null, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
+        }
+
+        public async Task<List<FilterResultMutateModel>> GetOddFilteredResultAsync(InTimeShortOddModel inTimeOdds, decimal range)
+        {
+            return await _matchBetDal.GetOddFilteredResultAsync(inTimeOdds, range);
         }
         #endregion
     }

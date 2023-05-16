@@ -1623,6 +1623,62 @@ namespace SBA.Business.FunctionalServices.Concrete
             return result;
         }
 
+
+        public InTimeShortOddModel GenerateUnstartedShortMatchInfoByRegex(string serial)
+        {
+            string source = _webOperation.GetMinifiedString($"http://arsiv.mackolik.com/Match/Default.aspx?id={serial}");
+
+            var rgxH1 = new Regex(PatternConstant.UnstartedMatchPattern.HT_Win1);
+            var rgxHX = new Regex(PatternConstant.UnstartedMatchPattern.HT_Draw);
+            var rgxH2 = new Regex(PatternConstant.UnstartedMatchPattern.HT_Win2);
+            var rgxF1 = new Regex(PatternConstant.UnstartedMatchPattern.FT_Win1);
+            var rgxFX = new Regex(PatternConstant.UnstartedMatchPattern.FT_Draw);
+            var rgxF2 = new Regex(PatternConstant.UnstartedMatchPattern.FT_Win2);
+            var rgxSH1 = new Regex(PatternConstant.UnstartedMatchPattern.SH_Win1);
+            var rgxSHX = new Regex(PatternConstant.UnstartedMatchPattern.SH_Draw);
+            var rgxSH2 = new Regex(PatternConstant.UnstartedMatchPattern.SH_Win2);
+            var rgxGoals01 = new Regex(PatternConstant.UnstartedMatchPattern.Goals01);
+            var rgxGoals23 = new Regex(PatternConstant.UnstartedMatchPattern.Goals23);
+            var rgxGoals45 = new Regex(PatternConstant.UnstartedMatchPattern.Goals45);
+            var rgxGoals6 = new Regex(PatternConstant.UnstartedMatchPattern.Goals6);
+            var rgxGG = new Regex(PatternConstant.UnstartedMatchPattern.GG);
+            var rgxNG = new Regex(PatternConstant.UnstartedMatchPattern.NG);
+            var rgxFT15A = new Regex(PatternConstant.UnstartedMatchPattern.FT_1_5_Under);
+            var rgxFT15U = new Regex(PatternConstant.UnstartedMatchPattern.FT_1_5_Over);
+            var rgxFT25A = new Regex(PatternConstant.UnstartedMatchPattern.FT_2_5_Under);
+            var rgxFT25U = new Regex(PatternConstant.UnstartedMatchPattern.FT_2_5_Over);
+            var rgxFT35A = new Regex(PatternConstant.UnstartedMatchPattern.FT_3_5_Under);
+            var rgxFT35U = new Regex(PatternConstant.UnstartedMatchPattern.FT_3_5_Over);
+
+            InTimeShortOddModel result = new InTimeShortOddModel
+            {
+                HT_W1 = source.ResolveOddByRegex(rgxH1),
+                HT_X = source.ResolveOddByRegex(rgxHX),
+                HT_W2 = source.ResolveOddByRegex(rgxH2),
+                SH_W1 = source.ResolveOddByRegex(rgxSH1),
+                SH_X = source.ResolveOddByRegex(rgxSHX),
+                SH_W2 = source.ResolveOddByRegex(rgxSH2),
+                FT_W1 = source.ResolveOddByRegex(rgxF1),
+                FT_X = source.ResolveOddByRegex(rgxFX),
+                FT_W2 = source.ResolveOddByRegex(rgxF2),
+                GG = source.ResolveOddByRegex(rgxGG),
+                NG = source.ResolveOddByRegex(rgxNG),
+                Goals01 = source.ResolveOddByRegex(rgxGoals01),
+                Goals23 = source.ResolveOddByRegex(rgxGoals23),
+                Goals45 = source.ResolveOddByRegex(rgxGoals45),
+                Goals6 = source.ResolveOddByRegex(rgxGoals6),
+                FT_15_Over = source.ResolveOddByRegex(rgxFT15U),
+                FT_15_Under = source.ResolveOddByRegex(rgxFT15A),
+                FT_25_Over = source.ResolveOddByRegex(rgxFT25U),
+                FT_25_Under = source.ResolveOddByRegex(rgxFT25A),
+                FT_35_Over = source.ResolveOddByRegex(rgxFT35U),
+                FT_35_Under = source.ResolveOddByRegex(rgxFT35A)
+            };
+
+            return result;
+        }
+
+
         private ComparisonInfoContainer GenerateComparisonInfoByRegex(string src)
         {
             var rgxHomeTeam = new Regex(PatternConstant.ComparisonInfoPattern.HomeTeam);

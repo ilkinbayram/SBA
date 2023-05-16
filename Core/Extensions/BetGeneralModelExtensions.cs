@@ -56,6 +56,12 @@ namespace Core.Extensions
             return result;
         }
 
+        public static OddPercentageStatisticHolder GetOddPercentageStatistics(this OddResultPercentageProfayler input)
+        {
+            var result = GenerateOddPercentageStatistic(input);
+            return result;
+        }
+
         public static TeamPerformanceStatisticsHolder GetHomePerformanceStatistics(this JobAnalyseModel jobAnalyseModel, int bySideType)
         {
             var result = GenerateHomeTeamPerformanceStatistic(jobAnalyseModel.HomeTeam_FormPerformanceGuessContainer, bySideType);
@@ -274,6 +280,99 @@ namespace Core.Extensions
                     }
                 }
             }
+
+            return result;
+        }
+
+        private static OddPercentageStatisticHolder GenerateOddPercentageStatistic(OddResultPercentageProfayler oddPercentageModel)
+        {
+            OddPercentageStatisticHolder result = null;
+            if (oddPercentageModel == null) return result;
+
+            result = new OddPercentageStatisticHolder
+            {
+                Average_FT_Goals_HomeTeam = oddPercentageModel.Average_FT_Goals_HomeTeam,
+                Average_FT_Goals_AwayTeam = oddPercentageModel.Average_FT_Goals_AwayTeam,
+                Average_HT_Goals_HomeTeam = oddPercentageModel.Average_HT_Goals_HomeTeam,
+                Average_HT_Goals_AwayTeam = oddPercentageModel.Average_HT_Goals_AwayTeam,
+                Average_SH_Goals_HomeTeam = oddPercentageModel.Average_SH_Goals_HomeTeam,
+                Average_SH_Goals_AwayTeam = oddPercentageModel.Average_SH_Goals_AwayTeam,
+
+                Average_FT_Conceded_Goals_HomeTeam = oddPercentageModel.Average_FT_Conceded_Goals_HomeTeam,
+                Average_FT_Conceded_Goals_AwayTeam = oddPercentageModel.Average_FT_Conceded_Goals_AwayTeam,
+                Average_HT_Conceded_Goals_HomeTeam = oddPercentageModel.Average_HT_Conceded_Goals_HomeTeam,
+                Average_HT_Conceded_Goals_AwayTeam = oddPercentageModel.Average_HT_Conceded_Goals_AwayTeam,
+                Average_SH_Conceded_Goals_HomeTeam = oddPercentageModel.Average_SH_Conceded_Goals_HomeTeam,
+                Average_SH_Conceded_Goals_AwayTeam = oddPercentageModel.Average_SH_Conceded_Goals_AwayTeam,
+
+                Away_FT_05_Over = oddPercentageModel.Away_FT_05_Over.OverridePercentage(),
+                Away_FT_15_Over = oddPercentageModel.Away_FT_15_Over.OverridePercentage(),
+                Away_HT_05_Over = oddPercentageModel.Away_HT_05_Over.OverridePercentage(),
+                Away_HT_15_Over = oddPercentageModel.Away_HT_15_Over.OverridePercentage(),
+                Away_SH_05_Over = oddPercentageModel.Away_SH_05_Over.OverridePercentage(),
+                Away_SH_15_Over = oddPercentageModel.Away_SH_15_Over.OverridePercentage(),
+                Home_FT_05_Over = oddPercentageModel.Home_FT_05_Over.OverridePercentage(),
+                Home_FT_15_Over = oddPercentageModel.Home_FT_15_Over.OverridePercentage(),
+                Home_HT_05_Over = oddPercentageModel.Home_HT_05_Over.OverridePercentage(),
+                Home_HT_15_Over = oddPercentageModel.Home_HT_15_Over.OverridePercentage(),
+                Home_SH_05_Over = oddPercentageModel.Home_SH_05_Over.OverridePercentage(),
+                Home_SH_15_Over = oddPercentageModel.Home_SH_15_Over.OverridePercentage(),
+                Home_Win_Any_Half = oddPercentageModel.Home_Win_Any_Half.OverridePercentage(),
+                Away_Win_Any_Half = oddPercentageModel.Away_Win_Any_Half.OverridePercentage(),
+
+                FT_15_Over = oddPercentageModel.FT_15_Over.OverridePercentage(),
+                FT_25_Over = oddPercentageModel.FT_25_Over.OverridePercentage(),
+                FT_35_Over = oddPercentageModel.FT_35_Over.OverridePercentage(),
+
+                HT_05_Over = oddPercentageModel.HT_05_Over.OverridePercentage(),
+                HT_15_Over = oddPercentageModel.HT_15_Over.OverridePercentage(),
+
+                SH_05_Over = oddPercentageModel.SH_05_Over.OverridePercentage(),
+                SH_15_Over = oddPercentageModel.SH_15_Over.OverridePercentage(),
+
+                FT_GG = oddPercentageModel.FT_GG.OverridePercentage(),
+                HT_GG = oddPercentageModel.HT_GG.OverridePercentage(),
+                SH_GG = oddPercentageModel.SH_GG.OverridePercentage(),
+
+                Is_FT_Win1 = oddPercentageModel.Is_FT_Win1.OverridePercentage(),
+                Is_FT_X = oddPercentageModel.Is_FT_X.OverridePercentage(),
+                Is_FT_Win2 = oddPercentageModel.Is_FT_Win2.OverridePercentage(),
+
+                Is_HT_Win1 = oddPercentageModel.Is_HT_Win1.OverridePercentage(),
+                Is_HT_X = oddPercentageModel.Is_HT_X.OverridePercentage(),
+                Is_HT_Win2 = oddPercentageModel.Is_HT_Win2.OverridePercentage(),
+
+                Is_SH_Win1 = oddPercentageModel.Is_SH_Win1.OverridePercentage(),
+                Is_SH_X = oddPercentageModel.Is_SH_X.OverridePercentage(),
+                Is_SH_Win2 = oddPercentageModel.Is_SH_Win2.OverridePercentage(),
+
+                Average_FT_Corners_HomeTeam = oddPercentageModel.Average_FT_Corners_HomeTeam,
+                Average_FT_Corners_AwayTeam = oddPercentageModel.Average_FT_Corners_AwayTeam,
+                Average_FT_GK_Saves_HomeTeam = oddPercentageModel.Average_FT_GK_Saves_HomeTeam,
+                Average_FT_GK_Saves_AwayTeam = oddPercentageModel.Average_FT_GK_Saves_AwayTeam,
+
+                Is_Corner_FT_Win1 = oddPercentageModel.Is_Corner_FT_Win1.OverridePercentage(),
+                Is_Corner_FT_X = oddPercentageModel.Is_Corner_FT_X.OverridePercentage(),
+                Is_Corner_FT_Win2 = oddPercentageModel.Is_Corner_FT_Win2.OverridePercentage(),
+
+                Corner_7_5_Over = oddPercentageModel.Corner_7_5_Over.OverridePercentage(),
+                Corner_8_5_Over = oddPercentageModel.Corner_8_5_Over.OverridePercentage(),
+                Corner_9_5_Over = oddPercentageModel.Corner_9_5_Over.OverridePercentage(),
+
+                Corner_Home_3_5_Over = oddPercentageModel.Corner_Home_3_5_Over.OverridePercentage(),
+                Corner_Home_4_5_Over = oddPercentageModel.Corner_Home_4_5_Over.OverridePercentage(),
+                Corner_Home_5_5_Over = oddPercentageModel.Corner_Home_5_5_Over.OverridePercentage(),
+                Corner_Away_3_5_Over = oddPercentageModel.Corner_Away_3_5_Over.OverridePercentage(),
+                Corner_Away_4_5_Over = oddPercentageModel.Corner_Away_4_5_Over.OverridePercentage(),
+                Corner_Away_5_5_Over = oddPercentageModel.Corner_Away_5_5_Over.OverridePercentage(),
+
+                Away_Possesion = oddPercentageModel.Average_FT_Possesion_AwayTeam.ConvertFromDecimal(),
+                Home_Possesion = oddPercentageModel.Average_FT_Possesion_HomeTeam.ConvertFromDecimal(),
+                Average_FT_Shut_AwayTeam = oddPercentageModel.Average_FT_Shot_AwayTeam,
+                Average_FT_Shut_HomeTeam = oddPercentageModel.Average_FT_Shot_HomeTeam,
+                Average_FT_ShutOnTarget_AwayTeam = oddPercentageModel.Average_FT_ShotOnTarget_AwayTeam,
+                Average_FT_ShutOnTarget_HomeTeam = oddPercentageModel.Average_FT_ShotOnTarget_HomeTeam
+            };
 
             return result;
         }
@@ -770,7 +869,7 @@ namespace Core.Extensions
 
         public static StandingAiModel? MapAiStandingModel(this StandingInfoModel? inputModel, string homeTeamName)
         {
-            if(inputModel == null) return null;
+            if (inputModel == null) return null;
 
             var homeStandingInfo = inputModel.UpTeam.TeamName == homeTeamName ? inputModel.UpTeam : inputModel.DownTeam;
             var awayStandingInfo = inputModel.UpTeam.TeamName == homeTeamName ? inputModel.DownTeam : inputModel.UpTeam;

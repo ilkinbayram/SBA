@@ -13,6 +13,7 @@
         public string TargetURL { get; set; }
         public string ZEND_HT_Result { get; set; }
         public string ZEND_FT_Result { get; set; }
+        public int CountFound { get; set; }
         public PercentageComplainer HT_Result { get; set; }
         public PercentageComplainer SH_Result { get; set; }
         public PercentageComplainer FT_Result { get; set; }

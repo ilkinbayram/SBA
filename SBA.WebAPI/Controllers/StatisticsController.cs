@@ -5,6 +5,7 @@ using Core.Utilities.Helpers.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SBA.Business.Abstract;
+using SBA.Business.BusinessHelper;
 using SBA.Business.ExternalServices.Abstract;
 using SBA.Business.ExternalServices.ChatGPT;
 using SBA.WebAPI.Utilities.Extensions;
@@ -24,6 +25,7 @@ namespace SBA.WebAPI.Controllers
         private readonly IStatisticInfoHolderService _statisticInfoHolderService;
         private readonly IAiDataHolderService _aiDataHolderService;
         private readonly ITranslationService _translationService;
+        private readonly IMatchBetService _matchBetService;
         private readonly IConfiguration _configuration;
         private readonly ChatGPTService _aiService;
         private readonly FileFormatBinder _formatBinder;
@@ -35,7 +37,8 @@ namespace SBA.WebAPI.Controllers
                                     ITranslationService translationService,
                                     IConfiguration configuration,
                                     IStatisticInfoHolderService statisticInfoHolderService,
-                                    IAiDataHolderService aiDataHolderService)
+                                    IAiDataHolderService aiDataHolderService,
+                                    IMatchBetService matchBetService)
         {
             _comparisonStatisticsHolderService = comparisonStatisticsHolderService;
             _teamPerformanceStatisticsHolderService = teamPerformanceStatisticsHolderService;
@@ -48,6 +51,7 @@ namespace SBA.WebAPI.Controllers
             _formatBinder = new FileFormatBinder();
             _statisticInfoHolderService = statisticInfoHolderService;
             _aiDataHolderService = aiDataHolderService;
+            _matchBetService = matchBetService;
         }
 
         [HttpGet("getaverage/home-away/{serial}")]
@@ -300,6 +304,15 @@ namespace SBA.WebAPI.Controllers
             var resultAiModel = _formatBinder.BindComplexStats(statFormat, statPosShutFormat, statTeamCornerFormat, statAllCornerFormat, resultComplexData);
 
             return Ok(resultAiModel);
+        }
+
+
+        [HttpGet("get-intime-oddstatistics/{serial}")]
+        public async Task<IActionResult> GetInTimeOddStatistics(int serial)
+        {
+            var model = OperationalProcessor.GenerateOddPercentageStatInfoes(serial, _matchBetService, (decimal)0.10);
+
+            return Ok(model);
         }
     }
 }
