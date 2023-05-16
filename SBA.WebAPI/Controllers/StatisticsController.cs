@@ -243,7 +243,7 @@ namespace SBA.WebAPI.Controllers
             };
             string statisticsData = JsonConvert.SerializeObject(statisticsModel, serializerOptions);
 
-            var resultGuess = await _aiService.CallOpenAIAsync(statisticsData);
+            var resultGuess = await _aiService.CallOpenAIAsync(statisticsData, statisticsModel.MatchInformation.HomeTeam, statisticsModel.MatchInformation.AwayTeam);
 
             return resultGuess;
         }

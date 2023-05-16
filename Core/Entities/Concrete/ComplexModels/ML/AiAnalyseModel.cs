@@ -5,7 +5,7 @@ namespace Core.Entities.Concrete.ComplexModels.ML
 {
     public class AiAnalyseModel
     {
-        public MatchDataAiModel MatchDataes { get; set; }
+        public MatchDataAiModel MatchInformation { get; set; }
         public LeagueStatisticsAiModel? LeagueStatistics { get; set; }
         public StandingAiModel? StandingInfoes { get; set; }
         public List<ComparisonAiModel> ComparisonDataes { get; set; }

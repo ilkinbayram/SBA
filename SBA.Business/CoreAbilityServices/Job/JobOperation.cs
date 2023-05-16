@@ -424,9 +424,9 @@ namespace SBA.Business.CoreAbilityServices.Job
 
                 if (aiAnalyseModel.StatisticPercentageModel != null)
                 {
-                    aiAnalyseModel.StatisticPercentageModel.General_Form_Performance_Statistics_By_Last_10_Matches_Of_HomeTeam = null;
-                    aiAnalyseModel.StatisticPercentageModel.General_Form_Performance_Statistics_By_Last_10_Matches_Of_AwayTeam = null;
-                    aiAnalyseModel.StatisticPercentageModel.General_H2H_Comparison_Statistics_ByLast_10_Matches = null;
+                    aiAnalyseModel.StatisticPercentageModel.General_Form_HomeTeam = null;
+                    aiAnalyseModel.StatisticPercentageModel.General_Form_AwayTeam = null;
+                    aiAnalyseModel.StatisticPercentageModel.General_H2H = null;
                 }
 
                 var serializerOptions = new JsonSerializerSettings

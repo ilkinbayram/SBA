@@ -645,7 +645,7 @@ namespace SBA.Business.BusinessHelper
 
             return new AiAnalyseModel
             {
-                MatchDataes = new MatchDataAiModel(leagueStatisticsHolder.CountryName, leagueStatisticsHolder.LeagueName, jobAnalyseModel.ComparisonInfoContainer.Home, jobAnalyseModel.ComparisonInfoContainer.Away, matchDateTime),
+                MatchInformation = new MatchDataAiModel(leagueStatisticsHolder.CountryName, leagueStatisticsHolder.LeagueName, jobAnalyseModel.ComparisonInfoContainer.Home, jobAnalyseModel.ComparisonInfoContainer.Away, matchDateTime),
                 StandingInfoes = jobAnalyseModel.StandingInfoModel.MapAiStandingModel(jobAnalyseModel.ComparisonInfoContainer.Home),
                 LeagueStatistics = leagueStatisticsHolder.MapLeagueStatisticsAiModel(),
                 ComparisonDataes = _proceeder.SelectListComparisonAiModel(jobAnalyseModel.Serial, 10),
@@ -668,12 +668,12 @@ namespace SBA.Business.BusinessHelper
             {
                 HomeTeam = jobAnalyseModel.ComparisonInfoContainer.Home,
                 AwayTeam = jobAnalyseModel.ComparisonInfoContainer.Away,
-                HomeAtHome_AwayAtAway_H2H_Comparison_Statistics_ByLast_6_Matches = comparisonBySide.MapToComparisonAiModel(),
-                General_H2H_Comparison_Statistics_ByLast_10_Matches = comparisonGeneral.MapToComparisonAiModel(),
-                HomeAtHome_Form_Performance_Statistics_ByLast_6_Matches_Of_HomeTeam = teamPerformanceHomeBySide.MapToComparisonAiModel(),
-                AwayAtAway_Form_Performance_Statistics_ByLast_6_Matches_Of_AwayTeam = teamPerformanceAwayBySide.MapToComparisonAiModel(),
-                General_Form_Performance_Statistics_By_Last_10_Matches_Of_HomeTeam = teamPerformanceHomeGeneral.MapToComparisonAiModel(),
-                General_Form_Performance_Statistics_By_Last_10_Matches_Of_AwayTeam = teamPerformanceAwayGeneral.MapToComparisonAiModel()
+                HomeAtHome_AwayAtAway_H2H = comparisonBySide.MapToComparisonAiModel(),
+                General_H2H = comparisonGeneral.MapToComparisonAiModel(),
+                HomeAtHome_Form_HomeTeam = teamPerformanceHomeBySide.MapToComparisonAiModel(),
+                AwayAtAway_Form_AwayTeam = teamPerformanceAwayBySide.MapToComparisonAiModel(),
+                General_Form_HomeTeam = teamPerformanceHomeGeneral.MapToComparisonAiModel(),
+                General_Form_AwayTeam = teamPerformanceAwayGeneral.MapToComparisonAiModel()
             };
         }
 

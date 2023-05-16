@@ -14,7 +14,7 @@ namespace SBA.Business.ExternalServices.ChatGPT
             _apiKey = apiKey;
         }
 
-        public async Task<string> CallOpenAIAsync(string input)
+        public async Task<string> CallOpenAIAsync(string input, string homeTeam, string awayTeam)
         {
             string apiUrl = $"https://api.openai.com/v1/chat/completions";
 
@@ -24,7 +24,12 @@ namespace SBA.Business.ExternalServices.ChatGPT
                 new RequestMessageGPT()
                 {
                      Role = "system",
-                     Content = "Lütfen Türkçe dilini kullan ve soracağım soruya Türkçe dilinde ve tüm tahminlerini maksimum kısa şekilde cevaplamaya özen göster. Tahminin istatistiklere dayali olarak ayni zamanda bir-biriyle tutarlı olmak zorunda! Verilen tüm istatistikleri dikkatlice analiz et ve bu istatistiklere göre, şu maç için en olası (garanti) tahmin nedir? Yapacagin tahmine gore bahis yapacagim o yuzden dikkatli ol!"
+                     Content = "Lütfen Türkçe dilini kullan ve soracağım soruya Türkçe cevap ver. Sana sundugum tüm istatistiklere dayanarak Maç Analizi yap ve bu maç ile ilgili tam garantili bahis tahmininde bulun. Tahminin istatistiklere dayali olarak ayni zamanda bir-biriyle tutarlı olmak zorunda! Verilen tüm istatistikleri dikkatlice analiz et ve bu istatistiklere göre, şu maç için en olası (garanti) tahmin nedir? Yapacagin tahmine gore yüksek miktarda bahis yapacagim o yuzden dikkatli ol!"
+                },
+                new RequestMessageGPT()
+                {
+                     Role = "user",
+                     Content = $"Verilerle ilgili açıklama:\n* LeagueStatistics - Bu Ligde olan tüm takımların karşılaşmalarından toplanan verilerden çıkarılan istatistiktir.\n* General_H2H - {homeTeam} ve {awayTeam} takımları arasında bir-biriyle oynanan tüm maçlardan toplanan verilere dayanan istatistikleri.\n* HomeAtHome_AwayAtAway_H2H - {homeTeam} ve {awayTeam} takımları arasında bir-biriyle Ev sahibinin sadece evdeç Deplasmanın sadece deplasmanda oynadığı maçlardan toplanan verilere dayalı istatistikler.\n* General_Form_HomeTeam - {homeTeam}'in oynadığı son 10 maçın verilerinden oluşan istatistikler.\n* General_Form_AwayTeam - {awayTeam}'in oynadığı son 10 maçın verilerinden oluşan istatistikler.\n * HomeAtHome_Form_HomeTeam - {homeTeam}'in sadece evinde oynadığı son 6 maçın verilerinden oluşan istatistikler.\n * AwayAtAway_Form_AwayTeam - {awayTeam}'in sadece deplasmanda oynadığı son 6 maçın verilerinden oluşan istatistikler."
                 },
                 new RequestMessageGPT()
                 {
