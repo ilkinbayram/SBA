@@ -1,6 +1,8 @@
 ﻿using Core.DataAccess.Mongo;
 using Core.Entities.Concrete;
+using Core.Entities.Concrete.ComplexModels.Sql;
 using Core.Entities.Concrete.SqlEntities.QueryModels;
+using Core.Utilities.UsableModel;
 using MongoDB.Driver;
 using SBA.DataAccess.Abstract;
 using System;
@@ -75,6 +77,11 @@ namespace SBA.DataAccess.Concrete.MongoDB
         }
 
         public IQueryable<MatchBetQM> GetMatchBetQueryModelsForPerformanceResult(string countryName, string teamName, int takeCount, Expression<Func<MatchBetQM, bool>> filter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<FilterResultMutateModel>> GetOddFilteredResultAsync(InTimeShortOddModel inTimeOdds, decimal range)
         {
             throw new NotImplementedException();
         }

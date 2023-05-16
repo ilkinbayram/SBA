@@ -4,6 +4,7 @@
     {
         Comparison = 1,
         Performance = 2,
-        Average = 3
+        Average = 3,
+        OddPercentage = 4
     }
 }
