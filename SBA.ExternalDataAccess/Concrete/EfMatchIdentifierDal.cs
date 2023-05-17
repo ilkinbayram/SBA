@@ -15,9 +15,11 @@ namespace SBA.ExternalDataAccess.Concrete
 
         public MatchProgramList GetGroupedMatchsProgram()
         {
+            TimeZoneInfo azerbaycanZone = TimeZoneInfo.FindSystemTimeZoneById("Azerbaijan Standard Time");
+            DateTime azerbaycanTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, azerbaycanZone);
             var result = (from mid in Context.MatchIdentifiers
                           join cmpHA in Context.ComparisonStatisticsHolders on mid.Id equals cmpHA.MatchIdentifierId
-                          where cmpHA.BySideType == 1 && mid.MatchDateTime.Date == DateTime.Now.Date
+                          where cmpHA.BySideType == 1 && mid.MatchDateTime.Date == azerbaycanTime.Date
                           join lg in Context.LeagueStatisticsHolders on cmpHA.LeagueStaisticsHolderId equals lg.Id
                           group mid by new { lg.CountryName, lg.LeagueName } into matchGroup
                           select new MatchProgram
@@ -38,9 +40,11 @@ namespace SBA.ExternalDataAccess.Concrete
 
         public MatchDetailProgram GetAllMatchsProgram() 
         {
+            TimeZoneInfo azerbaycanZone = TimeZoneInfo.FindSystemTimeZoneById("Azerbaijan Standard Time");
+            DateTime azerbaycanTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, azerbaycanZone);
             var result = (from mid in Context.MatchIdentifiers
                           join cmpHA in Context.ComparisonStatisticsHolders on mid.Id equals cmpHA.MatchIdentifierId
-                          where cmpHA.BySideType == 1 && mid.MatchDateTime.Date == DateTime.Now.Date
+                          where cmpHA.BySideType == 1 && mid.MatchDateTime.Date == azerbaycanTime.Date
                           join lg in Context.LeagueStatisticsHolders on cmpHA.LeagueStaisticsHolderId equals lg.Id
                           select new MatchDetail
                           {
@@ -57,10 +61,13 @@ namespace SBA.ExternalDataAccess.Concrete
 
         public async Task<MatchProgramList> GetGroupedMatchsProgramAsync()
         {
+            TimeZoneInfo azerbaycanZone = TimeZoneInfo.FindSystemTimeZoneById("Azerbaijan Standard Time");
+            DateTime azerbaycanTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, azerbaycanZone);
+
             var result = await (from mid in Context.MatchIdentifiers
                           join cmpHA in Context.ComparisonStatisticsHolders on mid.Id equals cmpHA.MatchIdentifierId
-                          where cmpHA.BySideType == 1 && mid.MatchDateTime.Date == DateTime.Now.Date
-                          join lg in Context.LeagueStatisticsHolders on cmpHA.LeagueStaisticsHolderId equals lg.Id
+                          where cmpHA.BySideType == 1 && mid.MatchDateTime.Date == azerbaycanTime.Date
+                                join lg in Context.LeagueStatisticsHolders on cmpHA.LeagueStaisticsHolderId equals lg.Id
                           group mid by new { lg.CountryName, lg.LeagueName } into matchGroup
                           select new MatchProgram
                           {
@@ -80,10 +87,12 @@ namespace SBA.ExternalDataAccess.Concrete
 
         public async Task<MatchDetailProgram> GetAllMatchsProgramAsync()
         {
+            TimeZoneInfo azerbaycanZone = TimeZoneInfo.FindSystemTimeZoneById("Azerbaijan Standard Time");
+            DateTime azerbaycanTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, azerbaycanZone);
             var result = await (from mid in Context.MatchIdentifiers
                           join cmpHA in Context.ComparisonStatisticsHolders on mid.Id equals cmpHA.MatchIdentifierId
-                          where cmpHA.BySideType == 1 && mid.MatchDateTime.Date == DateTime.Now.Date
-                          join lg in Context.LeagueStatisticsHolders on cmpHA.LeagueStaisticsHolderId equals lg.Id
+                          where cmpHA.BySideType == 1 && mid.MatchDateTime.Date == azerbaycanTime.Date
+                                join lg in Context.LeagueStatisticsHolders on cmpHA.LeagueStaisticsHolderId equals lg.Id
                           select new MatchDetail
                           {
                               Country = lg.CountryName,
