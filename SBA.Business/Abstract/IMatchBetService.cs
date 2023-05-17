@@ -1,5 +1,6 @@
 ﻿using Core.Entities.Concrete;
 using Core.Entities.Concrete.ComplexModels.Sql;
+using Core.Entities.Concrete.ExternalDbEntities;
 using Core.Entities.Concrete.SqlEntities.QueryModels;
 using Core.Entities.Dtos.MatchBet;
 using Core.Utilities.Results;
@@ -33,7 +34,7 @@ namespace SBA.Business.Abstract
 
         IDataResult<List<MatchBetQM>> GetMatchBetFilterResultQueryModels(Expression<Func<MatchBetQM, bool>> filter = null);
 
-        Task<List<FilterResultMutateModel>> GetOddFilteredResultAsync(InTimeShortOddModel inTimeOdds, decimal range);
+        List<StatisticInfoHolder> GetOddFilteredResult(int serial, decimal range);
 
         Task<IDataResult<List<GetMatchBetDto>>> GetDtoListAsync(Expression<Func<MatchBet, bool>> filter = null, int takeCount = 20000000);
         Task<IDataResult<GetMatchBetDto>> GetDtoAsync(Expression<Func<MatchBet, bool>> filter = null);

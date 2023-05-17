@@ -5,6 +5,7 @@ using Core.Entities.Concrete.SqlEntities.QueryModels;
 using Core.Utilities.Results;
 using Core.Utilities.UsableModel;
 using DataAccess.Concrete.EntityFramework.Contexts;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using SBA.DataAccess.Abstract;
 using System;
@@ -174,102 +175,122 @@ namespace SBA.DataAccess.Concrete.EntityFramework
 
         }
 
-        public async Task<List<FilterResultMutateModel>> GetOddFilteredResultAsync(InTimeShortOddModel inTimeOdds, decimal range)
+        public List<FilterResultMutateModel> GetOddFilteredResult(InTimeShortOddModel inTimeOdds, decimal range)
         {
-            var abc = Convert.ToInt32("".Split("-")[0]);
+            var paramFT_W1 = new SqlParameter("@FT_W1", inTimeOdds.FT_W1);
+            var paramFT_X = new SqlParameter("@FT_X", inTimeOdds.FT_X);
+            var paramFT_W2 = new SqlParameter("@FT_W2", inTimeOdds.FT_W2);
+            var paramHT_W1 = new SqlParameter("@HT_W1", inTimeOdds.HT_W1);
+            var paramHT_X = new SqlParameter("@HT_X", inTimeOdds.HT_X);
+            var paramHT_W2 = new SqlParameter("@HT_W2", inTimeOdds.HT_W2);
+            var paramGG = new SqlParameter("@GG", inTimeOdds.GG);
+            var paramNG = new SqlParameter("@NG", inTimeOdds.NG);
+            var paramFT_15_Over = new SqlParameter("@FT_15_Over", inTimeOdds.FT_15_Over);
+            var paramFT_15_Under = new SqlParameter("@FT_15_Under", inTimeOdds.FT_15_Under);
+            var paramFT_25_Over = new SqlParameter("@FT_25_Over", inTimeOdds.FT_25_Over);
+            var paramFT_25_Under = new SqlParameter("@FT_25_Under", inTimeOdds.FT_25_Under);
+            var paramFT_35_Over = new SqlParameter("@FT_35_Over", inTimeOdds.FT_35_Over);
+            var paramFT_35_Under = new SqlParameter("@FT_35_Under", inTimeOdds.FT_35_Under);
+            //var paramGoals01 = new SqlParameter("@Goals01", inTimeOdds.Goals01);
+            //var paramGoals23 = new SqlParameter("@Goals23", inTimeOdds.Goals23);
+            //var paramGoals45 = new SqlParameter("@Goals45", inTimeOdds.Goals45);
+            //var paramGoals6 = new SqlParameter("@Goals6", inTimeOdds.Goals6);
+            var paramRange = new SqlParameter("@Range", range);
 
-            var queryResult = (from m in Context.MatchBets
-                               join f in Context.FilterResults
-                               on m.SerialUniqueID equals f.SerialUniqueID
-                               where
-                               m.FTWin1_Odd >= (inTimeOdds.FT_W1 - range) && m.FTWin1_Odd <= (inTimeOdds.FT_W1 + range) &&
-                               m.FTDraw_Odd >= (inTimeOdds.FT_X - range) && m.FTDraw_Odd <= (inTimeOdds.FT_X + range) &&
-                               m.FTWin2_Odd >= (inTimeOdds.FT_W2 - range) && m.FTWin2_Odd <= (inTimeOdds.FT_W2 + range) &&
+            // Create a command
+            using var command = this.Context.Database.GetDbConnection().CreateCommand();
+            command.CommandText = "SP_GetOddFilteredResult";
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddRange((new List<SqlParameter>{ paramFT_W1, paramFT_X, paramFT_W2, paramHT_W1, paramHT_X, paramHT_W2, paramGG, paramNG, paramFT_15_Over, paramFT_15_Under, paramFT_25_Over, paramFT_25_Under, paramFT_35_Over, paramFT_35_Under, 
+                //paramGoals01, 
+                //paramGoals23, 
+                //paramGoals45, 
+                //paramGoals6, 
+                paramRange }).ToArray());
 
-                               m.HTWin1_Odd >= (inTimeOdds.HT_W1 - range) && m.HTWin1_Odd <= (inTimeOdds.HT_W1 + range) &&
-                               m.HTDraw_Odd >= (inTimeOdds.HT_X - range) && m.HTDraw_Odd <= (inTimeOdds.HT_X + range) &&
-                               m.HTWin2_Odd >= (inTimeOdds.HT_W2 - range) && m.HTWin2_Odd <= (inTimeOdds.HT_W2 + range) &&
+            // Open the connection and execute the command
+            this.Context.Database.OpenConnection();
+            using var result = command.ExecuteReader();
 
-                               m.FT_GG_Odd >= (inTimeOdds.GG - range) && m.FT_GG_Odd <= (inTimeOdds.GG + range) &&
-                               m.FT_NG_Odd >= (inTimeOdds.NG - range) && m.FT_NG_Odd <= (inTimeOdds.NG + range) &&
+            // Create a list to hold the result objects
+            var filterResultMutateModels = new List<FilterResultMutateModel>();
 
-                               m.FT_01_Odd >= (inTimeOdds.Goals01 - range) && m.FT_01_Odd <= (inTimeOdds.Goals01 + range) &&
-                               m.FT_23_Odd >= (inTimeOdds.Goals23 - range) && m.FT_23_Odd <= (inTimeOdds.Goals23 + range) &&
-                               m.FT_45_Odd >= (inTimeOdds.Goals45 - range) && m.FT_45_Odd <= (inTimeOdds.Goals45 + range) &&
-                               m.FT_6_Odd >= (inTimeOdds.Goals6 - range) && m.FT_6_Odd <= (inTimeOdds.Goals6 + range)
-                               select new FilterResultMutateModel
-                               {
-                                   HomeShotCount = f.HomeShotCount,
-                                   HomeShotOnTargetCount = f.HomeShotOnTargetCount,
-                                   HomePossesion = f.HomePossesion,
-                                   HomeCornerCount = f.HomeCornerCount,
-                                   Home_FT_0_5_Over = f.Home_FT_0_5_Over,
-                                   Home_FT_1_5_Over = f.Home_FT_1_5_Over,
-                                   Home_HT_0_5_Over = f.Home_HT_0_5_Over,
-                                   Home_HT_1_5_Over = f.Home_HT_1_5_Over,
-                                   Home_SH_0_5_Over = f.Home_SH_0_5_Over,
-                                   Home_SH_1_5_Over = f.Home_SH_1_5_Over,
-                                   Home_Win_Any_Half = f.Home_Win_Any_Half,
-                                   Corner_Home_3_5_Over = f.Corner_Home_3_5_Over,
-                                   Corner_Home_4_5_Over = f.Corner_Home_4_5_Over,
-                                   Corner_Home_5_5_Over = f.Corner_Home_5_5_Over,
+            // Read the results
+            while (result.Read())
+            {
+                var filterResultMutateModel = new FilterResultMutateModel
+                {
+                    Home_FT_GoalsCount = result.GetInt32(result.GetOrdinal("Home_FT_GoalsCount")),
+                    Home_HT_GoalsCount = result.GetInt32(result.GetOrdinal("Home_HT_GoalsCount")),
+                    Home_SH_GoalsCount = result.GetInt32(result.GetOrdinal("Home_SH_GoalsCount")),
+                    HomeCornerCount = result.GetInt32(result.GetOrdinal("HomeCornerCount")),
+                    HomeShotCount = result.GetInt32(result.GetOrdinal("HomeShotCount")),
+                    HomeShotOnTargetCount = result.GetInt32(result.GetOrdinal("HomeShotOnTargetCount")),
+                    HomePossesion = result.GetInt32(result.GetOrdinal("HomePossesion")),
+                    Home_GK_SavesCount = result.GetInt32(result.GetOrdinal("Home_GK_SavesCount")),
+                    Home_Win_Any_Half = result.GetBoolean(result.GetOrdinal("Home_Win_Any_Half")),
+                    Home_HT_0_5_Over = result.GetBoolean(result.GetOrdinal("Home_HT_0_5_Over")),
+                    Home_HT_1_5_Over = result.GetBoolean(result.GetOrdinal("Home_HT_1_5_Over")),
+                    Home_SH_0_5_Over = result.GetBoolean(result.GetOrdinal("Home_SH_0_5_Over")),
+                    Home_SH_1_5_Over = result.GetBoolean(result.GetOrdinal("Home_SH_1_5_Over")),
+                    Home_FT_0_5_Over = result.GetBoolean(result.GetOrdinal("Home_FT_0_5_Over")),
+                    Home_FT_1_5_Over = result.GetBoolean(result.GetOrdinal("Home_FT_1_5_Over")),
+                    Corner_Home_3_5_Over = result.GetBoolean(result.GetOrdinal("Corner_Home_3_5_Over")),
+                    Corner_Home_4_5_Over = result.GetBoolean(result.GetOrdinal("Corner_Home_4_5_Over")),
+                    Corner_Home_5_5_Over = result.GetBoolean(result.GetOrdinal("Corner_Home_5_5_Over")),
+                    Away_FT_GoalsCount = result.GetInt32(result.GetOrdinal("Away_FT_GoalsCount")),
+                    Away_HT_GoalsCount = result.GetInt32(result.GetOrdinal("Away_HT_GoalsCount")),
+                    Away_SH_GoalsCount = result.GetInt32(result.GetOrdinal("Away_SH_GoalsCount")),
+                    AwayCornerCount = result.GetInt32(result.GetOrdinal("AwayCornerCount")),
+                    AwayShotCount = result.GetInt32(result.GetOrdinal("AwayShotCount")),
+                    AwayShotOnTargetCount = result.GetInt32(result.GetOrdinal("AwayShotOnTargetCount")),
+                    AwayPossesion = result.GetInt32(result.GetOrdinal("AwayPossesion")),
+                    Away_GK_SavesCount = result.GetInt32(result.GetOrdinal("Away_GK_SavesCount")),
+                    Away_Win_Any_Half = result.GetBoolean(result.GetOrdinal("Away_Win_Any_Half")),
+                    Away_HT_0_5_Over = result.GetBoolean(result.GetOrdinal("Away_HT_0_5_Over")),
+                    Away_HT_1_5_Over = result.GetBoolean(result.GetOrdinal("Away_HT_1_5_Over")),
+                    Away_SH_0_5_Over = result.GetBoolean(result.GetOrdinal("Away_SH_0_5_Over")),
+                    Away_SH_1_5_Over = result.GetBoolean(result.GetOrdinal("Away_SH_1_5_Over")),
+                    Away_FT_0_5_Over = result.GetBoolean(result.GetOrdinal("Away_FT_0_5_Over")),
+                    Away_FT_1_5_Over = result.GetBoolean(result.GetOrdinal("Away_FT_1_5_Over")),
+                    Corner_Away_3_5_Over = result.GetBoolean(result.GetOrdinal("Corner_Away_3_5_Over")),
+                    Corner_Away_4_5_Over = result.GetBoolean(result.GetOrdinal("Corner_Away_4_5_Over")),
+                    Corner_Away_5_5_Over = result.GetBoolean(result.GetOrdinal("Corner_Away_5_5_Over")),
+                    Corner_7_5_Over = result.GetBoolean(result.GetOrdinal("Corner_7_5_Over")),
+                    Corner_8_5_Over = result.GetBoolean(result.GetOrdinal("Corner_8_5_Over")),
+                    Corner_9_5_Over = result.GetBoolean(result.GetOrdinal("Corner_9_5_Over")),
+                    HT_0_5_Over = result.GetBoolean(result.GetOrdinal("HT_0_5_Over")),
+                    HT_1_5_Over = result.GetBoolean(result.GetOrdinal("HT_1_5_Over")),
+                    SH_0_5_Over = result.GetBoolean(result.GetOrdinal("SH_0_5_Over")),
+                    SH_1_5_Over = result.GetBoolean(result.GetOrdinal("SH_1_5_Over")),
+                    FT_1_5_Over = result.GetBoolean(result.GetOrdinal("FT_1_5_Over")),
+                    FT_2_5_Over = result.GetBoolean(result.GetOrdinal("FT_2_5_Over")),
+                    FT_3_5_Over = result.GetBoolean(result.GetOrdinal("FT_3_5_Over")),
+                    HT_GG = result.GetBoolean(result.GetOrdinal("HT_GG")),
+                    SH_GG = result.GetBoolean(result.GetOrdinal("SH_GG")),
+                    FT_GG = result.GetBoolean(result.GetOrdinal("FT_GG")),
+                    IsCornerFound = result.GetBoolean(result.GetOrdinal("IsCornerFound")),
+                    IsPossesionFound = result.GetBoolean(result.GetOrdinal("IsPossesionFound")),
+                    IsShotFound = result.GetBoolean(result.GetOrdinal("IsShotFound")),
+                    IsShotOnTargetFound = result.GetBoolean(result.GetOrdinal("IsShotOnTargetFound")),
+                    Is_Corner_FT_Win1 = result.GetBoolean(result.GetOrdinal("Is_Corner_FT_Win1")),
+                    Is_Corner_FT_X = result.GetBoolean(result.GetOrdinal("Is_Corner_FT_X")),
+                    Is_Corner_FT_Win2 = result.GetBoolean(result.GetOrdinal("Is_Corner_FT_Win2")),
+                    Is_HT_Win1 = result.GetBoolean(result.GetOrdinal("Is_HT_Win1")),
+                    Is_HT_X = result.GetBoolean(result.GetOrdinal("Is_HT_X")),
+                    Is_HT_Win2 = result.GetBoolean(result.GetOrdinal("Is_HT_Win2")),
+                    Is_SH_Win1 = result.GetBoolean(result.GetOrdinal("Is_SH_Win1")),
+                    Is_SH_X = result.GetBoolean(result.GetOrdinal("Is_SH_X")),
+                    Is_SH_Win2 = result.GetBoolean(result.GetOrdinal("Is_SH_Win2")),
+                    Is_FT_Win1 = result.GetBoolean(result.GetOrdinal("Is_FT_Win1")),
+                    Is_FT_X = result.GetBoolean(result.GetOrdinal("Is_FT_X")),
+                    Is_FT_Win2 = result.GetBoolean(result.GetOrdinal("Is_FT_Win2"))
+                };
 
-                                   AwayShotCount = f.AwayShotCount,
-                                   AwayShotOnTargetCount = f.AwayShotOnTargetCount,
-                                   AwayPossesion = f.AwayPossesion,
-                                   AwayCornerCount = f.AwayCornerCount,
-                                   Away_FT_0_5_Over = f.Away_FT_0_5_Over,
-                                   Away_FT_1_5_Over = f.Away_FT_1_5_Over,
-                                   Away_HT_0_5_Over = f.Away_HT_0_5_Over,
-                                   Away_HT_1_5_Over = f.Away_HT_1_5_Over,
-                                   Away_SH_0_5_Over = f.Away_SH_0_5_Over,
-                                   Away_SH_1_5_Over = f.Away_SH_1_5_Over,
-                                   Away_Win_Any_Half = f.Away_Win_Any_Half,
-                                   Corner_Away_3_5_Over = f.Corner_Away_3_5_Over,
-                                   Corner_Away_4_5_Over = f.Corner_Away_4_5_Over,
-                                   Corner_Away_5_5_Over = f.Corner_Away_5_5_Over,
+                filterResultMutateModels.Add(filterResultMutateModel);
+            }
 
-                                   Corner_7_5_Over = f.Corner_7_5_Over,
-                                   Corner_8_5_Over = f.Corner_8_5_Over,
-                                   Corner_9_5_Over = f.Corner_9_5_Over,
-
-                                   HT_0_5_Over = f.HT_0_5_Over,
-                                   HT_1_5_Over = f.HT_1_5_Over,
-                                   SH_0_5_Over = f.SH_0_5_Over,
-                                   SH_1_5_Over = f.SH_1_5_Over,
-                                   FT_1_5_Over = f.FT_1_5_Over,
-                                   FT_2_5_Over = f.FT_2_5_Over,
-                                   FT_3_5_Over = f.FT_3_5_Over,
-                                   FT_GG = f.FT_GG,
-                                   Is_Corner_FT_Win1 = f.Is_Corner_FT_Win1,
-                                   Is_Corner_FT_X = f.Is_Corner_FT_X,
-                                   Is_Corner_FT_Win2 = f.Is_Corner_FT_Win2,
-                                   HT_GG = f.HT_GG,
-                                   SH_GG = f.SH_GG,
-                                   IsCornerFound = f.IsCornerFound,
-                                   IsPossesionFound = f.IsPossesionFound,
-                                   IsShotFound = f.IsShotFound,
-                                   IsShotOnTargetFound = f.IsShotOnTargetFound,
-                                   Is_FT_Win1 = f.Is_FT_Win1,
-                                   Is_FT_Win2 = f.Is_FT_Win2,
-                                   Is_FT_X = f.Is_FT_X,
-                                   Is_HT_Win1 = f.Is_HT_Win1,
-                                   Is_HT_Win2 = f.Is_HT_Win2,
-                                   Is_HT_X = f.Is_HT_X,
-                                   Is_SH_Win1 = f.Is_SH_Win1,
-                                   Is_SH_Win2 = f.Is_SH_Win2,
-                                   Is_SH_X = f.Is_SH_X,
-
-                                   Home_HT_GoalsCount = Convert.ToInt32(m.HT_Match_Result.Split(new char[] {'-'})[0].Trim()),
-                                   Home_SH_GoalsCount = Convert.ToInt32(m.FT_Match_Result.Split(new char[] { '-' })[0].Trim()) - Convert.ToInt32(m.HT_Match_Result.Split(new char[] { '-' })[0].Trim()),
-                                   Home_FT_GoalsCount = Convert.ToInt32(m.FT_Match_Result.Split(new char[] { '-' })[0].Trim()),
-                                   Home_GK_SavesCount = f.HomeShotOnTargetCount - Convert.ToInt32(m.FT_Match_Result.Split(new char[] { '-' })[0].Trim()),
-                                   Away_HT_GoalsCount = Convert.ToInt32(m.HT_Match_Result.Split(new char[] { '-' })[1].Trim()),
-                                   Away_SH_GoalsCount = Convert.ToInt32(m.FT_Match_Result.Split(new char[] { '-' })[1].Trim()) - Convert.ToInt32(m.HT_Match_Result.Split(new char[] { '-' })[1].Trim()),
-                                   Away_FT_GoalsCount = Convert.ToInt32(m.FT_Match_Result.Split(new char[] { '-' })[1].Trim()),
-                                   Away_GK_SavesCount = f.AwayShotOnTargetCount - Convert.ToInt32(m.FT_Match_Result.Split(new char[] { '-' })[1].Trim())
-                               }).ToListAsync();
-            return await queryResult;
+            return filterResultMutateModels;
         }
     }
 }

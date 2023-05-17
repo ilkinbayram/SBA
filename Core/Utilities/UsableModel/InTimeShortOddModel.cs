@@ -2,6 +2,7 @@
 {
     public class InTimeShortOddModel
     {
+        public int Serial { get; set; }
         public decimal HT_W1 { get; set; }
         public decimal HT_X { get; set; }
         public decimal HT_W2 { get; set; }

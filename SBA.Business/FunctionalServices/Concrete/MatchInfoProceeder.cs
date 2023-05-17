@@ -22,11 +22,11 @@ namespace SBA.Business.FunctionalServices.Concrete
 {
     public class MatchInfoProceeder
     {
-        private readonly string _defaultMatchUrl = ConfigHelper.GetSettingsDataStatic<string>(ParentKeySettings.UriTemplate.ToString(), ChildKeySettings.ConcatSerialDefaultMatch.ToString());
+        private readonly string _defaultMatchUrl = "http://arsiv.mackolik.com/Match/Default.aspx?id=";
 
-        private readonly string _plusMatchUrl = ConfigHelper.GetSettingsDataStatic<string>(ParentKeySettings.UriTemplate.ToString(), ChildKeySettings.ConcatCallbackAsResultMatch.ToString());
+        private readonly string _plusMatchUrl = "http://arsiv.mackolik.com/Mac-Plus/";
 
-        private readonly string _comparisonMatchUrl = ConfigHelper.GetSettingsDataStatic<string>(ParentKeySettings.UriTemplate.ToString(), ChildKeySettings.ConcatComparisonMatch.ToString());
+        private readonly string _comparisonMatchUrl = "http://arsiv.mackolik.com/Comparison/AllMatches.aspx?id=";
 
         private readonly QuickConvert _quickConvert = new QuickConvert();
 
@@ -1626,7 +1626,7 @@ namespace SBA.Business.FunctionalServices.Concrete
 
         public InTimeShortOddModel GenerateUnstartedShortMatchInfoByRegex(string serial)
         {
-            string source = _webOperation.GetMinifiedString($"http://arsiv.mackolik.com/Match/Default.aspx?id={serial}");
+            string source = _webOperation.GetMinifiedString($"{_defaultMatchUrl}{serial}");
 
             var rgxH1 = new Regex(PatternConstant.UnstartedMatchPattern.HT_Win1);
             var rgxHX = new Regex(PatternConstant.UnstartedMatchPattern.HT_Draw);

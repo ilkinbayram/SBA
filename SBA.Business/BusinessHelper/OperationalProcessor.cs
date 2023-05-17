@@ -460,12 +460,8 @@ namespace SBA.Business.BusinessHelper
             return result;
         }
 
-        private static async Task<OddResultPercentageProfayler> GetOddPercentageInTimeAsync(string serial, IMatchBetService matchBetService, decimal range)
+        private static OddResultPercentageProfayler GetOddPercentageInTime(string serial, List<FilterResultMutateModel> resultContainer, decimal range)
         {
-            var proceeder = new MatchInfoProceeder();
-            var inTimeModel = proceeder.GenerateUnstartedShortMatchInfoByRegex(serial);
-            var resultContainer = await matchBetService.GetOddFilteredResultAsync(inTimeModel, range);
-
             var result = new OddResultPercentageProfayler
             {
                 CountFound = resultContainer.Count,
@@ -969,9 +965,9 @@ namespace SBA.Business.BusinessHelper
         }
 
 
-        public static List<StatisticInfoHolder> GenerateOddPercentageStatInfoes(int serial, IMatchBetService matchBetService, decimal range)
+        public static List<StatisticInfoHolder> GenerateOddPercentageStatInfoes(int serial, List<FilterResultMutateModel> resultModel, decimal range)
         {
-            var oddPercentageProf = Task.Run(() => GetOddPercentageInTimeAsync(serial.ToString(), matchBetService, range)).ConfigureAwait(false).GetAwaiter().GetResult();
+            var oddPercentageProf = GetOddPercentageInTime(serial.ToString(), resultModel, range);
 
             if (oddPercentageProf == null) return null;
 

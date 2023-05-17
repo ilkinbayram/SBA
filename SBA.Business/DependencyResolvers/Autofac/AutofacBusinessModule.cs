@@ -8,6 +8,7 @@ using Core.Utilities.Helpers;
 using Core.Utilities.Helpers.Abstracts;
 using Core.Utilities.Interceptors;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using SBA.Business.Abstract;
 using SBA.Business.Concrete;
 using SBA.Business.ExternalServices;
@@ -78,7 +79,6 @@ namespace SBA.Business.DependencyResolvers.Autofac
                 {
                     Selector = new AspectInterceptorSelector()
                 }).SingleInstance();
-
         }
     }
 }

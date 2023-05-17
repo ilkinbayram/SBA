@@ -81,6 +81,11 @@ namespace SBA.DataAccess.Concrete.MongoDB
             throw new NotImplementedException();
         }
 
+        public List<FilterResultMutateModel> GetOddFilteredResult(InTimeShortOddModel inTimeOdds, decimal range)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<List<FilterResultMutateModel>> GetOddFilteredResultAsync(InTimeShortOddModel inTimeOdds, decimal range)
         {
             throw new NotImplementedException();

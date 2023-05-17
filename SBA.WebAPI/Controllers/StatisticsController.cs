@@ -308,9 +308,9 @@ namespace SBA.WebAPI.Controllers
 
 
         [HttpGet("get-intime-oddstatistics/{serial}")]
-        public async Task<IActionResult> GetInTimeOddStatistics(int serial)
+        public IActionResult GetInTimeOddStatistics(int serial)
         {
-            var model = OperationalProcessor.GenerateOddPercentageStatInfoes(serial, _matchBetService, (decimal)0.10);
+            var model = _matchBetService.GetOddFilteredResult(serial, (decimal)0.10);
 
             return Ok(model);
         }

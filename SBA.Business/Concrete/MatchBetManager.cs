@@ -2,13 +2,17 @@
 using Business.Constants;
 using Core.Entities.Concrete;
 using Core.Entities.Concrete.ComplexModels.Sql;
+using Core.Entities.Concrete.ExternalDbEntities;
 using Core.Entities.Concrete.SqlEntities.QueryModels;
 using Core.Entities.Dtos.MatchBet;
 using Core.Utilities.Results;
 using Core.Utilities.UsableModel;
 using SBA.Business.Abstract;
+using SBA.Business.BusinessHelper;
+using SBA.Business.FunctionalServices.Concrete;
 using SBA.Business.Mapping;
 using SBA.DataAccess.Abstract;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace Business.Concrete
@@ -582,9 +586,16 @@ namespace Business.Concrete
             }
         }
 
-        public async Task<List<FilterResultMutateModel>> GetOddFilteredResultAsync(InTimeShortOddModel inTimeOdds, decimal range)
+        public List<StatisticInfoHolder> GetOddFilteredResult(int serial, decimal range)
         {
-            return await _matchBetDal.GetOddFilteredResultAsync(inTimeOdds, range);
+            var proceeder = new MatchInfoProceeder();
+            var inTimeModel = proceeder.GenerateUnstartedShortMatchInfoByRegex(serial.ToString());
+
+            List<FilterResultMutateModel> mutatedFilterResult = _matchBetDal.GetOddFilteredResult(inTimeModel, range);
+
+            var result = OperationalProcessor.GenerateOddPercentageStatInfoes(serial, mutatedFilterResult, range);
+
+            return result;
         }
         #endregion
     }
