@@ -395,10 +395,24 @@ namespace SBA.MvcUI.Controllers
                     syncMatchBets = JsonConvert.DeserializeObject<List<MatchBet>>(content);
             }
 
+            List<MatchBet> newOrganisedBetList = new List<MatchBet>();
+            for (int i = 0; i < syncMatchBets.Count; i++)
+            {
+                syncMatchBets[i].Id = 0;
+                newOrganisedBetList.Add(syncMatchBets[i]);
+            }
+
+            List<FilterResult> newOrganisedFilterList = new List<FilterResult>();
+            for (int i = 0; i < syncFilterResults.Count; i++)
+            {
+                syncFilterResults[i].Id = 0;
+                newOrganisedFilterList.Add(syncFilterResults[i]);
+            }
+
             if (syncMatchBets.Count > 0)
             {
-                _matchBetService.AddRange(syncMatchBets);
-                _filterResultService.AddRange(syncFilterResults);
+                var result = _matchBetService.AddRange(newOrganisedBetList);
+                var result2 = _filterResultService.AddRange(newOrganisedFilterList);
 
                 using (var writer = new StreamWriter(jsonPathFormat.GetJsonFileByFormat("SyncFilterResult")))
                 {
