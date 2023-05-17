@@ -307,10 +307,10 @@ namespace SBA.WebAPI.Controllers
         }
 
 
-        [HttpGet("get-intime-oddstatistics/{serial}")]
-        public IActionResult GetInTimeOddStatistics(int serial)
+        [HttpGet("get-intime-oddstatistics/{serial}/{range}")]
+        public IActionResult GetInTimeOddStatistics(int serial, decimal range)
         {
-            var model = _matchBetService.GetOddFilteredResult(serial, (decimal)0.10).OrderBy(x=>x.Order).ToList();
+            var model = _matchBetService.GetOddFilteredResult(serial, range).OrderBy(x=>x.Order).ToList();
 
             return Ok(model);
         }
