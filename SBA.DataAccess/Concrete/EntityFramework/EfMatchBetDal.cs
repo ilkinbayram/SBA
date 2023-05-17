@@ -177,35 +177,38 @@ namespace SBA.DataAccess.Concrete.EntityFramework
 
         public List<FilterResultMutateModel> GetOddFilteredResult(InTimeShortOddModel inTimeOdds, decimal range)
         {
-            var paramFT_W1 = new SqlParameter("@FT_W1", inTimeOdds.FT_W1);
-            var paramFT_X = new SqlParameter("@FT_X", inTimeOdds.FT_X);
-            var paramFT_W2 = new SqlParameter("@FT_W2", inTimeOdds.FT_W2);
-            var paramHT_W1 = new SqlParameter("@HT_W1", inTimeOdds.HT_W1);
-            var paramHT_X = new SqlParameter("@HT_X", inTimeOdds.HT_X);
-            var paramHT_W2 = new SqlParameter("@HT_W2", inTimeOdds.HT_W2);
-            var paramGG = new SqlParameter("@GG", inTimeOdds.GG);
-            var paramNG = new SqlParameter("@NG", inTimeOdds.NG);
-            var paramFT_15_Over = new SqlParameter("@FT_15_Over", inTimeOdds.FT_15_Over);
-            var paramFT_15_Under = new SqlParameter("@FT_15_Under", inTimeOdds.FT_15_Under);
-            var paramFT_25_Over = new SqlParameter("@FT_25_Over", inTimeOdds.FT_25_Over);
-            var paramFT_25_Under = new SqlParameter("@FT_25_Under", inTimeOdds.FT_25_Under);
-            var paramFT_35_Over = new SqlParameter("@FT_35_Over", inTimeOdds.FT_35_Over);
-            var paramFT_35_Under = new SqlParameter("@FT_35_Under", inTimeOdds.FT_35_Under);
-            //var paramGoals01 = new SqlParameter("@Goals01", inTimeOdds.Goals01);
-            //var paramGoals23 = new SqlParameter("@Goals23", inTimeOdds.Goals23);
-            //var paramGoals45 = new SqlParameter("@Goals45", inTimeOdds.Goals45);
-            //var paramGoals6 = new SqlParameter("@Goals6", inTimeOdds.Goals6);
-            var paramRange = new SqlParameter("@Range", range);
+            var paramFT_W1 = new SqlParameter("@FT_W1", (double)inTimeOdds.FT_W1);
+            var paramFT_X = new SqlParameter("@FT_X", (double)inTimeOdds.FT_X);
+            var paramFT_W2 = new SqlParameter("@FT_W2", (double)inTimeOdds.FT_W2);
+            //var paramHT_W1 = new SqlParameter("@HT_W1", (double)inTimeOdds.HT_W1);
+            //var paramHT_X = new SqlParameter("@HT_X", (double)inTimeOdds.HT_X);
+            //var paramHT_W2 = new SqlParameter("@HT_W2", (double)inTimeOdds.HT_W2);
+            var paramGG = new SqlParameter("@GG", (double)inTimeOdds.GG);
+            var paramNG = new SqlParameter("@NG", (double)inTimeOdds.NG);
+            //var paramFT_15_Over = new SqlParameter("@FT_15_Over", (double)inTimeOdds.FT_15_Over);
+            //var paramFT_15_Under = new SqlParameter("@FT_15_Under", (double)inTimeOdds.FT_15_Under);
+            var paramFT_25_Over = new SqlParameter("@FT_25_Over", (double)inTimeOdds.FT_25_Over);
+            var paramFT_25_Under = new SqlParameter("@FT_25_Under", (double)inTimeOdds.FT_25_Under);
+            //var paramFT_35_Over = new SqlParameter("@FT_35_Over", (double)inTimeOdds.FT_35_Over);
+            //var paramFT_35_Under = new SqlParameter("@FT_35_Under", (double)inTimeOdds.FT_35_Under);
+            //var paramGoals01 = new SqlParameter("@Goals01", (double)inTimeOdds.Goals01);
+            //var paramGoals23 = new SqlParameter("@Goals23", (double)inTimeOdds.Goals23);
+            //var paramGoals45 = new SqlParameter("@Goals45", (double)inTimeOdds.Goals45);
+            //var paramGoals6 = new SqlParameter("@Goals6", (double)inTimeOdds.Goals6);
+            var paramRange = new SqlParameter("@Range", (double)range);
 
             // Create a command
             using var command = this.Context.Database.GetDbConnection().CreateCommand();
             command.CommandText = "SP_GetOddFilteredResult";
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddRange((new List<SqlParameter>{ paramFT_W1, paramFT_X, paramFT_W2, paramHT_W1, paramHT_X, paramHT_W2, paramGG, paramNG, paramFT_15_Over, paramFT_15_Under, paramFT_25_Over, paramFT_25_Under, paramFT_35_Over, paramFT_35_Under, 
-                //paramGoals01, 
-                //paramGoals23, 
-                //paramGoals45, 
-                //paramGoals6, 
+            command.Parameters.AddRange((new List<SqlParameter>{ 
+                paramFT_W1, paramFT_X, paramFT_W2,
+                //paramHT_W1, paramHT_X, paramHT_W2,
+                paramGG, paramNG,
+                //paramFT_15_Over, paramFT_15_Under,
+                paramFT_25_Over, paramFT_25_Under,
+                //paramFT_35_Over, paramFT_35_Under,
+                //paramGoals01, paramGoals23, paramGoals45, paramGoals6,
                 paramRange }).ToArray());
 
             // Open the connection and execute the command

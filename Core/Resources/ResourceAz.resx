@@ -129,6 +129,9 @@
   <data name="Cor_X" xml:space="preserve">
     <value>Künc zərbəsi Bərabərlik Faizi</value>
   </data>
+  <data name="Count_Percent_Found_FC" xml:space="preserve">
+    <value>Əmsala görə tapılan Oyun Sayı</value>
+  </data>
   <data name="FT_15" xml:space="preserve">
     <value>Matçda 1.5 Üst Faizi</value>
   </data>

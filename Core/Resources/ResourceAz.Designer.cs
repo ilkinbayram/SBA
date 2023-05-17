@@ -97,6 +97,15 @@ namespace Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Əmsala görə tapılan Oyun Sayı.
+        /// </summary>
+        internal static string Count_Percent_Found_FC {
+            get {
+                return ResourceManager.GetString("Count_Percent_Found_FC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Matçda 1.5 Üst Faizi.
         /// </summary>
         internal static string FT_15 {
