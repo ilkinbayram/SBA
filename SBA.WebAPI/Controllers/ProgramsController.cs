@@ -41,7 +41,7 @@ namespace SBA.WebAPI.Controllers
         [HttpGet("get-grouped-filtered-forecast-matches/today")]
         public async Task<IActionResult> GetFilteredForecastGroupedMatchesAsync()
         {
-            var result = await _matchIdentifierService.GetGroupedMatchsProgramAsync();
+            var result = await _matchIdentifierService.GetGroupedFilteredForecastMatchsProgramAsync();
 
             return Ok(result);
         }
