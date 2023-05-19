@@ -395,6 +395,11 @@ namespace SBA.Business.Concrete
                 return new ErrorDataResult<IQueryable<Forecast>>(null, $"Exception Message: {$"Exception Message: {exception.Message} \nInner Exception: {exception.InnerException}"} \nInner Exception: {exception.InnerException}");
             }
         }
+
+        public async Task<int> AddPossibleForecastsAsync(List<PossibleForecast> possibleForecasts)
+        {
+            return await _forecastDal.AddPossibleForecastsAsync(possibleForecasts);
+        }
         #endregion
     }
 }

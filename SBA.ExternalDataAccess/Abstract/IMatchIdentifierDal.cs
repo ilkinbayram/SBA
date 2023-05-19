@@ -10,5 +10,7 @@ namespace SBA.ExternalDataAccess.Abstract
         MatchDetailProgram GetAllMatchsProgram();
         Task<MatchProgramList> GetGroupedMatchsProgramAsync();
         Task<MatchDetailProgram> GetAllMatchsProgramAsync();
+        Task<MatchDetailProgram> GetPossibleForecastMatchsProgramAsync();
+        Task<MatchProgramList> GetGroupedFilteredForecastMatchsProgramAsync();
     }
 }

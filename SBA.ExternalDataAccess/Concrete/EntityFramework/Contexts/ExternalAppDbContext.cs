@@ -25,6 +25,7 @@ namespace SBA.ExternalDataAccess.Concrete.EntityFramework.Contexts
             modelBuilder.ApplyConfiguration(new StatisticInfoHolderConfig());
             modelBuilder.ApplyConfiguration(new AiDataHolderConfiguration());
             modelBuilder.ApplyConfiguration(new ForecastConfig());
+            modelBuilder.ApplyConfiguration(new PossibleForecastConfiguration());
         }
 
 
@@ -37,5 +38,6 @@ namespace SBA.ExternalDataAccess.Concrete.EntityFramework.Contexts
         public DbSet<StatisticInfoHolder> StatisticInfoes { get; set; }
         public DbSet<AiDataHolder> AiDataHolders { get; set; }
         public DbSet<Forecast> Forecasts { get; set; }
+        public DbSet<PossibleForecast> PossibleForecasts { get; set; }
     }
 }

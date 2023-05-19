@@ -5,5 +5,6 @@ namespace SBA.ExternalDataAccess.Abstract
 {
     public interface IForecastDal : IEntityRepository<Forecast>, IEntityQueryableRepository<Forecast>
     {
+        Task<int> AddPossibleForecastsAsync(List<PossibleForecast> possibleForecasts);
     }
 }

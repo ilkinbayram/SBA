@@ -17,6 +17,8 @@ namespace SBA.Business.Abstract
         IDataResult<int> RemoveRange(List<Forecast> entities);
         IDataResult<IQueryable<Forecast>> Query(Expression<Func<Forecast, bool>> filter = null);
 
+        Task<int> AddPossibleForecastsAsync(List<PossibleForecast> possibleForecasts);
+
         Task<IDataResult<int>> RemoveRangeAsync(List<Forecast> entities);
         Task<IDataResult<int>> UpdateRangeAsync(List<Forecast> entities);
         Task<IDataResult<List<Forecast>>> GetListAsync(Expression<Func<Forecast, bool>> filter = null);

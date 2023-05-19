@@ -14,6 +14,8 @@ namespace SBA.Business.Abstract
         MatchDetailProgram GetAllMatchsProgram();
         Task<MatchProgramList> GetGroupedMatchsProgramAsync();
         Task<MatchDetailProgram> GetAllMatchsProgramAsync();
+        Task<MatchDetailProgram> GetPossibleForecastMatchsProgramAsync();
+        Task<MatchProgramList> GetGroupedFilteredForecastMatchsProgramAsync();
 
         IDataResult<int> Add(MatchIdentifier entity);
         IDataResult<int> Update(MatchIdentifier entity);

@@ -417,6 +417,16 @@ namespace SBA.Business.Concrete
             return await _matchIdentifierDal.GetAllMatchsProgramAsync();
         }
 
+        public async Task<MatchDetailProgram> GetPossibleForecastMatchsProgramAsync()
+        {
+            return await _matchIdentifierDal.GetPossibleForecastMatchsProgramAsync();
+        }
+
+        public async Task<MatchProgramList> GetGroupedFilteredForecastMatchsProgramAsync()
+        {
+            return await _matchIdentifierDal.GetGroupedFilteredForecastMatchsProgramAsync();
+        }
+
         #endregion
     }
 }

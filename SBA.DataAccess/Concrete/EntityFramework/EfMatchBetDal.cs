@@ -191,10 +191,10 @@ namespace SBA.DataAccess.Concrete.EntityFramework
             var paramFT_25_Under = new SqlParameter("@FT_25_Under", (double)inTimeOdds.FT_25_Under);
             //var paramFT_35_Over = new SqlParameter("@FT_35_Over", (double)inTimeOdds.FT_35_Over);
             //var paramFT_35_Under = new SqlParameter("@FT_35_Under", (double)inTimeOdds.FT_35_Under);
-            //var paramGoals01 = new SqlParameter("@Goals01", (double)inTimeOdds.Goals01);
-            //var paramGoals23 = new SqlParameter("@Goals23", (double)inTimeOdds.Goals23);
-            //var paramGoals45 = new SqlParameter("@Goals45", (double)inTimeOdds.Goals45);
-            //var paramGoals6 = new SqlParameter("@Goals6", (double)inTimeOdds.Goals6);
+            var paramGoals01 = new SqlParameter("@Goals01", (double)inTimeOdds.Goals01);
+            var paramGoals23 = new SqlParameter("@Goals23", (double)inTimeOdds.Goals23);
+            var paramGoals45 = new SqlParameter("@Goals45", (double)inTimeOdds.Goals45);
+            var paramGoals6 = new SqlParameter("@Goals6", (double)inTimeOdds.Goals6);
             var paramRange = new SqlParameter("@Range", (double)range);
 
             // Create a command
@@ -208,7 +208,7 @@ namespace SBA.DataAccess.Concrete.EntityFramework
                 //paramFT_15_Over, paramFT_15_Under,
                 paramFT_25_Over, paramFT_25_Under,
                 //paramFT_35_Over, paramFT_35_Under,
-                //paramGoals01, paramGoals23, paramGoals45, paramGoals6,
+                paramGoals01, paramGoals23, paramGoals45, paramGoals6,
                 paramRange }).ToArray());
 
             // Open the connection and execute the command

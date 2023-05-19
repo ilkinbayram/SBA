@@ -10,5 +10,11 @@ namespace SBA.ExternalDataAccess.Concrete
         public EfForecastDal(ExternalAppDbContext applicationContext) : base(applicationContext)
         {
         }
+
+        public async Task<int> AddPossibleForecastsAsync(List<PossibleForecast> possibleForecasts)
+        {
+            await Context.PossibleForecasts.AddRangeAsync(possibleForecasts);
+            return await Context.SaveChangesAsync();
+        }
     }
 }
