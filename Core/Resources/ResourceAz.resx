@@ -132,6 +132,99 @@
   <data name="Count_Percent_Found" xml:space="preserve">
     <value>Əmsala görə tapılan Oyun Sayı</value>
   </data>
+  <data name="ForecastTranslation_AwayWinAnyHalf" xml:space="preserve">
+    <value>Səfər Hər-Hansı Hissə Qələbə</value>
+  </data>
+  <data name="ForecastTranslation_FT_15_Over" xml:space="preserve">
+    <value>ON 1,5 Üst</value>
+  </data>
+  <data name="ForecastTranslation_FT_15_Under" xml:space="preserve">
+    <value>ON 1,5 Alt</value>
+  </data>
+  <data name="ForecastTranslation_FT_25_Over" xml:space="preserve">
+    <value>ON 2,5 Üst</value>
+  </data>
+  <data name="ForecastTranslation_FT_25_Under" xml:space="preserve">
+    <value>ON 2,5 Alt</value>
+  </data>
+  <data name="ForecastTranslation_FT_35_Over" xml:space="preserve">
+    <value>ON 3,5 Üst</value>
+  </data>
+  <data name="ForecastTranslation_FT_35_Under" xml:space="preserve">
+    <value>ON 3,5 Alt</value>
+  </data>
+  <data name="ForecastTranslation_FT_Away_05_Over" xml:space="preserve">
+    <value>ON Səfər 0,5 Üst</value>
+  </data>
+  <data name="ForecastTranslation_FT_GG" xml:space="preserve">
+    <value>ON G/G</value>
+  </data>
+  <data name="ForecastTranslation_FT_Home_05_Over" xml:space="preserve">
+    <value>ON Ev 0,5 Üst</value>
+  </data>
+  <data name="ForecastTranslation_FT_NG" xml:space="preserve">
+    <value>ON N/G</value>
+  </data>
+  <data name="ForecastTranslation_FT_W_1" xml:space="preserve">
+    <value>ON Ev Qələbə</value>
+  </data>
+  <data name="ForecastTranslation_FT_W_2" xml:space="preserve">
+    <value>ON Səfər Qələbə</value>
+  </data>
+  <data name="ForecastTranslation_FT_X" xml:space="preserve">
+    <value>ON Bərabərlik</value>
+  </data>
+  <data name="ForecastTranslation_HomeWinAnyHalf" xml:space="preserve">
+    <value>Ev Hər-Hansı Hissə Qələbə</value>
+  </data>
+  <data name="ForecastTranslation_HT_05_Over" xml:space="preserve">
+    <value>BH 0,5 Üst</value>
+  </data>
+  <data name="ForecastTranslation_HT_05_Under" xml:space="preserve">
+    <value>BH 0,5 Alt</value>
+  </data>
+  <data name="ForecastTranslation_HT_15_Under" xml:space="preserve">
+    <value>BH 1,5 Alt</value>
+  </data>
+  <data name="ForecastTranslation_HT_Away_05_Over" xml:space="preserve">
+    <value>BH Səfər 0,5 Üst</value>
+  </data>
+  <data name="ForecastTranslation_HT_Home_05_Over" xml:space="preserve">
+    <value>BH Ev 0,5 Üst</value>
+  </data>
+  <data name="ForecastTranslation_HT_W_1" xml:space="preserve">
+    <value>BH Ev Qələbə</value>
+  </data>
+  <data name="ForecastTranslation_HT_W_2" xml:space="preserve">
+    <value>BH Səfər Qələbə</value>
+  </data>
+  <data name="ForecastTranslation_HT_X" xml:space="preserve">
+    <value>BH Bərabərlik</value>
+  </data>
+  <data name="ForecastTranslation_SH_05_Over" xml:space="preserve">
+    <value>İH 0,5 Üst</value>
+  </data>
+  <data name="ForecastTranslation_SH_05_Under" xml:space="preserve">
+    <value>İH 0,5 Alt</value>
+  </data>
+  <data name="ForecastTranslation_SH_15_Under" xml:space="preserve">
+    <value>İH 1,5 Alt</value>
+  </data>
+  <data name="ForecastTranslation_SH_Away_05_Over" xml:space="preserve">
+    <value>İH Səfər 0,5 Üst</value>
+  </data>
+  <data name="ForecastTranslation_SH_Home_05_Over" xml:space="preserve">
+    <value>İH Ev 0,5 Üst</value>
+  </data>
+  <data name="ForecastTranslation_SH_W_1" xml:space="preserve">
+    <value>İH Ev Qələbə</value>
+  </data>
+  <data name="ForecastTranslation_SH_W_2" xml:space="preserve">
+    <value>İH Səfər Qələbə</value>
+  </data>
+  <data name="ForecastTranslation_SH_X" xml:space="preserve">
+    <value>İH Bərabərlik</value>
+  </data>
   <data name="FT_15" xml:space="preserve">
     <value>Matçda 1.5 Üst Faizi</value>
   </data>

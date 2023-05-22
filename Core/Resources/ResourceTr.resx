@@ -132,6 +132,99 @@
   <data name="Count_Percent_Found" xml:space="preserve">
     <value>Oranda Bulunan Maç Sayı</value>
   </data>
+  <data name="ForecastTranslation_AwayWinAnyHalf" xml:space="preserve">
+    <value>Deplasman Her-Hangi Yarı Galibiyet</value>
+  </data>
+  <data name="ForecastTranslation_FT_15_Over" xml:space="preserve">
+    <value>MS 1,5 Üst</value>
+  </data>
+  <data name="ForecastTranslation_FT_15_Under" xml:space="preserve">
+    <value>MS 1,5 Alt</value>
+  </data>
+  <data name="ForecastTranslation_FT_25_Over" xml:space="preserve">
+    <value>MS 2,5 Üst</value>
+  </data>
+  <data name="ForecastTranslation_FT_25_Under" xml:space="preserve">
+    <value>MS 2,5 Alt</value>
+  </data>
+  <data name="ForecastTranslation_FT_35_Over" xml:space="preserve">
+    <value>MS 3,5 Üst</value>
+  </data>
+  <data name="ForecastTranslation_FT_35_Under" xml:space="preserve">
+    <value>MS 3,5 Alt</value>
+  </data>
+  <data name="ForecastTranslation_FT_Away_05_Over" xml:space="preserve">
+    <value>MS Deplasman 0,5 Üst</value>
+  </data>
+  <data name="ForecastTranslation_FT_GG" xml:space="preserve">
+    <value>MS KG Var</value>
+  </data>
+  <data name="ForecastTranslation_FT_Home_05_Over" xml:space="preserve">
+    <value>MS Ev 0,5 Üst</value>
+  </data>
+  <data name="ForecastTranslation_FT_NG" xml:space="preserve">
+    <value>MS KG Yok</value>
+  </data>
+  <data name="ForecastTranslation_FT_W_1" xml:space="preserve">
+    <value>MS Ev Galibiyet</value>
+  </data>
+  <data name="ForecastTranslation_FT_W_2" xml:space="preserve">
+    <value>MS Deplasman Galibiyet</value>
+  </data>
+  <data name="ForecastTranslation_FT_X" xml:space="preserve">
+    <value>MS Beraberlik</value>
+  </data>
+  <data name="ForecastTranslation_HomeWinAnyHalf" xml:space="preserve">
+    <value>Ev Her-Hangi Yarı Galibiyet</value>
+  </data>
+  <data name="ForecastTranslation_HT_05_Over" xml:space="preserve">
+    <value>1Y 0,5 Üst</value>
+  </data>
+  <data name="ForecastTranslation_HT_05_Under" xml:space="preserve">
+    <value>1Y 0,5 Alt</value>
+  </data>
+  <data name="ForecastTranslation_HT_15_Under" xml:space="preserve">
+    <value>1Y 1,5 Alt</value>
+  </data>
+  <data name="ForecastTranslation_HT_Away_05_Over" xml:space="preserve">
+    <value>1Y Deplasman 0,5 Üst</value>
+  </data>
+  <data name="ForecastTranslation_HT_Home_05_Over" xml:space="preserve">
+    <value>1Y Ev 0,5 Üst</value>
+  </data>
+  <data name="ForecastTranslation_HT_W_1" xml:space="preserve">
+    <value>1Y Ev Galibiyet</value>
+  </data>
+  <data name="ForecastTranslation_HT_W_2" xml:space="preserve">
+    <value>1Y Deplasman Galibiyet</value>
+  </data>
+  <data name="ForecastTranslation_HT_X" xml:space="preserve">
+    <value>1Y Beraberlik</value>
+  </data>
+  <data name="ForecastTranslation_SH_05_Over" xml:space="preserve">
+    <value>2Y 0,5 Üst</value>
+  </data>
+  <data name="ForecastTranslation_SH_05_Under" xml:space="preserve">
+    <value>2Y 0,5 Alt</value>
+  </data>
+  <data name="ForecastTranslation_SH_15_Under" xml:space="preserve">
+    <value>2Y 1,5 Alt</value>
+  </data>
+  <data name="ForecastTranslation_SH_Away_05_Over" xml:space="preserve">
+    <value>2Y Deplasman 0,5 Üst</value>
+  </data>
+  <data name="ForecastTranslation_SH_Home_05_Over" xml:space="preserve">
+    <value>2Y Ev 0,5 Üst</value>
+  </data>
+  <data name="ForecastTranslation_SH_W_1" xml:space="preserve">
+    <value>2Y Ev Galibiyet</value>
+  </data>
+  <data name="ForecastTranslation_SH_W_2" xml:space="preserve">
+    <value>2Y Deplasman Galibiyet</value>
+  </data>
+  <data name="ForecastTranslation_SH_X" xml:space="preserve">
+    <value>2Y Beraberlik</value>
+  </data>
   <data name="FT_15" xml:space="preserve">
     <value>Maçta 1.5 Üst Yüzdesi</value>
   </data>

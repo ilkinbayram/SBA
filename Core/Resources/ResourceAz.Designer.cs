@@ -106,6 +106,285 @@ namespace Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Səfər Hər-Hansı Hissə Qələbə.
+        /// </summary>
+        internal static string ForecastTranslation_AwayWinAnyHalf {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_AwayWinAnyHalf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ON 1,5 Üst.
+        /// </summary>
+        internal static string ForecastTranslation_FT_15_Over {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_FT_15_Over", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ON 1,5 Alt.
+        /// </summary>
+        internal static string ForecastTranslation_FT_15_Under {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_FT_15_Under", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ON 2,5 Üst.
+        /// </summary>
+        internal static string ForecastTranslation_FT_25_Over {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_FT_25_Over", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ON 2,5 Alt.
+        /// </summary>
+        internal static string ForecastTranslation_FT_25_Under {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_FT_25_Under", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ON 3,5 Üst.
+        /// </summary>
+        internal static string ForecastTranslation_FT_35_Over {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_FT_35_Over", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ON 3,5 Alt.
+        /// </summary>
+        internal static string ForecastTranslation_FT_35_Under {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_FT_35_Under", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ON Səfər 0,5 Üst.
+        /// </summary>
+        internal static string ForecastTranslation_FT_Away_05_Over {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_FT_Away_05_Over", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ON G/G.
+        /// </summary>
+        internal static string ForecastTranslation_FT_GG {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_FT_GG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ON Ev 0,5 Üst.
+        /// </summary>
+        internal static string ForecastTranslation_FT_Home_05_Over {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_FT_Home_05_Over", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ON N/G.
+        /// </summary>
+        internal static string ForecastTranslation_FT_NG {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_FT_NG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ON Ev Qələbə.
+        /// </summary>
+        internal static string ForecastTranslation_FT_W_1 {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_FT_W_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ON Səfər Qələbə.
+        /// </summary>
+        internal static string ForecastTranslation_FT_W_2 {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_FT_W_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ON Bərabərlik.
+        /// </summary>
+        internal static string ForecastTranslation_FT_X {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_FT_X", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ev Hər-Hansı Hissə Qələbə.
+        /// </summary>
+        internal static string ForecastTranslation_HomeWinAnyHalf {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_HomeWinAnyHalf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BH 0,5 Üst.
+        /// </summary>
+        internal static string ForecastTranslation_HT_05_Over {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_HT_05_Over", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BH 0,5 Alt.
+        /// </summary>
+        internal static string ForecastTranslation_HT_05_Under {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_HT_05_Under", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BH 1,5 Alt.
+        /// </summary>
+        internal static string ForecastTranslation_HT_15_Under {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_HT_15_Under", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BH Səfər 0,5 Üst.
+        /// </summary>
+        internal static string ForecastTranslation_HT_Away_05_Over {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_HT_Away_05_Over", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BH Ev 0,5 Üst.
+        /// </summary>
+        internal static string ForecastTranslation_HT_Home_05_Over {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_HT_Home_05_Over", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BH Ev Qələbə.
+        /// </summary>
+        internal static string ForecastTranslation_HT_W_1 {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_HT_W_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BH Səfər Qələbə.
+        /// </summary>
+        internal static string ForecastTranslation_HT_W_2 {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_HT_W_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BH Bərabərlik.
+        /// </summary>
+        internal static string ForecastTranslation_HT_X {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_HT_X", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to İH 0,5 Üst.
+        /// </summary>
+        internal static string ForecastTranslation_SH_05_Over {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_SH_05_Over", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to İH 0,5 Alt.
+        /// </summary>
+        internal static string ForecastTranslation_SH_05_Under {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_SH_05_Under", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to İH 1,5 Alt.
+        /// </summary>
+        internal static string ForecastTranslation_SH_15_Under {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_SH_15_Under", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to İH Səfər 0,5 Üst.
+        /// </summary>
+        internal static string ForecastTranslation_SH_Away_05_Over {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_SH_Away_05_Over", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to İH Ev 0,5 Üst.
+        /// </summary>
+        internal static string ForecastTranslation_SH_Home_05_Over {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_SH_Home_05_Over", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to İH Ev Qələbə.
+        /// </summary>
+        internal static string ForecastTranslation_SH_W_1 {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_SH_W_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to İH Səfər Qələbə.
+        /// </summary>
+        internal static string ForecastTranslation_SH_W_2 {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_SH_W_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to İH Bərabərlik.
+        /// </summary>
+        internal static string ForecastTranslation_SH_X {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_SH_X", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Matçda 1.5 Üst Faizi.
         /// </summary>
         internal static string FT_15 {

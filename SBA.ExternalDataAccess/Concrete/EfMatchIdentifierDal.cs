@@ -92,8 +92,7 @@ namespace SBA.ExternalDataAccess.Concrete
 
             var result = await (from mid in Context.MatchIdentifiers
                                 join cmpHA in Context.ComparisonStatisticsHolders on mid.Id equals cmpHA.MatchIdentifierId
-                                join pf in Context.PossibleForecasts on mid.Serial equals pf.Serial
-                                where cmpHA.BySideType == 1 && pf.CreatedDate.Date == azerbaycanTime.Date && mid.MatchDateTime.Date == azerbaycanTime.Date
+                                where cmpHA.BySideType == 1 && mid.MatchDateTime.Date == azerbaycanTime.Date
                                 join lg in Context.LeagueStatisticsHolders on cmpHA.LeagueStaisticsHolderId equals lg.Id
                                 group mid by new { lg.CountryName, lg.LeagueName } into matchGroup
                                 select new MatchProgram
@@ -109,7 +108,31 @@ namespace SBA.ExternalDataAccess.Concrete
                                     }).ToList()
                                 }).ToListAsync();
 
-            return new MatchProgramList { Matches = result };
+            var filteredResult = new List<MatchProgram>();
+
+            var possibleForecasts = await Context.PossibleForecasts.ToListAsync();
+            var serialsFilter = possibleForecasts.Select(x => x.Serial).ToList();
+
+            for (int i = 0; i < result.Count; i++)
+            {
+                var match = result[i];
+                var newMatchProgram = new MatchProgram
+                {
+                    Country = match.Country,
+                    League = match.League,
+                    Matches = new List<Match>()
+                };
+
+                var filteredMatches = match.Matches.Where(x => serialsFilter.Contains(x.Serial)).ToList();
+
+                if (filteredMatches.Any() || filteredMatches.Count > 0)
+                {
+                    newMatchProgram.Matches = filteredMatches;
+                    filteredResult.Add(newMatchProgram);
+                }
+            }
+            
+            return new MatchProgramList { Matches = filteredResult };
         }
 
         public async Task<MatchDetailProgram> GetAllMatchsProgramAsync()
