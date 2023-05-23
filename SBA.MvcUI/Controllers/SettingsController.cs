@@ -1,10 +1,14 @@
 ﻿using Core.Entities.Concrete;
+using Core.Entities.Concrete.ExternalDbEntities;
+using Core.Entities.Dtos.ComplexDataes.UIData;
 using Core.Extensions;
 using Core.Resources.Enums;
+using Core.Utilities.Helpers;
 using Core.Utilities.Helpers.Abstracts;
 using Core.Utilities.UsableModel;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using NuGet.Packaging;
 using SBA.Business.Abstract;
 using SBA.Business.BusinessHelper;
 using SBA.Business.CoreAbilityServices.Job;
@@ -372,6 +376,44 @@ namespace SBA.MvcUI.Controllers
 
             return Ok(204);
         }
+
+
+        [HttpPost("/Settings/UpdateForecasts")]
+        public async Task<IActionResult> UpdateForecastsAsync()
+        {
+            var forecasMatchModel = await _forecastService.SelectForecastContainerInfoAsync(false);
+
+            var forecastList = new List<Forecast>();
+            var unknownForecasts = new List<MatchForecast>();
+
+            for (int i = 0; i < forecasMatchModel.MatchForecasts.Count; i++)
+            {
+                var matchForecast = forecasMatchModel.MatchForecasts[i];
+                var filterResult = await _filterResultService.GetAsync(x => x.SerialUniqueID == matchForecast.Serial);
+
+                var dbForecasts = await _forecastService.GetListAsync(x => x.MatchIdentifierId == matchForecast.MatchIdentityId);
+
+                if (filterResult.Data == null)
+                {
+                    unknownForecasts.Add(matchForecast);
+                    continue;
+                }
+
+                for (int k = 0; k < dbForecasts.Data.Count; k++)
+                {
+                    var forecast = dbForecasts.Data[k];
+                    forecast.IsSuccess = ForecastHandler.CheckForecast(filterResult.Data, forecast.Key);
+                    forecast.IsChecked = true;
+                    forecast.ModifiedDateTime = DateTime.Now;
+                    forecastList.Add(forecast);
+                }
+            }
+
+            var result = await _forecastService.UpdateRangeAsync(forecastList);
+
+            return Ok(result.Data);
+        }
+
 
         [HttpPost("/Settings/SynchroniseDbs")]
         public IActionResult SynchroniseDbs()

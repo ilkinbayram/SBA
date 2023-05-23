@@ -321,8 +321,7 @@ namespace Business.Concrete
             try
             {
                 var response = await _filterResultDal.GetAsync(filter);
-                var mappingResult = _mapper.Map<FilterResult>(response);
-                return new SuccessDataResult<FilterResult>(mappingResult);
+                return new SuccessDataResult<FilterResult>(response);
             }
             catch (Exception exception)
             {

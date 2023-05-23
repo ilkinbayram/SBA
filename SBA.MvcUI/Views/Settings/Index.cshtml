@@ -119,6 +119,17 @@
     </div>
 </div>
 
+<br />
+<br />
+<div class="row operation-containers">
+    <div class="col-sm-4 col-md-4">
+        <h5>
+            Update Forecasts
+        </h5>
+        <button type="button" id="updateForecastsBtn" class="btn btn-lg btn-success">Update</button>
+    </div>
+</div>
+
 
 @section ScriptComponent{
     <script type="text/javascript">
@@ -345,6 +356,23 @@
                 $.ajax({
                     method: "post",
                     url: '/Settings/SynchroniseDbs'
+                }).done(function (data) {
+                    $("#spinnerContainer").html("");
+                    $(".operation-containers").show();
+                }).fail(function (data) {
+                    console.log(data);
+                    $("#spinnerContainer").html("");
+                    $(".operation-containers").show();
+                });
+            });
+
+            $("#updateForecastsBtn").click((e) => {
+                $("#spinnerContainer").html(spinnerHtml);
+                $(".operation-containers").hide();
+
+                $.ajax({
+                    method: "post",
+                    url: '/Settings/UpdateForecasts'
                 }).done(function (data) {
                     $("#spinnerContainer").html("");
                     $(".operation-containers").show();

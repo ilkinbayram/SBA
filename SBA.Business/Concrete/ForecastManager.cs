@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Business.Constants;
 using Core.Entities.Concrete.ExternalDbEntities;
+using Core.Entities.Dtos.ComplexDataes.UIData;
 using Core.Utilities.Results;
 using SBA.Business.Abstract;
 using SBA.ExternalDataAccess.Abstract;
@@ -282,8 +283,7 @@ namespace SBA.Business.Concrete
             try
             {
                 var response = (await _forecastDal.GetListAsync(filter)).ToList();
-                var mappingResult = _mapper.Map<List<Forecast>>(response);
-                return new SuccessDataResult<List<Forecast>>(mappingResult);
+                return new SuccessDataResult<List<Forecast>>(response);
             }
             catch (Exception exception)
             {
@@ -399,6 +399,11 @@ namespace SBA.Business.Concrete
         public async Task<int> AddPossibleForecastsAsync(List<PossibleForecast> possibleForecasts)
         {
             return await _forecastDal.AddPossibleForecastsAsync(possibleForecasts);
+        }
+
+        public async Task<ForecastDataContainer> SelectForecastContainerInfoAsync(bool isCheckedItems)
+        {
+            return await _forecastDal.SelectForecastContainerInfoAsync(isCheckedItems);
         }
         #endregion
     }

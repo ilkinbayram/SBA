@@ -1,4 +1,5 @@
 ﻿using Core.Entities.Concrete.ExternalDbEntities;
+using Core.Entities.Dtos.ComplexDataes.UIData;
 using Core.Utilities.Results;
 using System.Linq.Expressions;
 
@@ -18,6 +19,7 @@ namespace SBA.Business.Abstract
         IDataResult<IQueryable<Forecast>> Query(Expression<Func<Forecast, bool>> filter = null);
 
         Task<int> AddPossibleForecastsAsync(List<PossibleForecast> possibleForecasts);
+        Task<ForecastDataContainer> SelectForecastContainerInfoAsync(bool isCheckedItems);
 
         Task<IDataResult<int>> RemoveRangeAsync(List<Forecast> entities);
         Task<IDataResult<int>> UpdateRangeAsync(List<Forecast> entities);
