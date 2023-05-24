@@ -43,5 +43,6 @@ namespace Core.Entities.Concrete.ExternalDbEntities
         public string AwayValue { get; set; }
         public decimal HomePercent { get; set; }
         public decimal AwayPercent { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }

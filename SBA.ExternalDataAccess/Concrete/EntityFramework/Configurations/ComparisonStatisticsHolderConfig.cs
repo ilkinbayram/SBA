@@ -9,6 +9,9 @@ namespace SBA.ExternalDataAccess.Concrete.EntityFramework.Configurations
     {
         public void Configure(EntityTypeBuilder<ComparisonStatisticsHolder> builder)
         {
+            TimeZoneInfo azerbaycanZone = TimeZoneInfo.FindSystemTimeZoneById("Azerbaijan Standard Time");
+            DateTime azerbaycanTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, azerbaycanZone);
+
             builder.ToTable("ComparisonStatisticsHolders");
             builder.HasKey(k => k.Id);
 
@@ -17,8 +20,8 @@ namespace SBA.ExternalDataAccess.Concrete.EntityFramework.Configurations
             builder.Property(x => x.CreatedBy).HasMaxLength(100).HasDefaultValue("System.Admin");
             builder.Property(x => x.ModifiedBy).HasMaxLength(100).HasDefaultValue("System.Admin");
 
-            builder.Property(x => x.CreatedDateTime).HasDefaultValue(DateTime.Now);
-            builder.Property(x => x.ModifiedDateTime).HasDefaultValue(DateTime.Now);
+            builder.Property(x => x.CreatedDateTime).HasDefaultValue(azerbaycanTime.Date);
+            builder.Property(x => x.ModifiedDateTime).HasDefaultValue(azerbaycanTime.Date);
 
             builder.Property(x => x.Average_FT_Goals_HomeTeam).HasPrecision(7,2);
             builder.Property(x => x.Average_HT_Goals_HomeTeam).HasPrecision(7,2);

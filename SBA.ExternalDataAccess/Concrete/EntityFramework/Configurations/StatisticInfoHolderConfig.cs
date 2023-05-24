@@ -8,11 +8,15 @@ namespace SBA.ExternalDataAccess.Concrete.EntityFramework.Configurations
     {
         public void Configure(EntityTypeBuilder<StatisticInfoHolder> builder)
         {
+            TimeZoneInfo azerbaycanZone = TimeZoneInfo.FindSystemTimeZoneById("Azerbaijan Standard Time");
+            DateTime azerbaycanTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, azerbaycanZone);
+
             builder.ToTable("StatisticInfoHolders");
             builder.HasKey(k => k.Id);
 
             builder.Property(x => x.Id).UseIdentityColumn();
 
+            builder.Property(x => x.CreatedDate).HasDefaultValue(azerbaycanTime.Date);
             builder.Property(x => x.AwayPercent).HasPrecision(7, 2);
             builder.Property(x => x.HomePercent).HasPrecision(7, 2);
         }
