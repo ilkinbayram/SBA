@@ -405,6 +405,11 @@ namespace SBA.Business.Concrete
         {
             return await _forecastDal.SelectForecastContainerInfoAsync(isCheckedItems);
         }
+
+        public async Task<List<string>> SelectForecastsBySerialAsync(int serial)
+        {
+            return await _forecastDal.SelectForecastsBySerialAsync(serial);
+        }
         #endregion
     }
 }

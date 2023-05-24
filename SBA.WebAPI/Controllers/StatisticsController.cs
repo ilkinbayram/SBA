@@ -347,5 +347,14 @@ namespace SBA.WebAPI.Controllers
 
             return Ok(model);
         }
+
+
+        [HttpGet("get-forecast-by-serial/{serial}")]
+        public async Task<IActionResult> GetForecastBySerialAsync(int serial)
+        {
+            var model = await _forecastService.SelectForecastsBySerialAsync(serial);
+
+            return Ok(model);
+        }
     }
 }

@@ -21,6 +21,8 @@ namespace SBA.Business.Abstract
         Task<int> AddPossibleForecastsAsync(List<PossibleForecast> possibleForecasts);
         Task<ForecastDataContainer> SelectForecastContainerInfoAsync(bool isCheckedItems);
 
+        Task<List<string>> SelectForecastsBySerialAsync(int serial);
+
         Task<IDataResult<int>> RemoveRangeAsync(List<Forecast> entities);
         Task<IDataResult<int>> UpdateRangeAsync(List<Forecast> entities);
         Task<IDataResult<List<Forecast>>> GetListAsync(Expression<Func<Forecast, bool>> filter = null);

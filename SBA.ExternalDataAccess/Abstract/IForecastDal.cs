@@ -9,5 +9,7 @@ namespace SBA.ExternalDataAccess.Abstract
         Task<int> AddPossibleForecastsAsync(List<PossibleForecast> possibleForecasts);
 
         Task<ForecastDataContainer> SelectForecastContainerInfoAsync(bool isCheckedItems);
+
+        Task<List<string>> SelectForecastsBySerialAsync(int serial);
     }
 }
