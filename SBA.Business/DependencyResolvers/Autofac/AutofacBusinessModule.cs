@@ -57,6 +57,9 @@ namespace SBA.Business.DependencyResolvers.Autofac
             builder.RegisterType<LogManager>().As<ILogService>();
             builder.RegisterType<EfLogDal>().As<ILogDal>();
 
+            builder.RegisterType<ExtLogManager>().As<IExtLogService>();
+            builder.RegisterType<EfExtLogDal>().As<IExtLogDal>();
+
             builder.RegisterType<LeagueStatisticsHolderManager>().As<ILeagueStatisticsHolderService>();
             builder.RegisterType<EfLeagueStatisticsHolderDal>().As<ILeagueStatisticsHolderDal>();
 

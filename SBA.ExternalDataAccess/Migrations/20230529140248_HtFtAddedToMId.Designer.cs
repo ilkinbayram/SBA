@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SBA.ExternalDataAccess.Concrete.EntityFramework.Contexts;
 
@@ -11,9 +12,10 @@ using SBA.ExternalDataAccess.Concrete.EntityFramework.Contexts;
 namespace SBA.ExternalDataAccess.Migrations
 {
     [DbContext(typeof(ExternalAppDbContext))]
-    partial class ExternalAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230529140248_HtFtAddedToMId")]
+    partial class HtFtAddedToMId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -742,13 +744,11 @@ namespace SBA.ExternalDataAccess.Migrations
 
                     b.Property<string>("FT_Result")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HT_Result")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HomeTeam")
                         .IsRequired()

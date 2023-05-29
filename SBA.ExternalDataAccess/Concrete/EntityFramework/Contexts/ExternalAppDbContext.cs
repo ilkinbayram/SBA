@@ -1,4 +1,6 @@
-﻿using Core.Entities.Concrete.ExternalDbEntities;
+﻿using Core.Entities.Concrete;
+using Core.Entities.Concrete.ExternalDbEntities;
+using Core.Entities.Concrete.SqlEntities.FunctionViewProcModels;
 using Microsoft.EntityFrameworkCore;
 using SBA.ExternalDataAccess.Concrete.EntityFramework.Configurations;
 
@@ -16,6 +18,8 @@ namespace SBA.ExternalDataAccess.Concrete.EntityFramework.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<MatchForecastFM>().HasNoKey();
+
             modelBuilder.ApplyConfiguration(new ComparisonStatisticsHolderConfig());
             modelBuilder.ApplyConfiguration(new TeamPerformanceStatisticsHolderConfig());
             modelBuilder.ApplyConfiguration(new AverageStatisticsHolderConfig());
@@ -26,7 +30,11 @@ namespace SBA.ExternalDataAccess.Concrete.EntityFramework.Contexts
             modelBuilder.ApplyConfiguration(new AiDataHolderConfiguration());
             modelBuilder.ApplyConfiguration(new ForecastConfig());
             modelBuilder.ApplyConfiguration(new PossibleForecastConfiguration());
+            modelBuilder.ApplyConfiguration(new LogConfiguration());
         }
+
+        public DbSet<MatchForecastFM> MatchForecastsFM { get; set; }
+
 
 
         public DbSet<MatchIdentifier> MatchIdentifiers { get; set; }
@@ -38,6 +46,7 @@ namespace SBA.ExternalDataAccess.Concrete.EntityFramework.Contexts
         public DbSet<StatisticInfoHolder> StatisticInfoes { get; set; }
         public DbSet<AiDataHolder> AiDataHolders { get; set; }
         public DbSet<Forecast> Forecasts { get; set; }
+        public DbSet<Log> Logs { get; set; }
         public DbSet<PossibleForecast> PossibleForecasts { get; set; }
     }
 }

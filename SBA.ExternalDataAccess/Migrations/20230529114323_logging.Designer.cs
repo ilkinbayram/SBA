@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SBA.ExternalDataAccess.Concrete.EntityFramework.Contexts;
 
@@ -11,9 +12,10 @@ using SBA.ExternalDataAccess.Concrete.EntityFramework.Contexts;
 namespace SBA.ExternalDataAccess.Migrations
 {
     [DbContext(typeof(ExternalAppDbContext))]
-    partial class ExternalAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230529114323_logging")]
+    partial class logging
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -739,16 +741,6 @@ namespace SBA.ExternalDataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValue(new DateTime(2023, 5, 29, 0, 0, 0, 0, DateTimeKind.Unspecified));
-
-                    b.Property<string>("FT_Result")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("HT_Result")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("HomeTeam")
                         .IsRequired()
@@ -1987,61 +1979,38 @@ namespace SBA.ExternalDataAccess.Migrations
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)")
+                        .HasDefaultValue("System.Admin");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 5, 29, 15, 43, 16, 400, DateTimeKind.Local).AddTicks(4922));
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Importance")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1);
 
                     b.Property<string>("Path")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<int>("Type")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.HasKey("Id");
 
                     b.ToTable("Logs", (string)null);
-                });
-
-            modelBuilder.Entity("Core.Entities.Concrete.SqlEntities.FunctionViewProcModels.MatchForecastFM", b =>
-                {
-                    b.Property<string>("AwayTeam")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CountryLeague")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HomeTeam")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsChecked")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsSuccess")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("MatchIdentityId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Serial")
-                        .HasColumnType("int");
-
-                    b.ToTable("MatchForecastsFM");
                 });
 
             modelBuilder.Entity("Core.Entities.Concrete.ExternalDbEntities.AverageStatisticsHolder", b =>

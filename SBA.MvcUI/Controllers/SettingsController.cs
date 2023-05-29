@@ -183,6 +183,76 @@ namespace SBA.MvcUI.Controllers
         [HttpPost("/Settings/UpdateEmptyDataes")]
         public IActionResult UpdateEmptyDataes(string serials)
         {
+            List<MatchBet> syncMatchBets = new List<MatchBet>();
+            List<FilterResult> syncFilterResults = new List<FilterResult>();
+
+            using (var reader = new StreamReader(jsonPathFormat.GetJsonFileByFormat("SyncFilterResult")))
+            {
+                string content = reader.ReadToEnd();
+
+                if (content.Length > 20)
+                    syncFilterResults = JsonConvert.DeserializeObject<List<FilterResult>>(content);
+            }
+
+            using (var reader = new StreamReader(jsonPathFormat.GetJsonFileByFormat("SyncMatchBet")))
+            {
+                string content = reader.ReadToEnd();
+
+                if (content.Length > 20)
+                    syncMatchBets = JsonConvert.DeserializeObject<List<MatchBet>>(content);
+            }
+
+            var listToAddMB = new List<MatchBet>();
+            var listToAddFR = new List<FilterResult>();
+
+            for (int i = 0; i < syncMatchBets.Count; i++)
+            {
+                var currentOne = syncMatchBets[i];
+                if (_matchBetService.Get(x=>x.Id == currentOne.Id).Data != null)
+                    continue;
+
+                currentOne.Id = 0;
+                listToAddMB.Add(currentOne);
+            }
+
+            for (int i = 0; i < syncFilterResults.Count; i++)
+            {
+                var currentOne = syncFilterResults[i];
+                if (_filterResultService.Get(x => x.Id == currentOne.Id).Data != null)
+                    continue;
+
+                currentOne.Id = 0;
+                listToAddFR.Add(currentOne);
+            }
+
+            if (listToAddMB.Count > 0 && listToAddMB.Count == listToAddFR.Count)
+            {
+                _matchBetService.AddRange(listToAddMB);
+                _filterResultService.AddRange(listToAddFR);
+            }
+
+            var allMids = _matchIdentifierService.GetList(x=>string.IsNullOrEmpty(x.HT_Result)).Data;
+
+            var allMidsSerials = allMids.Select(x => x.Serial).ToList();
+
+            var allMatchBets = _matchBetService.GetList(x => allMidsSerials.Contains(x.SerialUniqueID));
+
+            for (int i = 0; i < allMids.Count; i++)
+            {
+                var currentOne = allMids[i];
+
+                var currentMB = allMatchBets.Data.FirstOrDefault(x => x.SerialUniqueID == currentOne.Serial);
+
+                if (currentMB != null)
+                {
+                    currentOne.HT_Result = currentMB.HT_Match_Result;
+                    currentOne.FT_Result = currentMB.FT_Match_Result;
+                }
+            }
+
+            _matchIdentifierService.UpdateRange(allMids);
+
+
             var allMatches = _matchBetService.GetList(x => x.MatchDate > DateTime.Now.AddDays(-10)).Data;
 
             for (int i = 0; i < allMatches.Count; i++)

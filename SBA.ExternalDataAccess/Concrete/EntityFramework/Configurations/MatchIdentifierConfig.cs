@@ -19,6 +19,9 @@ namespace SBA.ExternalDataAccess.Concrete.EntityFramework.Configurations
             builder.Property(x => x.CreatedBy).HasMaxLength(100).HasDefaultValue("System.Admin");
             builder.Property(x => x.ModifiedBy).HasMaxLength(100).HasDefaultValue("System.Admin");
 
+            builder.Property(x => x.HT_Result).HasMaxLength(20);
+            builder.Property(x => x.FT_Result).HasMaxLength(20);
+
             builder.Property(x => x.CreatedDateTime).HasDefaultValue(azerbaycanTime.Date);
             builder.Property(x => x.ModifiedDateTime).HasDefaultValue(azerbaycanTime.Date);
 

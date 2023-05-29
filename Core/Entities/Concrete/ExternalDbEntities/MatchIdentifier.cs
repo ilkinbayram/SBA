@@ -7,6 +7,8 @@ namespace Core.Entities.Concrete.ExternalDbEntities
         public int Serial { get; set; }
         public string HomeTeam { get; set; }
         public string AwayTeam { get; set; }
+        public string HT_Result { get; set; }
+        public string FT_Result { get; set; }
         public DateTime MatchDateTime { get; set; }
 
         public DateTime CreatedDateTime { get; set; }

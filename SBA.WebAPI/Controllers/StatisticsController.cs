@@ -29,6 +29,7 @@ namespace SBA.WebAPI.Controllers
         private readonly IFilterResultService _filterResultService;
         private readonly IForecastService _forecastService;
         private readonly IConfiguration _configuration;
+        private readonly IExtLogService _logService;
         private readonly ChatGPTService _aiService;
         private readonly FileFormatBinder _formatBinder;
 
@@ -42,7 +43,8 @@ namespace SBA.WebAPI.Controllers
                                     IAiDataHolderService aiDataHolderService,
                                     IMatchBetService matchBetService,
                                     IForecastService forecastService,
-                                    IFilterResultService filterResultService)
+                                    IFilterResultService filterResultService,
+                                    IExtLogService logService)
         {
             _comparisonStatisticsHolderService = comparisonStatisticsHolderService;
             _teamPerformanceStatisticsHolderService = teamPerformanceStatisticsHolderService;
@@ -58,6 +60,7 @@ namespace SBA.WebAPI.Controllers
             _matchBetService = matchBetService;
             _forecastService = forecastService;
             _filterResultService = filterResultService;
+            _logService = logService;
         }
 
         [HttpGet("getaverage/home-away/{serial}")]
@@ -326,24 +329,6 @@ namespace SBA.WebAPI.Controllers
         public async Task<IActionResult> GetForecastProductivity()
         {
             var model = await _forecastService.SelectForecastContainerInfoAsync(true);
-
-            for (int i = 0; i < model.MatchForecasts.Count; i++)
-            {
-                var matchForecast = model.MatchForecasts[i];
-                var filterResult = await _filterResultService.GetAsync(x => x.SerialUniqueID == matchForecast.Serial);
-                var matchBet = await _matchBetService.GetAsync(x => x.SerialUniqueID == matchForecast.Serial);
-                matchForecast.HomeTeam = matchBet.Data.HomeTeam;
-                matchForecast.AwayTeam = matchBet.Data.AwayTeam;
-                matchForecast.CountryLeague = $"{matchBet.Data.Country} / {matchBet.Data.LeagueName}";
-                matchForecast.FT_Result = matchBet.Data.FT_Match_Result;
-                matchForecast.HT_Result = matchBet.Data.HT_Match_Result;
-
-                for (int k = 0; k < matchForecast.Forecasts.Count; k++)
-                {
-                    var forecast = matchForecast.Forecasts[k];
-                    forecast.Description = forecast.Description.TranslateResource(2);
-                }
-            }
 
             return Ok(model);
         }
