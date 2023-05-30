@@ -1,4 +1,5 @@
 ﻿using Core.Entities.Concrete.ComplexModels.ML;
+using Core.Entities.Dtos.ComplexDataes.UIData;
 using Core.Extensions;
 using Core.Resources.Enums;
 using Core.Utilities.Helpers.Serialization;
@@ -325,10 +326,15 @@ namespace SBA.WebAPI.Controllers
         }
 
 
-        [HttpGet("get-forecast-productivity")]
-        public async Task<IActionResult> GetForecastProductivity()
+        [HttpGet("get-forecast-productivity/{day}/{month}/{year}")]
+        public async Task<IActionResult> GetForecastProductivity(int day, int month, int year)
         {
-            var model = await _forecastService.SelectForecastContainerInfoAsync(true);
+            ForecastDataContainer model = null;
+            var filterDate = new DateTime(year, month, day);
+            if (filterDate.Date == DateTime.UtcNow.ToAzeDate())
+                model = await _forecastService.SelectForecastContainerInfoAsync(true);
+            else
+                model = await _forecastService.SelectForecastContainerInfoAsync(true, x=>x.MatchDateTime.Date == filterDate.Date);
 
             return Ok(model);
         }

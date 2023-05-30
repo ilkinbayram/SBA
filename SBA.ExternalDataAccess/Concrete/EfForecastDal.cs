@@ -23,16 +23,21 @@ namespace SBA.ExternalDataAccess.Concrete
             return await Context.SaveChangesAsync();
         }
 
-        public async Task<ForecastDataContainer> SelectForecastContainerInfoAsync(bool isCheckedItems)
+        public async Task<ForecastDataContainer> SelectForecastContainerInfoAsync(bool isCheckedItems, Func<MatchForecastFM, bool> filter = null)
         {
             try
             {
                 var result = new ForecastDataContainer();
 
                 var paramIsChecked = new SqlParameter("@paramIsChecked", isCheckedItems);
-                var functionResult = Context.Set<MatchForecastFM>()
-                                    .FromSqlRaw("SELECT * FROM fn_MatchForecast(@paramIsChecked)", paramIsChecked)
-                                    .ToList();
+                var functionResult = filter == null ?
+                                     Context.Set<MatchForecastFM>()
+                                     .FromSqlRaw("SELECT * FROM fn_MatchForecast(@paramIsChecked)", paramIsChecked)
+                                     .ToList() :
+                                     Context.Set<MatchForecastFM>()
+                                     .FromSqlRaw("SELECT * FROM fn_MatchForecast(@paramIsChecked)", paramIsChecked)
+                                     .Where(filter)
+                                     .ToList();
 
                 var groupedMatchForecast = functionResult.GroupBy(mf => mf.Serial)
                     .Select(g => new MatchForecast

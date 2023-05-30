@@ -4,6 +4,7 @@
     {
         public int Serial { get; set; }
         public int MatchIdentityId { get; set; }
+        public DateTime MatchDateTime { get; set; }
         public string HomeTeam { get; set; }
         public string AwayTeam { get; set; }
         public bool IsChecked { get; set; }

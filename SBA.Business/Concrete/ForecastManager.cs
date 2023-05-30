@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Business.Constants;
 using Core.Entities.Concrete.ExternalDbEntities;
+using Core.Entities.Concrete.SqlEntities.FunctionViewProcModels;
 using Core.Entities.Dtos.ComplexDataes.UIData;
 using Core.Utilities.Results;
 using SBA.Business.Abstract;
@@ -401,9 +402,9 @@ namespace SBA.Business.Concrete
             return await _forecastDal.AddPossibleForecastsAsync(possibleForecasts);
         }
 
-        public async Task<ForecastDataContainer> SelectForecastContainerInfoAsync(bool isCheckedItems)
+        public async Task<ForecastDataContainer> SelectForecastContainerInfoAsync(bool isCheckedItems, Func<MatchForecastFM, bool> filter = null)
         {
-            return await _forecastDal.SelectForecastContainerInfoAsync(isCheckedItems);
+            return await _forecastDal.SelectForecastContainerInfoAsync(isCheckedItems, filter);
         }
 
         public async Task<List<string>> SelectForecastsBySerialAsync(int serial)
