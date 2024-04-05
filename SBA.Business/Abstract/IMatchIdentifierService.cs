@@ -10,10 +10,10 @@ namespace SBA.Business.Abstract
         IDataResult<List<MatchIdentifier>> GetList(Expression<Func<MatchIdentifier, bool>> filter = null);
         IDataResult<MatchIdentifier> Get(Expression<Func<MatchIdentifier, bool>> filter);
 
-        MatchProgramList GetGroupedMatchsProgram();
-        MatchDetailProgram GetAllMatchsProgram();
-        Task<MatchProgramList> GetGroupedMatchsProgramAsync();
-        Task<MatchDetailProgram> GetAllMatchsProgramAsync();
+        MatchProgramList GetGroupedMatchsProgram(int month, int day);
+        MatchDetailProgram GetAllMatchsProgram(int month, int day);
+        Task<MatchProgramList> GetGroupedMatchsProgramAsync(int month, int day);
+        Task<MatchDetailProgram> GetAllMatchsProgramAsync(int month, int day);
         Task<MatchDetailProgram> GetPossibleForecastMatchsProgramAsync();
         Task<MatchProgramList> GetGroupedFilteredForecastMatchsProgramAsync();
 

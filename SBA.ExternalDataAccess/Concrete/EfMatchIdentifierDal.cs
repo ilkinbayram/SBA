@@ -1,9 +1,12 @@
 ﻿using Core.DataAccess.EntityFramework;
 using Core.Entities.Concrete.ComplexModels.Program;
 using Core.Entities.Concrete.ExternalDbEntities;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using SBA.ExternalDataAccess.Abstract;
 using SBA.ExternalDataAccess.Concrete.EntityFramework.Contexts;
+using sqlParamModel = Core.Utilities.UsableModel;
+using System.Data;
 
 namespace SBA.ExternalDataAccess.Concrete
 {
@@ -13,13 +16,11 @@ namespace SBA.ExternalDataAccess.Concrete
         {
         }
 
-        public MatchProgramList GetGroupedMatchsProgram()
+        public MatchProgramList GetGroupedMatchsProgram(int month, int day)
         {
-            TimeZoneInfo azerbaycanZone = TimeZoneInfo.FindSystemTimeZoneById("Azerbaijan Standard Time");
-            DateTime azerbaycanTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, azerbaycanZone);
             var result = (from mid in Context.MatchIdentifiers
                           join cmpHA in Context.ComparisonStatisticsHolders on mid.Id equals cmpHA.MatchIdentifierId
-                          where cmpHA.BySideType == 1 && mid.MatchDateTime.Date == azerbaycanTime.Date
+                          where cmpHA.BySideType == 1 && mid.MatchDateTime.Month == month && mid.MatchDateTime.Day == day
                           join lg in Context.LeagueStatisticsHolders on cmpHA.LeagueStaisticsHolderId equals lg.Id
                           group mid by new { lg.CountryName, lg.LeagueName } into matchGroup
                           select new MatchProgram
@@ -38,13 +39,11 @@ namespace SBA.ExternalDataAccess.Concrete
             return new MatchProgramList { Matches = result };
         }
 
-        public MatchDetailProgram GetAllMatchsProgram() 
+        public MatchDetailProgram GetAllMatchsProgram(int month, int day) 
         {
-            TimeZoneInfo azerbaycanZone = TimeZoneInfo.FindSystemTimeZoneById("Azerbaijan Standard Time");
-            DateTime azerbaycanTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, azerbaycanZone);
             var result = (from mid in Context.MatchIdentifiers
                           join cmpHA in Context.ComparisonStatisticsHolders on mid.Id equals cmpHA.MatchIdentifierId
-                          where cmpHA.BySideType == 1 && mid.MatchDateTime.Date == azerbaycanTime.Date
+                          where cmpHA.BySideType == 1 && mid.MatchDateTime.Month == month && mid.MatchDateTime.Day == day
                           join lg in Context.LeagueStatisticsHolders on cmpHA.LeagueStaisticsHolderId equals lg.Id
                           select new MatchDetail
                           {
@@ -59,14 +58,11 @@ namespace SBA.ExternalDataAccess.Concrete
             return new MatchDetailProgram { Matches = result };
         }
 
-        public async Task<MatchProgramList> GetGroupedMatchsProgramAsync()
+        public async Task<MatchProgramList> GetGroupedMatchsProgramAsync(int month, int day)
         {
-            TimeZoneInfo azerbaycanZone = TimeZoneInfo.FindSystemTimeZoneById("Azerbaijan Standard Time");
-            DateTime azerbaycanTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, azerbaycanZone);
-
             var result = await (from mid in Context.MatchIdentifiers
                           join cmpHA in Context.ComparisonStatisticsHolders on mid.Id equals cmpHA.MatchIdentifierId
-                          where cmpHA.BySideType == 1 && mid.MatchDateTime.Date == azerbaycanTime.Date
+                          where cmpHA.BySideType == 1 && mid.MatchDateTime.Month == month && mid.MatchDateTime.Day == day
                                 join lg in Context.LeagueStatisticsHolders on cmpHA.LeagueStaisticsHolderId equals lg.Id
                           group mid by new { lg.CountryName, lg.LeagueName } into matchGroup
                           select new MatchProgram
@@ -92,7 +88,8 @@ namespace SBA.ExternalDataAccess.Concrete
 
             var result = await (from mid in Context.MatchIdentifiers
                                 join cmpHA in Context.ComparisonStatisticsHolders on mid.Id equals cmpHA.MatchIdentifierId
-                                where cmpHA.BySideType == 1 && mid.MatchDateTime.Date == azerbaycanTime.Date
+                                // TODO : Turn Back
+                                where cmpHA.BySideType == 1 // && mid.MatchDateTime.Date == azerbaycanTime.Date
                                 join lg in Context.LeagueStatisticsHolders on cmpHA.LeagueStaisticsHolderId equals lg.Id
                                 group mid by new { lg.CountryName, lg.LeagueName } into matchGroup
                                 select new MatchProgram
@@ -135,13 +132,16 @@ namespace SBA.ExternalDataAccess.Concrete
             return new MatchProgramList { Matches = filteredResult };
         }
 
-        public async Task<MatchDetailProgram> GetAllMatchsProgramAsync()
+        public async Task<MatchDetailProgram> GetAllMatchsProgramAsync(int month, int day)
         {
-            TimeZoneInfo azerbaycanZone = TimeZoneInfo.FindSystemTimeZoneById("Azerbaijan Standard Time");
-            DateTime azerbaycanTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, azerbaycanZone);
+            //TimeZoneInfo azerbaycanZone = TimeZoneInfo.FindSystemTimeZoneById("Azerbaijan Standard Time");
+            //DateTime azerbaycanTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, azerbaycanZone);
+
             var result = await (from mid in Context.MatchIdentifiers
                           join cmpHA in Context.ComparisonStatisticsHolders on mid.Id equals cmpHA.MatchIdentifierId
-                          where cmpHA.BySideType == 1 && mid.MatchDateTime.Date == azerbaycanTime.Date
+                          where cmpHA.BySideType == 1 
+                          // TODO : Turn Back
+                          //&& mid.MatchDateTime.Month == month && mid.MatchDateTime.Day == day
                                 join lg in Context.LeagueStatisticsHolders on cmpHA.LeagueStaisticsHolderId equals lg.Id
                           select new MatchDetail
                           {
@@ -176,6 +176,50 @@ namespace SBA.ExternalDataAccess.Concrete
                                 }).ToListAsync();
 
             return new MatchDetailProgram { Matches = result };
+        }
+
+
+        public sqlParamModel.MatchPerformanceOverallParameterModel SpGetMatchInformation(int serial)
+        {
+            var paramSerial = new SqlParameter("@SerialUniqueId", serial);
+
+            // Assuming Context is an instance of your database context
+            var connection = this.Context.Database.GetDbConnection();
+
+            try
+            {
+                connection.Open(); // Explicitly open the connection if it's not already open
+
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "SP_GetMatchInformation";
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(paramSerial);
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        var result = new sqlParamModel.MatchPerformanceOverallParameterModel();
+                        if (reader.Read())  // If there is at least one row
+                        {
+                            // Map the columns of the result row to the properties of the MatchStatisticOverallResultModel
+                            result.HomeTeam = reader.GetString(reader.GetOrdinal("HomeTeam"));
+                            result.AwayTeam = reader.GetString(reader.GetOrdinal("AwayTeam"));
+                            result.LeagueName = reader.GetString(reader.GetOrdinal("LeagueName"));
+                            result.CountryName = reader.GetString(reader.GetOrdinal("CountryName"));
+                            result.MatchDate = reader.GetDateTime(reader.GetOrdinal("MatchDate"));
+                        }
+
+                        return result;
+                    }
+                }
+            }
+            finally
+            {
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close(); // Explicitly close the connection
+                }
+            }
         }
     }
 }

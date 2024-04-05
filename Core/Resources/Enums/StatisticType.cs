@@ -5,6 +5,7 @@
         Comparison = 1,
         Performance = 2,
         Average = 3,
-        OddPercentage = 4
+        OddPercentage = 4,
+        OverallPerferomance = 5
     }
 }

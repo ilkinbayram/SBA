@@ -4,6 +4,13 @@ namespace Core.Entities.Concrete.ExternalDbEntities
 {
     public class MatchIdentifier : Identifier, IEntity
     {
+        public MatchIdentifier()
+        {
+            if (string.IsNullOrEmpty(HomeTeam)) HomeTeam = string.Empty;
+            if (string.IsNullOrEmpty(AwayTeam)) AwayTeam = string.Empty;
+            if (string.IsNullOrEmpty(HT_Result)) HT_Result = string.Empty;
+            if (string.IsNullOrEmpty(FT_Result)) FT_Result = string.Empty;
+        }
         public int Serial { get; set; }
         public string HomeTeam { get; set; }
         public string AwayTeam { get; set; }

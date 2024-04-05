@@ -183,6 +183,9 @@
   <data name="ForecastTranslation_HT_05_Under" xml:space="preserve">
     <value>BH 0,5 Alt</value>
   </data>
+  <data name="ForecastTranslation_HT_15_Over" xml:space="preserve">
+    <value>BH 1,5 Üst</value>
+  </data>
   <data name="ForecastTranslation_HT_15_Under" xml:space="preserve">
     <value>BH 1,5 Alt</value>
   </data>
@@ -206,6 +209,9 @@
   </data>
   <data name="ForecastTranslation_SH_05_Under" xml:space="preserve">
     <value>İH 0,5 Alt</value>
+  </data>
+  <data name="ForecastTranslation_SH_15_Over" xml:space="preserve">
+    <value>İH 1,5 Üst</value>
   </data>
   <data name="ForecastTranslation_SH_15_Under" xml:space="preserve">
     <value>İH 1,5 Alt</value>

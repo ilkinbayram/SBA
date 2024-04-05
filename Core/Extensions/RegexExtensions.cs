@@ -35,7 +35,7 @@ namespace Core.Extensions
                     if (!dateMatch.Contains(".") || dateMatch.Split(".").Length != 3) continue;
                     var builder = new StringBuilder();
 
-                    if(dateMatch.Split(".")[0].Length == 1) builder.Append($"0");
+                    if (dateMatch.Split(".")[0].Length == 1) builder.Append($"0");
                     builder.Append($"{dateMatch.Split(".")[0]}.");
 
                     if (dateMatch.Split(".")[1].Length == 1) builder.Append($"0");
@@ -120,7 +120,14 @@ namespace Core.Extensions
                     }
                     else
                     {
-                        return matchedResult.Split("-")[2].Trim().Split(" ")[0];
+                        try
+                        {
+                            return matchedResult.Split("-")[2].Trim().Split(" ")[0];
+                        }
+                        catch (Exception ex)
+                        {
+                            return "NONE";
+                        }
                     }
                 }
             }
@@ -158,7 +165,7 @@ namespace Core.Extensions
                             .Split(countryModel.Name)[1].Trim()
                             .Split($"@")[0];
                     }
-                    else if(matchedResult.Split("-").Length > 2)
+                    else if (matchedResult.Split("-").Length > 2)
                     {
                         matchedResult = matchedResult
                             .Split(matchedResult.Split("-")[2].Trim()

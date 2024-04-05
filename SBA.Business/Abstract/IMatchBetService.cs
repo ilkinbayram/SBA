@@ -35,6 +35,7 @@ namespace SBA.Business.Abstract
         IDataResult<List<MatchBetQM>> GetMatchBetFilterResultQueryModels(Expression<Func<MatchBetQM, bool>> filter = null);
 
         List<StatisticInfoHolder> GetOddFilteredResult(int serial, decimal range);
+        List<StatisticInfoHolder> GetPerformanceOverallResult(int serial);
 
         Task<IDataResult<List<GetMatchBetDto>>> GetDtoListAsync(Expression<Func<MatchBet, bool>> filter = null, int takeCount = 20000000);
         Task<IDataResult<GetMatchBetDto>> GetDtoAsync(Expression<Func<MatchBet, bool>> filter = null);

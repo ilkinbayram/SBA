@@ -259,6 +259,15 @@ namespace Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 1Y 1,5 Üst.
+        /// </summary>
+        internal static string ForecastTranslation_HT_15_Over {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_HT_15_Over", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 1Y 1,5 Alt.
         /// </summary>
         internal static string ForecastTranslation_HT_15_Under {
@@ -327,6 +336,15 @@ namespace Core.Resources {
         internal static string ForecastTranslation_SH_05_Under {
             get {
                 return ResourceManager.GetString("ForecastTranslation_SH_05_Under", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2Y 1,5 Üst.
+        /// </summary>
+        internal static string ForecastTranslation_SH_15_Over {
+            get {
+                return ResourceManager.GetString("ForecastTranslation_SH_15_Over", resourceCulture);
             }
         }
         

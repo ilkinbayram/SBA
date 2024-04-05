@@ -23,7 +23,17 @@
         public int Team_Possesion { get; set; }
         public int Team_ShutOnTarget_Percent
         {
-            get => Convert.ToInt32(this.Average_FT_ShutOnTarget_Team * 100 / this.Average_FT_Shut_Team);
+            get
+            {
+                if (this.Average_FT_Shut_Team == 0)
+                {
+                    return -9999;
+                }
+                else
+                {
+                    return Convert.ToInt32(this.Average_FT_ShutOnTarget_Team * 100 / this.Average_FT_Shut_Team);
+                }
+            }
         }
 
         public int Is_FT_Win { get; set; }

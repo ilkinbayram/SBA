@@ -55,7 +55,17 @@
         public int Team_Average_BallPossesion_Percent { get; set; }
         public int Team_ShutOnTarget_Percent
         {
-            get => Convert.ToInt32(this.Team_Average_FT_ShotOnTarget * 100 / this.Team_Average_FT_Shot);
+            get
+            {
+                if (this.Team_Average_FT_Shot == 0)
+                {
+                    return -99999;
+                }
+                else
+                {
+                    return Convert.ToInt32(this.Team_Average_FT_ShotOnTarget * 100 / this.Team_Average_FT_Shot);
+                }
+            }
         }
     }
 }

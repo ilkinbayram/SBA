@@ -24,11 +24,31 @@ namespace Core.Entities.Concrete.ComplexModels.SqlModelHelpers
         public int Away_Possesion { get; set; }
         public int Home_ShutOnTarget_Percent
         {
-            get => Convert.ToInt32(this.Average_FT_ShutOnTarget_HomeTeam * 100 / this.Average_FT_Shut_HomeTeam);
+            get
+            {
+                if (this.Average_FT_Shut_HomeTeam == 0)
+                {
+                    return -9999;
+                }
+                else
+                {
+                    return Convert.ToInt32(this.Average_FT_ShutOnTarget_HomeTeam * 100 / this.Average_FT_Shut_HomeTeam);
+                }
+            }
         }
         public int Away_ShutOnTarget_Percent
         {
-            get => Convert.ToInt32(this.Average_FT_ShutOnTarget_AwayTeam * 100 / this.Average_FT_Shut_AwayTeam);
+            get
+            {
+                if (this.Average_FT_Shut_AwayTeam == 0)
+                {
+                    return -9999;
+                }
+                else
+                {
+                    return Convert.ToInt32(this.Average_FT_ShutOnTarget_AwayTeam * 100 / this.Average_FT_Shut_AwayTeam);
+                }
+            }
         }
     }
 }

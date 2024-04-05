@@ -23,6 +23,10 @@ namespace Core.Utilities.Helpers
             {
                 result = filterResult.HT_0_5_Over;
             }
+            else if (key.ToLower() == ForecastKeys.HT_15_Over.ToLower())
+            {
+                result = filterResult.HT_1_5_Over;
+            }
             else if (key.ToLower() == ForecastKeys.HT_05_Under.ToLower())
             {
                 result = !filterResult.HT_0_5_Over;
@@ -56,6 +60,10 @@ namespace Core.Utilities.Helpers
             else if (key.ToLower() == ForecastKeys.SH_05_Over.ToLower())
             {
                 result = filterResult.SH_0_5_Over;
+            }
+            else if (key.ToLower() == ForecastKeys.SH_15_Over.ToLower())
+            {
+                result = filterResult.SH_1_5_Over;
             }
             else if (key.ToLower() == ForecastKeys.SH_05_Under.ToLower())
             {

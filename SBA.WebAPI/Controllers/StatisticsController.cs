@@ -9,6 +9,7 @@ using SBA.Business.Abstract;
 using SBA.Business.BusinessHelper;
 using SBA.Business.ExternalServices.Abstract;
 using SBA.Business.ExternalServices.ChatGPT;
+using SBA.Business.ExternalServices.ChatGPT.Models;
 using SBA.WebAPI.Utilities.Extensions;
 using SBA.WebAPI.Utilities.Helpers;
 
@@ -257,7 +258,23 @@ namespace SBA.WebAPI.Controllers
             };
             string statisticsData = JsonConvert.SerializeObject(statisticsModel, serializerOptions);
 
-            var resultGuess = await _aiService.CallOpenAIAsync(statisticsData, statisticsModel.MatchInformation.HomeTeam, statisticsModel.MatchInformation.AwayTeam);
+            var messages = new List<RequestMessageGPT>();
+
+            messages.Add(new RequestMessageGPT
+            {
+                Role = OpenAI_API.Chat.ChatMessageRole.System,
+                Content = "Analyze the provided soccer match statistics and predict the most likely outcome. Return the prediction using one of these specific keys: 'FT_Both_Team_Score', 'FT_1_5_Over', 'FT_2_5_Over', 'FT_3_5_Under', 'HT_0_5_Over', 'SH_0_5_Over', 'HT_1_5_Under'. If a high-probability prediction is not possible or none of the keys are suitable, return 'NOT'"
+            });
+
+            messages.Add(new RequestMessageGPT
+            {
+                Role = OpenAI_API.Chat.ChatMessageRole.User,
+                Content = statisticsData
+            });
+
+            var requestConfig = new RequestConfigGPT(500, (float)0.0);
+
+            var resultGuess = await _aiService.CallOpenAIAsync(messages, requestConfig, GptEngineType.Default_GPT_4);
 
             return resultGuess;
         }
@@ -321,6 +338,15 @@ namespace SBA.WebAPI.Controllers
         public IActionResult GetInTimeOddStatistics(int serial, decimal range)
         {
             var model = _matchBetService.GetOddFilteredResult(serial, range).OrderBy(x=>x.Order).ToList();
+
+            return Ok(model);
+        }
+
+
+        [HttpGet("get-overall-performance-statistics/{serial}")]
+        public IActionResult GetPerformanceOverallStatistics(int serial)
+        {
+            var model = _matchBetService.GetPerformanceOverallResult(serial).OrderBy(x => x.Order).ToList();
 
             return Ok(model);
         }

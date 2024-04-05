@@ -239,7 +239,7 @@
             public const string HTResultMatch2ndCheck = @"MS[\s\S]*?mac-score[\s\S]*?dvStatusText[\s\S]*?mac-ht[\s\S]*?nbsp;(.+?(?=<))";
 
 
-            public const string DateMatch = @"!DOCTYPE[\s\S]*?<head>[\s\S]*?<title>[\s\S]*?\([\s\S]*?(\d\d.\d\d.\d\d\d\d)";
+            public const string DateMatch = @"match-info-date[\s\S]*?>[\s\S]*?:\s*(\d{1,2}\.\d{2}\.\d{4})";
             public const string DateMatch2nd = @"!DOCTYPE[\s\S]*?<head>[\s\S]*?title[\s\S]*?\([\s\S]*?(.+?(?=\)))";
 
 
@@ -262,7 +262,7 @@
             public const string FT_Draw = @">Maç Sonucu <[\s\S]*?>X<[\s\S]*?compare-rate-bg-up[\s\S]*?[\>](-|\d\d*\.\d\d|\d\d*)";
             public const string FT_Win2 = @">Maç Sonucu <[\s\S]*?>2<[\s\S]*?compare-rate-bg-up[\s\S]*?[\>](-|\d\d*\.\d\d|\d\d*)";
 
-            public const string Time = @"match-info-date[\s\S]*?(\d\d:\d\d)";
+            public const string Time = @"match-info-date[\s\S]*?>[\s\S]*?:\s*(\d{1,2}\.\d{2}\.\d{4}\s+\d{2}:\d{2})";
 
 
             public const string HT_FT_Home_Home = @">İlk Yarı\/Maç Sonucu <[\s\S]*?>1\/1<[\s\S]*?compare-rate-bg-up[\s\S]*?[\>](-|\d\d*\.\d\d|\d\d*)";
@@ -477,7 +477,7 @@
             public const string Goals45 = @">Toplam Gol Aralığı <[\s\S]*?>4-5 Gol<[\s\S]*?compare-rate-bg-up[\s\S]*?[\>](-|\d\d*\.\d\d|\d\d*)";
             public const string Goals6 = @">Toplam Gol Aralığı <[\s\S]*?>6\+ Gol<[\s\S]*?compare-rate-bg-up[\s\S]*?[\>](-|\d\d*\.\d\d|\d\d*)";
 
-            public const string DateMatch = @"!DOCTYPE[\s\S]*?<head>[\s\S]*?<title>[\s\S]*?\([\s\S]*?(\d\d.\d\d.\d\d\d\d)";
+            public const string DateMatch = @"match-info-date[\s\S]*?>[\s\S]*?:\s*(\d{1,2}\.\d{2}\.\d{4})";
             public const string DateMatch2nd = @"!DOCTYPE[\s\S]*?<head>[\s\S]*?title[\s\S]*?\([\s\S]*?(.+?(?=\)))";
 
             public const string HomeTeam = @"match-info-wrapper[\s\S]*?match-info-wrapper-center[\s\S]*?left-block-team-name[\s\S]*?>([^\W][^<]+)";

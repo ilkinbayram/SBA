@@ -22,6 +22,9 @@
         public const string HT_15_Under = "ForecastTranslation_HT_15_Under";
         public const string SH_15_Under = "ForecastTranslation_SH_15_Under";
 
+        public const string HT_15_Over = "ForecastTranslation_HT_15_Over";
+        public const string SH_15_Over = "ForecastTranslation_SH_15_Over";
+
         public const string FT_Home_Goal = "ForecastTranslation_FT_Home_05_Over";
         public const string FT_Away_Goal = "ForecastTranslation_FT_Away_05_Over";
         public const string HT_Home_Goal = "ForecastTranslation_HT_Home_05_Over";

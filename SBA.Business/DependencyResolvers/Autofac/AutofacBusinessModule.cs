@@ -40,6 +40,9 @@ namespace SBA.Business.DependencyResolvers.Autofac
             builder.RegisterType<EfAverageStatisticsHolderDal>().As<IAverageStatisticsHolderDal>();
 
             builder.RegisterType<TeamPerformanceStatisticsHolderManager>().As<ITeamPerformanceStatisticsHolderService>();
+
+            builder.RegisterType<EfPerformanceOverallDal>().As<IPerformanceOverallDal>();
+
             builder.RegisterType<EfTeamPerformanceStatisticsHolderDal>().As<ITeamPerformanceStatisticsHolderDal>();
 
             builder.RegisterType<MatchIdentifierManager>().As<IMatchIdentifierService>();

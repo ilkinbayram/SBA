@@ -155,6 +155,24 @@ namespace Core.Entities.Concrete
         public int AwayShotCount { get; set; }
 
 
+        [BsonElement("homeFtGoalCount")]
+        public int HomeFtGoalCount { get; set; }
+
+        [BsonElement("awayFtGoalCount")]
+        public int AwayFtGoalCount { get; set; }
+
+        [BsonElement("homeHtGoalCount")]
+        public int HomeHtGoalCount { get; set; }
+
+        [BsonElement("awayHtGoalCount")]
+        public int AwayHtGoalCount { get; set; }
+        [BsonElement("homeShGoalCount")]
+        public int HomeShGoalCount { get; set; }
+
+        [BsonElement("awayShGoalCount")]
+        public int AwayShGoalCount { get; set; }
+
+
 
         [BsonElement("homeShotOnTargetCount")]
         public int HomeShotOnTargetCount { get; set; }

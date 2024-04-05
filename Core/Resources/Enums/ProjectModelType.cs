@@ -6,6 +6,7 @@
         MatchBet = 2,
         UnstartedMatchBetTemp = 3,
         OddChangesEqualiser = 4,
+        PerformanceOverall = 5,
 
         // View Types - 500
         MatchBetSqlViewData = 400

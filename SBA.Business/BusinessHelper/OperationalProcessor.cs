@@ -17,6 +17,7 @@ using Newtonsoft.Json;
 using SBA.Business.Abstract;
 using SBA.Business.FunctionalServices.Concrete;
 using SBA.Business.Mapping;
+using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace SBA.Business.BusinessHelper
@@ -146,6 +147,12 @@ namespace SBA.Business.BusinessHelper
                 HT_GG = HT_HomeGoals > 0 && HT_AwayGoals > 0,
                 SerialUniqueID = Convert.ToInt32(profiler.Serial),
                 MoreGoalsBetweenTimes = CalculateMoreGoalsBetweenTimes((HT_HomeGoals + HT_AwayGoals), (SH_HomeGoals + SH_AwayGoals)),
+                HomeFtGoalCount = FT_HomeGoals,
+                AwayFtGoalCount = FT_AwayGoals,
+                HomeHtGoalCount = HT_HomeGoals,
+                AwayHtGoalCount = HT_AwayGoals,
+                HomeShGoalCount = SH_HomeGoals,
+                AwayShGoalCount = SH_AwayGoals,
                 FT_TotalBetween = CalculateGoalsBetweenCount(FT_HomeGoals + FT_AwayGoals),
                 HT_FT_Result = CalculateHalfFullResult(HT_HomeGoals, FT_HomeGoals, HT_AwayGoals, FT_AwayGoals)
             };
@@ -186,6 +193,13 @@ namespace SBA.Business.BusinessHelper
                 SH_Result = CalculateMatchWinner(matchInfo.Home_SH_Goals_Count, matchInfo.Away_SH_Goals_Count),
                 HT_Result = CalculateMatchWinner(matchInfo.Home_HT_Goals_Count, matchInfo.Away_HT_Goals_Count),
                 FT_Result = CalculateMatchWinner(matchInfo.Home_FT_Goals_Count, matchInfo.Away_FT_Goals_Count),
+
+                HomeFtGoalCount = matchInfo.Home_FT_Goals_Count,
+                AwayFtGoalCount = matchInfo.Away_FT_Goals_Count,
+                HomeHtGoalCount = matchInfo.Home_HT_Goals_Count,
+                AwayHtGoalCount = matchInfo.Away_HT_Goals_Count,
+                HomeShGoalCount = matchInfo.Home_SH_Goals_Count,
+                AwayShGoalCount = matchInfo.Away_SH_Goals_Count,
 
                 ModelType = ProjectModelType.FilterResult,
                 FT_GG = matchInfo.Home_FT_Goals_Count > 0 && matchInfo.Away_FT_Goals_Count > 0,
@@ -669,7 +683,12 @@ namespace SBA.Business.BusinessHelper
                         aiDataHolderService.Add(aiDataHolder);
                     }
 
-                    matchIdentifierService.Add(matchIdentity);
+                    var affectedMatchİdentifier = matchIdentifierService.Add(matchIdentity);
+
+                    if (!affectedMatchİdentifier.Success)
+                    {
+                        throw new Exception("MatchIdentifier Crashed on Add Time!");
+                    }
 
                     AddStatisticsToLeagueStatistic(analyseModelOne, leagueStatistic, matchIdentity.Id);
 
@@ -1037,6 +1056,43 @@ namespace SBA.Business.BusinessHelper
         }
 
 
+        public static List<StatisticInfoHolder> GenerateOvereallResultStatInfoes(int serial, MatchStatisticOverallResultModel model)
+        {
+            if (model == null) return null;
+            
+            var result = new List<StatisticInfoHolder>
+            {
+                new StatisticInfoHolder(Guid.Empty, 0, "Count_Percent_Found", model.FoundMatchCount.ToString(), model.FoundMatchCount.ToString(), model.FoundMatchCount, model.FoundMatchCount, serial, (int)StatisticType.OddPercentage, 0),
+                new StatisticInfoHolder(Guid.Empty, 100, "Ind_Avg_Goal_FT", model.Average_Home_FT_Goals.ToString("0.00"), model.Average_Away_FT_Goals.ToString("0.00"), model.Average_Home_FT_Goals, model.Average_Away_FT_Goals, serial, (int)StatisticType.OddPercentage, 0),
+                new StatisticInfoHolder(Guid.Empty, 103, "Ind_Avg_Conc_Goal_FT", model.Average_Home_FT_Conceded_Goals.ToString("0.00"), model.Average_Away_FT_Conceded_Goals.ToString("0.00"), model.Average_Home_FT_Conceded_Goals, model.Average_Away_FT_Conceded_Goals, serial, (int)StatisticType.OddPercentage, 0),
+                new StatisticInfoHolder(Guid.Empty, 105, "Ind_Avg_Goal_HT", model.Average_Home_HT_Goals.ToString("0.00"), model.Average_Away_HT_Goals.ToString("0.00"), model.Average_Home_HT_Goals, model.Average_Away_HT_Goals, serial, (int)StatisticType.OddPercentage, 0),
+                new StatisticInfoHolder(Guid.Empty, 107, "Ind_Avg_Conc_Goal_HT", model.Average_Home_HT_Conceded_Goals.ToString("0.00"), model.Average_Away_HT_Conceded_Goals.ToString("0.00"), model.Average_Home_HT_Conceded_Goals, model.Average_Away_HT_Conceded_Goals, serial, (int)StatisticType.OddPercentage, 0),
+                new StatisticInfoHolder(Guid.Empty, 110, "Ind_Avg_Goal_SH", model.Average_Home_SH_Goals.ToString("0.00"), model.Average_Away_SH_Goals.ToString("0.00"), model.Average_Home_SH_Goals, model.Average_Away_SH_Goals, serial, (int)StatisticType.OddPercentage, 0),
+                new StatisticInfoHolder(Guid.Empty, 113, "Ind_Avg_Conc_Goal_SH", model.Average_Home_SH_Conceded_Goals.ToString("0.00"), model.Average_Away_SH_Conceded_Goals.ToString("0.00"), model.Average_Home_SH_Conceded_Goals, model.Average_Away_SH_Conceded_Goals, serial, (int)StatisticType.OddPercentage, 0),
+                new StatisticInfoHolder(Guid.Empty, 115, "Ind_FT_Win", string.Format("{0}%", model.Average_Home_FT_WinPercent), string.Format("{0}%", model.Average_Away_FT_WinPercent), (decimal)model.Average_Home_FT_WinPercent / 100, (decimal)model.Average_Away_FT_WinPercent / 100, serial, (int)StatisticType.OddPercentage, 0),
+                new StatisticInfoHolder(Guid.Empty, 120, "FT_X", string.Format("{0}%", model.Average_FT_DrawPercent), string.Format("{0}%", model.Average_FT_DrawPercent), (decimal)model.Average_FT_DrawPercent / 100, (decimal)model.Average_FT_DrawPercent / 100, serial, (int)StatisticType.OddPercentage, 0),
+                new StatisticInfoHolder(Guid.Empty, 125, "Ind_HT_Win", string.Format("{0}%", model.Average_Home_HT_WinPercent), string.Format("{0}%", model.Average_Away_HT_WinPercent), (decimal)model.Average_Home_HT_WinPercent / 100, (decimal)model.Average_Away_HT_WinPercent / 100, serial, (int)StatisticType.OddPercentage, 0),
+                new StatisticInfoHolder(Guid.Empty, 130, "HT_X", string.Format("{0}%", model.Average_HT_DrawPercent), string.Format("{0}%", model.Average_HT_DrawPercent), (decimal)model.Average_HT_DrawPercent / 100, (decimal)model.Average_HT_DrawPercent / 100, serial, (int)StatisticType.OddPercentage, 0),
+                new StatisticInfoHolder(Guid.Empty, 135, "Ind_SH_Win", string.Format("{0}%", model.Average_Home_SH_WinPercent), string.Format("{0}%", model.Average_Away_SH_WinPercent), (decimal)model.Average_Home_SH_WinPercent / 100, (decimal)model.Average_Away_SH_WinPercent / 100, serial, (int)StatisticType.OddPercentage, 0),
+                new StatisticInfoHolder(Guid.Empty, 140, "SH_X", string.Format("{0}%", model.Average_SH_DrawPercent), string.Format("{0}%", model.Average_SH_DrawPercent), (decimal)model.Average_SH_DrawPercent / 100, (decimal)model.Average_SH_DrawPercent / 100, serial, (int)StatisticType.OddPercentage, 0),
+                new StatisticInfoHolder(Guid.Empty, 145, "Ind_FT_05", string.Format("{0}%", model.Average_Home_IND_FT_0_5_Over_Percent), string.Format("{0}%", model.Average_Away_IND_FT_0_5_Over_Percent), (decimal)model.Average_Home_IND_FT_0_5_Over_Percent / 100, (decimal)model.Average_Away_IND_FT_0_5_Over_Percent / 100, serial, (int)StatisticType.OddPercentage, 0),
+                new StatisticInfoHolder(Guid.Empty, 150, "Ind_FT_15", string.Format("{0}%", model.Average_Home_IND_FT_1_5_Over_Percent), string.Format("{0}%", model.Average_Away_IND_FT_1_5_Over_Percent), (decimal)model.Average_Home_IND_FT_1_5_Over_Percent / 100, (decimal)model.Average_Away_IND_FT_1_5_Over_Percent / 100, serial, (int)StatisticType.OddPercentage, 0),
+                new StatisticInfoHolder(Guid.Empty, 155, "Ind_HT_05", string.Format("{0}%", model.Average_Home_IND_HT_0_5_Over_Percent), string.Format("{0}%", model.Average_Away_IND_HT_0_5_Over_Percent), (decimal)model.Average_Home_IND_HT_0_5_Over_Percent / 100, (decimal)model.Average_Away_IND_HT_0_5_Over_Percent / 100, serial, (int)StatisticType.OddPercentage, 0),
+                new StatisticInfoHolder(Guid.Empty, 165, "Ind_SH_05", string.Format("{0}%", model.Average_Home_IND_SH_0_5_Over_Percent), string.Format("{0}%", model.Average_Away_IND_SH_0_5_Over_Percent), (decimal)model.Average_Home_IND_SH_0_5_Over_Percent / 100, (decimal)model.Average_Away_IND_SH_0_5_Over_Percent / 100, serial, (int)StatisticType.OddPercentage, 0),
+                new StatisticInfoHolder(Guid.Empty, 142, "Ind_WinAny", string.Format("{0}%", model.Average_Home_WinAnyHalf_Percent), string.Format("{0}%", model.Average_Away_WinAnyHalf_Percent), (decimal)model.Average_Home_WinAnyHalf_Percent / 100, (decimal)model.Average_Away_WinAnyHalf_Percent / 100, serial, (int)StatisticType.OddPercentage, 0),
+
+                new StatisticInfoHolder(Guid.Empty, 175, "FT_GG", string.Format("{0}%", model.Average_GG_Percent), string.Format("{0}%", model.Average_GG_Percent), (decimal)model.Average_GG_Percent / 100, (decimal)model.Average_GG_Percent / 100, serial, (int)StatisticType.OddPercentage, 0),
+                new StatisticInfoHolder(Guid.Empty, 190, "FT_15", string.Format("{0}%", model.Average_FT_1_5_Over_Percent), string.Format("{0}%", model.Average_FT_1_5_Over_Percent), (decimal)model.Average_FT_1_5_Over_Percent / 100, (decimal)model.Average_FT_1_5_Over_Percent / 100, serial, (int)StatisticType.OddPercentage, 0),
+                new StatisticInfoHolder(Guid.Empty, 195, "FT_25", string.Format("{0}%", model.Average_FT_2_5_Over_Percent), string.Format("{0}%", model.Average_FT_2_5_Over_Percent), (decimal)model.Average_FT_2_5_Over_Percent / 100, (decimal)model.Average_FT_2_5_Over_Percent / 100, serial, (int)StatisticType.OddPercentage, 0),
+                new StatisticInfoHolder(Guid.Empty, 200, "FT_35", string.Format("{0}%", model.Average_FT_3_5_Over_Percent), string.Format("{0}%", model.Average_FT_3_5_Over_Percent), (decimal)model.Average_FT_3_5_Over_Percent / 100, (decimal)model.Average_FT_3_5_Over_Percent / 100, serial, (int)StatisticType.OddPercentage, 0),
+                new StatisticInfoHolder(Guid.Empty, 205, "HT_05", string.Format("{0}%", model.Average_HT_0_5_Over_Percent), string.Format("{0}%", model.Average_HT_0_5_Over_Percent), (decimal)model.Average_HT_0_5_Over_Percent / 100, (decimal)model.Average_HT_0_5_Over_Percent / 100, serial, (int)StatisticType.OddPercentage, 0),
+                new StatisticInfoHolder(Guid.Empty, 215, "SH_05", string.Format("{0}%", model.Average_SH_0_5_Over_Percent), string.Format("{0}%", model.Average_SH_0_5_Over_Percent), (decimal)model.Average_SH_0_5_Over_Percent / 100, (decimal)model.Average_SH_0_5_Over_Percent / 100, serial, (int)StatisticType.OddPercentage, 0)
+            };
+
+            return result;
+        }
+
+
         private static List<StatisticInfoHolder> GeneratePerformanceStatInfoes(TeamPerformanceStatisticsHolder? inputHome, TeamPerformanceStatisticsHolder? inputAway, int serial, int bySide)
         {
             if (inputHome == null || inputAway == null) return null;
@@ -1117,8 +1173,15 @@ namespace SBA.Business.BusinessHelper
 
         private static string ExtractTimeMatch(string src)
         {
-            var rgxTime = new Regex(PatternConstant.UnstartedMatchPattern.Time);
-            return rgxTime.Matches(src)[0].Groups[1].Value.Trim();
+            try
+            {
+                var rgxTime = new Regex(PatternConstant.UnstartedMatchPattern.Time);
+                return rgxTime.Matches(src)[0].Groups[1].Value.Trim();
+            }
+            catch (Exception)
+            {
+                return string.Empty;
+            }
         }
 
         private static LeagueHolder? FindCurrentLeagueContainer(LeagueContainer leagueContainer, string countryName, string leagueName)
@@ -1159,8 +1222,18 @@ namespace SBA.Business.BusinessHelper
 
         private static DateTime CalculateMatchDateTime(string timeMatch)
         {
-            TimeSpan matchTime = TimeSpan.Parse(timeMatch).Add(TimeSpan.FromHours(1));
-            return new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, matchTime.Hours, matchTime.Minutes, 0);
+            if (string.IsNullOrEmpty(timeMatch.Trim()))
+            {
+                return DateTime.Now.AddDays(7);
+            }
+
+            if (timeMatch.Split(".")[0].Length == 1)
+            {
+                timeMatch = $"0{timeMatch}";
+            }
+
+            DateTime matchDateTime = DateTime.ParseExact(timeMatch, "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture);
+            return matchDateTime.AddHours(1);
         }
 
         private static MatchIdentifier CreateMatchIdentifier(JobAnalyseModel analyseModel, string serial, DateTime matchDateTime)

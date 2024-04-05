@@ -30,10 +30,10 @@ namespace SBA.WebAPI.Controllers
         }
 
 
-        [HttpGet("get-grouped-matches/today")]
-        public async Task<IActionResult> GetTodayGroupedMatchesAsync()
+        [HttpGet("get-grouped-matches/{month}/{day}")]
+        public async Task<IActionResult> GetTodayGroupedMatchesAsync(int month, int day)
         {
-            var result = await _matchIdentifierService.GetGroupedMatchsProgramAsync();
+            var result = await _matchIdentifierService.GetGroupedMatchsProgramAsync(month, day);
 
             return Ok(result);
         }
@@ -46,10 +46,10 @@ namespace SBA.WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpGet("get-matches/today")]
-        public async Task<IActionResult> GetTodayMatchesAsync()
+        [HttpGet("get-matches/{month}/{day}")]
+        public async Task<IActionResult> GetTodayMatchesAsync(int month, int day)
         {
-            var result = await _matchIdentifierService.GetAllMatchsProgramAsync();
+            var result = await _matchIdentifierService.GetAllMatchsProgramAsync(month, day);
 
             return Ok(result);
         }

@@ -397,24 +397,24 @@ namespace SBA.Business.Concrete
             }
         }
 
-        public MatchProgramList GetGroupedMatchsProgram()
+        public MatchProgramList GetGroupedMatchsProgram(int month, int day)
         {
-            return _matchIdentifierDal.GetGroupedMatchsProgram();
+            return _matchIdentifierDal.GetGroupedMatchsProgram(month, day);
         }
 
-        public MatchDetailProgram GetAllMatchsProgram()
+        public MatchDetailProgram GetAllMatchsProgram(int month, int day)
         {
-            return _matchIdentifierDal.GetAllMatchsProgram();
+            return _matchIdentifierDal.GetAllMatchsProgram(month, day);
         }
 
-        public async Task<MatchProgramList> GetGroupedMatchsProgramAsync()
+        public async Task<MatchProgramList> GetGroupedMatchsProgramAsync(int month, int day)
         {
-            return await _matchIdentifierDal.GetGroupedMatchsProgramAsync();
+            return await _matchIdentifierDal.GetGroupedMatchsProgramAsync(month, day);
         }
 
-        public async Task<MatchDetailProgram> GetAllMatchsProgramAsync()
+        public async Task<MatchDetailProgram> GetAllMatchsProgramAsync(int month, int day)
         {
-            return await _matchIdentifierDal.GetAllMatchsProgramAsync();
+            return await _matchIdentifierDal.GetAllMatchsProgramAsync(month, day);
         }
 
         public async Task<MatchDetailProgram> GetPossibleForecastMatchsProgramAsync()

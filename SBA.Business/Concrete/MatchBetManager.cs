@@ -12,7 +12,7 @@ using SBA.Business.BusinessHelper;
 using SBA.Business.FunctionalServices.Concrete;
 using SBA.Business.Mapping;
 using SBA.DataAccess.Abstract;
-using System.Collections.Generic;
+using SBA.ExternalDataAccess.Abstract;
 using System.Linq.Expressions;
 
 namespace Business.Concrete
@@ -20,13 +20,19 @@ namespace Business.Concrete
     public class MatchBetManager : IMatchBetService
     {
         private readonly IMatchBetDal _matchBetDal;
+        private readonly IPerformanceOverallDal _performanceOverallDal;
+        private readonly IMatchIdentifierDal _matchIdentifierDal;
         private readonly IMapper _mapper;
 
         public MatchBetManager(IMatchBetDal matchBetDal,
-                             IMapper mapper)
+                             IMapper mapper,
+                             IPerformanceOverallDal performanceOverallDal,
+                             IMatchIdentifierDal matchIdentifierDal)
         {
             _matchBetDal = matchBetDal;
             _mapper = mapper;
+            _performanceOverallDal = performanceOverallDal;
+            _matchIdentifierDal = matchIdentifierDal;
         }
 
         public IDataResult<int> Add(CreateMatchBetDto matchBetModel)
@@ -594,6 +600,16 @@ namespace Business.Concrete
             List<FilterResultMutateModel> mutatedFilterResult = _matchBetDal.GetOddFilteredResult(inTimeModel, range);
 
             var result = OperationalProcessor.GenerateOddPercentageStatInfoes(serial, mutatedFilterResult, range);
+
+            return result;
+        }
+
+
+        public List<StatisticInfoHolder> GetPerformanceOverallResult(int serial)
+        {
+            var parameterModel = _matchIdentifierDal.SpGetMatchInformation(serial);
+            var parameters = _performanceOverallDal.GetSpMatchAnalyzeResult(parameterModel);
+            var result = OperationalProcessor.GenerateOvereallResultStatInfoes(serial, parameters);
 
             return result;
         }

@@ -35,7 +35,22 @@ namespace SBA.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasDefaultValue(-1);
 
+                    b.Property<int>("AwayFtGoalCount")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(-1);
+
+                    b.Property<int>("AwayHtGoalCount")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(-1);
+
                     b.Property<int>("AwayPossesion")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(-1);
+
+                    b.Property<int>("AwayShGoalCount")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasDefaultValue(-1);
@@ -108,7 +123,7 @@ namespace SBA.DataAccess.Migrations
                     b.Property<DateTime>("CreatedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 15, 18, 44, 49, 4, DateTimeKind.Local).AddTicks(589));
+                        .HasDefaultValue(new DateTime(2024, 4, 3, 15, 11, 17, 903, DateTimeKind.Local).AddTicks(7219));
 
                     b.Property<bool>("FT_1_5_Over")
                         .HasColumnType("bit");
@@ -148,7 +163,22 @@ namespace SBA.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasDefaultValue(-1);
 
+                    b.Property<int>("HomeFtGoalCount")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(-1);
+
+                    b.Property<int>("HomeHtGoalCount")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(-1);
+
                     b.Property<int>("HomePossesion")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(-1);
+
+                    b.Property<int>("HomeShGoalCount")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasDefaultValue(-1);
@@ -258,7 +288,7 @@ namespace SBA.DataAccess.Migrations
                     b.Property<DateTime>("ModifiedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 15, 18, 44, 49, 4, DateTimeKind.Local).AddTicks(643));
+                        .HasDefaultValue(new DateTime(2024, 4, 3, 15, 11, 17, 903, DateTimeKind.Local).AddTicks(7349));
 
                     b.Property<int>("MoreGoalsBetweenTimes")
                         .HasColumnType("int");
@@ -306,7 +336,7 @@ namespace SBA.DataAccess.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 15, 18, 44, 49, 4, DateTimeKind.Local).AddTicks(2022));
+                        .HasDefaultValue(new DateTime(2024, 4, 3, 15, 11, 17, 904, DateTimeKind.Local).AddTicks(1139));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -360,7 +390,7 @@ namespace SBA.DataAccess.Migrations
                     b.Property<DateTime>("CreatedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 15, 18, 44, 49, 3, DateTimeKind.Local).AddTicks(8990));
+                        .HasDefaultValue(new DateTime(2024, 4, 3, 15, 11, 17, 903, DateTimeKind.Local).AddTicks(1699));
 
                     b.Property<decimal>("FTDraw_Odd")
                         .HasPrecision(7, 2)
@@ -484,7 +514,7 @@ namespace SBA.DataAccess.Migrations
                     b.Property<DateTime>("ModifiedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 15, 18, 44, 49, 3, DateTimeKind.Local).AddTicks(9051));
+                        .HasDefaultValue(new DateTime(2024, 4, 3, 15, 11, 17, 903, DateTimeKind.Local).AddTicks(1921));
 
                     b.Property<int>("SerialUniqueID")
                         .HasColumnType("int");
@@ -507,6 +537,251 @@ namespace SBA.DataAccess.Migrations
                     SqlServerIndexBuilderExtensions.IsClustered(b.HasIndex("SerialUniqueID"), false);
 
                     b.ToTable("MatchBets", (string)null);
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.PerformanceOverall", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<decimal>("Average_FT_Conceded_Goals_Away_Team")
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)");
+
+                    b.Property<decimal>("Average_FT_Conceded_Goals_Home_Team")
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)");
+
+                    b.Property<decimal>("Average_FT_GK_Saves_Away_Team")
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)");
+
+                    b.Property<decimal>("Average_FT_GK_Saves_Home_Team")
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)");
+
+                    b.Property<decimal>("Average_FT_Goals_Away_Team")
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)");
+
+                    b.Property<decimal>("Average_FT_Goals_Home_Team")
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)");
+
+                    b.Property<decimal>("Average_FT_ShutOnTarget_Away_Team")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Average_FT_ShutOnTarget_Home_Team")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Average_FT_Shut_Away_Team")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Average_FT_Shut_Home_Team")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Average_HT_Conceded_Goals_Away_Team")
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)");
+
+                    b.Property<decimal>("Average_HT_Conceded_Goals_Home_Team")
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)");
+
+                    b.Property<decimal>("Average_HT_Goals_Away_Team")
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)");
+
+                    b.Property<decimal>("Average_HT_Goals_Home_Team")
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)");
+
+                    b.Property<decimal>("Average_SH_Conceded_Goals_Away_Team")
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)");
+
+                    b.Property<decimal>("Average_SH_Conceded_Goals_Home_Team")
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)");
+
+                    b.Property<decimal>("Average_SH_Goals_Away_Team")
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)");
+
+                    b.Property<decimal>("Average_SH_Goals_Home_Team")
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)");
+
+                    b.Property<int>("Away_Team_FT_05_Over")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Away_Team_FT_15_Over")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Away_Team_HT_05_Over")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Away_Team_Possesion")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Away_Team_SH_05_Over")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Away_Team_Win_Any_Half")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasDefaultValue("System.Admin");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2024, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified));
+
+                    b.Property<int>("FT_15_Over_Away")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FT_15_Over_Home")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FT_25_Over_Away")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FT_25_Over_Home")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FT_35_Over_Away")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FT_35_Over_Home")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FT_GG_Away")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FT_GG_Home")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HT_05_Over_Away")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HT_05_Over_Home")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Hashed_Compact")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Hashed_Detailed")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Hashed_Full_Detailed")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Hashed_Less_Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Hashed_Simple")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Home_Team_FT_05_Over")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Home_Team_FT_15_Over")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Home_Team_HT_05_Over")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Home_Team_Possesion")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Home_Team_SH_05_Over")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Home_Team_Win_Any_Half")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Is_FT_Win1")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Is_FT_Win2")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Is_FT_X1")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Is_FT_X2")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Is_HT_Win1")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Is_HT_Win2")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Is_HT_X1")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Is_HT_X2")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Is_SH_Win1")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Is_SH_Win2")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Is_SH_X1")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Is_SH_X2")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("MatchDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ModelType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ModifiedBy")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasDefaultValue("System.Admin");
+
+                    b.Property<DateTime>("ModifiedDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2024, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified));
+
+                    b.Property<int>("SH_05_Over_Away")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SH_05_Over_Home")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SerialUniqueID")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PerformanceOverall", (string)null);
                 });
 #pragma warning restore 612, 618
         }
