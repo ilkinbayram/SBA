@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Business.Constants;
 using Core.Entities.Concrete.ComplexModels.Program;
+using Core.Entities.Concrete.ComplexModels.Sql;
 using Core.Entities.Concrete.ExternalDbEntities;
 using Core.Utilities.Results;
+using Core.Utilities.UsableModel;
 using SBA.Business.Abstract;
 using SBA.ExternalDataAccess.Abstract;
 using System.Linq.Expressions;
@@ -425,6 +427,25 @@ namespace SBA.Business.Concrete
         public async Task<MatchProgramList> GetGroupedFilteredForecastMatchsProgramAsync()
         {
             return await _matchIdentifierDal.GetGroupedFilteredForecastMatchsProgramAsync();
+        }
+
+        public async Task<List<int>> GetAllProgramSerialsAsync()
+        {
+            var result = await _matchIdentifierDal.GetAllProgramSerialsAsync();
+
+            return result;
+        }
+
+        public MatchPerformanceOverallParameterModel SpGetMatchInformation(int serial)
+        {
+            var result = _matchIdentifierDal.SpGetMatchInformation(serial);
+            return result;
+        }
+
+        public TeamLeagueMixedStat SP_GetTeamLeagueMixedStatResult(int serial)
+        {
+            var result = _matchIdentifierDal.SP_GetTeamLeagueMixedStatResult(serial);
+            return result;
         }
 
         #endregion

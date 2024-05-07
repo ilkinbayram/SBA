@@ -9,6 +9,7 @@
         public string AwayTeam { get; set; }
         public bool IsChecked { get; set; }
         public bool IsSuccess { get; set; }
+        public bool Is99Percent { get; set; }
         public string Description { get; set; }
         public string CountryLeague { get; set; }
         public string HT_Result { get; set; }

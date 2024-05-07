@@ -63,6 +63,7 @@ namespace SBA.DataAccess.Concrete.MongoDB
                             Country = mb.Country,
                             MatchDate = mb.MatchDate,
                             SerialUniqueID = mb.SerialUniqueID,
+                            LeagueID = mb.LeagueId,
                             HomeTeam = mb.HomeTeam,
                             AwayTeam = mb.AwayTeam,
                             FT_Match_Result = mb.FT_Match_Result,
@@ -81,12 +82,22 @@ namespace SBA.DataAccess.Concrete.MongoDB
             throw new NotImplementedException();
         }
 
+        public IQueryable<MatchBetQM> GetMatchBetQueryModelsForPerformanceResult(List<int> leagueIds, string countryName, string teamName, int takeCount, Expression<Func<MatchBetQM, bool>> filter = null)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<FilterResultMutateModel> GetOddFilteredResult(InTimeShortOddModel inTimeOdds, decimal range)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<FilterResultMutateModel>> GetOddFilteredResultAsync(InTimeShortOddModel inTimeOdds, decimal range)
+        public List<FilterResultMutateModel> GetOddFilteredResult(InTimeShortOddModel inTimeOdds, decimal range, DateTime? matchDate = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<FilterResultMutateModel>> GetOddFilteredResultAsync(InTimeShortOddModel inTimeOdds, decimal range, DateTime? matchDate = null)
         {
             throw new NotImplementedException();
         }

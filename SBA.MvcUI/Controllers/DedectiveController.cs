@@ -48,7 +48,7 @@ namespace SBA.MvcUI.Controllers
         [HttpPost]
         public IActionResult GuestCurrentMatchResult(SystemCheckerContainer viewModel)
         {
-            var responseProfiler = OperationalProcessor.GetJobAnalyseModelResult(viewModel, _matchBetService, _filterResultService, CountryContainer);
+            var responseProfiler = OperationalProcessor.GetJobAnalyseModelResult(viewModel, _matchBetService, _filterResultService, LeagueContainer, CountryContainer);
             return RedirectToAction("Index", "Home");
         }
 

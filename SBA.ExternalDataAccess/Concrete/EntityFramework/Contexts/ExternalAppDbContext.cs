@@ -33,6 +33,15 @@ namespace SBA.ExternalDataAccess.Concrete.EntityFramework.Contexts
             modelBuilder.ApplyConfiguration(new LogConfiguration());
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                //optionsBuilder.UseSqlServer("Data Source=SQL6031.site4now.net;Initial Catalog=db_aa6d61_sbaproset;User Id=db_aa6d61_sbaproset_admin;Password=System234327");
+                optionsBuilder.UseSqlServer("Data Source=DESKTOP-4AP15T3;Initial Catalog=SbaPromo;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            }
+        }
+
         public DbSet<MatchForecastFM> MatchForecastsFM { get; set; }
 
 

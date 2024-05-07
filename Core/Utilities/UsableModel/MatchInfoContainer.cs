@@ -29,6 +29,7 @@ namespace Core.Utilities.UsableModel
             Away = string.Empty;
             DateMatch = string.Empty;
             League = string.Empty;
+            LeagueId = string.Empty;
             Country = string.Empty;
             HT_Result = string.Empty;
             FT_Result = string.Empty;

@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SBA.Business\SBA.Business.csproj" />
+    <ProjectReference Include="..\SBA.DataAccess\SBA.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

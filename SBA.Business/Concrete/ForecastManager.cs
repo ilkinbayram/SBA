@@ -1,11 +1,15 @@
 ﻿using AutoMapper;
 using Business.Constants;
+using Core.Entities.Concrete;
 using Core.Entities.Concrete.ExternalDbEntities;
 using Core.Entities.Concrete.SqlEntities.FunctionViewProcModels;
 using Core.Entities.Dtos.ComplexDataes.UIData;
+using Core.Utilities.Helpers;
 using Core.Utilities.Results;
+using DataAccess.Concrete.EntityFramework.Contexts;
 using SBA.Business.Abstract;
 using SBA.ExternalDataAccess.Abstract;
+using SBA.ExternalDataAccess.Concrete.EntityFramework.Contexts;
 using System.Linq.Expressions;
 
 namespace SBA.Business.Concrete
@@ -402,14 +406,47 @@ namespace SBA.Business.Concrete
             return await _forecastDal.AddPossibleForecastsAsync(possibleForecasts);
         }
 
-        public async Task<ForecastDataContainer> SelectForecastContainerInfoAsync(bool isCheckedItems, Func<MatchForecastFM, bool> filter = null)
+        public async Task<ForecastDataContainer> SelectForecastContainerInfoAsync(bool isCheckedItems, bool is99PercentItems, Func<MatchForecastFM, bool> filter = null)
         {
-            return await _forecastDal.SelectForecastContainerInfoAsync(isCheckedItems, filter);
+            return await _forecastDal.SelectForecastContainerInfoAsync(isCheckedItems, is99PercentItems, filter);
         }
 
         public async Task<List<string>> SelectForecastsBySerialAsync(int serial)
         {
             return await _forecastDal.SelectForecastsBySerialAsync(serial);
+        }
+
+        public IResult UpdateUncheckedForecasts()
+        {
+            try
+            {
+                using (var contextExternal = new ExternalAppDbContext())
+                using (var contextApp = new ApplicationDbContext())
+                {
+                    var allUncheckedForecasts = contextExternal.Forecasts.Where(x => !x.IsChecked).ToList();
+                    var filterSerials = allUncheckedForecasts.Select(x => x.Serial).Distinct().ToList();
+                    var allRelatedFilterResults = contextApp.FilterResults.Where(x => filterSerials.Contains(x.SerialUniqueID)).ToList();
+
+                    for (int i = 0; i < allUncheckedForecasts.Count; i++)
+                    {
+                        var existingOne = allUncheckedForecasts[i];
+                        var checkerFilterResult = allRelatedFilterResults.FirstOrDefault(x => x.SerialUniqueID == existingOne.Serial);
+                        if (checkerFilterResult == null) continue;
+
+                        existingOne.IsSuccess = ForecastHandler.CheckForecast(checkerFilterResult, existingOne.Key);
+                        existingOne.IsChecked = true;
+                        existingOne.ModifiedDateTime = DateTime.Now;
+                    }
+
+                    contextExternal.SaveChanges();
+                }
+
+                return new SuccessResult();
+            }
+            catch (Exception ex)
+            {
+                return new ErrorResult($"ForecastManager -> UpdateUncheckedForecast -> catch(Exception message: {ex.Message})");
+            }
         }
         #endregion
     }

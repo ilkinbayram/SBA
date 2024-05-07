@@ -14,6 +14,18 @@
         public const string FT_X = "ForecastTranslation_FT_X";
         public const string FT_Win_2 = "ForecastTranslation_FT_W_2";
 
+        public const string HT_Win1_Or_X = "ForecastTranslation_HT_Win1_Or_X";
+        public const string HT_X_Or_Win2 = "ForecastTranslation_HT_X_Or_Win2";
+        public const string HT_Win1_Or_Win2 = "ForecastTranslation_HT_Win1_Or_Win2";
+
+        public const string SH_Win1_Or_X = "ForecastTranslation_SH_Win1_Or_X";
+        public const string SH_X_Or_Win2 = "ForecastTranslation_SH_X_Or_Win2";
+        public const string SH_Win1_Or_Win2 = "ForecastTranslation_SH_Win1_Or_Win2";
+
+        public const string FT_Win1_Or_X = "ForecastTranslation_FT_Win1_Or_X";
+        public const string FT_X_Or_Win2 = "ForecastTranslation_FT_X_Or_Win2";
+        public const string FT_Win1_Or_Win2 = "ForecastTranslation_FT_Win1_Or_Win2";
+
         public const string HT_05_Over = "ForecastTranslation_HT_05_Over";
         public const string HT_05_Under = "ForecastTranslation_HT_05_Under";
         public const string SH_05_Over = "ForecastTranslation_SH_05_Over";
@@ -27,6 +39,8 @@
 
         public const string FT_Home_Goal = "ForecastTranslation_FT_Home_05_Over";
         public const string FT_Away_Goal = "ForecastTranslation_FT_Away_05_Over";
+        public const string FT_Home_2nd_Goal = "ForecastTranslation_FT_Home_15_Over";
+        public const string FT_Away_2nd_Goal = "ForecastTranslation_FT_Away_15_Over";
         public const string HT_Home_Goal = "ForecastTranslation_HT_Home_05_Over";
         public const string HT_Away_Goal = "ForecastTranslation_HT_Away_05_Over";
         public const string SH_Home_Goal = "ForecastTranslation_SH_Home_05_Over";

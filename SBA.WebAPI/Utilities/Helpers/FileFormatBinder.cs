@@ -74,6 +74,7 @@ namespace SBA.WebAPI.Utilities.Helpers
                 dto.Match.AwayTeam, // +2
                 dto.Match.Country, // +3
                 dto.Match.League, // +4
+                dto.Match.LeagueIdsConcat,
                 dto.LeagueStat.FT_GoalsAverage, // +5
                 dto.LeagueStat.HT_GoalsAverage, // +6
                 dto.LeagueStat.SH_GoalsAverage, // +7

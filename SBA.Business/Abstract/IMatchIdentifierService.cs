@@ -2,6 +2,8 @@
 using Core.Entities.Concrete.ExternalDbEntities;
 using Core.Utilities.Results;
 using System.Linq.Expressions;
+using sqlParamModel = Core.Utilities.UsableModel;
+using TLMixedCore = Core.Entities.Concrete.ComplexModels.Sql;
 
 namespace SBA.Business.Abstract
 {
@@ -16,6 +18,10 @@ namespace SBA.Business.Abstract
         Task<MatchDetailProgram> GetAllMatchsProgramAsync(int month, int day);
         Task<MatchDetailProgram> GetPossibleForecastMatchsProgramAsync();
         Task<MatchProgramList> GetGroupedFilteredForecastMatchsProgramAsync();
+        Task<List<int>> GetAllProgramSerialsAsync();
+
+        sqlParamModel.MatchPerformanceOverallParameterModel SpGetMatchInformation(int serial);
+        TLMixedCore.TeamLeagueMixedStat SP_GetTeamLeagueMixedStatResult(int serial);
 
         IDataResult<int> Add(MatchIdentifier entity);
         IDataResult<int> Update(MatchIdentifier entity);

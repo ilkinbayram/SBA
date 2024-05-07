@@ -7,5 +7,6 @@
         public string AwayTeam { get; set; }
         public string Country { get; set; }
         public string League { get; set; }
+        public string LeagueIdsConcat { get; set; }
     }
 }

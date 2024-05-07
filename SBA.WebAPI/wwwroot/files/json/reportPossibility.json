@@ -1,0 +1,2812 @@
+[
+  {
+    "Title": "ODD: FT_GG",
+    "MinimumPercent": 60,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 67,
+    "CorrectCount": 1953,
+    "FoundCount": 2902,
+    "PerFoundAverage": 9.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_GG",
+    "MinimumPercent": 65,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 71,
+    "CorrectCount": 947,
+    "FoundCount": 1317,
+    "PerFoundAverage": 4.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_GG",
+    "MinimumPercent": 70,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 75,
+    "CorrectCount": 491,
+    "FoundCount": 651,
+    "PerFoundAverage": 2.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_GG",
+    "MinimumPercent": 75,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 80,
+    "CorrectCount": 235,
+    "FoundCount": 291,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_GG",
+    "MinimumPercent": 80,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 85,
+    "CorrectCount": 128,
+    "FoundCount": 150,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_NG",
+    "MinimumPercent": 40,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 65,
+    "CorrectCount": 1047,
+    "FoundCount": 1593,
+    "PerFoundAverage": 5.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_NG",
+    "MinimumPercent": 35,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 70,
+    "CorrectCount": 492,
+    "FoundCount": 702,
+    "PerFoundAverage": 2.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_NG",
+    "MinimumPercent": 30,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 76,
+    "CorrectCount": 296,
+    "FoundCount": 389,
+    "PerFoundAverage": 1.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_NG",
+    "MinimumPercent": 25,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 79,
+    "CorrectCount": 143,
+    "FoundCount": 179,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_NG",
+    "MinimumPercent": 20,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 83,
+    "CorrectCount": 73,
+    "FoundCount": 87,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_15_Over",
+    "MinimumPercent": 75,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 80,
+    "CorrectCount": 4404,
+    "FoundCount": 5438,
+    "PerFoundAverage": 18.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_15_Over",
+    "MinimumPercent": 80,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 84,
+    "CorrectCount": 2671,
+    "FoundCount": 3178,
+    "PerFoundAverage": 10.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_15_Over",
+    "MinimumPercent": 85,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 89,
+    "CorrectCount": 1228,
+    "FoundCount": 1377,
+    "PerFoundAverage": 4.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_15_Over",
+    "MinimumPercent": 90,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 93,
+    "CorrectCount": 638,
+    "FoundCount": 684,
+    "PerFoundAverage": 2.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_15_Over",
+    "MinimumPercent": 95,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 97,
+    "CorrectCount": 143,
+    "FoundCount": 146,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_25_Over",
+    "MinimumPercent": 60,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 65,
+    "CorrectCount": 1378,
+    "FoundCount": 2114,
+    "PerFoundAverage": 7.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_25_Over",
+    "MinimumPercent": 65,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 69,
+    "CorrectCount": 774,
+    "FoundCount": 1108,
+    "PerFoundAverage": 3.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_25_Over",
+    "MinimumPercent": 70,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 72,
+    "CorrectCount": 459,
+    "FoundCount": 630,
+    "PerFoundAverage": 2.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_25_Over",
+    "MinimumPercent": 75,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 77,
+    "CorrectCount": 214,
+    "FoundCount": 275,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_25_Over",
+    "MinimumPercent": 80,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 80,
+    "CorrectCount": 103,
+    "FoundCount": 128,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_35_Under",
+    "MinimumPercent": 25,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 89,
+    "CorrectCount": 346,
+    "FoundCount": 385,
+    "PerFoundAverage": 1.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_35_Under",
+    "MinimumPercent": 20,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 90,
+    "CorrectCount": 190,
+    "FoundCount": 209,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_35_Under",
+    "MinimumPercent": 15,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 94,
+    "CorrectCount": 66,
+    "FoundCount": 70,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_35_Under",
+    "MinimumPercent": 10,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 97,
+    "CorrectCount": 36,
+    "FoundCount": 37,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_35_Under",
+    "MinimumPercent": 5,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 100,
+    "CorrectCount": 2,
+    "FoundCount": 2,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_05_Over",
+    "MinimumPercent": 75,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 81,
+    "CorrectCount": 2409,
+    "FoundCount": 2964,
+    "PerFoundAverage": 9.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_05_Over",
+    "MinimumPercent": 80,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 84,
+    "CorrectCount": 1250,
+    "FoundCount": 1478,
+    "PerFoundAverage": 4.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_05_Over",
+    "MinimumPercent": 85,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 91,
+    "CorrectCount": 502,
+    "FoundCount": 551,
+    "PerFoundAverage": 1.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_05_Over",
+    "MinimumPercent": 90,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 94,
+    "CorrectCount": 268,
+    "FoundCount": 283,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_05_Over",
+    "MinimumPercent": 95,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 100,
+    "CorrectCount": 56,
+    "FoundCount": 56,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_15_Under",
+    "MinimumPercent": 25,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 81,
+    "CorrectCount": 2802,
+    "FoundCount": 3427,
+    "PerFoundAverage": 11.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_15_Under",
+    "MinimumPercent": 20,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 86,
+    "CorrectCount": 1409,
+    "FoundCount": 1629,
+    "PerFoundAverage": 5.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_15_Under",
+    "MinimumPercent": 15,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 91,
+    "CorrectCount": 536,
+    "FoundCount": 589,
+    "PerFoundAverage": 1.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_15_Under",
+    "MinimumPercent": 10,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 93,
+    "CorrectCount": 280,
+    "FoundCount": 298,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_15_Under",
+    "MinimumPercent": 5,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 100,
+    "CorrectCount": 50,
+    "FoundCount": 50,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_05_Over",
+    "MinimumPercent": 75,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 79,
+    "CorrectCount": 11261,
+    "FoundCount": 14147,
+    "PerFoundAverage": 47.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_05_Over",
+    "MinimumPercent": 80,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 85,
+    "CorrectCount": 4269,
+    "FoundCount": 5008,
+    "PerFoundAverage": 16.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_05_Over",
+    "MinimumPercent": 85,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 89,
+    "CorrectCount": 2086,
+    "FoundCount": 2343,
+    "PerFoundAverage": 7.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_05_Over",
+    "MinimumPercent": 90,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 93,
+    "CorrectCount": 1039,
+    "FoundCount": 1115,
+    "PerFoundAverage": 3.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_05_Over",
+    "MinimumPercent": 95,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 99,
+    "CorrectCount": 258,
+    "FoundCount": 260,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_15_Under",
+    "MinimumPercent": 25,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 78,
+    "CorrectCount": 561,
+    "FoundCount": 712,
+    "PerFoundAverage": 2.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_15_Under",
+    "MinimumPercent": 20,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 84,
+    "CorrectCount": 285,
+    "FoundCount": 338,
+    "PerFoundAverage": 1.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_15_Under",
+    "MinimumPercent": 15,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 90,
+    "CorrectCount": 94,
+    "FoundCount": 104,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_15_Under",
+    "MinimumPercent": 10,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 92,
+    "CorrectCount": 61,
+    "FoundCount": 66,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_15_Under",
+    "MinimumPercent": 5,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 100,
+    "CorrectCount": 17,
+    "FoundCount": 17,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Home_05_Over",
+    "MinimumPercent": 70,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 77,
+    "CorrectCount": 12055,
+    "FoundCount": 15458,
+    "PerFoundAverage": 51.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Home_05_Over",
+    "MinimumPercent": 75,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 82,
+    "CorrectCount": 6503,
+    "FoundCount": 7920,
+    "PerFoundAverage": 26.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Home_05_Over",
+    "MinimumPercent": 80,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 86,
+    "CorrectCount": 3788,
+    "FoundCount": 4388,
+    "PerFoundAverage": 14.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Home_05_Over",
+    "MinimumPercent": 85,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 89,
+    "CorrectCount": 2003,
+    "FoundCount": 2231,
+    "PerFoundAverage": 7.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Home_05_Over",
+    "MinimumPercent": 90,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 94,
+    "CorrectCount": 1050,
+    "FoundCount": 1117,
+    "PerFoundAverage": 3.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Home_05_Over",
+    "MinimumPercent": 95,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 98,
+    "CorrectCount": 316,
+    "FoundCount": 322,
+    "PerFoundAverage": 1.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Home_15_Over",
+    "MinimumPercent": 60,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 63,
+    "CorrectCount": 705,
+    "FoundCount": 1104,
+    "PerFoundAverage": 3.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Home_15_Over",
+    "MinimumPercent": 65,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 69,
+    "CorrectCount": 384,
+    "FoundCount": 555,
+    "PerFoundAverage": 1.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Home_15_Over",
+    "MinimumPercent": 70,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 72,
+    "CorrectCount": 238,
+    "FoundCount": 330,
+    "PerFoundAverage": 1.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Home_15_Over",
+    "MinimumPercent": 75,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 81,
+    "CorrectCount": 132,
+    "FoundCount": 162,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Home_15_Over",
+    "MinimumPercent": 80,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 88,
+    "CorrectCount": 81,
+    "FoundCount": 92,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Home_15_Over",
+    "MinimumPercent": 85,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 88,
+    "CorrectCount": 23,
+    "FoundCount": 26,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Home_15_Over",
+    "MinimumPercent": 90,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 94,
+    "CorrectCount": 16,
+    "FoundCount": 17,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Home_15_Over",
+    "MinimumPercent": 95,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 100,
+    "CorrectCount": 4,
+    "FoundCount": 4,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Away_05_Over",
+    "MinimumPercent": 70,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 77,
+    "CorrectCount": 4798,
+    "FoundCount": 6152,
+    "PerFoundAverage": 20.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Away_05_Over",
+    "MinimumPercent": 75,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 81,
+    "CorrectCount": 3160,
+    "FoundCount": 3899,
+    "PerFoundAverage": 12.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Away_05_Over",
+    "MinimumPercent": 80,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 83,
+    "CorrectCount": 1790,
+    "FoundCount": 2133,
+    "PerFoundAverage": 7.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Away_05_Over",
+    "MinimumPercent": 85,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 89,
+    "CorrectCount": 808,
+    "FoundCount": 907,
+    "PerFoundAverage": 3.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Away_05_Over",
+    "MinimumPercent": 90,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 92,
+    "CorrectCount": 418,
+    "FoundCount": 450,
+    "PerFoundAverage": 1.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Away_05_Over",
+    "MinimumPercent": 95,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 98,
+    "CorrectCount": 109,
+    "FoundCount": 111,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Away_15_Over",
+    "MinimumPercent": 60,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 66,
+    "CorrectCount": 271,
+    "FoundCount": 408,
+    "PerFoundAverage": 1.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Away_15_Over",
+    "MinimumPercent": 65,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 68,
+    "CorrectCount": 133,
+    "FoundCount": 195,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Away_15_Over",
+    "MinimumPercent": 70,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 66,
+    "CorrectCount": 58,
+    "FoundCount": 87,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Away_15_Over",
+    "MinimumPercent": 75,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 75,
+    "CorrectCount": 33,
+    "FoundCount": 44,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Away_15_Over",
+    "MinimumPercent": 80,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 74,
+    "CorrectCount": 20,
+    "FoundCount": 27,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Away_15_Over",
+    "MinimumPercent": 85,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 87,
+    "CorrectCount": 7,
+    "FoundCount": 8,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Away_15_Over",
+    "MinimumPercent": 90,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 83,
+    "CorrectCount": 5,
+    "FoundCount": 6,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Away_15_Over",
+    "MinimumPercent": 95,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 0,
+    "CorrectCount": 0,
+    "FoundCount": 0,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Home_05_Over",
+    "MinimumPercent": 60,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 64,
+    "CorrectCount": 1019,
+    "FoundCount": 1589,
+    "PerFoundAverage": 5.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Home_05_Over",
+    "MinimumPercent": 65,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 68,
+    "CorrectCount": 537,
+    "FoundCount": 783,
+    "PerFoundAverage": 2.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Home_05_Over",
+    "MinimumPercent": 70,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 72,
+    "CorrectCount": 319,
+    "FoundCount": 439,
+    "PerFoundAverage": 1.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Home_05_Over",
+    "MinimumPercent": 75,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 79,
+    "CorrectCount": 177,
+    "FoundCount": 224,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Home_05_Over",
+    "MinimumPercent": 80,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 80,
+    "CorrectCount": 97,
+    "FoundCount": 120,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Home_05_Over",
+    "MinimumPercent": 85,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 89,
+    "CorrectCount": 33,
+    "FoundCount": 37,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Home_05_Over",
+    "MinimumPercent": 90,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 90,
+    "CorrectCount": 20,
+    "FoundCount": 22,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Away_05_Over",
+    "MinimumPercent": 60,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 67,
+    "CorrectCount": 460,
+    "FoundCount": 685,
+    "PerFoundAverage": 2.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Away_05_Over",
+    "MinimumPercent": 65,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 69,
+    "CorrectCount": 205,
+    "FoundCount": 293,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Away_05_Over",
+    "MinimumPercent": 70,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 73,
+    "CorrectCount": 105,
+    "FoundCount": 143,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Away_05_Over",
+    "MinimumPercent": 75,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 73,
+    "CorrectCount": 44,
+    "FoundCount": 60,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Away_05_Over",
+    "MinimumPercent": 80,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 82,
+    "CorrectCount": 23,
+    "FoundCount": 28,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Away_05_Over",
+    "MinimumPercent": 85,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 100,
+    "CorrectCount": 7,
+    "FoundCount": 7,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Away_05_Over",
+    "MinimumPercent": 90,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 100,
+    "CorrectCount": 5,
+    "FoundCount": 5,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Home_05_Over",
+    "MinimumPercent": 60,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 67,
+    "CorrectCount": 2694,
+    "FoundCount": 3973,
+    "PerFoundAverage": 13.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Home_05_Over",
+    "MinimumPercent": 65,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 71,
+    "CorrectCount": 1609,
+    "FoundCount": 2253,
+    "PerFoundAverage": 7.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Home_05_Over",
+    "MinimumPercent": 70,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 75,
+    "CorrectCount": 983,
+    "FoundCount": 1307,
+    "PerFoundAverage": 4.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Home_05_Over",
+    "MinimumPercent": 75,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 80,
+    "CorrectCount": 534,
+    "FoundCount": 661,
+    "PerFoundAverage": 2.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Home_05_Over",
+    "MinimumPercent": 80,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 85,
+    "CorrectCount": 279,
+    "FoundCount": 328,
+    "PerFoundAverage": 1.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Home_05_Over",
+    "MinimumPercent": 85,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 93,
+    "CorrectCount": 111,
+    "FoundCount": 119,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Home_05_Over",
+    "MinimumPercent": 90,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 94,
+    "CorrectCount": 72,
+    "FoundCount": 76,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Away_05_Over",
+    "MinimumPercent": 60,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 65,
+    "CorrectCount": 1369,
+    "FoundCount": 2106,
+    "PerFoundAverage": 7.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Away_05_Over",
+    "MinimumPercent": 65,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 69,
+    "CorrectCount": 720,
+    "FoundCount": 1030,
+    "PerFoundAverage": 3.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Away_05_Over",
+    "MinimumPercent": 70,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 74,
+    "CorrectCount": 414,
+    "FoundCount": 557,
+    "PerFoundAverage": 1.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Away_05_Over",
+    "MinimumPercent": 75,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 79,
+    "CorrectCount": 225,
+    "FoundCount": 284,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Away_05_Over",
+    "MinimumPercent": 80,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 78,
+    "CorrectCount": 115,
+    "FoundCount": 147,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Away_05_Over",
+    "MinimumPercent": 85,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 95,
+    "CorrectCount": 41,
+    "FoundCount": 43,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Away_05_Over",
+    "MinimumPercent": 90,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 96,
+    "CorrectCount": 24,
+    "FoundCount": 25,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Home_Win",
+    "MinimumPercent": 45,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 53,
+    "CorrectCount": 2849,
+    "FoundCount": 5303,
+    "PerFoundAverage": 17.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Home_Win",
+    "MinimumPercent": 50,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 57,
+    "CorrectCount": 2135,
+    "FoundCount": 3726,
+    "PerFoundAverage": 12.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Home_Win",
+    "MinimumPercent": 55,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 61,
+    "CorrectCount": 1382,
+    "FoundCount": 2230,
+    "PerFoundAverage": 7.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Home_Win",
+    "MinimumPercent": 60,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 65,
+    "CorrectCount": 976,
+    "FoundCount": 1496,
+    "PerFoundAverage": 4.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Home_Win",
+    "MinimumPercent": 65,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 70,
+    "CorrectCount": 578,
+    "FoundCount": 820,
+    "PerFoundAverage": 2.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Home_Win",
+    "MinimumPercent": 70,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 73,
+    "CorrectCount": 358,
+    "FoundCount": 484,
+    "PerFoundAverage": 1.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Home_Win",
+    "MinimumPercent": 75,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 81,
+    "CorrectCount": 203,
+    "FoundCount": 248,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Home_Win",
+    "MinimumPercent": 80,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 84,
+    "CorrectCount": 107,
+    "FoundCount": 127,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Home_Win",
+    "MinimumPercent": 85,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 91,
+    "CorrectCount": 42,
+    "FoundCount": 46,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Home_Win",
+    "MinimumPercent": 90,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 88,
+    "CorrectCount": 24,
+    "FoundCount": 27,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Home_Win",
+    "MinimumPercent": 45,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 49,
+    "CorrectCount": 851,
+    "FoundCount": 1713,
+    "PerFoundAverage": 5.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Home_Win",
+    "MinimumPercent": 50,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 54,
+    "CorrectCount": 528,
+    "FoundCount": 972,
+    "PerFoundAverage": 3.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Home_Win",
+    "MinimumPercent": 55,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 60,
+    "CorrectCount": 237,
+    "FoundCount": 393,
+    "PerFoundAverage": 1.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Home_Win",
+    "MinimumPercent": 60,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 62,
+    "CorrectCount": 149,
+    "FoundCount": 239,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Home_Win",
+    "MinimumPercent": 65,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 73,
+    "CorrectCount": 82,
+    "FoundCount": 112,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Home_Win",
+    "MinimumPercent": 70,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 74,
+    "CorrectCount": 43,
+    "FoundCount": 58,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Home_Win",
+    "MinimumPercent": 75,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 75,
+    "CorrectCount": 18,
+    "FoundCount": 24,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Home_Win",
+    "MinimumPercent": 80,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 81,
+    "CorrectCount": 9,
+    "FoundCount": 11,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Home_Win",
+    "MinimumPercent": 85,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 100,
+    "CorrectCount": 1,
+    "FoundCount": 1,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Home_Win",
+    "MinimumPercent": 90,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 100,
+    "CorrectCount": 1,
+    "FoundCount": 1,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Home_Win",
+    "MinimumPercent": 45,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 50,
+    "CorrectCount": 1361,
+    "FoundCount": 2680,
+    "PerFoundAverage": 8.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Home_Win",
+    "MinimumPercent": 50,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 54,
+    "CorrectCount": 904,
+    "FoundCount": 1653,
+    "PerFoundAverage": 5.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Home_Win",
+    "MinimumPercent": 55,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 58,
+    "CorrectCount": 461,
+    "FoundCount": 782,
+    "PerFoundAverage": 2.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Home_Win",
+    "MinimumPercent": 60,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 62,
+    "CorrectCount": 291,
+    "FoundCount": 463,
+    "PerFoundAverage": 1.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Home_Win",
+    "MinimumPercent": 65,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 65,
+    "CorrectCount": 125,
+    "FoundCount": 192,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Home_Win",
+    "MinimumPercent": 70,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 73,
+    "CorrectCount": 76,
+    "FoundCount": 103,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Home_Win",
+    "MinimumPercent": 75,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 78,
+    "CorrectCount": 33,
+    "FoundCount": 42,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Home_Win",
+    "MinimumPercent": 80,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 78,
+    "CorrectCount": 15,
+    "FoundCount": 19,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Home_Win",
+    "MinimumPercent": 85,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 100,
+    "CorrectCount": 1,
+    "FoundCount": 1,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Home_Win",
+    "MinimumPercent": 90,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 100,
+    "CorrectCount": 1,
+    "FoundCount": 1,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Away_Win",
+    "MinimumPercent": 45,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 52,
+    "CorrectCount": 1058,
+    "FoundCount": 2008,
+    "PerFoundAverage": 6.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Away_Win",
+    "MinimumPercent": 50,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 56,
+    "CorrectCount": 726,
+    "FoundCount": 1289,
+    "PerFoundAverage": 4.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Away_Win",
+    "MinimumPercent": 55,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 62,
+    "CorrectCount": 397,
+    "FoundCount": 640,
+    "PerFoundAverage": 2.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Away_Win",
+    "MinimumPercent": 60,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 64,
+    "CorrectCount": 254,
+    "FoundCount": 394,
+    "PerFoundAverage": 1.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Away_Win",
+    "MinimumPercent": 65,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 69,
+    "CorrectCount": 131,
+    "FoundCount": 189,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Away_Win",
+    "MinimumPercent": 70,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 73,
+    "CorrectCount": 82,
+    "FoundCount": 111,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Away_Win",
+    "MinimumPercent": 75,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 77,
+    "CorrectCount": 44,
+    "FoundCount": 57,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Away_Win",
+    "MinimumPercent": 80,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 74,
+    "CorrectCount": 26,
+    "FoundCount": 35,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Away_Win",
+    "MinimumPercent": 85,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 91,
+    "CorrectCount": 11,
+    "FoundCount": 12,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Away_Win",
+    "MinimumPercent": 90,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 100,
+    "CorrectCount": 8,
+    "FoundCount": 8,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Away_Win",
+    "MinimumPercent": 45,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 50,
+    "CorrectCount": 293,
+    "FoundCount": 581,
+    "PerFoundAverage": 1.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Away_Win",
+    "MinimumPercent": 50,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 49,
+    "CorrectCount": 161,
+    "FoundCount": 326,
+    "PerFoundAverage": 1.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Away_Win",
+    "MinimumPercent": 55,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 59,
+    "CorrectCount": 71,
+    "FoundCount": 119,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Away_Win",
+    "MinimumPercent": 60,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 64,
+    "CorrectCount": 49,
+    "FoundCount": 76,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Away_Win",
+    "MinimumPercent": 65,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 67,
+    "CorrectCount": 19,
+    "FoundCount": 28,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Away_Win",
+    "MinimumPercent": 70,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 66,
+    "CorrectCount": 10,
+    "FoundCount": 15,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Away_Win",
+    "MinimumPercent": 75,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 100,
+    "CorrectCount": 3,
+    "FoundCount": 3,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Away_Win",
+    "MinimumPercent": 80,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 100,
+    "CorrectCount": 2,
+    "FoundCount": 2,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Away_Win",
+    "MinimumPercent": 85,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 0,
+    "CorrectCount": 0,
+    "FoundCount": 0,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Away_Win",
+    "MinimumPercent": 90,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 0,
+    "CorrectCount": 0,
+    "FoundCount": 0,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Away_Win",
+    "MinimumPercent": 45,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 50,
+    "CorrectCount": 528,
+    "FoundCount": 1047,
+    "PerFoundAverage": 3.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Away_Win",
+    "MinimumPercent": 50,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 54,
+    "CorrectCount": 320,
+    "FoundCount": 591,
+    "PerFoundAverage": 1.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Away_Win",
+    "MinimumPercent": 55,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 60,
+    "CorrectCount": 144,
+    "FoundCount": 237,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Away_Win",
+    "MinimumPercent": 60,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 61,
+    "CorrectCount": 85,
+    "FoundCount": 139,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Away_Win",
+    "MinimumPercent": 65,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 63,
+    "CorrectCount": 29,
+    "FoundCount": 46,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Away_Win",
+    "MinimumPercent": 70,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 63,
+    "CorrectCount": 19,
+    "FoundCount": 30,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Away_Win",
+    "MinimumPercent": 75,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 80,
+    "CorrectCount": 8,
+    "FoundCount": 10,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Away_Win",
+    "MinimumPercent": 80,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 60,
+    "CorrectCount": 3,
+    "FoundCount": 5,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Away_Win",
+    "MinimumPercent": 85,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 50,
+    "CorrectCount": 1,
+    "FoundCount": 2,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Away_Win",
+    "MinimumPercent": 90,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 50,
+    "CorrectCount": 1,
+    "FoundCount": 2,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Draw",
+    "MinimumPercent": 45,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 52,
+    "CorrectCount": 255,
+    "FoundCount": 487,
+    "PerFoundAverage": 1.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Draw",
+    "MinimumPercent": 50,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 55,
+    "CorrectCount": 126,
+    "FoundCount": 228,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Draw",
+    "MinimumPercent": 55,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 61,
+    "CorrectCount": 45,
+    "FoundCount": 73,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Draw",
+    "MinimumPercent": 60,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 73,
+    "CorrectCount": 28,
+    "FoundCount": 38,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Draw",
+    "MinimumPercent": 65,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 50,
+    "CorrectCount": 3,
+    "FoundCount": 6,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Draw",
+    "MinimumPercent": 70,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 66,
+    "CorrectCount": 2,
+    "FoundCount": 3,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Draw",
+    "MinimumPercent": 75,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 0,
+    "CorrectCount": 0,
+    "FoundCount": 0,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Draw",
+    "MinimumPercent": 80,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 0,
+    "CorrectCount": 0,
+    "FoundCount": 0,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Draw",
+    "MinimumPercent": 85,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 0,
+    "CorrectCount": 0,
+    "FoundCount": 0,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Draw",
+    "MinimumPercent": 90,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 0,
+    "CorrectCount": 0,
+    "FoundCount": 0,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Draw",
+    "MinimumPercent": 45,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 47,
+    "CorrectCount": 5839,
+    "FoundCount": 12281,
+    "PerFoundAverage": 40.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Draw",
+    "MinimumPercent": 50,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 55,
+    "CorrectCount": 1969,
+    "FoundCount": 3548,
+    "PerFoundAverage": 11.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Draw",
+    "MinimumPercent": 55,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 62,
+    "CorrectCount": 892,
+    "FoundCount": 1436,
+    "PerFoundAverage": 4.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Draw",
+    "MinimumPercent": 60,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 66,
+    "CorrectCount": 490,
+    "FoundCount": 732,
+    "PerFoundAverage": 2.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Draw",
+    "MinimumPercent": 65,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 69,
+    "CorrectCount": 195,
+    "FoundCount": 280,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Draw",
+    "MinimumPercent": 70,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 71,
+    "CorrectCount": 104,
+    "FoundCount": 145,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Draw",
+    "MinimumPercent": 75,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 81,
+    "CorrectCount": 43,
+    "FoundCount": 53,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Draw",
+    "MinimumPercent": 80,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 78,
+    "CorrectCount": 25,
+    "FoundCount": 32,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Draw",
+    "MinimumPercent": 85,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 100,
+    "CorrectCount": 1,
+    "FoundCount": 1,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Draw",
+    "MinimumPercent": 90,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 100,
+    "CorrectCount": 1,
+    "FoundCount": 1,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Draw",
+    "MinimumPercent": 45,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 51,
+    "CorrectCount": 1402,
+    "FoundCount": 2744,
+    "PerFoundAverage": 9.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Draw",
+    "MinimumPercent": 50,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 55,
+    "CorrectCount": 764,
+    "FoundCount": 1380,
+    "PerFoundAverage": 4.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Draw",
+    "MinimumPercent": 55,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 62,
+    "CorrectCount": 312,
+    "FoundCount": 497,
+    "PerFoundAverage": 1.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Draw",
+    "MinimumPercent": 60,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 71,
+    "CorrectCount": 172,
+    "FoundCount": 242,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Draw",
+    "MinimumPercent": 65,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 81,
+    "CorrectCount": 64,
+    "FoundCount": 79,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Draw",
+    "MinimumPercent": 70,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 76,
+    "CorrectCount": 33,
+    "FoundCount": 43,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Draw",
+    "MinimumPercent": 75,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 91,
+    "CorrectCount": 11,
+    "FoundCount": 12,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Draw",
+    "MinimumPercent": 80,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 100,
+    "CorrectCount": 7,
+    "FoundCount": 7,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Draw",
+    "MinimumPercent": 85,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 100,
+    "CorrectCount": 1,
+    "FoundCount": 1,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Draw",
+    "MinimumPercent": 90,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 100,
+    "CorrectCount": 1,
+    "FoundCount": 1,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Win1_X",
+    "MinimumPercent": 45,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 69,
+    "CorrectCount": 12836,
+    "FoundCount": 18405,
+    "PerFoundAverage": 61.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Win1_X",
+    "MinimumPercent": 50,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 70,
+    "CorrectCount": 12652,
+    "FoundCount": 18004,
+    "PerFoundAverage": 60.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Win1_X",
+    "MinimumPercent": 55,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 71,
+    "CorrectCount": 12180,
+    "FoundCount": 17122,
+    "PerFoundAverage": 57.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Win1_X",
+    "MinimumPercent": 60,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 71,
+    "CorrectCount": 11615,
+    "FoundCount": 16140,
+    "PerFoundAverage": 53.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Win1_X",
+    "MinimumPercent": 65,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 72,
+    "CorrectCount": 10602,
+    "FoundCount": 14539,
+    "PerFoundAverage": 48.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Win1_X",
+    "MinimumPercent": 70,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 78,
+    "CorrectCount": 5160,
+    "FoundCount": 6565,
+    "PerFoundAverage": 21.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Win1_X",
+    "MinimumPercent": 75,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 81,
+    "CorrectCount": 3698,
+    "FoundCount": 4522,
+    "PerFoundAverage": 15.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Win1_X",
+    "MinimumPercent": 80,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 85,
+    "CorrectCount": 2378,
+    "FoundCount": 2770,
+    "PerFoundAverage": 9.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Win1_X",
+    "MinimumPercent": 85,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 89,
+    "CorrectCount": 1244,
+    "FoundCount": 1393,
+    "PerFoundAverage": 4.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Win1_X",
+    "MinimumPercent": 90,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 93,
+    "CorrectCount": 714,
+    "FoundCount": 764,
+    "PerFoundAverage": 2.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Win1_X",
+    "MinimumPercent": 45,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 75,
+    "CorrectCount": 14237,
+    "FoundCount": 18875,
+    "PerFoundAverage": 62.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Win1_X",
+    "MinimumPercent": 50,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 75,
+    "CorrectCount": 14185,
+    "FoundCount": 18780,
+    "PerFoundAverage": 62.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Win1_X",
+    "MinimumPercent": 55,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 75,
+    "CorrectCount": 14012,
+    "FoundCount": 18448,
+    "PerFoundAverage": 61.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Win1_X",
+    "MinimumPercent": 60,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 76,
+    "CorrectCount": 13789,
+    "FoundCount": 18070,
+    "PerFoundAverage": 60.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Win1_X",
+    "MinimumPercent": 65,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 77,
+    "CorrectCount": 13111,
+    "FoundCount": 16995,
+    "PerFoundAverage": 56.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Win1_X",
+    "MinimumPercent": 70,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 78,
+    "CorrectCount": 12094,
+    "FoundCount": 15495,
+    "PerFoundAverage": 51.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Win1_X",
+    "MinimumPercent": 75,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 78,
+    "CorrectCount": 10345,
+    "FoundCount": 13111,
+    "PerFoundAverage": 43.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Win1_X",
+    "MinimumPercent": 80,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 85,
+    "CorrectCount": 3707,
+    "FoundCount": 4348,
+    "PerFoundAverage": 14.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Win1_X",
+    "MinimumPercent": 85,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 90,
+    "CorrectCount": 1974,
+    "FoundCount": 2179,
+    "PerFoundAverage": 7.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Win1_X",
+    "MinimumPercent": 90,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 93,
+    "CorrectCount": 1012,
+    "FoundCount": 1083,
+    "PerFoundAverage": 3.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Win1_X",
+    "MinimumPercent": 45,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 72,
+    "CorrectCount": 13601,
+    "FoundCount": 18767,
+    "PerFoundAverage": 62.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Win1_X",
+    "MinimumPercent": 50,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 72,
+    "CorrectCount": 13509,
+    "FoundCount": 18578,
+    "PerFoundAverage": 61.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Win1_X",
+    "MinimumPercent": 55,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 73,
+    "CorrectCount": 13213,
+    "FoundCount": 18023,
+    "PerFoundAverage": 60.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Win1_X",
+    "MinimumPercent": 60,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 73,
+    "CorrectCount": 12828,
+    "FoundCount": 17359,
+    "PerFoundAverage": 57.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Win1_X",
+    "MinimumPercent": 65,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 74,
+    "CorrectCount": 11956,
+    "FoundCount": 15947,
+    "PerFoundAverage": 53.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Win1_X",
+    "MinimumPercent": 70,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 75,
+    "CorrectCount": 10575,
+    "FoundCount": 13921,
+    "PerFoundAverage": 46.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Win1_X",
+    "MinimumPercent": 75,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 81,
+    "CorrectCount": 4359,
+    "FoundCount": 5339,
+    "PerFoundAverage": 17.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Win1_X",
+    "MinimumPercent": 80,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 85,
+    "CorrectCount": 2732,
+    "FoundCount": 3207,
+    "PerFoundAverage": 10.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Win1_X",
+    "MinimumPercent": 85,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 90,
+    "CorrectCount": 1381,
+    "FoundCount": 1533,
+    "PerFoundAverage": 5.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Win1_X",
+    "MinimumPercent": 90,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 94,
+    "CorrectCount": 744,
+    "FoundCount": 786,
+    "PerFoundAverage": 2.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_X_Win2",
+    "MinimumPercent": 45,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 60,
+    "CorrectCount": 10256,
+    "FoundCount": 16923,
+    "PerFoundAverage": 56.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_X_Win2",
+    "MinimumPercent": 50,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 61,
+    "CorrectCount": 9759,
+    "FoundCount": 15902,
+    "PerFoundAverage": 53.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_X_Win2",
+    "MinimumPercent": 55,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 62,
+    "CorrectCount": 8771,
+    "FoundCount": 14018,
+    "PerFoundAverage": 46.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_X_Win2",
+    "MinimumPercent": 60,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 69,
+    "CorrectCount": 4258,
+    "FoundCount": 6119,
+    "PerFoundAverage": 20.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_X_Win2",
+    "MinimumPercent": 65,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 72,
+    "CorrectCount": 2991,
+    "FoundCount": 4102,
+    "PerFoundAverage": 13.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_X_Win2",
+    "MinimumPercent": 70,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 77,
+    "CorrectCount": 2019,
+    "FoundCount": 2622,
+    "PerFoundAverage": 8.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_X_Win2",
+    "MinimumPercent": 75,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 79,
+    "CorrectCount": 1267,
+    "FoundCount": 1584,
+    "PerFoundAverage": 5.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_X_Win2",
+    "MinimumPercent": 80,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 84,
+    "CorrectCount": 748,
+    "FoundCount": 890,
+    "PerFoundAverage": 2.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_X_Win2",
+    "MinimumPercent": 85,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 88,
+    "CorrectCount": 342,
+    "FoundCount": 385,
+    "PerFoundAverage": 1.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_X_Win2",
+    "MinimumPercent": 90,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 93,
+    "CorrectCount": 180,
+    "FoundCount": 192,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_X_Win2",
+    "MinimumPercent": 45,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 68,
+    "CorrectCount": 12786,
+    "FoundCount": 18638,
+    "PerFoundAverage": 62.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_X_Win2",
+    "MinimumPercent": 50,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 68,
+    "CorrectCount": 12631,
+    "FoundCount": 18309,
+    "PerFoundAverage": 61.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_X_Win2",
+    "MinimumPercent": 55,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 69,
+    "CorrectCount": 12153,
+    "FoundCount": 17446,
+    "PerFoundAverage": 58.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_X_Win2",
+    "MinimumPercent": 60,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 70,
+    "CorrectCount": 11539,
+    "FoundCount": 16421,
+    "PerFoundAverage": 54.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_X_Win2",
+    "MinimumPercent": 65,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 71,
+    "CorrectCount": 10339,
+    "FoundCount": 14505,
+    "PerFoundAverage": 48.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_X_Win2",
+    "MinimumPercent": 70,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 77,
+    "CorrectCount": 4831,
+    "FoundCount": 6252,
+    "PerFoundAverage": 20.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_X_Win2",
+    "MinimumPercent": 75,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 82,
+    "CorrectCount": 2987,
+    "FoundCount": 3627,
+    "PerFoundAverage": 12.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_X_Win2",
+    "MinimumPercent": 80,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 85,
+    "CorrectCount": 1583,
+    "FoundCount": 1844,
+    "PerFoundAverage": 6.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_X_Win2",
+    "MinimumPercent": 85,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 90,
+    "CorrectCount": 697,
+    "FoundCount": 770,
+    "PerFoundAverage": 2.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_X_Win2",
+    "MinimumPercent": 90,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 93,
+    "CorrectCount": 361,
+    "FoundCount": 385,
+    "PerFoundAverage": 1.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_X_Win2",
+    "MinimumPercent": 45,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 65,
+    "CorrectCount": 11999,
+    "FoundCount": 18275,
+    "PerFoundAverage": 60.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_X_Win2",
+    "MinimumPercent": 50,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 66,
+    "CorrectCount": 11773,
+    "FoundCount": 17784,
+    "PerFoundAverage": 59.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_X_Win2",
+    "MinimumPercent": 55,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 67,
+    "CorrectCount": 11105,
+    "FoundCount": 16529,
+    "PerFoundAverage": 55.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_X_Win2",
+    "MinimumPercent": 60,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 67,
+    "CorrectCount": 10331,
+    "FoundCount": 15203,
+    "PerFoundAverage": 50.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_X_Win2",
+    "MinimumPercent": 65,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 74,
+    "CorrectCount": 4873,
+    "FoundCount": 6576,
+    "PerFoundAverage": 21.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_X_Win2",
+    "MinimumPercent": 70,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 77,
+    "CorrectCount": 3303,
+    "FoundCount": 4289,
+    "PerFoundAverage": 14.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_X_Win2",
+    "MinimumPercent": 75,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 80,
+    "CorrectCount": 1947,
+    "FoundCount": 2415,
+    "PerFoundAverage": 8.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_X_Win2",
+    "MinimumPercent": 80,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 83,
+    "CorrectCount": 1079,
+    "FoundCount": 1299,
+    "PerFoundAverage": 4.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_X_Win2",
+    "MinimumPercent": 85,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 89,
+    "CorrectCount": 496,
+    "FoundCount": 553,
+    "PerFoundAverage": 1.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_X_Win2",
+    "MinimumPercent": 90,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 93,
+    "CorrectCount": 280,
+    "FoundCount": 298,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Win1_Win2",
+    "MinimumPercent": 45,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 73,
+    "CorrectCount": 13857,
+    "FoundCount": 18921,
+    "PerFoundAverage": 63.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Win1_Win2",
+    "MinimumPercent": 50,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 73,
+    "CorrectCount": 13828,
+    "FoundCount": 18857,
+    "PerFoundAverage": 62.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Win1_Win2",
+    "MinimumPercent": 55,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 73,
+    "CorrectCount": 13676,
+    "FoundCount": 18545,
+    "PerFoundAverage": 61.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Win1_Win2",
+    "MinimumPercent": 60,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 74,
+    "CorrectCount": 13415,
+    "FoundCount": 18079,
+    "PerFoundAverage": 60.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Win1_Win2",
+    "MinimumPercent": 65,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 75,
+    "CorrectCount": 12580,
+    "FoundCount": 16739,
+    "PerFoundAverage": 55.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Win1_Win2",
+    "MinimumPercent": 70,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 76,
+    "CorrectCount": 11034,
+    "FoundCount": 14404,
+    "PerFoundAverage": 48.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Win1_Win2",
+    "MinimumPercent": 75,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 80,
+    "CorrectCount": 4185,
+    "FoundCount": 5177,
+    "PerFoundAverage": 17.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Win1_Win2",
+    "MinimumPercent": 80,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 83,
+    "CorrectCount": 2262,
+    "FoundCount": 2699,
+    "PerFoundAverage": 8.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Win1_Win2",
+    "MinimumPercent": 85,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 89,
+    "CorrectCount": 971,
+    "FoundCount": 1090,
+    "PerFoundAverage": 3.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: FT_Win1_Win2",
+    "MinimumPercent": 90,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 92,
+    "CorrectCount": 484,
+    "FoundCount": 526,
+    "PerFoundAverage": 1.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Win1_Win2",
+    "MinimumPercent": 45,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 58,
+    "CorrectCount": 10308,
+    "FoundCount": 17729,
+    "PerFoundAverage": 59.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Win1_Win2",
+    "MinimumPercent": 50,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 59,
+    "CorrectCount": 9703,
+    "FoundCount": 16440,
+    "PerFoundAverage": 54.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Win1_Win2",
+    "MinimumPercent": 55,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 61,
+    "CorrectCount": 7016,
+    "FoundCount": 11394,
+    "PerFoundAverage": 37.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Win1_Win2",
+    "MinimumPercent": 60,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 66,
+    "CorrectCount": 3094,
+    "FoundCount": 4624,
+    "PerFoundAverage": 15.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Win1_Win2",
+    "MinimumPercent": 65,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 71,
+    "CorrectCount": 1653,
+    "FoundCount": 2306,
+    "PerFoundAverage": 7.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Win1_Win2",
+    "MinimumPercent": 70,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 75,
+    "CorrectCount": 934,
+    "FoundCount": 1232,
+    "PerFoundAverage": 4.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Win1_Win2",
+    "MinimumPercent": 75,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 80,
+    "CorrectCount": 467,
+    "FoundCount": 578,
+    "PerFoundAverage": 1.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Win1_Win2",
+    "MinimumPercent": 80,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 85,
+    "CorrectCount": 223,
+    "FoundCount": 260,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Win1_Win2",
+    "MinimumPercent": 85,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 93,
+    "CorrectCount": 68,
+    "FoundCount": 73,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: HT_Win1_Win2",
+    "MinimumPercent": 90,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 97,
+    "CorrectCount": 45,
+    "FoundCount": 46,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Win1_Win2",
+    "MinimumPercent": 45,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 63,
+    "CorrectCount": 11841,
+    "FoundCount": 18546,
+    "PerFoundAverage": 61.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Win1_Win2",
+    "MinimumPercent": 50,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 64,
+    "CorrectCount": 11606,
+    "FoundCount": 18054,
+    "PerFoundAverage": 60.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Win1_Win2",
+    "MinimumPercent": 55,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 65,
+    "CorrectCount": 10823,
+    "FoundCount": 16564,
+    "PerFoundAverage": 55.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Win1_Win2",
+    "MinimumPercent": 60,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 66,
+    "CorrectCount": 9662,
+    "FoundCount": 14554,
+    "PerFoundAverage": 48.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Win1_Win2",
+    "MinimumPercent": 65,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 70,
+    "CorrectCount": 4362,
+    "FoundCount": 6191,
+    "PerFoundAverage": 20.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Win1_Win2",
+    "MinimumPercent": 70,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 75,
+    "CorrectCount": 2314,
+    "FoundCount": 3048,
+    "PerFoundAverage": 10.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Win1_Win2",
+    "MinimumPercent": 75,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 77,
+    "CorrectCount": 1215,
+    "FoundCount": 1560,
+    "PerFoundAverage": 5.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Win1_Win2",
+    "MinimumPercent": 80,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 80,
+    "CorrectCount": 577,
+    "FoundCount": 714,
+    "PerFoundAverage": 2.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Win1_Win2",
+    "MinimumPercent": 85,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 85,
+    "CorrectCount": 198,
+    "FoundCount": 231,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  },
+  {
+    "Title": "ODD: SH_Win1_Win2",
+    "MinimumPercent": 90,
+    "MinimumCount": 10,
+    "SuccessPossiblity": 87,
+    "CorrectCount": 105,
+    "FoundCount": 120,
+    "PerFoundAverage": 0.0,
+    "AllMatchSize": 30000
+  }
+]

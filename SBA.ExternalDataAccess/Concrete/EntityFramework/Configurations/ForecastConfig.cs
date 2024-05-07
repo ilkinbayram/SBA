@@ -20,6 +20,8 @@ namespace SBA.ExternalDataAccess.Concrete.EntityFramework.Configurations
             builder.Property(x => x.IsSuccess).HasDefaultValue(false);
             builder.Property(x => x.IsChecked).HasDefaultValue(false);
 
+            builder.Property(x => x.Serial).HasDefaultValue(0);
+
             builder.Property(x => x.CreatedBy).HasMaxLength(100).HasDefaultValue("System.Admin");
             builder.Property(x => x.ModifiedBy).HasMaxLength(100).HasDefaultValue("System.Admin");
 

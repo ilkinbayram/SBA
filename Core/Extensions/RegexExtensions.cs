@@ -2,6 +2,7 @@
 using Core.Utilities.Helpers;
 using Core.Utilities.UsableModel.TempTableModels.Country;
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -83,6 +84,30 @@ namespace Core.Extensions
                     if (!isValidDate) continue;
 
                     return DateTime.Parse(dateMatch);
+                }
+                else
+                    continue;
+            }
+
+            return null;
+        }
+
+        public static DateTime? ResolveDateFormatByRegexUltimate(this string src, params Regex[] regexes)
+        {
+            foreach (var regex in regexes)
+            {
+                if (regex.IsMatch(src))
+                {
+                    var dateMatch = regex.Matches(src)[0].Groups[1].Value.Trim();
+
+                    if (dateMatch.Split(".")[0].Length == 1)
+                    {
+                        dateMatch = $"0{dateMatch}";
+                    }
+
+                    var result = DateTime.ParseExact(dateMatch, "dd.MM.yyyy", CultureInfo.InvariantCulture);
+
+                    return result;
                 }
                 else
                     continue;

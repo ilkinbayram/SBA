@@ -39,7 +39,7 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<DateTime>("CreatedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 29, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                        .HasDefaultValue(new DateTime(2024, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
                     b.Property<int>("DataType")
                         .ValueGeneratedOnAdd()
@@ -59,7 +59,7 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<DateTime>("ModifiedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 29, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                        .HasDefaultValue(new DateTime(2024, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
                     b.Property<int>("Serial")
                         .HasColumnType("int");
@@ -76,6 +76,14 @@ namespace SBA.ExternalDataAccess.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<decimal>("Average_FT_Conceeded_Goals_AwayTeam")
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)");
+
+                    b.Property<decimal>("Average_FT_Conceeded_Goals_HomeTeam")
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)");
 
                     b.Property<decimal>("Average_FT_Corners_AwayTeam")
                         .HasPrecision(7, 2)
@@ -117,11 +125,27 @@ namespace SBA.ExternalDataAccess.Migrations
                         .HasPrecision(7, 2)
                         .HasColumnType("decimal(7,2)");
 
+                    b.Property<decimal>("Average_HT_Conceeded_Goals_AwayTeam")
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)");
+
+                    b.Property<decimal>("Average_HT_Conceeded_Goals_HomeTeam")
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)");
+
                     b.Property<decimal>("Average_HT_Goals_AwayTeam")
                         .HasPrecision(7, 2)
                         .HasColumnType("decimal(7,2)");
 
                     b.Property<decimal>("Average_HT_Goals_HomeTeam")
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)");
+
+                    b.Property<decimal>("Average_SH_Conceeded_Goals_AwayTeam")
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)");
+
+                    b.Property<decimal>("Average_SH_Conceeded_Goals_HomeTeam")
                         .HasPrecision(7, 2)
                         .HasColumnType("decimal(7,2)");
 
@@ -160,13 +184,22 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<int>("BySideType")
                         .HasColumnType("int");
 
-                    b.Property<int>("Corner_7_5_Over")
+                    b.Property<int>("Corner_7_5_Over_Away")
                         .HasColumnType("int");
 
-                    b.Property<int>("Corner_8_5_Over")
+                    b.Property<int>("Corner_7_5_Over_Home")
                         .HasColumnType("int");
 
-                    b.Property<int>("Corner_9_5_Over")
+                    b.Property<int>("Corner_8_5_Over_Away")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Corner_8_5_Over_Home")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Corner_9_5_Over_Away")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Corner_9_5_Over_Home")
                         .HasColumnType("int");
 
                     b.Property<int>("Corner_Away_3_5_Over")
@@ -196,27 +229,48 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<DateTime>("CreatedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 29, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                        .HasDefaultValue(new DateTime(2024, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
-                    b.Property<int>("FT_15_Over")
+                    b.Property<int>("FT_15_Over_Away")
                         .HasColumnType("int");
 
-                    b.Property<int>("FT_25_Over")
+                    b.Property<int>("FT_15_Over_Home")
                         .HasColumnType("int");
 
-                    b.Property<int>("FT_35_Over")
+                    b.Property<int>("FT_25_Over_Away")
                         .HasColumnType("int");
 
-                    b.Property<int>("FT_GG")
+                    b.Property<int>("FT_25_Over_Home")
                         .HasColumnType("int");
 
-                    b.Property<int>("HT_05_Over")
+                    b.Property<int>("FT_35_Over_Away")
                         .HasColumnType("int");
 
-                    b.Property<int>("HT_15_Over")
+                    b.Property<int>("FT_35_Over_Home")
                         .HasColumnType("int");
 
-                    b.Property<int>("HT_GG")
+                    b.Property<int>("FT_GG_Away")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FT_GG_Home")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HT_05_Over_Away")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HT_05_Over_Home")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HT_15_Over_Away")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HT_15_Over_Home")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HT_GG_Away")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HT_GG_Home")
                         .HasColumnType("int");
 
                     b.Property<int>("Home_FT_05_Over")
@@ -249,7 +303,10 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<int>("Is_Corner_FT_Win2")
                         .HasColumnType("int");
 
-                    b.Property<int>("Is_Corner_FT_X")
+                    b.Property<int>("Is_Corner_FT_X1")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Is_Corner_FT_X2")
                         .HasColumnType("int");
 
                     b.Property<int>("Is_FT_Win1")
@@ -258,7 +315,10 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<int>("Is_FT_Win2")
                         .HasColumnType("int");
 
-                    b.Property<int>("Is_FT_X")
+                    b.Property<int>("Is_FT_X1")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Is_FT_X2")
                         .HasColumnType("int");
 
                     b.Property<int>("Is_HT_Win1")
@@ -267,7 +327,10 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<int>("Is_HT_Win2")
                         .HasColumnType("int");
 
-                    b.Property<int>("Is_HT_X")
+                    b.Property<int>("Is_HT_X1")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Is_HT_X2")
                         .HasColumnType("int");
 
                     b.Property<int>("Is_SH_Win1")
@@ -276,7 +339,10 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<int>("Is_SH_Win2")
                         .HasColumnType("int");
 
-                    b.Property<int>("Is_SH_X")
+                    b.Property<int>("Is_SH_X1")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Is_SH_X2")
                         .HasColumnType("int");
 
                     b.Property<int>("LeagueStaisticsHolderId")
@@ -294,15 +360,24 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<DateTime>("ModifiedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 29, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                        .HasDefaultValue(new DateTime(2024, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
-                    b.Property<int>("SH_05_Over")
+                    b.Property<int>("SH_05_Over_Away")
                         .HasColumnType("int");
 
-                    b.Property<int>("SH_15_Over")
+                    b.Property<int>("SH_05_Over_Home")
                         .HasColumnType("int");
 
-                    b.Property<int>("SH_GG")
+                    b.Property<int>("SH_15_Over_Away")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SH_15_Over_Home")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SH_GG_Away")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SH_GG_Home")
                         .HasColumnType("int");
 
                     b.Property<Guid>("UniqueIdentity")
@@ -454,7 +529,7 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<DateTime>("CreatedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 29, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                        .HasDefaultValue(new DateTime(2024, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
                     b.Property<int>("FT_15_Over")
                         .HasColumnType("int");
@@ -552,7 +627,7 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<DateTime>("ModifiedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 29, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                        .HasDefaultValue(new DateTime(2024, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
                     b.Property<int>("SH_05_Over")
                         .HasColumnType("int");
@@ -590,7 +665,10 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<DateTime>("CreatedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 29, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                        .HasDefaultValue(new DateTime(2024, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified));
+
+                    b.Property<bool>("Is99Percent")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsChecked")
                         .ValueGeneratedOnAdd()
@@ -618,7 +696,12 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<DateTime>("ModifiedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 29, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                        .HasDefaultValue(new DateTime(2024, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified));
+
+                    b.Property<int>("Serial")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.HasKey("Id");
 
@@ -652,12 +735,12 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<DateTime>("CreatedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 29, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                        .HasDefaultValue(new DateTime(2024, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
                     b.Property<DateTime>("DateOfAnalyse")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 29, 0, 0, 0, 0, DateTimeKind.Local));
+                        .HasDefaultValue(new DateTime(2024, 4, 26, 0, 0, 0, 0, DateTimeKind.Local));
 
                     b.Property<decimal>("FT_GoalsAverage")
                         .HasPrecision(7, 2)
@@ -685,6 +768,10 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<int>("HT_Over15_Percentage")
                         .HasColumnType("int");
 
+                    b.Property<string>("LeagueIdsConcat")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("LeagueName")
                         .IsRequired()
                         .HasMaxLength(150)
@@ -699,7 +786,7 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<DateTime>("ModifiedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 29, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                        .HasDefaultValue(new DateTime(2024, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
                     b.Property<decimal>("SH_GoalsAverage")
                         .HasPrecision(7, 2)
@@ -738,7 +825,7 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<DateTime>("CreatedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 29, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                        .HasDefaultValue(new DateTime(2024, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
                     b.Property<string>("FT_Result")
                         .IsRequired()
@@ -758,7 +845,7 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<DateTime>("MatchDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 29, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                        .HasDefaultValue(new DateTime(2024, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
                     b.Property<string>("ModifiedBy")
                         .ValueGeneratedOnAdd()
@@ -769,7 +856,7 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<DateTime>("ModifiedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 29, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                        .HasDefaultValue(new DateTime(2024, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
                     b.Property<int>("Serial")
                         .ValueGeneratedOnAdd()
@@ -861,7 +948,7 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<DateTime>("CreatedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 29, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                        .HasDefaultValue(new DateTime(2024, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
                     b.Property<decimal>("Even_Tek")
                         .ValueGeneratedOnAdd()
@@ -1493,7 +1580,7 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<DateTime>("ModifiedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 29, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                        .HasDefaultValue(new DateTime(2024, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
                     b.Property<decimal>("MoreGoal_1st")
                         .ValueGeneratedOnAdd()
@@ -1723,7 +1810,7 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 29, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                        .HasDefaultValue(new DateTime(2024, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
                     b.Property<int>("Serial")
                         .HasColumnType("int");
@@ -1760,7 +1847,7 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 29, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                        .HasDefaultValue(new DateTime(2024, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
                     b.Property<decimal>("HomePercent")
                         .HasPrecision(7, 2)
@@ -1867,7 +1954,7 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<DateTime>("CreatedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 29, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                        .HasDefaultValue(new DateTime(2024, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
                     b.Property<int>("FT_15_Over")
                         .HasColumnType("int");
@@ -1932,7 +2019,7 @@ namespace SBA.ExternalDataAccess.Migrations
                     b.Property<DateTime>("ModifiedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 29, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                        .HasDefaultValue(new DateTime(2024, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
                     b.Property<int>("SH_05_Over")
                         .HasColumnType("int");
@@ -2025,6 +2112,14 @@ namespace SBA.ExternalDataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FT_Result")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HT_Result")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("HomeTeam")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -2034,6 +2129,9 @@ namespace SBA.ExternalDataAccess.Migrations
 
                     b.Property<bool>("IsSuccess")
                         .HasColumnType("bit");
+
+                    b.Property<DateTime>("MatchDateTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("MatchIdentityId")
                         .HasColumnType("int");

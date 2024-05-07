@@ -16,6 +16,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace SBA.Business.FunctionalServices.Concrete
@@ -377,7 +378,7 @@ namespace SBA.Business.FunctionalServices.Concrete
                 };
             }
 
-            return result.OrderByDescending(x=>x.MatchDate).Take(takeCount).ToList();
+            return result.OrderByDescending(x => x.MatchDate).Take(takeCount).ToList();
         }
 
 
@@ -415,12 +416,12 @@ namespace SBA.Business.FunctionalServices.Concrete
                     {
                         var mb = matchBets[i];
 
-                        var compInfo = new ComparisonInfoContainer(serial, 
-                                                                   unchangableHomeTeam, 
-                                                                   unchangableAwayTeam, 
-                                                                   mb.HomeTeam, 
-                                                                   mb.AwayTeam, 
-                                                                   country, 
+                        var compInfo = new ComparisonInfoContainer(serial,
+                                                                   unchangableHomeTeam,
+                                                                   unchangableAwayTeam,
+                                                                   mb.HomeTeam,
+                                                                   mb.AwayTeam,
+                                                                   country,
                                                                    Convert.ToInt32(mb.HT_Match_Result.Split("-")[0]),
                                                                    Convert.ToInt32(mb.HT_Match_Result.Split("-")[1]), league,
                                                                    Convert.ToInt32(mb.FT_Match_Result.Split("-")[0]),
@@ -803,6 +804,212 @@ namespace SBA.Business.FunctionalServices.Concrete
         }
 
 
+        public static ShortMatchInfo ExtractShortMatchInfo(int serial)
+        {
+            string defaultMatchUrl = "http://arsiv.mackolik.com/Match/Default.aspx?id=";
+            WebOperation webOperation = new WebOperation();
+
+            var uri = string.Format("{0}{1}", defaultMatchUrl, serial);
+
+            var src = webOperation.GetMinifiedStringAsync(uri).Result;
+
+            if (string.IsNullOrEmpty(src)) return null;
+
+            var rgxMatchDate = new Regex(PatternConstant.UnstartedMatchPattern.DateMatch);
+            var rgxCountry = new Regex(PatternConstant.UnstartedMatchPattern.Country);
+            var rgxLeague = new Regex(PatternConstant.UnstartedMatchPattern.League);
+            var rgxHomeTeam = new Regex(PatternConstant.UnstartedMatchPattern.HomeTeam);
+            var rgxAwayTeam = new Regex(PatternConstant.UnstartedMatchPattern.AwayTeam);
+
+            var turkishDateTime = src.ResolveDateFormatByRegexUltimate(rgxMatchDate).Value;
+
+            TimeZoneInfo turkeyZone = TimeZoneInfo.FindSystemTimeZoneById("Turkey Standard Time");
+            TimeZoneInfo azerbaijanZone = TimeZoneInfo.FindSystemTimeZoneById("Azerbaijan Standard Time");
+
+            DateTime utcTime = TimeZoneInfo.ConvertTimeToUtc(turkishDateTime, turkeyZone);
+
+            DateTime convertedMatchTime = TimeZoneInfo.ConvertTimeFromUtc(utcTime, azerbaijanZone);
+
+            var result = new ShortMatchInfo
+            {
+                Link = uri,
+                Serial = serial,
+                Match = $"{src.ResolveTextByRegex(rgxHomeTeam)} -vs- {src.ResolveTextByRegex(rgxAwayTeam)}",
+                MatchDateTime = convertedMatchTime,
+                Country = src.ResolveTextByRegex(rgxCountry),
+                League = src.ResolveTextByRegex(rgxLeague)
+            };
+
+            return result;
+        }
+
+
+        public static LeagueUpdateModel ExtractLeagueUpdateModel(int serial, List<string> distinctCountries)
+        {
+            try
+            {
+                string defaultMatchUrl = $"http://arsiv.mackolik.com/Match/Default.aspx?id={serial}";
+                string combinedLeagueUrl = "https://arsiv.mackolik.com/Standings/Default.aspx?sId=";
+
+                WebOperation webOperation = new WebOperation();
+
+                var src = webOperation.GetMinifiedString(defaultMatchUrl);
+                if (string.IsNullOrEmpty(src)) return null;
+
+                var extractedValue = ExtractByRegex(src, PatternConstant.StartedMatchPattern.CountryLeagueID_Pattern);
+                var extractedCountry = ExtractByRegex(src, PatternConstant.StartedMatchPattern.Country);
+
+                string defaultLeagueName = string.Empty;
+
+                if (string.IsNullOrEmpty(extractedCountry))
+                {
+                    extractedCountry = ExtractByRegex(src, PatternConstant.StartedMatchPattern.CountryNotFoundCase);
+
+                    for (int i = 0; i < distinctCountries.Count; i++)
+                    {
+                        var cntry = distinctCountries[i];
+
+                        if (!extractedCountry.Contains(cntry)) continue;
+
+                        defaultLeagueName = extractedCountry.Replace(cntry, "");
+                        defaultLeagueName = CleanExtractedCountry(defaultLeagueName).Replace("Son 64", "").Replace("Son 32", "").Replace("Son 16", "").Replace("Son 8", "").Replace("Son 4", "").Replace("Son 128", "").Trim('/', ' ', '"');
+                        extractedCountry = cntry;
+                    }
+                }
+
+                extractedCountry = CleanExtractedCountry(extractedCountry);
+
+                if (string.IsNullOrEmpty(extractedValue)) return null;
+
+                var country = LimitCountryName(extractedCountry);
+
+                var result = new LeagueUpdateModel { LeagueId = Convert.ToInt32(extractedValue), Country = country.Trim() };
+
+                var srcStanding = webOperation.GetMinifiedString($"{combinedLeagueUrl}{extractedValue}");
+
+                if (string.IsNullOrEmpty(srcStanding)) return result;
+
+                if (srcStanding.Length < 250 && srcStanding.StartsWith("<script>") && srcStanding.EndsWith("</script>"))
+                {
+                    var newLink = ExtractByRegex(srcStanding, PatternConstant.RegSrcMix.MutatedLink);
+
+                    srcStanding = webOperation.GetMinifiedString($"https://{newLink}");
+                }
+
+                string combinedLeagueName = CleanExtractedCountry(ExtractByRegex(srcStanding, PatternConstant.StartedMatchPattern.CombinedLeagueName));
+                result.CombinedLeague = string.IsNullOrEmpty(combinedLeagueName.Replace(country, "").Trim()) ? defaultLeagueName : combinedLeagueName.Replace(country, "").Trim();
+
+                return result;
+            }
+            catch (Exception)
+            {
+                try
+                {
+                    string defaultMatchUrl = $"http://arsiv.mackolik.com/Match/Default.aspx?id={serial}";
+                    string combinedLeagueUrl = "https://arsiv.mackolik.com/Standings/Default.aspx?sId=";
+
+                    var result = new LeagueUpdateModel();
+
+                    WebOperation webOperation = new WebOperation();
+
+                    var src = webOperation.GetMinifiedString(defaultMatchUrl);
+                    if (string.IsNullOrEmpty(src)) return null;
+
+                    var extractedValue = ExtractByRegex(src, PatternConstant.StartedMatchPattern.CountryLeagueID_Pattern);
+                    int leagueId = Convert.ToInt32(extractedValue);
+
+                    var srcStanding = webOperation.GetMinifiedString($"{combinedLeagueUrl}{extractedValue}");
+                    if (string.IsNullOrEmpty(srcStanding)) return null;
+
+                    var countryMix = ExtractByRegex(srcStanding, PatternConstant.StartedMatchPattern.EqualLeagualCountry);
+
+                    var country = CheckCountry(countryMix, distinctCountries);
+
+                    result.Country = country;
+                    result.LeagueId = leagueId;
+                    result.CombinedLeague = countryMix.Replace(country, "");
+
+                    return result;
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
+        }
+
+        private static string ExtractByRegex(string source, string pattern)
+        {
+            var regex = new Regex(pattern);
+            return source.ResolveTextByRegex(regex).Trim('"', ' ');
+        }
+
+        private static string CheckCountry(string countryNameExtracted, List<string> distinctCountries)
+        {
+            var splittedKeys = countryNameExtracted.Split(' ');
+
+            foreach (var key in splittedKeys)
+            {
+                var found = distinctCountries.FirstOrDefault(x=>x.Contains(key));
+                if (!string.IsNullOrEmpty(found))
+                {
+                    return found.Trim();
+                }
+            }
+
+            return string.Empty;
+        }
+
+        private static string CleanExtractedCountry(string country)
+        {
+            var years = new[] { "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025" };
+            var groups = new[] { "Grup A", "Grup B", "Grup C", "Grup D", "Grup E", "Grup F", "Grup G", "Grup H" };
+
+            foreach (var year in years)
+            {
+                if (!string.IsNullOrEmpty(year))
+                {
+                    country = country.Replace(year, "");
+                }
+            }
+
+            foreach (var group in groups)
+            {
+                if (!string.IsNullOrEmpty(group))
+                {
+                    country = country.Replace(group, "");
+                }
+            }
+
+            return country;
+        }
+
+        private static string LimitCountryName(string country)
+        {
+            var namesArr = country.Split(' ');
+            var resultCountryBuilder = new StringBuilder();
+
+            if (namesArr.Length >= 3)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    resultCountryBuilder.Append(namesArr[i]);
+                    if (i < 2)
+                    {
+                        resultCountryBuilder.Append(" ");
+                    }
+                }
+            }
+            else
+            {
+                resultCountryBuilder.Append(country);
+            }
+
+            return resultCountryBuilder.ToString();
+        }
+
+
+
         public bool CompareIsAnalysable(string time, int addMinute, bool analyseAnyTime)
         {
             if (analyseAnyTime) return analyseAnyTime;
@@ -872,6 +1079,7 @@ namespace SBA.Business.FunctionalServices.Concrete
             var rgxFTRes = new Regex(PatternConstant.StartedMatchPattern.FTResultMatch);
             var rgxFTRes2ndCheck = new Regex(PatternConstant.StartedMatchPattern.FTResultMatch2ndCheck);
             var rgxCountryLeagueMix = new Regex(PatternConstant.StartedMatchPattern.CountryAndLeague);
+            var rgxLeagueId = new Regex(PatternConstant.StartedMatchPattern.CountryLeagueID_Pattern);
 
 
             var rgxHtFt11 = new Regex(PatternConstant.StartedMatchPattern.HT_FT_Home_Home);
@@ -1031,8 +1239,7 @@ namespace SBA.Business.FunctionalServices.Concrete
             var rgxCard55Ov = new Regex(PatternConstant.StartedMatchPattern.Cards_5_5_Over);
             var rgxCard55Un = new Regex(PatternConstant.StartedMatchPattern.Cards_5_5_Under);
 
-
-
+            var updateModel = ExtractLeagueUpdateModel(Convert.ToInt32(serial), containerTemp.Countries.Select(x => x.Name).ToList());
 
             T result = new T
             {
@@ -1070,8 +1277,9 @@ namespace SBA.Business.FunctionalServices.Concrete
                 Away = source.ResolveTextByRegex(rgxAway),
                 Home = source.ResolveTextByRegex(rgxHome),
                 DateMatch = source.ResolveDateByRegex(rgxDate, rgxDate2nd),
-                Country = source.ResolveCountryByRegex(containerTemp, rgxCountryLeagueMix, rgxCountry),
-                League = source.ResolveLeagueByRegex(containerTemp, rgxCountryLeagueMix, rgxLeague),
+                Country = updateModel != null ? updateModel.Country : source.ResolveCountryByRegex(containerTemp, rgxCountryLeagueMix, rgxCountry),
+                League = updateModel != null ? updateModel.CombinedLeague : source.ResolveLeagueByRegex(containerTemp, rgxCountryLeagueMix, rgxLeague),
+                LeagueId = updateModel != null ? updateModel.LeagueId.ToString() : source.ResolveTextByRegex(rgxLeagueId),
                 FT_Result = source.ResolveScoreByRegex(rgxFTRes, rgxFTRes2ndCheck),
 
                 HT_FT_Home_Home = source.ResolveOddByRegex(rgxHtFt11),
@@ -1266,6 +1474,7 @@ namespace SBA.Business.FunctionalServices.Concrete
             var rgxHT15A = new Regex(PatternConstant.UnstartedMatchPattern.HT_1_5_Under);
             var rgxHT15U = new Regex(PatternConstant.UnstartedMatchPattern.HT_1_5_Over);
             var rgxCountryLeagueMix = new Regex(PatternConstant.UnstartedMatchPattern.CountryAndLeague);
+            var rgxLeagueId = new Regex(PatternConstant.UnstartedMatchPattern.CountryLeagueID_Pattern);
 
             var rgxHtFt11 = new Regex(PatternConstant.UnstartedMatchPattern.HT_FT_Home_Home);
             var rgxHtFt1X = new Regex(PatternConstant.UnstartedMatchPattern.HT_FT_Home_Draw);
@@ -1616,6 +1825,7 @@ namespace SBA.Business.FunctionalServices.Concrete
                 Home = source.ResolveTextByRegex(rgxHome),
                 DateMatch = source.ResolveTextByRegex(rgxDate),
                 Country = source.ResolveCountryByRegex(containerTemp, rgxCountryLeagueMix, rgxCountry),
+                LeagueId = source.ResolveTextByRegex(rgxLeagueId),
                 League = source.ResolveLeagueByRegex(containerTemp, rgxCountryLeagueMix, rgxLeague),
                 FT_Result = source.ResolveScoreByRegex(rgxFTRes, rgxFTRes2ndCheck)
             };
@@ -1649,9 +1859,11 @@ namespace SBA.Business.FunctionalServices.Concrete
             var rgxFT25U = new Regex(PatternConstant.UnstartedMatchPattern.FT_2_5_Over);
             var rgxFT35A = new Regex(PatternConstant.UnstartedMatchPattern.FT_3_5_Under);
             var rgxFT35U = new Regex(PatternConstant.UnstartedMatchPattern.FT_3_5_Over);
+            var rgxMatchDate = new Regex(PatternConstant.UnstartedMatchPattern.DateMatch);
 
             InTimeShortOddModel result = new InTimeShortOddModel
             {
+                Serial = Convert.ToInt32(serial),
                 HT_W1 = source.ResolveOddByRegex(rgxH1),
                 HT_X = source.ResolveOddByRegex(rgxHX),
                 HT_W2 = source.ResolveOddByRegex(rgxH2),
@@ -1672,7 +1884,8 @@ namespace SBA.Business.FunctionalServices.Concrete
                 FT_25_Over = source.ResolveOddByRegex(rgxFT25U),
                 FT_25_Under = source.ResolveOddByRegex(rgxFT25A),
                 FT_35_Over = source.ResolveOddByRegex(rgxFT35U),
-                FT_35_Under = source.ResolveOddByRegex(rgxFT35A)
+                FT_35_Under = source.ResolveOddByRegex(rgxFT35A),
+                MatchDate = source.ResolveDateFormatByRegexUltimate(rgxMatchDate)
             };
 
             return result;

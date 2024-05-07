@@ -44,6 +44,9 @@ namespace SBA.ExternalDataAccess.Concrete
                                       SH_Over15_Percentage = leagueSt.SH_Over15_Percentage
                                   }
                               }).FirstOrDefault();
+
+            if (result == null) return null;
+
             result.AverageBySideStatistics = Context.StatisticInfoes.Where(x => x.Serial == serial && x.StatisticType == (int)StatisticType.Average && x.BySideType == (int)BySideType.HomeAway && (x.HomePercent > 0 || x.AwayPercent > 0) && (!(x.HomePercent < 0 || x.HomePercent < 0))).ToList().MapList(lang);
             result.AverageGeneralStatistics = Context.StatisticInfoes.Where(x => x.Serial == serial && x.StatisticType == (int)StatisticType.Average && x.BySideType == (int)BySideType.General && (x.HomePercent > 0 || x.AwayPercent > 0) && (!(x.HomePercent < 0 || x.HomePercent < 0))).ToList().MapList(lang);
             result.ComparisonBySideStatistics = Context.StatisticInfoes.Where(x => x.Serial == serial && x.StatisticType == (int)StatisticType.Comparison && x.BySideType == (int)BySideType.HomeAway && (x.HomePercent > 0 || x.AwayPercent > 0) && (!(x.HomePercent < 0 || x.HomePercent < 0))).ToList().MapList(lang);

@@ -1,7 +1,6 @@
 ﻿using Core.Concrete.Base;
 using Core.Resources.Enums;
 using MongoDB.Bson.Serialization.Attributes;
-using System;
 
 namespace Core.Entities.Concrete
 {
@@ -20,6 +19,9 @@ namespace Core.Entities.Concrete
 
         [BsonElement("leagueName")]
         public string LeagueName { get; set; }
+
+        [BsonElement("leagueId")]
+        public int LeagueId { get; set; }
 
         [BsonElement("homeTeam")]
         public string HomeTeam { get; set; }
@@ -96,5 +98,8 @@ namespace Core.Entities.Concrete
 
         [BsonElement("matchDate")]
         public DateTime MatchDate { get; set; }
+
+        [BsonElement("isCountryLeagueUpdated")]
+        public bool IsCountryLeagueUpdated { get; set; }
     }
 }

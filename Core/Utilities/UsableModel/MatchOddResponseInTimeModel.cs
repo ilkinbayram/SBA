@@ -9,6 +9,7 @@ namespace Core.Utilities.UsableModel
             Home = string.Empty;
             Away = string.Empty;
             League = string.Empty;
+            LeagueId = string.Empty;
             Country = string.Empty;
             ZEND_HT_Result = string.Empty;
             ZEND_FT_Result = string.Empty;

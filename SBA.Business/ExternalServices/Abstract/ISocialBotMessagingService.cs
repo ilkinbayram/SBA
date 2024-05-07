@@ -7,5 +7,6 @@
         void SendNisbiMessage(string message);
         void SendNisbiMessage(long newChatId, string message);
         void SendMessage(long newChatId, string message);
+        void Send99PercentMessage(string message);
     }
 }

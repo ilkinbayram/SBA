@@ -4,6 +4,7 @@ using Core.DependencyResolvers;
 using Core.Extensions;
 using Core.Utilities.IoC;
 using DataAccess.Concrete.EntityFramework.Contexts;
+using Hangfire;
 using Microsoft.EntityFrameworkCore;
 using SBA.Business.DependencyResolvers.Autofac;
 using SBA.ExternalDataAccess.Concrete.EntityFramework.Contexts;
@@ -24,18 +25,18 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
     });
 
 
-string sqlLocalDb = builder.Configuration.GetConnectionString("LocalDB");
-string sqlPromoDb = builder.Configuration.GetConnectionString("SbaPromoDB");
+//string sqlLocalDb = builder.Configuration.GetConnectionString("LocalDB");
+//string sqlPromoDb = builder.Configuration.GetConnectionString("SbaPromoDB");
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-{
-    options.UseSqlServer(sqlLocalDb);
-});
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//{
+//    options.UseSqlServer(sqlLocalDb);
+//});
 
-builder.Services.AddDbContext<ExternalAppDbContext>(options =>
-{
-    options.UseSqlServer(sqlPromoDb);
-});
+//builder.Services.AddDbContext<ExternalAppDbContext>(options =>
+//{
+//    options.UseSqlServer(sqlPromoDb);
+//});
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -54,6 +55,11 @@ builder.Services.AddDependencyResolvers(new ICoreModule[]
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+string sqlLocalDb = builder.Configuration.GetConnectionString("LocalDB");
+
+builder.Services.AddHangfire(x => x.UseSqlServerStorage(sqlLocalDb));
+builder.Services.AddHangfireServer();
 
 
 //                           /\
@@ -84,8 +90,16 @@ app.UseCors(options => options.WithOrigins("*").AllowAnyMethod().AllowAnyHeader(
 
 app.UseHttpsRedirection();
 
+app.UseRouting();
+
 app.UseAuthorization();
 
-app.MapControllers();
+app.UseHangfireDashboard();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+    endpoints.MapHangfireDashboard();
+});
 
 app.Run();

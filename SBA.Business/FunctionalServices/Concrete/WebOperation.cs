@@ -1,9 +1,4 @@
-﻿using Newtonsoft.Json;
-using System.Linq;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
-using WebMarkupMin.Core;
+﻿using WebMarkupMin.Core;
 
 namespace SBA.Business.FunctionalServices.Concrete
 {

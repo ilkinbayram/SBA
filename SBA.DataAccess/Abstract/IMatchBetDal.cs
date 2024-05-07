@@ -9,11 +9,9 @@ namespace SBA.DataAccess.Abstract
 {
     public interface IMatchBetDal : IEntityRepository<MatchBet>, IEntityQueryableRepository<MatchBet>
     {
-        IQueryable<MatchBetQM> GetMatchBetQueryModels(string countryName, string teamName, int takeCount, Expression<Func<MatchBetQM, bool>> filter = null);
-
-        IQueryable<MatchBetQM> GetMatchBetQueryModelsForPerformanceResult(string countryName, string teamName, int takeCount, Expression<Func<MatchBetQM, bool>> filter = null);
+        IQueryable<MatchBetQM> GetMatchBetQueryModelsForPerformanceResult(List<int> leagueIds, string countryName, string teamName, int takeCount, Expression<Func<MatchBetQM, bool>> filter = null);
 
         IQueryable<MatchBetQM> GetMatchBetFilterResultQueryModels(Expression<Func<MatchBetQM, bool>> filter = null);
-        List<FilterResultMutateModel> GetOddFilteredResult(InTimeShortOddModel inTimeOdds, decimal range);
+        List<FilterResultMutateModel> GetOddFilteredResult(InTimeShortOddModel inTimeOdds, decimal range, DateTime? matchDate = null);
     }
 }

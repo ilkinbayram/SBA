@@ -1,4 +1,5 @@
 ﻿using Core.Extensions;
+using Core.Utilities.UsableModel;
 using Core.Utilities.UsableModel.TempTableModels.Country;
 using Core.Utilities.UsableModel.TempTableModels.Initialization;
 using Microsoft.AspNetCore.Mvc;
@@ -32,17 +33,45 @@ namespace SBA.MvcUI.Controllers
             {
                 if (this._containerTemp == null)
                 {
+                    string contentCountries = string.Empty;
+                    using (var sr = new StreamReader(jsonPathFormat.GetJsonFileByFormat("Countries")))
+                    {
+                        contentCountries = sr.ReadToEnd();
+                    }
+
+                    if (contentCountries.Length > 50)
+                    {
+                        _containerTemp = JsonConvert.DeserializeObject<CountryContainerTemp>(contentCountries);
+
+                        if (_containerTemp != null && _containerTemp.Countries != null && _containerTemp.Countries.Count > 10)
+                        {
+                            return _containerTemp;
+                        }
+                    }
+
                     var countries = _matchBetService
-            .Query().Data
-            .Where(x => x.Country != "NONE")
-            .Select(x => x.Country)
-            .Distinct()
-            .OrderBy(x => x).ToList();
+                                    .Query().Data
+                                    .Select(x => x.Country)
+                                    .Distinct()
+                                    .Select(country => new CountryOrdership
+                                    {
+                                        Country = country,
+                                        Count = country.Length
+                                    })
+                                    .OrderByDescending(x => x.Count)
+                                    .ThenBy(x => x.Country)
+                                    .ToList();
 
                     _containerTemp = new CountryContainerTemp
                     {
-                        Countries = countries.Select(x => new CountryTemp { Name = x }).ToList()
+                        Countries = countries.Select(x => new CountryTemp { Name = x.Country }).ToList()
                     };
+
+
+                    using (var writer = new StreamWriter(jsonPathFormat.GetJsonFileByFormat("Countries")))
+                    {
+                        writer.Write(JsonConvert.SerializeObject(_containerTemp, Formatting.Indented));
+                    }
                 }
 
                 return _containerTemp;
@@ -63,8 +92,12 @@ namespace SBA.MvcUI.Controllers
                     {
                         contentLeagues = sr.ReadToEnd();
                     }
-                    var leagues = JsonConvert.DeserializeObject<LeagueContainer>(contentLeagues);
-                    return leagues;
+
+                    if (contentLeagues.Length > 50)
+                    {
+                        var leagues = JsonConvert.DeserializeObject<LeagueContainer>(contentLeagues);
+                        return leagues;
+                    }
                 }
 
                 Response.Cookies.Delete(dateDefinitionKey);
@@ -72,14 +105,14 @@ namespace SBA.MvcUI.Controllers
                 if (this._leagueContainer == null)
                 {
                     var allMatches = _matchBetService
-            .Query().Data
-            .Where(x => x.Country != "NONE" && x.LeagueName.Trim() != string.Empty).ToList();
+            .Query().Data.ToList();
 
                     var allHolders = allMatches.GroupBy(y => new { y.Country, y.LeagueName })
                                       .Select(x => new LeagueHolder
                                       {
                                           Country = x.Key.Country,
-                                          League = x.Key.LeagueName
+                                          League = x.Key.LeagueName,
+                                          LeagueCountryIds = x.Select(m => m.LeagueId).Distinct().ToList()
                                       }).ToList();
 
                     _leagueContainer = new LeagueContainer();
@@ -88,7 +121,7 @@ namespace SBA.MvcUI.Controllers
                     {
                         var holderOne = allHolders[i];
 
-                        var holders = _matchBetService.GetMatchBetFilterResultQueryModels(p => p.Country == holderOne.Country && p.League == holderOne.League && p.MatchDate.Month == DateTime.Now.Month && p.HasCorner).Data;
+                        var holders = _matchBetService.GetMatchBetFilterResultQueryModels(p => p.Country == holderOne.Country && p.League == holderOne.League && p.MatchDate.Month == DateTime.Now.Month).Data;
 
                         if (holders.Count < 20) continue;
 

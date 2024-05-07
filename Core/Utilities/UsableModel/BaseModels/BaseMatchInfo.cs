@@ -21,6 +21,7 @@
         public string Away { get; set; }
         public string DateMatch { get; set; }
         public string League { get; set; }
+        public string LeagueId { get; set; }
         public string Country { get; set; }
         public string FT_Result { get; set; }
         public string HT_Result { get; set; }

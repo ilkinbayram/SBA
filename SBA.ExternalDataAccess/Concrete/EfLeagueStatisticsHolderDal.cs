@@ -38,6 +38,7 @@ namespace SBA.ExternalDataAccess.Concrete
                               Match = new MatchModelDto
                               {
                                   Country = lg.CountryName,
+                                  LeagueIdsConcat = lg.LeagueIdsConcat,
                                   League = lg.LeagueName,
                                   AwayTeam = mid.AwayTeam,
                                   HomeTeam = mid.HomeTeam,

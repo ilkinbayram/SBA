@@ -22,7 +22,7 @@ namespace Core.Utilities.Maintenance.Abstract
         {
         }
 
-        public virtual void ExecuteTTT2(List<string> serials, Dictionary<string, string> path, CountryContainerTemp countryContainer, LeagueContainer leagueContainer, UserCheck userCheck)
+        public virtual void ExecuteTTT2(List<string> serials, Dictionary<string, string> path, UserCheck userCheck)
         {
         }
 

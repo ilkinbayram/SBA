@@ -53,7 +53,7 @@ namespace SBA.MvcUI.Controllers
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            var responseProfiler = OperationalProcessor.GetJobAnalyseModelResult(viewModel, _matchBetService, _filterResultService, CountryContainer);
+            var responseProfiler = OperationalProcessor.GetJobAnalyseModelResult(viewModel, _matchBetService, _filterResultService, LeagueContainer, CountryContainer);
 
             if (_cacheManager.IsAdd(CachingKeysEnum.GuestSytemKeyStandartFirst.ToString()))
                 _cacheManager.Remove(CachingKeysEnum.GuestSytemKeyStandartFirst.ToString());
@@ -95,7 +95,7 @@ namespace SBA.MvcUI.Controllers
                 SerialsBeforeGenerated = cachedProfiler.Select(x => x.Serial).ToList()
             };
 
-            var responseProfiler = OperationalProcessor.GetJobAnalyseModelResult(viewModel, _matchBetService, _filterResultService, CountryContainer);
+            var responseProfiler = OperationalProcessor.GetJobAnalyseModelResult(viewModel, _matchBetService, _filterResultService, LeagueContainer, CountryContainer);
 
 
             List<AnalyseResultVisualiser> visualiserModelList;

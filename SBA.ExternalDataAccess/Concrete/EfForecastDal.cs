@@ -23,19 +23,20 @@ namespace SBA.ExternalDataAccess.Concrete
             return await Context.SaveChangesAsync();
         }
 
-        public async Task<ForecastDataContainer> SelectForecastContainerInfoAsync(bool isCheckedItems, Func<MatchForecastFM, bool> filter = null)
+        public async Task<ForecastDataContainer> SelectForecastContainerInfoAsync(bool isCheckedItems, bool is99PercentItems, Func<MatchForecastFM, bool> filter = null)
         {
             try
             {
                 var result = new ForecastDataContainer();
 
                 var paramIsChecked = new SqlParameter("@paramIsChecked", isCheckedItems);
+                var paramIs99Percent = new SqlParameter("@paramIs99Percent", is99PercentItems);
                 var functionResult = filter == null ?
                                      Context.Set<MatchForecastFM>()
-                                     .FromSqlRaw("SELECT * FROM fn_MatchForecast(@paramIsChecked)", paramIsChecked)
+                                     .FromSqlRaw("SELECT * FROM fn_MatchForecast(@paramIsChecked, @paramIs99Percent)", paramIsChecked, paramIs99Percent)
                                      .ToList() :
                                      Context.Set<MatchForecastFM>()
-                                     .FromSqlRaw("SELECT * FROM fn_MatchForecast(@paramIsChecked)", paramIsChecked)
+                                     .FromSqlRaw("SELECT * FROM fn_MatchForecast(@paramIsChecked, @paramIs99Percent)", paramIsChecked, paramIs99Percent)
                                      .Where(filter)
                                      .ToList();
 
@@ -53,6 +54,7 @@ namespace SBA.ExternalDataAccess.Concrete
                         {
                             IsSuccess = mf.IsSuccess,
                             IsChecked = mf.IsChecked,
+                            Is99PercentForecast = mf.Is99Percent,
                             Description = mf.Description.TranslateResource(2)
                         }).ToList()
                     }).ToList();

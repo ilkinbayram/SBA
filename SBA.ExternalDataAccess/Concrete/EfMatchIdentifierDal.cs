@@ -7,6 +7,8 @@ using SBA.ExternalDataAccess.Abstract;
 using SBA.ExternalDataAccess.Concrete.EntityFramework.Contexts;
 using sqlParamModel = Core.Utilities.UsableModel;
 using System.Data;
+using Core.Entities.Concrete.ComplexModels.Sql;
+using TLMixedCore = Core.Entities.Concrete.ComplexModels.Sql;
 
 namespace SBA.ExternalDataAccess.Concrete
 {
@@ -88,8 +90,7 @@ namespace SBA.ExternalDataAccess.Concrete
 
             var result = await (from mid in Context.MatchIdentifiers
                                 join cmpHA in Context.ComparisonStatisticsHolders on mid.Id equals cmpHA.MatchIdentifierId
-                                // TODO : Turn Back
-                                where cmpHA.BySideType == 1 // && mid.MatchDateTime.Date == azerbaycanTime.Date
+                                where cmpHA.BySideType == 1 && mid.MatchDateTime.Date == azerbaycanTime.Date
                                 join lg in Context.LeagueStatisticsHolders on cmpHA.LeagueStaisticsHolderId equals lg.Id
                                 group mid by new { lg.CountryName, lg.LeagueName } into matchGroup
                                 select new MatchProgram
@@ -104,32 +105,8 @@ namespace SBA.ExternalDataAccess.Concrete
                                         MatchTime = m.MatchDateTime.ToString("HH:mm")
                                     }).ToList()
                                 }).ToListAsync();
-
-            var filteredResult = new List<MatchProgram>();
-
-            var possibleForecasts = await Context.PossibleForecasts.ToListAsync();
-            var serialsFilter = possibleForecasts.Select(x => x.Serial).ToList();
-
-            for (int i = 0; i < result.Count; i++)
-            {
-                var match = result[i];
-                var newMatchProgram = new MatchProgram
-                {
-                    Country = match.Country,
-                    League = match.League,
-                    Matches = new List<Match>()
-                };
-
-                var filteredMatches = match.Matches.Where(x => serialsFilter.Contains(x.Serial)).ToList();
-
-                if (filteredMatches.Any() || filteredMatches.Count > 0)
-                {
-                    newMatchProgram.Matches = filteredMatches;
-                    filteredResult.Add(newMatchProgram);
-                }
-            }
             
-            return new MatchProgramList { Matches = filteredResult };
+            return new MatchProgramList { Matches = result };
         }
 
         public async Task<MatchDetailProgram> GetAllMatchsProgramAsync(int month, int day)
@@ -139,9 +116,7 @@ namespace SBA.ExternalDataAccess.Concrete
 
             var result = await (from mid in Context.MatchIdentifiers
                           join cmpHA in Context.ComparisonStatisticsHolders on mid.Id equals cmpHA.MatchIdentifierId
-                          where cmpHA.BySideType == 1 
-                          // TODO : Turn Back
-                          //&& mid.MatchDateTime.Month == month && mid.MatchDateTime.Day == day
+                          where cmpHA.BySideType == 1 && mid.MatchDateTime.Month == month && mid.MatchDateTime.Day == day
                                 join lg in Context.LeagueStatisticsHolders on cmpHA.LeagueStaisticsHolderId equals lg.Id
                           select new MatchDetail
                           {
@@ -220,6 +195,134 @@ namespace SBA.ExternalDataAccess.Concrete
                     connection.Close(); // Explicitly close the connection
                 }
             }
+        }
+
+
+        public TLMixedCore.TeamLeagueMixedStat SP_GetTeamLeagueMixedStatResult(int serial)
+        {
+            var paramSerial = new SqlParameter("@serial", serial);
+
+            using (var context = new ExternalAppDbContext())
+            {
+                using (var connection = context.Database.GetDbConnection())
+                {
+
+                    if (connection.State != ConnectionState.Open)
+                    {
+                        connection.Open(); // Bağlantıyı aç
+                    }
+
+                    using (var command = connection.CreateCommand())
+                    {
+                        command.CommandText = "SP_GetTeamLeagueMixedStatisics";
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddRange((new List<SqlParameter>{ paramSerial }).ToArray());
+
+                        try
+                        {
+                            using (var result = command.ExecuteReader())
+                            {
+                                var columnNames = Enumerable.Range(0, result.FieldCount).Select(result.GetName).ToList();
+                                var resultModel = new TeamLeagueMixedStat();
+
+                                if (result.Read())  // If there is at least one row
+                                {
+                                    // Map the columns of the result row to the properties of the MatchStatisticOverallResultModel
+                                    resultModel.Average_FT_Goals_HomeTeam = ReadDecimal(result, columnNames, "Average_FT_Goals_HomeTeam");
+                                    resultModel.Average_FT_Goals_AwayTeam = ReadDecimal(result, columnNames, "Average_FT_Goals_AwayTeam");
+                                    resultModel.Average_FT_Conceeded_Goals_HomeTeam = ReadDecimal(result, columnNames, "Average_FT_Conceeded_Goals_HomeTeam");
+                                    resultModel.Average_FT_Conceeded_Goals_AwayTeam = ReadDecimal(result, columnNames, "Average_FT_Conceeded_Goals_AwayTeam");
+                                    resultModel.Average_HT_Goals_HomeTeam = ReadDecimal(result, columnNames, "Average_HT_Goals_HomeTeam");
+                                    resultModel.Average_HT_Goals_AwayTeam = ReadDecimal(result, columnNames, "Average_HT_Goals_AwayTeam");
+                                    resultModel.Average_HT_Conceeded_Goals_HomeTeam = ReadDecimal(result, columnNames, "Average_HT_Conceeded_Goals_HomeTeam");
+                                    resultModel.Average_HT_Conceeded_Goals_AwayTeam = ReadDecimal(result, columnNames, "Average_HT_Conceeded_Goals_AwayTeam");
+                                    resultModel.Average_SH_Goals_HomeTeam = ReadDecimal(result, columnNames, "Average_SH_Goals_HomeTeam");
+                                    resultModel.Average_SH_Goals_AwayTeam = ReadDecimal(result, columnNames, "Average_SH_Goals_AwayTeam");
+                                    resultModel.Average_SH_Conceeded_Goals_HomeTeam = ReadDecimal(result, columnNames, "Average_SH_Conceeded_Goals_HomeTeam");
+                                    resultModel.Average_SH_Conceeded_Goals_AwayTeam = ReadDecimal(result, columnNames, "Average_SH_Conceeded_Goals_AwayTeam");
+                                    resultModel.ShutSaveHomeTeam = ReadDecimal(result, columnNames, "ShutSaveHomeTeam");
+                                    resultModel.ShutSaveAwayTeam = ReadDecimal(result, columnNames, "ShutSaveAwayTeam");
+                                    resultModel.HomeInd_FT_05_Over = ReadInt32(result, columnNames, "HomeInd_FT_05_Over");
+                                    resultModel.AwayInd_FT_05_Over = ReadInt32(result, columnNames, "AwayInd_FT_05_Over");
+                                    resultModel.HomeInd_FT_15_Over = ReadInt32(result, columnNames, "HomeInd_FT_15_Over");
+                                    resultModel.AwayInd_FT_15_Over = ReadInt32(result, columnNames, "AwayInd_FT_15_Over");
+                                    resultModel.HomeInd_HT_05_Over = ReadInt32(result, columnNames, "HomeInd_HT_05_Over");
+                                    resultModel.AwayInd_HT_05_Over = ReadInt32(result, columnNames, "AwayInd_HT_05_Over");
+                                    resultModel.HomeInd_SH_05_Over = ReadInt32(result, columnNames, "HomeInd_SH_05_Over");
+                                    resultModel.AwayInd_SH_05_Over = ReadInt32(result, columnNames, "AwayInd_SH_05_Over");
+                                    resultModel.FT_GG_Home = ReadInt32(result, columnNames, "FT_GG_Home");
+                                    resultModel.FT_GG_Away = ReadInt32(result, columnNames, "FT_GG_Away");
+                                    resultModel.FT_15_Over_Home = ReadInt32(result, columnNames, "FT_15_Over_Home");
+                                    resultModel.FT_15_Over_Away = ReadInt32(result, columnNames, "FT_15_Over_Away");
+                                    resultModel.FT_25_Over_Home = ReadInt32(result, columnNames, "FT_25_Over_Home");
+                                    resultModel.FT_25_Over_Away = ReadInt32(result, columnNames, "FT_25_Over_Away");
+                                    resultModel.FT_35_Over_Home = ReadInt32(result, columnNames, "FT_35_Over_Home");
+                                    resultModel.FT_35_Over_Away = ReadInt32(result, columnNames, "FT_35_Over_Away");
+                                    resultModel.HT_05_Over_Home = ReadInt32(result, columnNames, "HT_05_Over_Home");
+                                    resultModel.HT_05_Over_Away = ReadInt32(result, columnNames, "HT_05_Over_Away");
+                                    resultModel.HT_15_Over_Home = ReadInt32(result, columnNames, "HT_15_Over_Home");
+                                    resultModel.HT_15_Over_Away = ReadInt32(result, columnNames, "HT_15_Over_Away");
+                                    resultModel.SH_05_Over_Home = ReadInt32(result, columnNames, "SH_05_Over_Home");
+                                    resultModel.SH_05_Over_Away = ReadInt32(result, columnNames, "SH_05_Over_Away");
+                                    resultModel.SH_15_Over_Home = ReadInt32(result, columnNames, "SH_15_Over_Home");
+                                    resultModel.SH_15_Over_Away = ReadInt32(result, columnNames, "SH_15_Over_Away");
+                                    resultModel.League_FT_GoalsAverage = ReadDecimal(result, columnNames, "League_FT_GoalsAverage");
+                                    resultModel.League_HT_GoalsAverage = ReadDecimal(result, columnNames, "League_HT_GoalsAverage");
+                                    resultModel.League_SH_GoalsAverage = ReadDecimal(result, columnNames, "League_SH_GoalsAverage");
+                                    resultModel.League_GG_Percentage = ReadInt32(result, columnNames, "League_GG_Percentage");
+                                    resultModel.League_FT_Over15_Percentage = ReadInt32(result, columnNames, "League_FT_Over15_Percentage");
+                                    resultModel.League_FT_Over25_Percentage = ReadInt32(result, columnNames, "League_FT_Over25_Percentage");
+                                    resultModel.League_FT_Over35_Percentage = ReadInt32(result, columnNames, "League_FT_Over35_Percentage");
+                                    resultModel.League_HT_Over05_Percentage = ReadInt32(result, columnNames, "League_HT_Over05_Percentage");
+                                    resultModel.League_HT_Over15_Percentage = ReadInt32(result, columnNames, "League_HT_Over15_Percentage");
+                                    resultModel.League_SH_Over05_Percentage = ReadInt32(result, columnNames, "League_SH_Over05_Percentage");
+                                    resultModel.League_SH_Over15_Percentage = ReadInt32(result, columnNames, "League_SH_Over15_Percentage");
+                                }
+
+                                return resultModel;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            return null;
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+        public async Task<List<int>> GetAllProgramSerialsAsync()
+        {
+            var result = await Context.MatchIdentifiers.Select(x => x.Serial).ToListAsync();
+            var uniqueList = new HashSet<int>(result);
+            return uniqueList.ToList();
+        }
+
+
+        private decimal ReadDecimal(System.Data.Common.DbDataReader reader, List<string> columnNames, string columnName)
+        {
+            int index = columnNames.IndexOf(columnName);
+
+            if (index != -1 && !reader.IsDBNull(index))
+            {
+                return reader.GetDecimal(index);
+            }
+
+            return 0;
+        }
+
+        private int ReadInt32(System.Data.Common.DbDataReader reader, List<string> columnNames, string columnName)
+        {
+            int index = columnNames.IndexOf(columnName);
+
+            if (index != -1 && !reader.IsDBNull(index))
+            {
+                return reader.GetInt32(index);
+            }
+
+            return 0;
         }
     }
 }

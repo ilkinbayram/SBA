@@ -554,7 +554,7 @@ namespace SBA.Business.BusinessHelper
             return result;
         }
 
-        public static List<JobAnalyseModel> GetJobAnalyseModelResult(SystemCheckerContainer model, IMatchBetService matchBetService, IFilterResultService filterResultService, CountryContainerTemp containerTemp)
+        public static List<JobAnalyseModel> GetJobAnalyseModelResult(SystemCheckerContainer model, IMatchBetService matchBetService, IFilterResultService filterResultService, LeagueContainer leagueContainer, CountryContainerTemp containerTemp)
         {
             var listSerials = model.SerialsBeforeGenerated == null || model.SerialsBeforeGenerated.Count <= 0 ? SplitSerials(model.SerialsText) : model.SerialsBeforeGenerated;
 
@@ -586,8 +586,8 @@ namespace SBA.Business.BusinessHelper
                 {
                     TeamPercentageProfiler = GetTeamPercentageProfiler(result[i], filterResults, i, mainUrl, listSerials[i]),
                     ComparisonInfoContainer = GetComparisonProfilerResult(listSerials[i], TeamSide.Home),
-                    HomeTeam_FormPerformanceGuessContainer = GetFormPerformanceProfiler(listSerials[i], matchBetService, containerTemp, TeamSide.Home),
-                    AwayTeam_FormPerformanceGuessContainer = GetFormPerformanceProfiler(listSerials[i], matchBetService, containerTemp, TeamSide.Away),
+                    HomeTeam_FormPerformanceGuessContainer = GetFormPerformanceProfiler(listSerials[i], matchBetService, leagueContainer, containerTemp, TeamSide.Home),
+                    AwayTeam_FormPerformanceGuessContainer = GetFormPerformanceProfiler(listSerials[i], matchBetService, leagueContainer, containerTemp, TeamSide.Away),
                     StandingInfoModel = GetStandingInfoModel(listSerials[i])
                 };
 
@@ -612,18 +612,17 @@ namespace SBA.Business.BusinessHelper
 
                 string src = _webOperator.GetMinifiedString($"{mainUrl}{serials[i]}");
 
-                string leagueName = src.ResolveLeagueByRegex(containerTemp, rgxCountryLeagueMix, rgxLeague);
-                string countryName = src.ResolveCountryByRegex(containerTemp, rgxCountryLeagueMix, rgxCountry);
+                var leagueUpdateModel = MatchInfoProceeder.ExtractLeagueUpdateModel(Convert.ToInt32(serials[i]), containerTemp.Countries.Select(x => x.Name).ToList());
 
-                bool validToGo = leagueContainer.LeagueHolders.Any(x => x.Country.Trim().ToLower() == countryName.ToLower().Trim() && x.League.ToLower().Trim() == leagueName.ToLower().Trim());
+                var foundLeagueHolder = leagueContainer.LeagueHolders.Where(lh => lh.LeagueCountryIds.Contains(leagueUpdateModel.LeagueId)).FirstOrDefault();
 
-                if (!validToGo) continue;
+                if (foundLeagueHolder == null) continue;
 
                 var analyseModelOne = new JobAnalyseModel
                 {
                     ComparisonInfoContainer = GetComparisonProfilerResult(serials[i], TeamSide.Home),
-                    HomeTeam_FormPerformanceGuessContainer = GetFormPerformanceProfiler(serials[i], matchBetService, containerTemp, TeamSide.Home),
-                    AwayTeam_FormPerformanceGuessContainer = GetFormPerformanceProfiler(serials[i], matchBetService, containerTemp, TeamSide.Away),
+                    HomeTeam_FormPerformanceGuessContainer = GetFormPerformanceProfiler(serials[i], matchBetService, leagueContainer, containerTemp, TeamSide.Home),
+                    AwayTeam_FormPerformanceGuessContainer = GetFormPerformanceProfiler(serials[i], matchBetService, leagueContainer, containerTemp, TeamSide.Away),
                     StandingInfoModel = GetStandingInfoModel(serials[i])
                 };
 
@@ -647,15 +646,17 @@ namespace SBA.Business.BusinessHelper
             {
                 string src = _webOperator.GetMinifiedString($"{mainUrl}{serial}");
 
-                string leagueName = ExtractLeagueName(src, containerTemp);
-                string countryName = ExtractCountryName(src, containerTemp);
+                var distinctCountries = containerTemp.Countries.Select(x => x.Name.Trim()).ToList();
+
+                var countryLeagueOfMatch = MatchInfoProceeder.ExtractLeagueUpdateModel(Convert.ToInt32(serial), distinctCountries);
+
                 string timeMatch = ExtractTimeMatch(src);
 
-                var currentLeagueContainer = FindCurrentLeagueContainer(leagueContainer, countryName, leagueName);
+                var currentLeagueContainer = FindCurrentLeagueContainer(leagueContainer, countryLeagueOfMatch);
 
                 if (currentLeagueContainer == null) continue;
 
-                var analyseModelOne = CreateAnalyseModel(serial, matchBetService, filterResultService, containerTemp);
+                var analyseModelOne = CreateAnalyseModel(serial, matchBetService, filterResultService, leagueContainer, containerTemp);
 
                 if (analyseModelOne == null) continue;
 
@@ -742,7 +743,7 @@ namespace SBA.Business.BusinessHelper
             if (DateTime.TryParse(matchDateTimeTxt, out DateTime _dt))
                 matchDateTime = DateTime.Parse(matchDateTimeTxt);
 
-            var performanceResult = GeneratePerformanceAiModel(matchBetService, leagueStatisticsHolder.CountryName, jobAnalyseModel.ComparisonInfoContainer.Home, jobAnalyseModel.ComparisonInfoContainer.Away);
+            var performanceResult = GeneratePerformanceAiModel(leagueStatisticsHolder.LeagueIdsConcat.Split("|").Select(x=>Convert.ToInt32(x)).ToList(), matchBetService, leagueStatisticsHolder.CountryName, jobAnalyseModel.ComparisonInfoContainer.Home, jobAnalyseModel.ComparisonInfoContainer.Away);
 
             return new AiAnalyseModel
             {
@@ -778,10 +779,10 @@ namespace SBA.Business.BusinessHelper
             };
         }
 
-        private static PerformanceAiModel GeneratePerformanceAiModel(IMatchBetService matchBetService, string countryName, string homeTeam, string awayTeam)
+        private static PerformanceAiModel GeneratePerformanceAiModel(List<int> leagueIds, IMatchBetService matchBetService, string countryName, string homeTeam, string awayTeam)
         {
-            var matchQueryResultHome = matchBetService.GetMatchBetQueryModels(countryName, homeTeam, 10).Data;
-            var matchQueryResultAway = matchBetService.GetMatchBetQueryModels(countryName, awayTeam, 10).Data;
+            var matchQueryResultHome = matchBetService.GetMatchBetQueryModels(leagueIds, countryName, homeTeam, 10).Data;
+            var matchQueryResultAway = matchBetService.GetMatchBetQueryModels(leagueIds, countryName, awayTeam, 10).Data;
 
             var result = new PerformanceAiModel
             {
@@ -865,14 +866,18 @@ namespace SBA.Business.BusinessHelper
             var result = new List<StatisticInfoHolder>
             {
                 new StatisticInfoHolder(input.UniqueIdentity, 100, "Ind_Avg_Goal_FT", input.Average_FT_Goals_HomeTeam.ToString("0.00"), input.Average_FT_Goals_AwayTeam.ToString("0.00"), input.Average_FT_Goals_HomeTeam, input.Average_FT_Goals_AwayTeam, serial, (int)StatisticType.Average, bySide),
+                new StatisticInfoHolder(input.UniqueIdentity, 100, "Ind_Avg_Conc_Goal_FT", input.Average_FT_Conceeded_Goals_HomeTeam.ToString("0.00"), input.Average_FT_Conceeded_Goals_AwayTeam.ToString("0.00"), input.Average_FT_Conceeded_Goals_HomeTeam, input.Average_FT_Conceeded_Goals_AwayTeam, serial, (int)StatisticType.Average, bySide),
                 new StatisticInfoHolder(input.UniqueIdentity, 105, "Ind_Avg_Goal_HT", input.Average_HT_Goals_HomeTeam.ToString("0.00"), input.Average_HT_Goals_AwayTeam.ToString("0.00"), input.Average_HT_Goals_HomeTeam, input.Average_HT_Goals_AwayTeam, serial, (int)StatisticType.Average, bySide),
+                new StatisticInfoHolder(input.UniqueIdentity, 105, "Ind_Avg_Conc_Goal_HT", input.Average_HT_Conceeded_Goals_HomeTeam.ToString("0.00"), input.Average_HT_Conceeded_Goals_AwayTeam.ToString("0.00"), input.Average_HT_Conceeded_Goals_HomeTeam, input.Average_HT_Conceeded_Goals_AwayTeam, serial, (int)StatisticType.Average, bySide),
                 new StatisticInfoHolder(input.UniqueIdentity, 110, "Ind_Avg_Goal_SH", input.Average_SH_Goals_HomeTeam.ToString("0.00"), input.Average_SH_Goals_AwayTeam.ToString("0.00"), input.Average_SH_Goals_HomeTeam, input.Average_SH_Goals_AwayTeam, serial, (int)StatisticType.Average, bySide),
+                new StatisticInfoHolder(input.UniqueIdentity, 110, "Ind_Avg_Conc_Goal_SH", input.Average_SH_Conceeded_Goals_HomeTeam.ToString("0.00"), input.Average_SH_Conceeded_Goals_AwayTeam.ToString("0.00"), input.Average_SH_Conceeded_Goals_HomeTeam, input.Average_SH_Conceeded_Goals_AwayTeam, serial, (int)StatisticType.Average, bySide),
+
                 new StatisticInfoHolder(input.UniqueIdentity, 115, "Ind_FT_Win", string.Format("{0}%", input.Is_FT_Win1), string.Format("{0}%", input.Is_FT_Win2), (decimal)input.Is_FT_Win1 / 100, (decimal)input.Is_FT_Win2 / 100, serial, (int)StatisticType.Average, bySide),
-                new StatisticInfoHolder(input.UniqueIdentity, 120, "FT_X", string.Format("{0}%", input.Is_FT_X), string.Format("{0}%", input.Is_FT_X), (decimal)input.Is_FT_X / 100, (decimal)input.Is_FT_X / 100, serial, (int)StatisticType.Average, bySide),
+                new StatisticInfoHolder(input.UniqueIdentity, 120, "FT_X", string.Format("{0}%", input.Is_FT_X1), string.Format("{0}%", input.Is_FT_X2), (decimal)input.Is_FT_X1 / 100, (decimal)input.Is_FT_X2 / 100, serial, (int)StatisticType.Average, bySide),
                 new StatisticInfoHolder(input.UniqueIdentity, 125, "Ind_HT_Win", string.Format("{0}%", input.Is_HT_Win1), string.Format("{0}%", input.Is_HT_Win2), (decimal)input.Is_HT_Win1 / 100, (decimal)input.Is_HT_Win2 / 100, serial, (int)StatisticType.Average, bySide),
-                new StatisticInfoHolder(input.UniqueIdentity, 130, "HT_X", string.Format("{0}%", input.Is_HT_X), string.Format("{0}%", input.Is_HT_X), (decimal)input.Is_HT_X / 100, (decimal)input.Is_HT_X / 100, serial, (int)StatisticType.Average, bySide),
+                new StatisticInfoHolder(input.UniqueIdentity, 130, "HT_X", string.Format("{0}%", input.Is_HT_X1), string.Format("{0}%", input.Is_HT_X2), (decimal)input.Is_HT_X1 / 100, (decimal)input.Is_HT_X2 / 100, serial, (int)StatisticType.Average, bySide),
                 new StatisticInfoHolder(input.UniqueIdentity, 135, "Ind_SH_Win", string.Format("{0}%", input.Is_SH_Win1), string.Format("{0}%", input.Is_SH_Win2), (decimal)input.Is_SH_Win1 / 100, (decimal)input.Is_SH_Win2 / 100, serial, (int)StatisticType.Average, bySide),
-                new StatisticInfoHolder(input.UniqueIdentity, 140, "SH_X", string.Format("{0}%", input.Is_SH_X), string.Format("{0}%", input.Is_SH_X), (decimal)input.Is_SH_X / 100, (decimal)input.Is_SH_X / 100, serial, (int)StatisticType.Average, bySide),
+                new StatisticInfoHolder(input.UniqueIdentity, 140, "SH_X", string.Format("{0}%", input.Is_SH_X1), string.Format("{0}%", input.Is_SH_X2), (decimal)input.Is_SH_X1 / 100, (decimal)input.Is_SH_X2 / 100, serial, (int)StatisticType.Average, bySide),
                 new StatisticInfoHolder(input.UniqueIdentity, 145, "Ind_FT_05", string.Format("{0}%", input.Home_FT_05_Over), string.Format("{0}%", input.Away_FT_05_Over), (decimal)input.Home_FT_05_Over / 100, (decimal)input.Away_FT_05_Over / 100, serial, (int)StatisticType.Average, bySide),
                 new StatisticInfoHolder(input.UniqueIdentity, 150, "Ind_FT_15", string.Format("{0}%", input.Home_FT_15_Over), string.Format("{0}%", input.Away_FT_15_Over), (decimal)input.Home_FT_15_Over / 100, (decimal)input.Away_FT_15_Over / 100, serial, (int)StatisticType.Average, bySide),
                 new StatisticInfoHolder(input.UniqueIdentity, 155, "Ind_HT_05", string.Format("{0}%", input.Home_HT_05_Over), string.Format("{0}%", input.Away_HT_05_Over), (decimal)input.Home_HT_05_Over / 100, (decimal)input.Away_HT_05_Over / 100, serial, (int)StatisticType.Average, bySide),
@@ -881,16 +886,16 @@ namespace SBA.Business.BusinessHelper
                 new StatisticInfoHolder(input.UniqueIdentity, 170, "Ind_SH_15", string.Format("{0}%", input.Home_SH_15_Over), string.Format("{0}%", input.Away_SH_15_Over), (decimal)input.Home_SH_15_Over / 100, (decimal)input.Away_SH_15_Over / 100, serial, (int)StatisticType.Average, bySide),
                 new StatisticInfoHolder(input.UniqueIdentity, 142, "Ind_WinAny", string.Format("{0}%", input.Home_Win_Any_Half), string.Format("{0}%", input.Away_Win_Any_Half), (decimal)input.Home_Win_Any_Half / 100, (decimal)input.Away_Win_Any_Half / 100, serial, (int)StatisticType.Average, bySide),
 
-                new StatisticInfoHolder(input.UniqueIdentity, 175, "FT_GG", string.Format("{0}%", input.FT_GG), string.Format("{0}%", input.FT_GG), (decimal)input.FT_GG / 100, (decimal)input.FT_GG / 100, serial, (int)StatisticType.Average, bySide),
-                new StatisticInfoHolder(input.UniqueIdentity, 180, "HT_GG", string.Format("{0}%", input.HT_GG), string.Format("{0}%", input.HT_GG), (decimal)input.HT_GG / 100, (decimal)input.HT_GG / 100, serial, (int)StatisticType.Average, bySide),
-                new StatisticInfoHolder(input.UniqueIdentity, 185, "SH_GG", string.Format("{0}%", input.SH_GG), string.Format("{0}%", input.SH_GG), (decimal)input.SH_GG / 100, (decimal)input.SH_GG / 100, serial, (int)StatisticType.Average, bySide),
-                new StatisticInfoHolder(input.UniqueIdentity, 190, "FT_15", string.Format("{0}%", input.FT_15_Over), string.Format("{0}%", input.FT_15_Over), (decimal)input.FT_15_Over / 100, (decimal)input.FT_15_Over / 100, serial, (int)StatisticType.Average, bySide),
-                new StatisticInfoHolder(input.UniqueIdentity, 195, "FT_25", string.Format("{0}%", input.FT_25_Over), string.Format("{0}%", input.FT_25_Over), (decimal)input.FT_25_Over / 100, (decimal)input.FT_25_Over / 100, serial, (int)StatisticType.Average, bySide),
-                new StatisticInfoHolder(input.UniqueIdentity, 200, "FT_35", string.Format("{0}%", input.FT_35_Over), string.Format("{0}%", input.FT_35_Over), (decimal)input.FT_35_Over / 100, (decimal)input.FT_35_Over / 100, serial, (int)StatisticType.Average, bySide),
-                new StatisticInfoHolder(input.UniqueIdentity, 205, "HT_05", string.Format("{0}%", input.HT_05_Over), string.Format("{0}%", input.HT_05_Over), (decimal)input.HT_05_Over / 100, (decimal)input.HT_05_Over / 100, serial, (int)StatisticType.Average, bySide),
-                new StatisticInfoHolder(input.UniqueIdentity, 210, "HT_15", string.Format("{0}%", input.HT_15_Over), string.Format("{0}%", input.HT_15_Over), (decimal)input.HT_15_Over / 100, (decimal)input.HT_15_Over / 100, serial, (int)StatisticType.Average, bySide),
-                new StatisticInfoHolder(input.UniqueIdentity, 215, "SH_05", string.Format("{0}%", input.SH_05_Over), string.Format("{0}%", input.SH_05_Over), (decimal)input.SH_05_Over / 100, (decimal)input.SH_05_Over / 100, serial, (int)StatisticType.Average, bySide),
-                new StatisticInfoHolder(input.UniqueIdentity, 220, "SH_15", string.Format("{0}%", input.SH_15_Over), string.Format("{0}%", input.SH_15_Over), (decimal)input.SH_15_Over / 100, (decimal)input.SH_15_Over / 100, serial, (int)StatisticType.Average, bySide)
+                new StatisticInfoHolder(input.UniqueIdentity, 175, "FT_GG", string.Format("{0}%", input.FT_GG_Home), string.Format("{0}%", input.FT_GG_Away), (decimal)input.FT_GG_Home / 100, (decimal)input.FT_GG_Away / 100, serial, (int)StatisticType.Average, bySide),
+                new StatisticInfoHolder(input.UniqueIdentity, 180, "HT_GG", string.Format("{0}%", input.HT_GG_Home), string.Format("{0}%", input.HT_GG_Away), (decimal)input.HT_GG_Home / 100, (decimal)input.HT_GG_Away / 100, serial, (int)StatisticType.Average, bySide),
+                new StatisticInfoHolder(input.UniqueIdentity, 185, "SH_GG", string.Format("{0}%", input.SH_GG_Home), string.Format("{0}%", input.SH_GG_Away), (decimal)input.SH_GG_Home / 100, (decimal)input.SH_GG_Away / 100, serial, (int)StatisticType.Average, bySide),
+                new StatisticInfoHolder(input.UniqueIdentity, 190, "FT_15", string.Format("{0}%", input.FT_15_Over_Home), string.Format("{0}%", input.FT_15_Over_Away), (decimal)input.FT_15_Over_Home / 100, (decimal)input.FT_15_Over_Away / 100, serial, (int)StatisticType.Average, bySide),
+                new StatisticInfoHolder(input.UniqueIdentity, 195, "FT_25", string.Format("{0}%", input.FT_25_Over_Home), string.Format("{0}%", input.FT_25_Over_Away), (decimal)input.FT_25_Over_Home / 100, (decimal)input.FT_25_Over_Away / 100, serial, (int)StatisticType.Average, bySide),
+                new StatisticInfoHolder(input.UniqueIdentity, 200, "FT_35", string.Format("{0}%", input.FT_35_Over_Home), string.Format("{0}%", input.FT_35_Over_Away), (decimal)input.FT_35_Over_Home / 100, (decimal)input.FT_35_Over_Away / 100, serial, (int)StatisticType.Average, bySide),
+                new StatisticInfoHolder(input.UniqueIdentity, 205, "HT_05", string.Format("{0}%", input.HT_05_Over_Home), string.Format("{0}%", input.HT_05_Over_Away), (decimal)input.HT_05_Over_Home / 100, (decimal)input.HT_05_Over_Away / 100, serial, (int)StatisticType.Average, bySide),
+                new StatisticInfoHolder(input.UniqueIdentity, 210, "HT_15", string.Format("{0}%", input.HT_15_Over_Home), string.Format("{0}%", input.HT_15_Over_Away), (decimal)input.HT_15_Over_Home / 100, (decimal)input.HT_15_Over_Away / 100, serial, (int)StatisticType.Average, bySide),
+                new StatisticInfoHolder(input.UniqueIdentity, 215, "SH_05", string.Format("{0}%", input.SH_05_Over_Home), string.Format("{0}%", input.SH_05_Over_Away), (decimal)input.SH_05_Over_Home / 100, (decimal)input.SH_05_Over_Away / 100, serial, (int)StatisticType.Average, bySide),
+                new StatisticInfoHolder(input.UniqueIdentity, 220, "SH_15", string.Format("{0}%", input.SH_15_Over_Home), string.Format("{0}%", input.SH_15_Over_Away), (decimal)input.SH_15_Over_Home / 100, (decimal)input.SH_15_Over_Away / 100, serial, (int)StatisticType.Average, bySide)
             };
 
             if (input.Average_FT_Corners_HomeTeam >= 0 && input.Average_FT_Corners_AwayTeam >= 0)
@@ -909,12 +914,12 @@ namespace SBA.Business.BusinessHelper
                 result.Add(new StatisticInfoHolder(input.UniqueIdentity, 335, "Ind_Cor4_5_FT", string.Format("{0}%", input.Corner_Home_4_5_Over), string.Format("{0}%", input.Corner_Away_4_5_Over), (decimal)input.Corner_Home_4_5_Over / 100, (decimal)input.Corner_Away_4_5_Over / 100, serial, (int)StatisticType.Average, bySide));
                 result.Add(new StatisticInfoHolder(input.UniqueIdentity, 340, "Ind_Cor5_5_FT", string.Format("{0}%", input.Corner_Home_5_5_Over), string.Format("{0}%", input.Corner_Away_5_5_Over), (decimal)input.Corner_Home_5_5_Over / 100, (decimal)input.Corner_Away_5_5_Over / 100, serial, (int)StatisticType.Average, bySide));
 
-                result.Add(new StatisticInfoHolder(input.UniqueIdentity, 345, "Cor7_5_FT", string.Format("{0}%", input.Corner_7_5_Over), string.Format("{0}%", input.Corner_7_5_Over), (decimal)input.Corner_7_5_Over / 100, (decimal)input.Corner_7_5_Over / 100, serial, (int)StatisticType.Average, bySide));
-                result.Add(new StatisticInfoHolder(input.UniqueIdentity, 350, "Cor8_5_FT", string.Format("{0}%", input.Corner_8_5_Over), string.Format("{0}%", input.Corner_8_5_Over), (decimal)input.Corner_8_5_Over / 100, (decimal)input.Corner_8_5_Over / 100, serial, (int)StatisticType.Average, bySide));
-                result.Add(new StatisticInfoHolder(input.UniqueIdentity, 355, "Cor9_5_FT", string.Format("{0}%", input.Corner_9_5_Over), string.Format("{0}%", input.Corner_9_5_Over), (decimal)input.Corner_9_5_Over / 100, (decimal)input.Corner_9_5_Over / 100, serial, (int)StatisticType.Average, bySide));
+                result.Add(new StatisticInfoHolder(input.UniqueIdentity, 345, "Cor7_5_FT", string.Format("{0}%", input.Corner_7_5_Over_Home), string.Format("{0}%", input.Corner_7_5_Over_Away), (decimal)input.Corner_7_5_Over_Away / 100, (decimal)input.Corner_7_5_Over_Home / 100, serial, (int)StatisticType.Average, bySide));
+                result.Add(new StatisticInfoHolder(input.UniqueIdentity, 350, "Cor8_5_FT", string.Format("{0}%", input.Corner_8_5_Over_Home), string.Format("{0}%", input.Corner_8_5_Over_Away), (decimal)input.Corner_8_5_Over_Away / 100, (decimal)input.Corner_8_5_Over_Home / 100, serial, (int)StatisticType.Average, bySide));
+                result.Add(new StatisticInfoHolder(input.UniqueIdentity, 355, "Cor9_5_FT", string.Format("{0}%", input.Corner_9_5_Over_Home), string.Format("{0}%", input.Corner_9_5_Over_Away), (decimal)input.Corner_9_5_Over_Away / 100, (decimal)input.Corner_9_5_Over_Home / 100, serial, (int)StatisticType.Average, bySide));
 
                 result.Add(new StatisticInfoHolder(input.UniqueIdentity, 360, "Ind_Cor_Win", string.Format("{0}%", input.Is_Corner_FT_Win1), string.Format("{0}%", input.Is_Corner_FT_Win2), (decimal)input.Is_Corner_FT_Win1 / 100, (decimal)input.Is_Corner_FT_Win2 / 100, serial, (int)StatisticType.Average, bySide));
-                result.Add(new StatisticInfoHolder(input.UniqueIdentity, 365, "Cor_X", string.Format("{0}%", input.Is_Corner_FT_X), string.Format("{0}%", input.Is_Corner_FT_X), (decimal)input.Is_Corner_FT_X / 100, (decimal)input.Is_Corner_FT_X / 100, serial, (int)StatisticType.Average, bySide));
+                result.Add(new StatisticInfoHolder(input.UniqueIdentity, 365, "Cor_X", string.Format("{0}%", input.Is_Corner_FT_X1), string.Format("{0}%", input.Is_Corner_FT_X2), (decimal)input.Is_Corner_FT_X1 / 100, (decimal)input.Is_Corner_FT_X2 / 100, serial, (int)StatisticType.Average, bySide));
             }
 
             return result;
@@ -1184,19 +1189,19 @@ namespace SBA.Business.BusinessHelper
             }
         }
 
-        private static LeagueHolder? FindCurrentLeagueContainer(LeagueContainer leagueContainer, string countryName, string leagueName)
+        private static LeagueHolder? FindCurrentLeagueContainer(LeagueContainer leagueContainer, LeagueUpdateModel leagueModel)
         {
-            return leagueContainer.LeagueHolders.FirstOrDefault(x => x.Country.Trim().ToLower() == countryName.ToLower().Trim() && x.League.ToLower().Trim() == leagueName.ToLower().Trim());
+            return leagueContainer.LeagueHolders.FirstOrDefault(x => x.LeagueCountryIds.Contains(leagueModel.LeagueId));
         }
 
-        private static JobAnalyseModel CreateAnalyseModel(string serial, IMatchBetService matchBetService, IFilterResultService filterResultService, CountryContainerTemp containerTemp)
+        private static JobAnalyseModel CreateAnalyseModel(string serial, IMatchBetService matchBetService, IFilterResultService filterResultService, LeagueContainer leagueContainer, CountryContainerTemp containerTemp)
         {
             try
             {
                 var compRes = GetComparisonOnlyDbProfilerResult(serial, matchBetService, filterResultService, containerTemp, TeamSide.Home);
                 var compDbRes = GetComparisonProfilerResult(serial, TeamSide.Home);
-                var perfHome = GetFormPerformanceProfiler(serial, matchBetService, containerTemp, TeamSide.Home);
-                var perfAway = GetFormPerformanceProfiler(serial, matchBetService, containerTemp, TeamSide.Away);
+                var perfHome = GetFormPerformanceProfiler(serial, matchBetService, leagueContainer, containerTemp, TeamSide.Home);
+                var perfAway = GetFormPerformanceProfiler(serial, matchBetService, leagueContainer, containerTemp, TeamSide.Away);
 
                 var analyseModel = new JobAnalyseModel
                 {
@@ -1284,19 +1289,18 @@ namespace SBA.Business.BusinessHelper
 
                 string src = _webOperator.GetMinifiedString($"{mainUrl}{serials[i]}");
 
-                string leagueName = src.ResolveLeagueByRegex(containerTemp, rgxCountryLeagueMix, rgxLeague);
-                string countryName = src.ResolveCountryByRegex(containerTemp, rgxCountryLeagueMix, rgxCountry);
+                var leagueUpdateModel = MatchInfoProceeder.ExtractLeagueUpdateModel(Convert.ToInt32(serials[i]), containerTemp.Countries.Select(x=>x.Name).ToList());
 
-                bool validToGo = leagueContainer.LeagueHolders.Any(x => x.Country.Trim().ToLower() == countryName.ToLower().Trim() && x.League.ToLower().Trim() == leagueName.ToLower().Trim());
+                var foundLeagueHolder = leagueContainer.LeagueHolders.Where(lh => lh.LeagueCountryIds.Contains(leagueUpdateModel.LeagueId)).FirstOrDefault();
 
-                if (!validToGo) continue;
+                if (foundLeagueHolder == null) continue;
 
                 var analyseModelOne = new JobAnalyseModelNisbi
                 {
                     ComparisonInfoContainer = GetComparisonProfilerResult(serials[i], TeamSide.Home),
 
-                    HomeTeam_FormPerformanceGuessContainer = GetFormPerformanceProfiler(serials[i], matchBetService, containerTemp, TeamSide.Home),
-                    AwayTeam_FormPerformanceGuessContainer = GetFormPerformanceProfiler(serials[i], matchBetService, containerTemp, TeamSide.Away)
+                    HomeTeam_FormPerformanceGuessContainer = GetFormPerformanceProfiler(serials[i], matchBetService, leagueContainer, containerTemp, TeamSide.Home),
+                    AwayTeam_FormPerformanceGuessContainer = GetFormPerformanceProfiler(serials[i], matchBetService, leagueContainer, containerTemp, TeamSide.Away)
                 };
 
                 if (analyseModelOne.ComparisonInfoContainer == null || analyseModelOne.HomeTeam_FormPerformanceGuessContainer == null || analyseModelOne.AwayTeam_FormPerformanceGuessContainer == null)
@@ -1653,7 +1657,7 @@ namespace SBA.Business.BusinessHelper
             }
         }
 
-        public static FormPerformanceGuessContainer GetFormPerformanceProfiler(string serial, IMatchBetService matchBetService, CountryContainerTemp containerTemp, TeamSide teamSide)
+        public static FormPerformanceGuessContainer GetFormPerformanceProfiler(string serial, IMatchBetService matchBetService, LeagueContainer leagueContainer, CountryContainerTemp containerTemp, TeamSide teamSide)
         {
             try
             {
@@ -1671,7 +1675,12 @@ namespace SBA.Business.BusinessHelper
                     : new Regex(PatternConstant.UnstartedMatchPattern.HomeTeam);
 
                 var unchangableTeam = minifiedSrc.ResolveTextByRegex(regxTeamName);
-                var countryName = minifiedSrc.ResolveCountryByRegex(containerTemp, regxCountryAndLeagueName);
+
+                var foundUpdateModel = MatchInfoProceeder.ExtractLeagueUpdateModel(Convert.ToInt32(serial), containerTemp.Countries.Select(x => x.Name).ToList());
+
+                var foundLeagueHolder = leagueContainer.LeagueHolders.FirstOrDefault(x => x.LeagueCountryIds.Contains(foundUpdateModel.LeagueId));
+
+                if (foundLeagueHolder == null) return null;
 
                 if (teamSide == TeamSide.Away)
                     result.Away = unchangableTeam;
@@ -1683,8 +1692,8 @@ namespace SBA.Business.BusinessHelper
                 // Turn Back
 
                 var latest6GamesMatchBet = teamSide == TeamSide.Away
-                    ? matchBetService.GetMatchBetQueryModels(countryName, unchangableTeam, 6, x => x.AwayTeam == unchangableTeam).Data
-                    : matchBetService.GetMatchBetQueryModels(countryName, unchangableTeam, 6, x => x.HomeTeam == unchangableTeam).Data;
+                    ? matchBetService.GetMatchBetQueryModels(foundLeagueHolder.LeagueCountryIds, foundUpdateModel.Country, unchangableTeam, 6, x => x.AwayTeam == unchangableTeam).Data                  
+                    : matchBetService.GetMatchBetQueryModels(foundLeagueHolder.LeagueCountryIds, foundUpdateModel.Country, unchangableTeam, 6, x => x.HomeTeam == unchangableTeam).Data;
 
                 var list6PerformanceData = _proceeder.SelectListPerformanceDataContainers(latest6GamesMatchBet, teamSide, unchangableTeam);
 
@@ -1774,7 +1783,7 @@ namespace SBA.Business.BusinessHelper
                 ////////////////// General
 
                 // Return Back
-                var latest10GamesMatchBetGeneral = matchBetService.GetMatchBetQueryModels(countryName, unchangableTeam, 10).Data;
+                var latest10GamesMatchBetGeneral = matchBetService.GetMatchBetQueryModels(foundLeagueHolder.LeagueCountryIds, foundUpdateModel.Country, unchangableTeam, 10).Data;
                 var list10PerformanceDataGeneral = _proceeder.SelectListPerformanceDataContainers(latest10GamesMatchBetGeneral, teamSide, unchangableTeam);
 
                 result.General = new GuessModel
@@ -2313,7 +2322,6 @@ namespace SBA.Business.BusinessHelper
 
             return result;
         }
-
 
         private static PercentageComplainer GenerateGeneralComparison<T>(List<T> containers, string propertyName, TeamSide teamSide)
     where T : BaseComparerContainerModel, new()

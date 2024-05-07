@@ -1,28 +1,33 @@
-﻿using SBA.Business.ExternalServices;
+﻿using DataAccess.Concrete.EntityFramework.Contexts;
+using SBA.Business.FunctionalServices.Concrete;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 
-var _httpClient = new HttpClient();
-var trClient = new GoogleTranslationService("AIzaSyCUgz3xO-A0UoK-yaVBZ3dIzjZeBBLuHS0");
-
-while (true)
-{
-    Console.Write("Would you like continue ? ___");
-
-    var res = Console.ReadLine();
-
-    if (res.ToLower() == "yes")
-    {
-        Console.Write("Text: ");
-
-        var text = Console.ReadLine();
-
-        string result = trClient.Translate(text, "tr", "az");
-
-        Console.WriteLine(result);
-    }
 
 
-}
+
+//var _httpClient = new HttpClient();
+//var trClient = new GoogleTranslationService("AIzaSyCUgz3xO-A0UoK-yaVBZ3dIzjZeBBLuHS0");
+
+//while (true)
+//{
+//    Console.Write("Would you like continue ? ___");
+
+//    var res = Console.ReadLine();
+
+//    if (res.ToLower() == "yes")
+//    {
+//        Console.Write("Text: ");
+
+//        var text = Console.ReadLine();
+
+//        string result = trClient.Translate(text, "tr", "az");
+
+//        Console.WriteLine(result);
+//    }
+
+
+//}
 
 
 
@@ -115,79 +120,4 @@ int[] ExtractFromStatistics(string src, params string[] statisticNames)
     }
 
     return result;
-}
-
-
-int a = 5;
-a = 9;
-int b = a;
-
-
-
-
-class MyNumber : BaseNumber
-{
-    public int Value { get; set; }
-
-    public void Change(int input)
-    {
-        input = 199;
-    }
-
-    public void Change(MyNumber input)
-    {
-        input.Value = 199;
-    }
-
-    public override int ChangeOvr()
-    {
-        return 999;
-    }
-}
-
-class BaseNumber
-{
-    public virtual int ChangeOvr()
-    {
-        return 10;
-    }
-}
-
-
-class Bank
-{
-    public int GetCreditFaiz(Person instance)
-    {
-        return instance.GetDiscountFaiz();
-    }
-}
-
-class ItBalasi : Person
-{
-
-}
-
-
-class Person
-{
-    public virtual int Emsal => 5;
-    public int GetDiscountFaiz()
-    {
-        return 5 * Emsal;
-    }
-}
-
-
-
-
-
-
-
-class Qacqin : Person
-{
-    public override int Emsal => 2;
-}
-
-class NormalInsan : Person
-{
 }

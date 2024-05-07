@@ -248,9 +248,16 @@
             public const string AwayTeam = @"match-info-date[\s\S]*?match-detail-logo-temp[\s\S]*?left-block-team-name[\s\S]*?r-match-detail-logo-temp[\s\S]*?r-left-block-team-name[\s\S]*?>[\s\S]*?(.+?(?=<))";
 
             public const string Country = @"dvStanding[\s\S]*?card[\s\S]*?standing-title[\s\S]*?Puan-Durumu[\s\S]*?title=[\s\S]*?(.+?(?= alt))";
+            public const string CountryNotFoundCase = @"match-info-wrapper-top[\s\S]*?match-info-wrapper-season[\s\S]*?img[\s\S]*?b>[\s\S]*?(.+?(?=<))";
             public const string League = @"dvStanding[\s\S]*?card[\s\S]*?standing-title[\s\S]*?Puan-Durumu[\s\S]*?title=[\s\S]*?vertical-align[\s\S]*?> [\s\S]*?(.+?(?= <\/a>))";
 
             public const string CountryAndLeague = @"<html[\s\S]*?<head>[\s\S]*?title[\s\S]*?>([^\W][^<]+)";
+
+            public const string CountryLeagueID_Pattern = @"arsiv.mackolik.com\/Puan-Durumu\/s=[\s\S]*?([^\W][^\/]+)";
+
+            public const string CombinedLeagueName = @"news-select-temp[\s\S]*?season-temp[\s\S]*?season-league[\s\S]*?img[\s\S]*?>[\s\S]*?(.+?(?=<))";
+
+            public const string EqualLeagualCountry = @"font-size:12px[\s\S]*?font-family:Verdana[\s\S]*?>[\s\S]*?(.+?(?=<))";
         }
 
 
@@ -483,9 +490,16 @@
             public const string HomeTeam = @"match-info-wrapper[\s\S]*?match-info-wrapper-center[\s\S]*?left-block-team-name[\s\S]*?>([^\W][^<]+)";
             public const string AwayTeam = @"match-info-wrapper[\s\S]*?match-info-wrapper-center[\s\S]*?r-left-block-team-name[\s\S]*?>([^\W][^<]+)";
 
+            public const string CountryNotFoundCase = @"match-info-wrapper-top[\s\S]*?match-info-wrapper-season[\s\S]*?img[\s\S]*?b>[\s\S]*?(.+?(?=<))";
             public const string Country = @"dvStanding[\s\S]*?card[\s\S]*?standing-title[\s\S]*?Puan-Durumu[\s\S]*?title=[\s\S]*?(.+?(?= alt))";
-            public const string League = @"dvStanding[\s\S]*?card[\s\S]*?standing-title[\s\S]*?Puan-Durumu[\s\S]*?title=[\s\S]*?vertical-align[\s\S]*?> [\s\S]*?(.+?(?= <\/a>))";
+            public const string League = @"dvStanding[\s\S]*?card[\s\S]*?standing-title[\s\S]*?Puan-Durumu[\s\S]*?title=[\s\S]*?vertical-align[\s\S]*?>[\s\S]*?(.+?(?=<\/))";
             public const string CountryAndLeague = @"<html[\s\S]*?<head>[\s\S]*?title[\s\S]*?>([^\W][^<]+)";
+
+            public const string CountryLeagueID_Pattern = @"arsiv.mackolik.com\/Puan-Durumu\/s=[\s\S]*?([^\W][^\/]+)";
+
+            public const string CombinedLeagueName = @"news-select-temp[\s\S]*?season-temp[\s\S]*?season-league[\s\S]*?img[\s\S]*?>[\s\S]*?(.+?(?=<))";
+
+            public const string EqualLeagualCountry = @"font-size:12px[\s\S]*?font-family:Verdana[\s\S]*?>[\s\S]*?(.+?(?=<))";
         }
 
 
@@ -528,6 +542,8 @@
                 public const string DrawsCount = @"dvStanding[\s\S]*?tblStanding[\s\S]*?alt[\s\S]*?fff3a5[\s\S]*?bold>[\s\S]*?fff3a5[\s\S]*?bold>[\s\S]*?right>[\s\S]*?right>[\s\S]*?right>[\s\S]*?(.+?(?=<))";
                 public const string LostsCount = @"dvStanding[\s\S]*?tblStanding[\s\S]*?alt[\s\S]*?fff3a5[\s\S]*?bold>[\s\S]*?fff3a5[\s\S]*?bold>[\s\S]*?right>[\s\S]*?right>[\s\S]*?right>[\s\S]*?right>[\s\S]*?(.+?(?=<))";
                 public const string Ponints = @"dvStanding[\s\S]*?tblStanding[\s\S]*?alt[\s\S]*?fff3a5[\s\S]*?bold>[\s\S]*?fff3a5[\s\S]*?bold>[\s\S]*?right>[\s\S]*?right>[\s\S]*?right>[\s\S]*?right>[\s\S]*?right>[\s\S]*?<b>[\s\S]*?(.+?(?=<))";
+
+
             }
         }
 
@@ -536,6 +552,8 @@
         {
             public const string ScoreFromPerformance = @"\b(0|[1-9]\d*)-(0|[1-9]\d*)\b";
             public const string TeamsCollector = @"title=""[\s\S]*?([^\W][^\(]+)";
+
+            public const string MutatedLink = @"document[\s\S]*?href[\s\S]*?\/\/[\s\S]*?(.+?(?='))";
         }
     }
 }

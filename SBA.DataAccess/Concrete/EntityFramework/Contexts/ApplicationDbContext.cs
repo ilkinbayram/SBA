@@ -22,6 +22,14 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
             modelBuilder.ApplyConfiguration(new LogConfiguration());
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Data Source=DESKTOP-4AP15T3;Initial Catalog=SBAnalyserDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            }
+        }
+
 
         public DbSet<MatchBet> MatchBets { get; set; }
         public DbSet<PerformanceOverall> PerformanceOveralls { get; set; }

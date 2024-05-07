@@ -148,6 +148,52 @@ namespace Core.Utilities.Helpers
                 result = !filterResult.FT_GG;
             }
 
+            else if (key.ToLower() == ForecastKeys.FT_Home_2nd_Goal.ToLower())
+            {
+                result = filterResult.Home_FT_1_5_Over;
+            }
+            else if (key.ToLower() == ForecastKeys.FT_Away_2nd_Goal.ToLower())
+            {
+                result = filterResult.Away_FT_1_5_Over;
+            }
+
+            else if (key.ToLower() == ForecastKeys.HT_Win1_Or_X.ToLower())
+            {
+                result = !filterResult.Is_HT_Win2;
+            }
+            else if (key.ToLower() == ForecastKeys.HT_X_Or_Win2.ToLower())
+            {
+                result = !filterResult.Is_HT_Win1;
+            }
+            else if (key.ToLower() == ForecastKeys.HT_Win1_Or_Win2.ToLower())
+            {
+                result = !filterResult.Is_HT_X;
+            }
+            else if (key.ToLower() == ForecastKeys.SH_Win1_Or_X.ToLower())
+            {
+                result = !filterResult.Is_SH_Win2;
+            }
+            else if (key.ToLower() == ForecastKeys.SH_X_Or_Win2.ToLower())
+            {
+                result = !filterResult.Is_SH_Win1;
+            }
+            else if (key.ToLower() == ForecastKeys.SH_Win1_Or_Win2.ToLower())
+            {
+                result = !filterResult.Is_SH_X;
+            }
+            else if (key.ToLower() == ForecastKeys.FT_Win1_Or_X.ToLower())
+            {
+                result = !filterResult.Is_FT_Win2;
+            }
+            else if (key.ToLower() == ForecastKeys.FT_X_Or_Win2.ToLower())
+            {
+                result = !filterResult.Is_FT_Win1;
+            }
+            else if (key.ToLower() == ForecastKeys.FT_Win1_Or_Win2.ToLower())
+            {
+                result = !filterResult.Is_FT_X;
+            }
+
             return result;
         }
     }

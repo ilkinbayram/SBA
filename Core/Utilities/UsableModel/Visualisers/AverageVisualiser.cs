@@ -23,20 +23,35 @@
 
         public string Total_BetweenGoals { get; set; }
 
-        public string FT_GG { get; set; }
-        public string SH_GG { get; set; }
-        public string HT_GG { get; set; }
+        public string FT_GG_Home { get; set; }
+        public string SH_GG_Home { get; set; }
+        public string HT_GG_Home { get; set; }
 
 
-        public string FT_15_Over { get; set; }
-        public string FT_25_Over { get; set; }
-        public string FT_35_Over { get; set; }
+        public string FT_15_Over_Home { get; set; }
+        public string FT_25_Over_Home { get; set; }
+        public string FT_35_Over_Home { get; set; }
 
-        public string HT_05_Over { get; set; }
-        public string HT_15_Over { get; set; }
+        public string HT_05_Over_Home { get; set; }
+        public string HT_15_Over_Home { get; set; }
 
-        public string SH_05_Over { get; set; }
-        public string SH_15_Over { get; set; }
+        public string SH_05_Over_Home { get; set; }
+        public string SH_15_Over_Home { get; set; }
+
+        public string FT_GG_Away { get; set; }
+        public string SH_GG_Away { get; set; }
+        public string HT_GG_Away { get; set; }
+
+
+        public string FT_15_Over_Away { get; set; }
+        public string FT_25_Over_Away { get; set; }
+        public string FT_35_Over_Away { get; set; }
+
+        public string HT_05_Over_Away { get; set; }
+        public string HT_15_Over_Away { get; set; }
+
+        public string SH_05_Over_Away { get; set; }
+        public string SH_15_Over_Away { get; set; }
 
         public string Home_HT_05_Over { get; set; }
         public string Home_HT_15_Over { get; set; }

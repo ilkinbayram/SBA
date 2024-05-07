@@ -123,7 +123,7 @@ namespace SBA.DataAccess.Migrations
                     b.Property<DateTime>("CreatedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 4, 3, 15, 11, 17, 903, DateTimeKind.Local).AddTicks(7219));
+                        .HasDefaultValue(new DateTime(2024, 4, 22, 6, 45, 57, 630, DateTimeKind.Local).AddTicks(8695));
 
                     b.Property<bool>("FT_1_5_Over")
                         .HasColumnType("bit");
@@ -288,7 +288,7 @@ namespace SBA.DataAccess.Migrations
                     b.Property<DateTime>("ModifiedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 4, 3, 15, 11, 17, 903, DateTimeKind.Local).AddTicks(7349));
+                        .HasDefaultValue(new DateTime(2024, 4, 22, 6, 45, 57, 630, DateTimeKind.Local).AddTicks(8822));
 
                     b.Property<int>("MoreGoalsBetweenTimes")
                         .HasColumnType("int");
@@ -336,7 +336,7 @@ namespace SBA.DataAccess.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 4, 3, 15, 11, 17, 904, DateTimeKind.Local).AddTicks(1139));
+                        .HasDefaultValue(new DateTime(2024, 4, 22, 6, 45, 57, 631, DateTimeKind.Local).AddTicks(2518));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -390,7 +390,7 @@ namespace SBA.DataAccess.Migrations
                     b.Property<DateTime>("CreatedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 4, 3, 15, 11, 17, 903, DateTimeKind.Local).AddTicks(1699));
+                        .HasDefaultValue(new DateTime(2024, 4, 22, 6, 45, 57, 630, DateTimeKind.Local).AddTicks(3487));
 
                     b.Property<decimal>("FTDraw_Odd")
                         .HasPrecision(7, 2)
@@ -492,6 +492,12 @@ namespace SBA.DataAccess.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(true);
 
+                    b.Property<bool>("IsCountryLeagueUpdated")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("LeagueId")
+                        .HasColumnType("int");
+
                     b.Property<string>("LeagueName")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -514,7 +520,7 @@ namespace SBA.DataAccess.Migrations
                     b.Property<DateTime>("ModifiedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 4, 3, 15, 11, 17, 903, DateTimeKind.Local).AddTicks(1921));
+                        .HasDefaultValue(new DateTime(2024, 4, 22, 6, 45, 57, 630, DateTimeKind.Local).AddTicks(3659));
 
                     b.Property<int>("SerialUniqueID")
                         .HasColumnType("int");
@@ -643,7 +649,7 @@ namespace SBA.DataAccess.Migrations
                     b.Property<DateTime>("CreatedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                        .HasDefaultValue(new DateTime(2024, 4, 22, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
                     b.Property<int>("FT_15_Over_Away")
                         .HasColumnType("int");
@@ -768,7 +774,7 @@ namespace SBA.DataAccess.Migrations
                     b.Property<DateTime>("ModifiedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                        .HasDefaultValue(new DateTime(2024, 4, 22, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
                     b.Property<int>("SH_05_Over_Away")
                         .HasColumnType("int");

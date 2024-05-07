@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace Core.Utilities.Helpers
+﻿namespace Core.Utilities.Helpers
 {
     public class StringGenerator
     {

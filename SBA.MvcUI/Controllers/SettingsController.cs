@@ -15,6 +15,7 @@ using SBA.Business.CoreAbilityServices.Job;
 using SBA.Business.ExternalServices.Abstract;
 using SBA.Business.FunctionalServices.Abstract;
 using SBA.Business.FunctionalServices.Concrete;
+using SBA.ExternalDataAccess.Concrete.EntityFramework.Contexts;
 using SBA.MvcUI.Models.SettingsModels;
 using System.Diagnostics;
 
@@ -84,7 +85,7 @@ namespace SBA.MvcUI.Controllers
                 return BadRequest(500);
             }
 
-            JobOperation job = new JobOperation(_telegramService, new List<TimeSerialContainer>(), _matchBetService, _filterResultService, new SystemCheckerContainer(), DescriptionJobResultEnum.Standart, CountryContainer, _leagueStatisticsHolderService, _comparisonStatisticsHolderService, _averageStatisticsHolderService, _teamPerformanceStatisticsHolderService, _matchIdentifierService, _statisticInfoHolderService, _aiDataHolderService, _forecastService, _configuration);
+            JobOperation job = new JobOperation(_telegramService, new List<TimeSerialContainer>(), _matchBetService, _filterResultService, new SystemCheckerContainer(), DescriptionJobResultEnum.Standart, CountryContainer, LeagueContainer, _leagueStatisticsHolderService, _comparisonStatisticsHolderService, _averageStatisticsHolderService, _teamPerformanceStatisticsHolderService, _matchIdentifierService, _statisticInfoHolderService, _aiDataHolderService, _forecastService, _configuration);
 
             var pathes = new Dictionary<string, string>();
 
@@ -105,7 +106,7 @@ namespace SBA.MvcUI.Controllers
                 return BadRequest(500);
             }
 
-            JobOperation job = new JobOperation(_telegramService, new List<TimeSerialContainer>(), _matchBetService, _filterResultService, new SystemCheckerContainer(), DescriptionJobResultEnum.Standart, CountryContainer, _leagueStatisticsHolderService, _comparisonStatisticsHolderService, _averageStatisticsHolderService, _teamPerformanceStatisticsHolderService, _matchIdentifierService, _statisticInfoHolderService, _aiDataHolderService, _forecastService, _configuration);
+            JobOperation job = new JobOperation(_telegramService, new List<TimeSerialContainer>(), _matchBetService, _filterResultService, new SystemCheckerContainer(), DescriptionJobResultEnum.Standart, CountryContainer, LeagueContainer, _leagueStatisticsHolderService, _comparisonStatisticsHolderService, _averageStatisticsHolderService, _teamPerformanceStatisticsHolderService, _matchIdentifierService, _statisticInfoHolderService, _aiDataHolderService, _forecastService, _configuration);
 
             var pathes = new Dictionary<string, string>();
             pathes.Add("responseProfilerTempNisbi", jsonPathFormat.GetJsonFileByFormat("responseProfilerTempNisbi"));
@@ -170,12 +171,12 @@ namespace SBA.MvcUI.Controllers
                 return BadRequest(500);
             }
 
-            JobOperation job = new JobOperation(_telegramService, new List<TimeSerialContainer>(), _matchBetService, _filterResultService, new SystemCheckerContainer(), DescriptionJobResultEnum.Standart, CountryContainer, _leagueStatisticsHolderService, _comparisonStatisticsHolderService, _averageStatisticsHolderService, _teamPerformanceStatisticsHolderService, _matchIdentifierService, _statisticInfoHolderService, _aiDataHolderService, _forecastService, _configuration);
+            JobOperation job = new JobOperation(_telegramService, new List<TimeSerialContainer>(), _matchBetService, _filterResultService, new SystemCheckerContainer(), DescriptionJobResultEnum.Standart, CountryContainer, LeagueContainer, _leagueStatisticsHolderService, _comparisonStatisticsHolderService, _averageStatisticsHolderService, _teamPerformanceStatisticsHolderService, _matchIdentifierService, _statisticInfoHolderService, _aiDataHolderService, _forecastService, _configuration);
 
             var pathes = new Dictionary<string, string>();
             pathes.Add("responseProfilerTemp", jsonPathFormat.GetJsonFileByFormat("responseProfilerTemp"));
 
-            job.ExecuteTTT2(listSerials, pathes, CountryContainer, LeagueContainer, container.CheckUser);
+            job.ExecuteTTT2(listSerials, pathes, container.CheckUser);
 
             return Ok(204);
         }
@@ -406,6 +407,10 @@ namespace SBA.MvcUI.Controllers
             {
                 writer.Write(string.Empty);
             }
+            using (var writer = new StreamWriter(jsonPathFormat.GetJsonFileByFormat("Countries")))
+            {
+                writer.Write(string.Empty);
+            }
             using (var writer = new StreamWriter(jsonPathFormat.GetJsonFileByFormat("responseProfilerTemp")))
             {
                 writer.Write(string.Empty);
@@ -442,7 +447,7 @@ namespace SBA.MvcUI.Controllers
             stp.Stop();
             var minute = (decimal) stp.ElapsedMilliseconds / (1000 * 60);
 
-            _telegramService.SendMessage($"{allFilterResults.Count} DATA.\nFinished at {minute} minutes.");
+            // _telegramService.SendMessage($"{allFilterResults.Count} DATA.\nFinished at {minute} minutes.");
 
             return Ok(204);
         }
@@ -451,37 +456,9 @@ namespace SBA.MvcUI.Controllers
         [HttpPost("/Settings/UpdateForecasts")]
         public async Task<IActionResult> UpdateForecastsAsync()
         {
-            var forecasMatchModel = await _forecastService.SelectForecastContainerInfoAsync(false);
+            var result = _forecastService.UpdateUncheckedForecasts();
 
-            var forecastList = new List<Forecast>();
-            var unknownForecasts = new List<MatchForecast>();
-
-            for (int i = 0; i < forecasMatchModel.MatchForecasts.Count; i++)
-            {
-                var matchForecast = forecasMatchModel.MatchForecasts[i];
-                var filterResult = await _filterResultService.GetAsync(x => x.SerialUniqueID == matchForecast.Serial);
-
-                var dbForecasts = await _forecastService.GetListAsync(x => x.MatchIdentifierId == matchForecast.MatchIdentityId);
-
-                if (filterResult.Data == null)
-                {
-                    unknownForecasts.Add(matchForecast);
-                    continue;
-                }
-
-                for (int k = 0; k < dbForecasts.Data.Count; k++)
-                {
-                    var forecast = dbForecasts.Data[k];
-                    forecast.IsSuccess = ForecastHandler.CheckForecast(filterResult.Data, forecast.Key);
-                    forecast.IsChecked = true;
-                    forecast.ModifiedDateTime = DateTime.Now;
-                    forecastList.Add(forecast);
-                }
-            }
-
-            var result = await _forecastService.UpdateRangeAsync(forecastList);
-
-            return Ok(result.Data);
+            return Ok(result);
         }
 
 

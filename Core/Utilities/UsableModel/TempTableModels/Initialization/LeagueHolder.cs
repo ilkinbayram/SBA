@@ -5,7 +5,9 @@
         public int CountFound { get; set; }
         public string Country { get; set; }
         public string League { get; set; }
-        
+
+        public List<int> LeagueCountryIds { get; set; }
+
 
         public decimal GoalsAverage { get; set; }
         public decimal HT_GoalsAverage { get; set; }

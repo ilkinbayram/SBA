@@ -13,6 +13,9 @@ namespace SBA.Business.Abstract
 
         IDataResult<int> Add(Forecast entity);
         IDataResult<int> Update(Forecast entity);
+
+        IResult UpdateUncheckedForecasts();
+
         IDataResult<int> Remove(long Id);
         IDataResult<int> AddRange(List<Forecast> entities);
         IDataResult<int> UpdateRange(List<Forecast> entities);
@@ -20,7 +23,7 @@ namespace SBA.Business.Abstract
         IDataResult<IQueryable<Forecast>> Query(Expression<Func<Forecast, bool>> filter = null);
 
         Task<int> AddPossibleForecastsAsync(List<PossibleForecast> possibleForecasts);
-        Task<ForecastDataContainer> SelectForecastContainerInfoAsync(bool isCheckedItems, Func<MatchForecastFM, bool> filter = null);
+        Task<ForecastDataContainer> SelectForecastContainerInfoAsync(bool isCheckedItems, bool is99PercentItems, Func<MatchForecastFM, bool> filter = null);
 
         Task<List<string>> SelectForecastsBySerialAsync(int serial);
 

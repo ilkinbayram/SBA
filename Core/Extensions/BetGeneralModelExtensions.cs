@@ -32,6 +32,7 @@ namespace Core.Extensions
             return new LeagueStatisticsHolder
             {
                 LeagueName = leagueHolder.League,
+                LeagueIdsConcat = string.Join('|', leagueHolder.LeagueCountryIds),
                 CountryName = leagueHolder.Country,
                 CountFound = leagueHolder.CountFound,
                 DateOfAnalyse = DateTime.Now.Date,
@@ -394,6 +395,13 @@ namespace Core.Extensions
                         Average_SH_Goals_HomeTeam = averageHomeAway.Average_SH_Goals_HomeTeam,
                         Average_SH_Goals_AwayTeam = averageHomeAway.Average_SH_Goals_AwayTeam,
 
+                        Average_FT_Conceeded_Goals_HomeTeam = averageHomeAway.Average_FT_Conceeded_Goals_HomeTeam,
+                        Average_FT_Conceeded_Goals_AwayTeam = averageHomeAway.Average_FT_Conceeded_Goals_AwayTeam,
+                        Average_HT_Conceeded_Goals_HomeTeam = averageHomeAway.Average_HT_Conceeded_Goals_HomeTeam,
+                        Average_HT_Conceeded_Goals_AwayTeam = averageHomeAway.Average_HT_Conceeded_Goals_AwayTeam,
+                        Average_SH_Conceeded_Goals_HomeTeam = averageHomeAway.Average_SH_Conceeded_Goals_HomeTeam,
+                        Average_SH_Conceeded_Goals_AwayTeam = averageHomeAway.Average_SH_Conceeded_Goals_AwayTeam,
+
                         Away_FT_05_Over = averageHomeAway.Away_FT_05_Over.OverridePercentage(),
                         Away_FT_15_Over = averageHomeAway.Away_FT_15_Over.OverridePercentage(),
                         Away_HT_05_Over = averageHomeAway.Away_HT_05_Over.OverridePercentage(),
@@ -409,42 +417,66 @@ namespace Core.Extensions
                         Home_Win_Any_Half = averageHomeAway.Home_Win_Any_Half.OverridePercentage(),
                         Away_Win_Any_Half = averageHomeAway.Away_Win_Any_Half.OverridePercentage(),
 
-                        FT_15_Over = averageHomeAway.FT_15_Over.OverridePercentage(),
-                        FT_25_Over = averageHomeAway.FT_25_Over.OverridePercentage(),
-                        FT_35_Over = averageHomeAway.FT_35_Over.OverridePercentage(),
+                        FT_15_Over_Home = averageHomeAway.FT_15_Over_Home.OverridePercentage(),
+                        FT_25_Over_Home = averageHomeAway.FT_25_Over_Home.OverridePercentage(),
+                        FT_35_Over_Home = averageHomeAway.FT_35_Over_Home.OverridePercentage(),
 
-                        HT_05_Over = averageHomeAway.HT_05_Over.OverridePercentage(),
-                        HT_15_Over = averageHomeAway.HT_15_Over.OverridePercentage(),
 
-                        SH_05_Over = averageHomeAway.SH_05_Over.OverridePercentage(),
-                        SH_15_Over = averageHomeAway.SH_15_Over.OverridePercentage(),
+                        HT_05_Over_Home = averageHomeAway.HT_05_Over_Home.OverridePercentage(),
+                        HT_15_Over_Home = averageHomeAway.HT_15_Over_Home.OverridePercentage(),
 
-                        FT_GG = averageHomeAway.FT_GG.OverridePercentage(),
-                        HT_GG = averageHomeAway.HT_GG.OverridePercentage(),
-                        SH_GG = averageHomeAway.SH_GG.OverridePercentage(),
+                        SH_05_Over_Home = averageHomeAway.SH_05_Over_Home.OverridePercentage(),
+                        SH_15_Over_Home = averageHomeAway.SH_15_Over_Home.OverridePercentage(),
+
+                        FT_15_Over_Away = averageHomeAway.FT_15_Over_Away.OverridePercentage(),
+                        FT_25_Over_Away = averageHomeAway.FT_25_Over_Away.OverridePercentage(),
+                        FT_35_Over_Away = averageHomeAway.FT_35_Over_Away.OverridePercentage(),
+
+
+                        HT_05_Over_Away = averageHomeAway.HT_05_Over_Away.OverridePercentage(),
+                        HT_15_Over_Away = averageHomeAway.HT_15_Over_Away.OverridePercentage(),
+
+                        SH_05_Over_Away = averageHomeAway.SH_05_Over_Away.OverridePercentage(),
+                        SH_15_Over_Away = averageHomeAway.SH_15_Over_Away.OverridePercentage(),
+
+                        FT_GG_Home = averageHomeAway.FT_GG_Home.OverridePercentage(),
+                        HT_GG_Home = averageHomeAway.HT_GG_Home.OverridePercentage(),
+                        SH_GG_Home = averageHomeAway.SH_GG_Home.OverridePercentage(),
+
+                        FT_GG_Away = averageHomeAway.FT_GG_Away.OverridePercentage(),
+                        HT_GG_Away = averageHomeAway.HT_GG_Away.OverridePercentage(),
+                        SH_GG_Away = averageHomeAway.SH_GG_Away.OverridePercentage(),
 
                         Is_FT_Win1 = averageHomeAway.Is_FT_Win1.OverridePercentage(),
-                        Is_FT_X = averageHomeAway.Is_FT_X.OverridePercentage(),
+                        Is_FT_X1 = averageHomeAway.Is_FT_X1.OverridePercentage(),
+                        Is_FT_X2 = averageHomeAway.Is_FT_X2.OverridePercentage(),
                         Is_FT_Win2 = averageHomeAway.Is_FT_Win2.OverridePercentage(),
 
                         Is_HT_Win1 = averageHomeAway.Is_HT_Win1.OverridePercentage(),
-                        Is_HT_X = averageHomeAway.Is_HT_X.OverridePercentage(),
+                        Is_HT_X1 = averageHomeAway.Is_HT_X1.OverridePercentage(),
+                        Is_HT_X2 = averageHomeAway.Is_HT_X2.OverridePercentage(),
                         Is_HT_Win2 = averageHomeAway.Is_HT_Win2.OverridePercentage(),
 
                         Is_SH_Win1 = averageHomeAway.Is_SH_Win1.OverridePercentage(),
-                        Is_SH_X = averageHomeAway.Is_SH_X.OverridePercentage(),
+                        Is_SH_X1 = averageHomeAway.Is_SH_X1.OverridePercentage(),
+                        Is_SH_X2 = averageHomeAway.Is_SH_X2.OverridePercentage(),
                         Is_SH_Win2 = averageHomeAway.Is_SH_Win2.OverridePercentage(),
 
                         Average_FT_Corners_HomeTeam = averageHomeAway.Average_FT_Corners_HomeTeam,
                         Average_FT_Corners_AwayTeam = averageHomeAway.Average_FT_Corners_AwayTeam,
 
                         Is_Corner_FT_Win1 = averageHomeAway.Is_Corner_FT_Win1.OverridePercentage(),
-                        Is_Corner_FT_X = averageHomeAway.Is_Corner_FT_X.OverridePercentage(),
+                        Is_Corner_FT_X1 = averageHomeAway.Is_Corner_FT_X1.OverridePercentage(),
+                        Is_Corner_FT_X2 = averageHomeAway.Is_Corner_FT_X2.OverridePercentage(),
                         Is_Corner_FT_Win2 = averageHomeAway.Is_Corner_FT_Win2.OverridePercentage(),
 
-                        Corner_7_5_Over = averageHomeAway.Corner_7_5_Over.OverridePercentage(),
-                        Corner_8_5_Over = averageHomeAway.Corner_8_5_Over.OverridePercentage(),
-                        Corner_9_5_Over = averageHomeAway.Corner_9_5_Over.OverridePercentage(),
+                        Corner_7_5_Over_Home = averageHomeAway.Corner_7_5_Over_Home.OverridePercentage(),
+                        Corner_8_5_Over_Home = averageHomeAway.Corner_8_5_Over_Home.OverridePercentage(),
+                        Corner_9_5_Over_Home = averageHomeAway.Corner_9_5_Over_Home.OverridePercentage(),
+
+                        Corner_7_5_Over_Away = averageHomeAway.Corner_7_5_Over_Away.OverridePercentage(),
+                        Corner_8_5_Over_Away = averageHomeAway.Corner_8_5_Over_Away.OverridePercentage(),
+                        Corner_9_5_Over_Away = averageHomeAway.Corner_9_5_Over_Away.OverridePercentage(),
 
                         Corner_Home_3_5_Over = averageHomeAway.Corner_Home_3_5_Over.OverridePercentage(),
                         Corner_Home_4_5_Over = averageHomeAway.Corner_Home_4_5_Over.OverridePercentage(),
@@ -478,6 +510,13 @@ namespace Core.Extensions
                         Average_SH_Goals_HomeTeam = averageGeneral.Average_SH_Goals_HomeTeam,
                         Average_SH_Goals_AwayTeam = averageGeneral.Average_SH_Goals_AwayTeam,
 
+                        Average_FT_Conceeded_Goals_HomeTeam = averageGeneral.Average_FT_Conceeded_Goals_HomeTeam,
+                        Average_FT_Conceeded_Goals_AwayTeam = averageGeneral.Average_FT_Conceeded_Goals_AwayTeam,
+                        Average_HT_Conceeded_Goals_HomeTeam = averageGeneral.Average_HT_Conceeded_Goals_HomeTeam,
+                        Average_HT_Conceeded_Goals_AwayTeam = averageGeneral.Average_HT_Conceeded_Goals_AwayTeam,
+                        Average_SH_Conceeded_Goals_HomeTeam = averageGeneral.Average_SH_Conceeded_Goals_HomeTeam,
+                        Average_SH_Conceeded_Goals_AwayTeam = averageGeneral.Average_SH_Conceeded_Goals_AwayTeam,
+
                         Away_FT_05_Over = averageGeneral.Away_FT_05_Over.OverridePercentage(),
                         Away_FT_15_Over = averageGeneral.Away_FT_15_Over.OverridePercentage(),
                         Away_HT_05_Over = averageGeneral.Away_HT_05_Over.OverridePercentage(),
@@ -493,42 +532,66 @@ namespace Core.Extensions
                         Home_Win_Any_Half = averageGeneral.Home_Win_Any_Half.OverridePercentage(),
                         Away_Win_Any_Half = averageGeneral.Away_Win_Any_Half.OverridePercentage(),
 
-                        FT_15_Over = averageGeneral.FT_15_Over.OverridePercentage(),
-                        FT_25_Over = averageGeneral.FT_25_Over.OverridePercentage(),
-                        FT_35_Over = averageGeneral.FT_35_Over.OverridePercentage(),
+                        FT_15_Over_Home = averageGeneral.FT_15_Over_Home.OverridePercentage(),
+                        FT_25_Over_Home = averageGeneral.FT_25_Over_Home.OverridePercentage(),
+                        FT_35_Over_Home = averageGeneral.FT_35_Over_Home.OverridePercentage(),
 
-                        HT_05_Over = averageGeneral.HT_05_Over.OverridePercentage(),
-                        HT_15_Over = averageGeneral.HT_15_Over.OverridePercentage(),
 
-                        SH_05_Over = averageGeneral.SH_05_Over.OverridePercentage(),
-                        SH_15_Over = averageGeneral.SH_15_Over.OverridePercentage(),
+                        HT_05_Over_Home = averageGeneral.HT_05_Over_Home.OverridePercentage(),
+                        HT_15_Over_Home = averageGeneral.HT_15_Over_Home.OverridePercentage(),
 
-                        FT_GG = averageGeneral.FT_GG.OverridePercentage(),
-                        HT_GG = averageGeneral.HT_GG.OverridePercentage(),
-                        SH_GG = averageGeneral.SH_GG.OverridePercentage(),
+                        SH_05_Over_Home = averageGeneral.SH_05_Over_Home.OverridePercentage(),
+                        SH_15_Over_Home = averageGeneral.SH_15_Over_Home.OverridePercentage(),
+
+                        FT_15_Over_Away = averageGeneral.FT_15_Over_Away.OverridePercentage(),
+                        FT_25_Over_Away = averageGeneral.FT_25_Over_Away.OverridePercentage(),
+                        FT_35_Over_Away = averageGeneral.FT_35_Over_Away.OverridePercentage(),
+
+
+                        HT_05_Over_Away = averageGeneral.HT_05_Over_Away.OverridePercentage(),
+                        HT_15_Over_Away = averageGeneral.HT_15_Over_Away.OverridePercentage(),
+
+                        SH_05_Over_Away = averageGeneral.SH_05_Over_Away.OverridePercentage(),
+                        SH_15_Over_Away = averageGeneral.SH_15_Over_Away.OverridePercentage(),
+
+                        FT_GG_Home = averageGeneral.FT_GG_Home.OverridePercentage(),
+                        HT_GG_Home = averageGeneral.HT_GG_Home.OverridePercentage(),
+                        SH_GG_Home = averageGeneral.SH_GG_Home.OverridePercentage(),
+
+                        FT_GG_Away = averageGeneral.FT_GG_Away.OverridePercentage(),
+                        HT_GG_Away = averageGeneral.HT_GG_Away.OverridePercentage(),
+                        SH_GG_Away = averageGeneral.SH_GG_Away.OverridePercentage(),
 
                         Is_FT_Win1 = averageGeneral.Is_FT_Win1.OverridePercentage(),
-                        Is_FT_X = averageGeneral.Is_FT_X.OverridePercentage(),
+                        Is_FT_X1 = averageGeneral.Is_FT_X1.OverridePercentage(),
+                        Is_FT_X2 = averageGeneral.Is_FT_X2.OverridePercentage(),
                         Is_FT_Win2 = averageGeneral.Is_FT_Win2.OverridePercentage(),
 
                         Is_HT_Win1 = averageGeneral.Is_HT_Win1.OverridePercentage(),
-                        Is_HT_X = averageGeneral.Is_HT_X.OverridePercentage(),
+                        Is_HT_X1 = averageGeneral.Is_HT_X1.OverridePercentage(),
+                        Is_HT_X2 = averageGeneral.Is_HT_X2.OverridePercentage(),
                         Is_HT_Win2 = averageGeneral.Is_HT_Win2.OverridePercentage(),
 
                         Is_SH_Win1 = averageGeneral.Is_SH_Win1.OverridePercentage(),
-                        Is_SH_X = averageGeneral.Is_SH_X.OverridePercentage(),
+                        Is_SH_X1 = averageGeneral.Is_SH_X1.OverridePercentage(),
+                        Is_SH_X2 = averageGeneral.Is_SH_X2.OverridePercentage(),
                         Is_SH_Win2 = averageGeneral.Is_SH_Win2.OverridePercentage(),
 
                         Average_FT_Corners_HomeTeam = averageGeneral.Average_FT_Corners_HomeTeam,
                         Average_FT_Corners_AwayTeam = averageGeneral.Average_FT_Corners_AwayTeam,
 
                         Is_Corner_FT_Win1 = averageGeneral.Is_Corner_FT_Win1.OverridePercentage(),
-                        Is_Corner_FT_X = averageGeneral.Is_Corner_FT_X.OverridePercentage(),
+                        Is_Corner_FT_X1 = averageGeneral.Is_Corner_FT_X1.OverridePercentage(),
+                        Is_Corner_FT_X2 = averageGeneral.Is_Corner_FT_X2.OverridePercentage(),
                         Is_Corner_FT_Win2 = averageGeneral.Is_Corner_FT_Win2.OverridePercentage(),
 
-                        Corner_7_5_Over = averageGeneral.Corner_7_5_Over.OverridePercentage(),
-                        Corner_8_5_Over = averageGeneral.Corner_8_5_Over.OverridePercentage(),
-                        Corner_9_5_Over = averageGeneral.Corner_9_5_Over.OverridePercentage(),
+                        Corner_7_5_Over_Home = averageGeneral.Corner_7_5_Over_Home.OverridePercentage(),
+                        Corner_8_5_Over_Home = averageGeneral.Corner_8_5_Over_Home.OverridePercentage(),
+                        Corner_9_5_Over_Home = averageGeneral.Corner_9_5_Over_Home.OverridePercentage(),
+
+                        Corner_7_5_Over_Away = averageGeneral.Corner_7_5_Over_Away.OverridePercentage(),
+                        Corner_8_5_Over_Away = averageGeneral.Corner_8_5_Over_Away.OverridePercentage(),
+                        Corner_9_5_Over_Away = averageGeneral.Corner_9_5_Over_Away.OverridePercentage(),
 
                         Corner_Home_3_5_Over = averageGeneral.Corner_Home_3_5_Over.OverridePercentage(),
                         Corner_Home_4_5_Over = averageGeneral.Corner_Home_4_5_Over.OverridePercentage(),

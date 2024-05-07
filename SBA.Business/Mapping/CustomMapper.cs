@@ -3,7 +3,6 @@ using Core.Extensions;
 using Core.Resources.Enums;
 using Core.Utilities.UsableModel;
 using Core.Utilities.UsableModel.Visualisers;
-using System;
 
 namespace SBA.Business.Mapping
 {
@@ -19,7 +18,7 @@ namespace SBA.Business.Mapping
                 return null;
             }
 
-            bool isNOTValid = string.IsNullOrEmpty(matchInfo.Country) ||
+            bool isNOTValid = string.IsNullOrEmpty(matchInfo.LeagueId) ||
                            string.IsNullOrEmpty(matchInfo.Home) ||
                            string.IsNullOrEmpty(matchInfo.Away) ||
                            string.IsNullOrEmpty(matchInfo.FT_Result) ||
@@ -34,6 +33,7 @@ namespace SBA.Business.Mapping
                 HomeTeam = matchInfo.Home,
                 Country = matchInfo.Country,
                 LeagueName = matchInfo.League,
+                LeagueId = Convert.ToInt32(matchInfo.LeagueId),
                 MatchDate = DateTime.ParseExact(matchInfo.DateMatch, "dd.MM.yyyy", null),
                 SerialUniqueID = Convert.ToInt32(matchInfo.Serial),
                 FTDraw_Odd = matchInfo.FT_X,
@@ -117,31 +117,41 @@ namespace SBA.Business.Mapping
                             HT_Result = profiler.AverageProfiler.HT_Result.ToHtmlVisualPercentage(),
                             SH_Result = profiler.AverageProfiler.SH_Result.ToHtmlVisualPercentage(),
 
-                            HT_05_Over = profiler.AverageProfiler.HT_05_Over.ToHtmlVisualPercentage(),
-                            HT_15_Over = profiler.AverageProfiler.HT_15_Over.ToHtmlVisualPercentage(),
+                            HT_05_Over_Home = profiler.AverageProfiler.HT_05_Over_Home.ToHtmlVisualPercentage(),
+                            HT_15_Over_Home = profiler.AverageProfiler.HT_15_Over_Home.ToHtmlVisualPercentage(),
+                            HT_05_Over_Away = profiler.AverageProfiler.HT_05_Over_Away.ToHtmlVisualPercentage(),
+                            HT_15_Over_Away = profiler.AverageProfiler.HT_15_Over_Away.ToHtmlVisualPercentage(),
                             Home_HT_05_Over = profiler.AverageProfiler.Home_HT_05_Over.ToHtmlVisualPercentage(),
                             Home_HT_15_Over = profiler.AverageProfiler.Home_HT_15_Over.ToHtmlVisualPercentage(),
                             Away_HT_05_Over = profiler.AverageProfiler.Away_HT_05_Over.ToHtmlVisualPercentage(),
                             Away_HT_15_Over = profiler.AverageProfiler.Away_HT_15_Over.ToHtmlVisualPercentage(),
 
-                            SH_05_Over = profiler.AverageProfiler.SH_05_Over.ToHtmlVisualPercentage(),
-                            SH_15_Over = profiler.AverageProfiler.SH_15_Over.ToHtmlVisualPercentage(),
+                            SH_05_Over_Home = profiler.AverageProfiler.SH_05_Over_Home.ToHtmlVisualPercentage(),
+                            SH_15_Over_Home = profiler.AverageProfiler.SH_15_Over_Home.ToHtmlVisualPercentage(),
+                            SH_05_Over_Away = profiler.AverageProfiler.SH_05_Over_Away.ToHtmlVisualPercentage(),
+                            SH_15_Over_Away = profiler.AverageProfiler.SH_15_Over_Away.ToHtmlVisualPercentage(),
                             Home_SH_05_Over = profiler.AverageProfiler.Home_SH_05_Over.ToHtmlVisualPercentage(),
                             Home_SH_15_Over = profiler.AverageProfiler.Home_SH_15_Over.ToHtmlVisualPercentage(),
                             Away_SH_05_Over = profiler.AverageProfiler.Away_SH_05_Over.ToHtmlVisualPercentage(),
                             Away_SH_15_Over = profiler.AverageProfiler.Away_SH_15_Over.ToHtmlVisualPercentage(),
 
-                            FT_15_Over = profiler.AverageProfiler.FT_15_Over.ToHtmlVisualPercentage(),
-                            FT_25_Over = profiler.AverageProfiler.FT_25_Over.ToHtmlVisualPercentage(),
-                            FT_35_Over = profiler.AverageProfiler.FT_35_Over.ToHtmlVisualPercentage(),
+                            FT_15_Over_Home = profiler.AverageProfiler.FT_15_Over_Home.ToHtmlVisualPercentage(),
+                            FT_25_Over_Home = profiler.AverageProfiler.FT_25_Over_Home.ToHtmlVisualPercentage(),
+                            FT_35_Over_Home = profiler.AverageProfiler.FT_35_Over_Home.ToHtmlVisualPercentage(),
+                            FT_15_Over_Away = profiler.AverageProfiler.FT_15_Over_Away.ToHtmlVisualPercentage(),
+                            FT_25_Over_Away = profiler.AverageProfiler.FT_25_Over_Away.ToHtmlVisualPercentage(),
+                            FT_35_Over_Away = profiler.AverageProfiler.FT_35_Over_Away.ToHtmlVisualPercentage(),
                             Home_FT_05_Over = profiler.AverageProfiler.Home_FT_05_Over.ToHtmlVisualPercentage(),
                             Home_FT_15_Over = profiler.AverageProfiler.Home_FT_15_Over.ToHtmlVisualPercentage(),
                             Away_FT_05_Over = profiler.AverageProfiler.Away_FT_05_Over.ToHtmlVisualPercentage(),
                             Away_FT_15_Over = profiler.AverageProfiler.Away_FT_15_Over.ToHtmlVisualPercentage(),
 
-                            HT_GG = profiler.AverageProfiler.HT_GG.ToHtmlVisualPercentage(),
-                            SH_GG = profiler.AverageProfiler.SH_GG.ToHtmlVisualPercentage(),
-                            FT_GG = profiler.AverageProfiler.FT_GG.ToHtmlVisualPercentage(),
+                            HT_GG_Home = profiler.AverageProfiler.HT_GG_Home.ToHtmlVisualPercentage(),
+                            SH_GG_Home = profiler.AverageProfiler.SH_GG_Home.ToHtmlVisualPercentage(),
+                            FT_GG_Home = profiler.AverageProfiler.FT_GG_Home.ToHtmlVisualPercentage(),
+                            HT_GG_Away = profiler.AverageProfiler.HT_GG_Away.ToHtmlVisualPercentage(),
+                            SH_GG_Away = profiler.AverageProfiler.SH_GG_Away.ToHtmlVisualPercentage(),
+                            FT_GG_Away = profiler.AverageProfiler.FT_GG_Away.ToHtmlVisualPercentage(),
 
                             Home_Win_Any_Half = profiler.AverageProfiler.Home_Win_Any_Half.ToHtmlVisualPercentage(),
                             Away_Win_Any_Half = profiler.AverageProfiler.Away_Win_Any_Half.ToHtmlVisualPercentage(),
@@ -483,31 +493,41 @@ namespace SBA.Business.Mapping
                             HT_Result = profiler.AverageProfiler.HT_Result.ToPercentage((int)StaticPercentageDefinerEnum.ThreeWayStandard),
                             SH_Result = profiler.AverageProfiler.SH_Result.ToPercentage((int)StaticPercentageDefinerEnum.ThreeWayStandard),
 
-                            HT_05_Over = profiler.AverageProfiler.HT_05_Over.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
-                            HT_15_Over = profiler.AverageProfiler.HT_15_Over.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
+                            HT_05_Over_Home = profiler.AverageProfiler.HT_05_Over_Home.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
+                            HT_15_Over_Home = profiler.AverageProfiler.HT_15_Over_Home.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
+                            HT_05_Over_Away = profiler.AverageProfiler.HT_05_Over_Away.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
+                            HT_15_Over_Away = profiler.AverageProfiler.HT_15_Over_Away.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
                             Home_HT_05_Over = profiler.AverageProfiler.Home_HT_05_Over.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
                             Home_HT_15_Over = profiler.AverageProfiler.Home_HT_15_Over.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
                             Away_HT_05_Over = profiler.AverageProfiler.Away_HT_05_Over.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
                             Away_HT_15_Over = profiler.AverageProfiler.Away_HT_15_Over.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
 
-                            SH_05_Over = profiler.AverageProfiler.SH_05_Over.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
-                            SH_15_Over = profiler.AverageProfiler.SH_15_Over.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
+                            SH_05_Over_Home = profiler.AverageProfiler.SH_05_Over_Home.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
+                            SH_15_Over_Home = profiler.AverageProfiler.SH_15_Over_Home.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
+                            SH_05_Over_Away = profiler.AverageProfiler.SH_05_Over_Away.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
+                            SH_15_Over_Away = profiler.AverageProfiler.SH_15_Over_Away.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
                             Home_SH_05_Over = profiler.AverageProfiler.Home_SH_05_Over.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
                             Home_SH_15_Over = profiler.AverageProfiler.Home_SH_15_Over.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
                             Away_SH_05_Over = profiler.AverageProfiler.Away_SH_05_Over.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
                             Away_SH_15_Over = profiler.AverageProfiler.Away_SH_15_Over.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
 
-                            FT_15_Over = profiler.AverageProfiler.FT_15_Over.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
-                            FT_25_Over = profiler.AverageProfiler.FT_25_Over.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
-                            FT_35_Over = profiler.AverageProfiler.FT_35_Over.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
+                            FT_15_Over_Home = profiler.AverageProfiler.FT_15_Over_Home.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
+                            FT_25_Over_Home = profiler.AverageProfiler.FT_25_Over_Home.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
+                            FT_35_Over_Home = profiler.AverageProfiler.FT_35_Over_Home.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
+                            FT_15_Over_Away = profiler.AverageProfiler.FT_15_Over_Away.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
+                            FT_25_Over_Away = profiler.AverageProfiler.FT_25_Over_Away.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
+                            FT_35_Over_Away = profiler.AverageProfiler.FT_35_Over_Away.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
                             Home_FT_05_Over = profiler.AverageProfiler.Home_FT_05_Over.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
                             Home_FT_15_Over = profiler.AverageProfiler.Home_FT_15_Over.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
                             Away_FT_05_Over = profiler.AverageProfiler.Away_FT_05_Over.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
                             Away_FT_15_Over = profiler.AverageProfiler.Away_FT_15_Over.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
 
-                            HT_GG = profiler.AverageProfiler.HT_GG.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
-                            SH_GG = profiler.AverageProfiler.SH_GG.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
-                            FT_GG = profiler.AverageProfiler.FT_GG.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
+                            HT_GG_Home = profiler.AverageProfiler.HT_GG_Home.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
+                            SH_GG_Home = profiler.AverageProfiler.SH_GG_Home.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
+                            FT_GG_Home = profiler.AverageProfiler.FT_GG_Home.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
+                            HT_GG_Away = profiler.AverageProfiler.HT_GG_Away.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
+                            SH_GG_Away = profiler.AverageProfiler.SH_GG_Away.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
+                            FT_GG_Away = profiler.AverageProfiler.FT_GG_Away.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
 
                             Home_Win_Any_Half = profiler.AverageProfiler.Home_Win_Any_Half.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
                             Away_Win_Any_Half = profiler.AverageProfiler.Away_Win_Any_Half.ToPercentage((int)StaticPercentageDefinerEnum.TwoWayStandard),
@@ -830,34 +850,6 @@ namespace SBA.Business.Mapping
             {
                 return null;
             }
-        }
-
-
-
-        public static SystemCheckerContainer MapSystemCheckerContainerViewModel(SystemCheckerContainer model)
-        {
-            if (model == null) return null;
-
-            SystemCheckerContainer result = new SystemCheckerContainer
-            {
-                FilterFromDate = model.FilterFromDate,
-                FilterToDate = model.FilterToDate,
-                IsCountry_Checked = model.IsCountry_Checked,
-                IsFT_15_OU_Checked = model.IsFT_15_OU_Checked,
-                IsFT_25_OU_Checked = model.IsFT_25_OU_Checked,
-                IsFT_35_OU_Checked = model.IsFT_35_OU_Checked,
-                IsFT_ResultChecked = model.IsFT_ResultChecked,
-                IsGG_NG_Checked = model.IsGG_NG_Checked,
-                IsGoalBetween_Checked = model.IsGoalBetween_Checked,
-                IsHT_15_OU_Checked = model.IsHT_15_OU_Checked,
-                IsHT_ResultChecked = model.IsHT_ResultChecked,
-                IsLeague_Checked = model.IsLeague_Checked,
-                MinimumFoundMatch = model.MinimumFoundMatch,
-                MinimumPercentage = model.MinimumPercentage,
-                SerialsText = model.SerialsText
-            };
-
-            return result;
         }
     }
 }

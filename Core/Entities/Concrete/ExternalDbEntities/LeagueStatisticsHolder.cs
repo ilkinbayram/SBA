@@ -19,6 +19,7 @@ namespace Core.Entities.Concrete.ExternalDbEntities
 
         public string CountryName { get; set; }
         public string LeagueName { get; set; }
+        public string LeagueIdsConcat { get; set; }
         public DateTime DateOfAnalyse { get; set; }
         public decimal FT_GoalsAverage { get; set; }
         public decimal HT_GoalsAverage { get; set; }

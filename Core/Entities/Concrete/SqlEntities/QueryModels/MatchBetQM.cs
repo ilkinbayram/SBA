@@ -11,6 +11,7 @@ namespace Core.Entities.Concrete.SqlEntities.QueryModels
         public string Country { get; set; }
         public string League { get; set; }
         public int SerialUniqueID { get; set; }
+        public int LeagueID { get; set; }
         public string HomeTeam { get; set; }
         public string AwayTeam { get; set; }
         public string HT_Match_Result { get; set; }

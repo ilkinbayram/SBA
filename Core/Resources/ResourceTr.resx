@@ -156,14 +156,26 @@
   <data name="ForecastTranslation_FT_Away_05_Over" xml:space="preserve">
     <value>MS Deplasman 0,5 Üst</value>
   </data>
+  <data name="ForecastTranslation_FT_Away_15_Over" xml:space="preserve">
+    <value>MS Deplasman 1,5 Üst</value>
+  </data>
   <data name="ForecastTranslation_FT_GG" xml:space="preserve">
     <value>MS KG Var</value>
   </data>
   <data name="ForecastTranslation_FT_Home_05_Over" xml:space="preserve">
     <value>MS Ev 0,5 Üst</value>
   </data>
+  <data name="ForecastTranslation_FT_Home_15_Over" xml:space="preserve">
+    <value>MS Ev 1,5 Üst</value>
+  </data>
   <data name="ForecastTranslation_FT_NG" xml:space="preserve">
     <value>MS KG Yok</value>
+  </data>
+  <data name="ForecastTranslation_FT_Win1_Or_Win2" xml:space="preserve">
+    <value>MS  12  (Ev ve ya Deplasman galip)</value>
+  </data>
+  <data name="ForecastTranslation_FT_Win1_Or_X" xml:space="preserve">
+    <value>MS  1X  (Ev galip ve ya beraber)</value>
   </data>
   <data name="ForecastTranslation_FT_W_1" xml:space="preserve">
     <value>MS Ev Galibiyet</value>
@@ -173,6 +185,9 @@
   </data>
   <data name="ForecastTranslation_FT_X" xml:space="preserve">
     <value>MS Beraberlik</value>
+  </data>
+  <data name="ForecastTranslation_FT_X_Or_Win2" xml:space="preserve">
+    <value>MS  X2  (Deplasman galip ve ya beraber)</value>
   </data>
   <data name="ForecastTranslation_HomeWinAnyHalf" xml:space="preserve">
     <value>Ev Her-Hangi Yarı Galibiyet</value>
@@ -195,6 +210,12 @@
   <data name="ForecastTranslation_HT_Home_05_Over" xml:space="preserve">
     <value>1Y Ev 0,5 Üst</value>
   </data>
+  <data name="ForecastTranslation_HT_Win1_Or_Win2" xml:space="preserve">
+    <value>İlk Yarı  12  (Ev ve ya Deplasman galip)</value>
+  </data>
+  <data name="ForecastTranslation_HT_Win1_Or_X" xml:space="preserve">
+    <value>İlk Yarı  1X  (Ev galip ve ya beraber)</value>
+  </data>
   <data name="ForecastTranslation_HT_W_1" xml:space="preserve">
     <value>1Y Ev Galibiyet</value>
   </data>
@@ -203,6 +224,9 @@
   </data>
   <data name="ForecastTranslation_HT_X" xml:space="preserve">
     <value>1Y Beraberlik</value>
+  </data>
+  <data name="ForecastTranslation_HT_X_Or_Win2" xml:space="preserve">
+    <value>İlk Yarı  X2  (Deplasman galip ve ya beraber)</value>
   </data>
   <data name="ForecastTranslation_SH_05_Over" xml:space="preserve">
     <value>2Y 0,5 Üst</value>
@@ -222,6 +246,12 @@
   <data name="ForecastTranslation_SH_Home_05_Over" xml:space="preserve">
     <value>2Y Ev 0,5 Üst</value>
   </data>
+  <data name="ForecastTranslation_SH_Win1_Or_Win2" xml:space="preserve">
+    <value>İkinci Yarı  12  (Ev ve ya Deplasman galip)</value>
+  </data>
+  <data name="ForecastTranslation_SH_Win1_Or_X" xml:space="preserve">
+    <value>İkinci Yarı  1X  (Ev galip ve ya beraber)</value>
+  </data>
   <data name="ForecastTranslation_SH_W_1" xml:space="preserve">
     <value>2Y Ev Galibiyet</value>
   </data>
@@ -230,6 +260,9 @@
   </data>
   <data name="ForecastTranslation_SH_X" xml:space="preserve">
     <value>2Y Beraberlik</value>
+  </data>
+  <data name="ForecastTranslation_SH_X_Or_Win2" xml:space="preserve">
+    <value>İkinci Yarı  X2  (Deplasman galip ve ya beraber)</value>
   </data>
   <data name="FT_15" xml:space="preserve">
     <value>Maçta 1.5 Üst Yüzdesi</value>

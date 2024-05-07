@@ -292,7 +292,7 @@ namespace SBA.MvcUI.Controllers
             };
 
 
-            JobOperation job = new JobOperation(_telegramService, timeSerialContainers, _matchBetService, _filterResultService, _systemCheckerContainer, descriptionJobResultEnum, CountryContainer, _leagueStatisticsHolderService, _comparisonStatisticsHolderService, _averageStatisticsHolderService, _teamPerformanceStatisticsHolderService, _matchIdentifierService, _statisticInfoHolderService, _aiDataHolderService, _forecastService, _configuration);
+            JobOperation job = new JobOperation(_telegramService, timeSerialContainers, _matchBetService, _filterResultService, _systemCheckerContainer, descriptionJobResultEnum, CountryContainer, LeagueContainer, _leagueStatisticsHolderService, _comparisonStatisticsHolderService, _averageStatisticsHolderService, _teamPerformanceStatisticsHolderService, _matchIdentifierService, _statisticInfoHolderService, _aiDataHolderService, _forecastService, _configuration);
             ST.Timer aTimer = new ST.Timer();
             aTimer.Elapsed += new ST.ElapsedEventHandler(job.InTimeReflected);
             aTimer.Interval = 10000;
@@ -311,7 +311,7 @@ namespace SBA.MvcUI.Controllers
                 IsAnalyseAnyTime = true
             };
 
-            JobOperation job = new JobOperation(_telegramService, timeSerialContainers, _matchBetService, _filterResultService, _systemCheckerContainer, DescriptionJobResultEnum.Standart, CountryContainer, _leagueStatisticsHolderService, _comparisonStatisticsHolderService, _averageStatisticsHolderService, _teamPerformanceStatisticsHolderService, _matchIdentifierService, _statisticInfoHolderService, _aiDataHolderService, _forecastService, _configuration);
+            JobOperation job = new JobOperation(_telegramService, timeSerialContainers, _matchBetService, _filterResultService, _systemCheckerContainer, DescriptionJobResultEnum.Standart, CountryContainer, LeagueContainer, _leagueStatisticsHolderService, _comparisonStatisticsHolderService, _averageStatisticsHolderService, _teamPerformanceStatisticsHolderService, _matchIdentifierService, _statisticInfoHolderService, _aiDataHolderService, _forecastService, _configuration);
             ST.Timer aTimer = new ST.Timer();
             aTimer.Elapsed += new ST.ElapsedEventHandler(job.TestInTimeReflected);
             aTimer.Interval = 20000;
@@ -338,7 +338,7 @@ namespace SBA.MvcUI.Controllers
                 SerialsText = serialText
             };
 
-            JobOperation job = new JobOperation(_telegramService, timeSerialContainers, _matchBetService, _filterResultService, _systemCheckerContainer, DescriptionJobResultEnum.Standart, CountryContainer, _leagueStatisticsHolderService, _comparisonStatisticsHolderService, _averageStatisticsHolderService, _teamPerformanceStatisticsHolderService, _matchIdentifierService, _statisticInfoHolderService, _aiDataHolderService, _forecastService, _configuration);
+            JobOperation job = new JobOperation(_telegramService, timeSerialContainers, _matchBetService, _filterResultService, _systemCheckerContainer, DescriptionJobResultEnum.Standart, CountryContainer, LeagueContainer, _leagueStatisticsHolderService, _comparisonStatisticsHolderService, _averageStatisticsHolderService, _teamPerformanceStatisticsHolderService, _matchIdentifierService, _statisticInfoHolderService, _aiDataHolderService, _forecastService, _configuration);
 
             job.Execute_TEST();
         }
