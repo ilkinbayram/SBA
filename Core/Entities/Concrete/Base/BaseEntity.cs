@@ -1,11 +1,10 @@
-﻿using Core.Abstract;
-using Core.Entities.Abstract;
+﻿using Core.Entities.Abstract;
 using Core.Resources.Enums;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Core.Concrete.Base
 {
-    public class BaseEntity : IBaseEntity, IIdentifier
+    public abstract class BaseEntity : IBaseEntity, IIdentifier
     {
         [BsonId]
         [BsonRepresentation(MongoDB.Bson.BsonType.Int32)]

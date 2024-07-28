@@ -41,6 +41,7 @@ namespace Core.Entities.Concrete.ExternalDbEntities
 
         public int Serial { get; set; }
         public string Key { get; set; }
+
         public bool IsSuccess { get; set; }
         public bool IsChecked { get; set; }
 

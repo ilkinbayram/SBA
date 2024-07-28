@@ -1,4 +1,5 @@
 ﻿using Core.Entities.Concrete;
+using Core.Entities.Concrete.System;
 using Microsoft.EntityFrameworkCore;
 using SBA.DataAccess.Concrete.EntityFramework.Configurations;
 
@@ -20,6 +21,15 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
             modelBuilder.ApplyConfiguration(new PerformanceOverallConfig());
             modelBuilder.ApplyConfiguration(new FilterResultConfiguration());
             modelBuilder.ApplyConfiguration(new LogConfiguration());
+
+            modelBuilder.ApplyConfiguration(new BetSystemConfig());
+            modelBuilder.ApplyConfiguration(new StepConfig());
+            modelBuilder.ApplyConfiguration(new SavedStepConfig());
+            modelBuilder.ApplyConfiguration(new BundleConfig());
+            modelBuilder.ApplyConfiguration(new ComboBetConfig());
+            modelBuilder.ApplyConfiguration(new PredictionConfig());
+            modelBuilder.ApplyConfiguration(new ComboBetPredictionConfig());
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -35,5 +45,13 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
         public DbSet<PerformanceOverall> PerformanceOveralls { get; set; }
         public DbSet<FilterResult> FilterResults { get; set; }
         public DbSet<Log> Logs { get; set; }
+
+        public DbSet<BetSystem> BetSystems { get; set; }
+        public DbSet<Step> Steps { get; set; }
+        public DbSet<SavedStep> SavedSteps { get; set; }
+        public DbSet<Bundle> Bundles { get; set; }
+        public DbSet<ComboBet> ComboBets { get; set; }
+        public DbSet<Prediction> Predictions { get; set; }
+        public DbSet<ComboBetPrediction> ComboBetPredictions { get; set; }
     }
 }
