@@ -10,6 +10,8 @@ namespace Core.Entities.Concrete.System
         public bool IsInsuredBet { get; set; }
         public BetType BetType { get; set; }
         public int BundleId { get; set; }
+        public bool IsCompleted { get; set; }
+        public bool IsWon { get; set; }
 
         public virtual Bundle Bundle { get; set; } = default!;
         public virtual List<ComboBetPrediction>? ComboBetPredictions { get; set; }

@@ -8,7 +8,7 @@ namespace SBA.WebAPI.Controllers
 {
     public class BaseWebApiController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
+        protected readonly IConfiguration _configuration;
 
         public BaseWebApiController(IConfiguration configuration)
         {

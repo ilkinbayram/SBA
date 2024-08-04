@@ -1,24 +1,15 @@
 ﻿using Core.Entities.Concrete.System;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
+using SBA.DataAccess.Concrete.EntityFramework.Configurations.BaseConfig;
 
 namespace SBA.DataAccess.Concrete.EntityFramework.Configurations
 {
-    public class ComboBetConfig : IEntityTypeConfiguration<ComboBet>
+    public class ComboBetConfig : BaseEntityTypeConfig<ComboBet>
     {
         public void Configure(EntityTypeBuilder<ComboBet> builder)
         {
             builder.ToTable("ComboBets");
-            builder.HasKey(k => k.Id);
-
-            builder.Property(x => x.Id).UseIdentityColumn();
-            builder.Property(x => x.IsActive).HasDefaultValue(true);
-
-            builder.Property(x => x.CreatedBy).HasMaxLength(100).HasDefaultValue("System.Admin");
-            builder.Property(x => x.ModifiedBy).HasMaxLength(100).HasDefaultValue("System.Admin");
-
-            builder.Property(x => x.CreatedDateTime).HasDefaultValue(DateTime.Now);
-            builder.Property(x => x.ModifiedDateTime).HasDefaultValue(DateTime.Now);
 
             builder.Property(x => x.IsInsuredBet).HasDefaultValue(false);
             builder.Property(x => x.TotalOdd).HasPrecision(7, 2);

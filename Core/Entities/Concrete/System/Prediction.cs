@@ -11,7 +11,6 @@ namespace Core.Entities.Concrete.System
         public int ProbableWinPercent { get; set; }
         public int AnalysingProbableMatchCount { get; set; }
 
-        public virtual Forecast Forecast { get; set; } = default!;
         public virtual List<ComboBetPrediction>? ComboBetPredictions { get; set; }
 
     }

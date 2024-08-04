@@ -1,4 +1,6 @@
 ﻿using Core.Entities.Concrete;
+using Core.Entities.Concrete.System;
+using Core.Entities.Dtos.SystemModels;
 using Core.Extensions;
 using Core.Resources.Enums;
 using Core.Utilities.UsableModel;
@@ -8,6 +10,9 @@ namespace SBA.Business.Mapping
 {
     public static class CustomMapperExtension
     {
+
+        private static TimeZoneInfo azerbaycanZone = TimeZoneInfo.FindSystemTimeZoneById("Azerbaijan Standard Time");
+        private static DateTime azerbaycanTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, azerbaycanZone);
 
         public static MatchBet MapToMatchBetFromMatchInfo(this MatchInfoContainer matchInfo)
         {
@@ -851,5 +856,85 @@ namespace SBA.Business.Mapping
                 return null;
             }
         }
+
+
+        #region BetSystem Mapping Area
+
+        public static BetSystem MapToSystemEntityForCreation(this CreateSystemDto createSystemDto)
+        {
+            if (createSystemDto == null)
+                throw new Exception("mapping model can not be created from the null object.");
+
+            var result = new BetSystem()
+            {
+                IsActive = true,
+                ModelType = ProjectModelType.BetSystem,
+                ModifiedDateTime = azerbaycanTime,
+                ModifiedBy = "System.Admin",
+                Name = createSystemDto.Name,
+                AcceptedOdd = createSystemDto.AcceptedOdd,
+                AcceptedDivider = createSystemDto.AcceptedDivider,
+                StartingAmount = createSystemDto.StartingAmount,
+                StepsGoalCount = createSystemDto.StepsGoalCount,
+                MaxBundleCount = createSystemDto.MaxBundleCount,
+                Steps = new List<Step>(),
+                Bundles = new List<Bundle>(),
+                CreatedBy = "System.Admin",
+                CreatedDateTime = azerbaycanTime,
+            };
+
+            decimal insuredBetAmount = result.StartingAmount;
+
+            for (var i = 0; i < result.StepsGoalCount; i++)
+            {
+                if (i > 0)
+                {
+                    insuredBetAmount = Math.Floor(insuredBetAmount * result.AcceptedOdd / 4) * 2;
+                }
+
+                var newStep = new Step()
+                {
+                    ModifiedDateTime = azerbaycanTime,
+                    ModifiedBy = "System.Admin",
+                    CreatedBy = "System.Admin",
+                    CreatedDateTime = azerbaycanTime,
+                    IsActive = true,
+                    IsSuccess = false,
+                    ModelType = ProjectModelType.Step,
+                    LinkedFrom = i,
+                    Number = i+1,
+                    LinkedTo = i+2,
+                    Status = StepStatus.New,
+                    InsuredBetAmount = insuredBetAmount,
+                    System = result
+                };
+
+                result.Steps.Add(newStep);
+            }
+
+            int highPriority = 1;
+
+            for (int i = 0; i < result.MaxBundleCount; i++)
+            {
+                var bundleOne = new Bundle()
+                {
+                    ModifiedDateTime = azerbaycanTime,
+                    ModifiedBy = "System.Admin",
+                    CreatedBy = "System.Admin",
+                    CreatedDateTime = azerbaycanTime,
+                    IsActive = true,
+                    ModelType= ProjectModelType.Bundle,
+                    System = result,
+                    BundlePriority = highPriority
+                };
+
+                result.Bundles.Add(bundleOne);
+                highPriority++;
+            }
+
+            return result;
+        }
+
+        #endregion
     }
 }

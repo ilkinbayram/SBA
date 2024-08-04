@@ -19,7 +19,6 @@ using SBA.Business.FunctionalServices.Abstract;
 using SBA.Business.FunctionalServices.Concrete;
 using SBA.DataAccess.Abstract;
 using SBA.DataAccess.Concrete.EntityFramework;
-using SBA.DataAccess.Concrete.MongoDB;
 using SBA.ExternalDataAccess.Abstract;
 using SBA.ExternalDataAccess.Concrete;
 using SBA.ExternalDataAccess.Concrete.EntityFramework.Contexts;
@@ -68,6 +67,24 @@ namespace SBA.Business.DependencyResolvers.Autofac
 
             builder.RegisterType<LeagueStatisticsHolderManager>().As<ILeagueStatisticsHolderService>();
             builder.RegisterType<EfLeagueStatisticsHolderDal>().As<ILeagueStatisticsHolderDal>().InstancePerLifetimeScope();
+
+            builder.RegisterType<BetSystemManager>().As<IBetSystemService>();
+            builder.RegisterType<EfBetSystemDal>().As<IBetSystemDal>().InstancePerLifetimeScope();
+
+            builder.RegisterType<StepManager>().As<IStepService>();
+            builder.RegisterType<EfStepDal>().As<IStepDal>().InstancePerLifetimeScope();
+
+            builder.RegisterType<SavedStepManager>().As<ISavedStepService>();
+            builder.RegisterType<EfSavedStepDal>().As<ISavedStepDal>().InstancePerLifetimeScope();
+
+            builder.RegisterType<BundleManager>().As<IBundleService>();
+            builder.RegisterType<EfBundleDal>().As<IBundleDal>().InstancePerLifetimeScope();
+
+            builder.RegisterType<ComboBetManager>().As<IComboBetService>();
+            builder.RegisterType<EfComboBetDal>().As<IComboBetDal>().InstancePerLifetimeScope();
+
+            builder.RegisterType<PredictionManager>().As<IPredictionService>();
+            builder.RegisterType<EfPredictionDal>().As<IPredictionDal>().InstancePerLifetimeScope();
 
             builder.RegisterType<DataMaintenanceManager>().As<IDataMaintenanceService>();
 

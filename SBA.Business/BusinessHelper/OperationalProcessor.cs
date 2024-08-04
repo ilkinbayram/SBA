@@ -1692,8 +1692,8 @@ namespace SBA.Business.BusinessHelper
                 // Turn Back
 
                 var latest6GamesMatchBet = teamSide == TeamSide.Away
-                    ? matchBetService.GetMatchBetQueryModels(foundLeagueHolder.LeagueCountryIds, foundUpdateModel.Country, unchangableTeam, 6, x => x.AwayTeam == unchangableTeam).Data                  
-                    : matchBetService.GetMatchBetQueryModels(foundLeagueHolder.LeagueCountryIds, foundUpdateModel.Country, unchangableTeam, 6, x => x.HomeTeam == unchangableTeam).Data;
+                    ? matchBetService.GetMatchBetQueryModels(foundLeagueHolder.LeagueCountryIds, foundUpdateModel.Country, unchangableTeam, AnalyseStandards.HomeAwayAnalyseMin, x => x.AwayTeam == unchangableTeam).Data                  
+                    : matchBetService.GetMatchBetQueryModels(foundLeagueHolder.LeagueCountryIds, foundUpdateModel.Country, unchangableTeam, AnalyseStandards.HomeAwayAnalyseMin, x => x.HomeTeam == unchangableTeam).Data;
 
                 var list6PerformanceData = _proceeder.SelectListPerformanceDataContainers(latest6GamesMatchBet, teamSide, unchangableTeam);
 
@@ -1783,7 +1783,7 @@ namespace SBA.Business.BusinessHelper
                 ////////////////// General
 
                 // Return Back
-                var latest10GamesMatchBetGeneral = matchBetService.GetMatchBetQueryModels(foundLeagueHolder.LeagueCountryIds, foundUpdateModel.Country, unchangableTeam, 10).Data;
+                var latest10GamesMatchBetGeneral = matchBetService.GetMatchBetQueryModels(foundLeagueHolder.LeagueCountryIds, foundUpdateModel.Country, unchangableTeam, AnalyseStandards.GeneralAnalyseMin).Data;
                 var list10PerformanceDataGeneral = _proceeder.SelectListPerformanceDataContainers(latest10GamesMatchBetGeneral, teamSide, unchangableTeam);
 
                 result.General = new GuessModel

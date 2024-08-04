@@ -1,24 +1,15 @@
 ﻿using Core.Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SBA.DataAccess.Concrete.EntityFramework.Configurations.BaseConfig;
 
 namespace SBA.DataAccess.Concrete.EntityFramework.Configurations
 {
-    public class MatchBetConfiguration : IEntityTypeConfiguration<MatchBet>
+    public class MatchBetConfiguration : BaseEntityTypeConfig<MatchBet>
     {
         public void Configure(EntityTypeBuilder<MatchBet> builder)
         {
             builder.ToTable("MatchBets");
-            builder.HasKey(k => k.Id);
-
-            builder.Property(x => x.Id).UseIdentityColumn();
-            builder.Property(x => x.IsActive).HasDefaultValue(true);
-
-            builder.Property(x => x.CreatedBy).HasMaxLength(100).HasDefaultValue("System.Admin");
-            builder.Property(x => x.ModifiedBy).HasMaxLength(100).HasDefaultValue("System.Admin");
-
-            builder.Property(x => x.CreatedDateTime).HasDefaultValue(DateTime.Now);
-            builder.Property(x => x.ModifiedDateTime).HasDefaultValue(DateTime.Now);
 
             builder.Property(x => x.Country).HasMaxLength(100);
             builder.Property(x => x.LeagueName).HasMaxLength(100);
